@@ -2,7 +2,7 @@ import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import type { SourceDoc } from '../../../../src/ordinal/corpus';
-import type { ExtractRequest, LlmClient, RawRule, RepairRequest } from '../../../../src/ordinal/compile';
+import type { ExtractRequest, GroupAnswer, GroupRequest, LlmClient, RawRule, RepairRequest } from '../../../../src/ordinal/compile';
 
 export const tempDir = () => mkdtempSync(path.join(tmpdir(), 'ordinal-compile-'));
 
@@ -25,13 +25,21 @@ export function sourceDoc(over: Partial<SourceDoc> & Pick<SourceDoc, 'doc_id' | 
   return { jurisdiction: 'NJ', source_url: `https://example.test/${over.doc_id}`, retrieved_at: '2026-01-01', origin: 'official_captured', path: `memory/${over.doc_id}.txt`, ...over };
 }
 
+/** Default grouping: candidates with the same citation are one law; the first of each is the primary. */
+export const groupByCitation = (req: GroupRequest): GroupAnswer => {
+  const byCitation = new Map<string, string[]>();
+  for (const c of req.candidates) byCitation.set(c.citation, [...(byCitation.get(c.citation) ?? []), c.id]);
+  return { groups: [...byCitation.values()].map(ids => ({ member_ids: ids, primary_id: ids[0] })) };
+};
+
 /** Scripted client: counts every call and answers from the callbacks. */
-export function fakeClient(extract: (req: ExtractRequest) => RawRule[], repair: (req: RepairRequest) => string = req => req.rule.quoted_span) {
-  const extractCalls: ExtractRequest[] = []; const repairCalls: RepairRequest[] = [];
+export function fakeClient(extract: (req: ExtractRequest) => RawRule[], repair: (req: RepairRequest) => string = req => req.rule.quoted_span, group: (req: GroupRequest) => GroupAnswer = groupByCitation) {
+  const extractCalls: ExtractRequest[] = []; const repairCalls: RepairRequest[] = []; const groupCalls: GroupRequest[] = [];
   const client: LlmClient = {
     model: 'fake-model',
     async extract(req) { extractCalls.push(req); return { rules: extract(req), model: 'fake-model' }; },
-    async repair(req) { repairCalls.push(req); return { quoted_span: repair(req) }; }
+    async repair(req) { repairCalls.push(req); return { quoted_span: repair(req) }; },
+    async group(req) { groupCalls.push(req); return group(req); }
   };
-  return { client, extractCalls, repairCalls, calls: () => extractCalls.length + repairCalls.length };
+  return { client, extractCalls, repairCalls, groupCalls, calls: () => extractCalls.length + repairCalls.length + groupCalls.length };
 }

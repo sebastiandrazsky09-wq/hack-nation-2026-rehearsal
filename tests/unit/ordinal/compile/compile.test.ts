@@ -63,7 +63,7 @@ describe('quote repair', () => {
 });
 
 describe('extraction cache', () => {
-  const script = () => fakeClient(() => [rawRule({ quoted_span: QUOTE_A }), rawRule({ citation: 'Sec. 9', title: 'Broken quote', quoted_span: 'Not a sentence of the document, at all.' })]);
+  const script = () => fakeClient(() => [rawRule({ quoted_span: QUOTE_A }), rawRule({ category: 'security_deposits', citation: 'Sec. 9', title: 'Broken quote', quoted_span: 'Not a sentence of the document, at all.' })]);
 
   it('makes zero client calls on a second run and writes a byte-identical store', async () => {
     const p = paths();

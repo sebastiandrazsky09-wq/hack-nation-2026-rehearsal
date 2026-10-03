@@ -7,8 +7,8 @@ import { z } from 'zod';
 import { generateText, Output } from 'ai';
 import { createAnthropic } from '@ai-sdk/anthropic';
 import { createOpenAI } from '@ai-sdk/openai';
-import { RawRuleListSchema, RepairSchema, type LlmClient } from './schema';
-import { REPAIR_PROMPT, SYSTEM_PROMPT, extractUserPrompt } from './prompt';
+import { GroupAnswerSchema, RawRuleListSchema, RepairSchema, type LlmClient } from './schema';
+import { GROUP_PROMPT, REPAIR_PROMPT, SYSTEM_PROMPT, extractUserPrompt, groupUserPrompt } from './prompt';
 
 const anthropicModel = () => process.env.ORDINAL_MODEL ?? process.env.ANTHROPIC_MODEL ?? 'claude-sonnet-5-5';
 const openaiModel = () => process.env.ORDINAL_MODEL ?? process.env.OPENAI_MODEL ?? 'gpt-6.1-sol';
@@ -45,6 +45,13 @@ export function createProviderClient(): LlmClient {
         maxOutputTokens: 1000, abortSignal: timeout(), ...CALL
       });
       return RepairSchema.parse(result.output);
+    },
+    async group(req) {
+      const result = await generateText({
+        model, output: Output.object({ schema: GroupAnswerSchema }), system: GROUP_PROMPT,
+        prompt: groupUserPrompt(req), maxOutputTokens: 4000, abortSignal: timeout(), ...CALL
+      });
+      return GroupAnswerSchema.parse(result.output);
     }
   };
 }
@@ -95,6 +102,9 @@ export function createCliClient(): LlmClient {
     async repair(req) {
       const output = await callClaudeCli(name, REPAIR_PROMPT, `Rule: ${req.rule.title}\nCitation: ${req.rule.citation}\nQuote that could not be found: ${req.rule.quoted_span}\n\n<text>\n${req.chunkText}\n</text>`, RepairSchema);
       return RepairSchema.parse(output);
+    },
+    async group(req) {
+      return GroupAnswerSchema.parse(await callClaudeCli(name, GROUP_PROMPT, groupUserPrompt(req), GroupAnswerSchema));
     }
   };
 }

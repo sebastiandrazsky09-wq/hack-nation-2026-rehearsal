@@ -5,7 +5,9 @@ import { chunkDocument } from './chunk';
 import { chunkKey, readEntry, repairKey, writeEntry, type CacheEntry } from './cache';
 import { citationInSource, sha256, teamRuleId } from './ids';
 import { ingestFile, isJurisdictionShape, loadIngestedDocs } from './ingest';
-import { mergeRules } from './merge';
+import { candidatesPath, numberCandidates, readCandidates, writeCandidates } from './candidates';
+import { consolidate } from './consolidate';
+import type { Candidate } from './merge';
 import { PROMPT_VERSION } from './prompt';
 import { configuredModelNames, createProviderClient } from './provider';
 import { RawRuleListSchema, type LlmClient, type RawRule } from './schema';
@@ -16,7 +18,8 @@ export { createProviderClient } from './provider';
 export { verifyQuote } from './verify';
 export { chunkDocument } from './chunk';
 export { teamRuleId, normalizeCitation, citationInSource } from './ids';
-export { RawRuleSchema, type ExtractRequest, type LlmClient, type RawRule, type RepairRequest } from './schema';
+export { GROUP_PROMPT, GROUP_PROMPT_VERSION } from './prompt';
+export { RawRuleSchema, type ExtractRequest, type GroupAnswer, type GroupRequest, type LlmClient, type RawRule, type RepairRequest } from './schema';
 
 export type CompileDeps = {
   client?: LlmClient;
@@ -37,8 +40,8 @@ const allowedJurisdictions = (doc: SourceDoc): string[] => doc.jurisdiction ? [.
 
 /**
  * Compile documents into verified rules. Per document: chunk, extract (cache first), verify every quote against the
- * full text, repair a failed quote once, build records. Records from all documents are merged by team_rule_id and
- * written to the rule store; rules of documents that were not processed this run stay as they are.
+ * full text, repair a failed quote once, build candidates. Candidates of all documents are saved beside the rule store,
+ * grouped per (jurisdiction, category) by the model (cached), and merged into one rule per law.
  */
 export async function runCompile(options: CompileOptions, deps: CompileDeps = {}): Promise<CompileReport> {
   const storePath = deps.ruleStorePath ?? PATHS.ruleStore;
@@ -129,20 +132,30 @@ export async function runCompile(options: CompileOptions, deps: CompileDeps = {}
       if (process.env.ORDINAL_PROGRESS) console.error(`[compile] ${selected[i].doc_id} ${'failure' in outcomes[i] ? 'FAILED' : 'ok'}`);
     }
   }));
-  const fresh: InternalRule[] = []; const processed = new Set<string>();
+  const fresh: Candidate[] = []; const processed = new Set<string>();
   selected.forEach((doc, i) => {
     const outcome = outcomes[i];
     if ('failure' in outcome) { docs_failed.push({ doc_id: doc.doc_id, error: outcome.failure }); return; }
-    fresh.push(...outcome.rules); processed.add(doc.doc_id);
+    fresh.push(...numberCandidates(doc.doc_id, outcome.rules)); processed.add(doc.doc_id);
     if (outcome.errors.length) docs_failed.push({ doc_id: doc.doc_id, error: outcome.errors.join('; ') });
   });
 
-  const existing = readRuleStore(storePath);
-  const retained = existing.filter(r => !processed.has(r.source_doc_id))
-    .map(r => ({ ...r, also_supported_by: r.also_supported_by.filter(s => !processed.has(s.source_doc_id)) }));
-  const final = mergeRules([...retained, ...fresh]);
-  if (processed.size > 0) writeRuleStore(final, storePath);
-  const stored = processed.size > 0 ? final : existing;
+  // Candidates of documents not processed this run stay; consolidation always covers all of them and rewrites the whole store.
+  const candidateFile = candidatesPath(storePath);
+  let stored = readRuleStore(storePath);
+  if (processed.size > 0) {
+    const all = [...readCandidates(candidateFile).filter(c => !processed.has(c.rule.source_doc_id)), ...fresh];
+    writeCandidates(all, candidateFile);
+    const result = await consolidate(all, {
+      cacheDir, modelNames, offline, force,
+      client: () => (client ??= createProviderClient()),
+      onCall: () => { counters.llm_calls++; }, onHit: () => { counters.cache_hits++; }
+    });
+    docs_failed.push(...result.failures);
+    writeRuleStore(result.rules, storePath);
+    stored = result.rules;
+    if (process.env.ORDINAL_PROGRESS) console.error(`[compile] candidates=${all.length} cells=${result.cells} cells_grouped=${result.grouped} group_calls=${result.calls} rules=${result.rules.length}`);
+  }
 
   return {
     run_id, docs_requested: ids.length, docs_processed: processed.size, docs_failed,
