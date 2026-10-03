@@ -1,5 +1,5 @@
 import type { LookupResponse } from '../server/ordinal';
-import { ORIGIN_LABELS, RESULT_LABELS, label } from './labels';
+import { ORIGIN_LABELS, RESULT_LABELS, factName, label } from './labels';
 
 export type ResultRow = LookupResponse['results'][number];
 
@@ -10,6 +10,7 @@ export function ResultBadge({ result }: { result: string }) {
 export function RuleCard({ item, asOf }: { item: ResultRow; asOf: string }) {
   const { rule } = item;
   const showMissing = item.result === 'unknown' && item.missing_facts.length > 0;
+  const hasDetail = item.caveats.length > 0 || Boolean(rule.coverage_conditions) || Boolean(rule.exemptions);
   return (
     <article data-testid="rule-card" className="card">
       <div className="flex flex-wrap items-center gap-2">
@@ -21,15 +22,9 @@ export function RuleCard({ item, asOf }: { item: ResultRow; asOf: string }) {
       {rule.key_value && <p className="mt-1"><span className="field">Key value</span> {rule.key_value}</p>}
       <p className="mt-2"><span className="field">Why this result</span> {item.explanation}</p>
       {showMissing && (
-        <div className="mt-2">
+        <div className="mt-2" data-testid="missing-facts">
           <p className="field">What is missing</p>
-          <ul className="ml-5 list-disc">{item.missing_facts.map(f => <li key={f}>{f}</li>)}</ul>
-        </div>
-      )}
-      {item.caveats.length > 0 && (
-        <div className="mt-2">
-          <p className="field">Caveats</p>
-          <ul className="ml-5 list-disc">{item.caveats.map(c => <li key={c}>{c}</li>)}</ul>
+          <ul className="ml-5 list-disc">{item.missing_facts.map(f => <li key={f}>{factName(f)}</li>)}</ul>
         </div>
       )}
       {item.conflict_flag && (
@@ -37,7 +32,6 @@ export function RuleCard({ item, asOf }: { item: ResultRow; asOf: string }) {
           <strong>Conflict flagged for review.</strong> {item.conflict_note ?? 'No note was recorded.'}
         </p>
       )}
-      <p className="mt-2"><span className="field">Effective</span> {rule.effective_date ?? 'date not stated'}</p>
       <p className="mt-1"><span className="field">Citation</span> {rule.citation}</p>
       <blockquote className="quote">{rule.quoted_span}</blockquote>
       <p className="meta">
@@ -47,6 +41,19 @@ export function RuleCard({ item, asOf }: { item: ResultRow; asOf: string }) {
         {' '}· Retrieved {rule.retrieved_at ?? 'date not recorded'}
         {' '}· As of {asOf}
       </p>
+      <details className="more">
+        <summary>More detail</summary>
+        <p className="mt-2"><span className="field">Effective</span> {rule.effective_date ?? 'date not stated'}</p>
+        {rule.coverage_conditions && <p className="mt-1"><span className="field">Coverage conditions</span> {rule.coverage_conditions}</p>}
+        {rule.exemptions && <p className="mt-1"><span className="field">Exemptions</span> {rule.exemptions}</p>}
+        {item.caveats.length > 0 && (
+          <div className="mt-1">
+            <p className="field">Caveats</p>
+            <ul className="ml-5 list-disc">{item.caveats.map(c => <li key={c}>{c}</li>)}</ul>
+          </div>
+        )}
+        {!hasDetail && <p className="mt-1 text-[var(--muted)]">No caveats, coverage conditions or exemptions were recorded.</p>}
+      </details>
     </article>
   );
 }

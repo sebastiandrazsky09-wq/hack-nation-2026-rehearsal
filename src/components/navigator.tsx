@@ -2,6 +2,8 @@
 import { useMemo, useState } from 'react';
 import type { LookupResponse } from '../server/ordinal';
 import { AuditTable } from './audit-table';
+import { ChangesPanel } from './changes-panel';
+import { PipelinePanel } from './pipeline-panel';
 import { CATEGORY_LABELS, CATEGORY_ORDER, DEFAULT_AS_OF, METHOD_LABELS, QUICK_DATES, RESULT_LABELS, RESULT_ORDER, confidenceWords, label } from './labels';
 import { RuleCard } from './rule-card';
 import { useApi } from './use-api';
@@ -21,7 +23,12 @@ export function Navigator() {
   const [open, setOpen] = useState(false);
   const [addressId, setAddressId] = useState('');
   const [asOf, setAsOf] = useState(DEFAULT_AS_OF);
-  const [tab, setTab] = useState<'address' | 'audit'>('address');
+  const [tab, setTab] = useState<'address' | 'audit' | 'changes' | 'pipeline'>('address');
+  const openAddress = (id: string, date: string) => {
+    const a = addresses.find(x => x.address_id === id);
+    if (a) setQuery(optionText(a));
+    setAddressId(id); setAsOf(date); setOpen(false); setTab('address');
+  };
 
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -77,13 +84,16 @@ export function Navigator() {
         <div role="tablist" className="tabs">
           <button role="tab" type="button" id="tab-address" aria-selected={tab === 'address'} aria-controls="panel" onClick={() => setTab('address')}>Rules at this address</button>
           <button role="tab" type="button" id="tab-audit" aria-selected={tab === 'audit'} aria-controls="panel" onClick={() => setTab('audit')}>All extracted rules</button>
+          <button role="tab" type="button" id="tab-changes" aria-selected={tab === 'changes'} aria-controls="panel" onClick={() => setTab('changes')}>What is changing</button>
+          <button role="tab" type="button" id="tab-pipeline" aria-selected={tab === 'pipeline'} aria-controls="panel" onClick={() => setTab('pipeline')}>How it was produced</button>
         </div>
 
         <div id="panel" role="tabpanel" aria-live="polite" className="panel">
-          {!validDate && <p role="alert" className="error">Enter a real date as year-month-day, for example 2026-10-01.</p>}
-          {tab === 'audit' ? <AuditTable asOf={validDate} /> : (
-            <AddressPanel chosen={chosen} asOf={validDate} lookup={lookup} />
-          )}
+          {!validDate && (tab === 'address' || tab === 'audit') && <p role="alert" className="error">Enter a real date as year-month-day, for example 2026-10-01.</p>}
+          {tab === 'audit' && <AuditTable asOf={validDate} />}
+          {tab === 'changes' && <ChangesPanel addresses={addresses} onOpen={openAddress} />}
+          {tab === 'pipeline' && <PipelinePanel />}
+          {tab === 'address' && <AddressPanel chosen={chosen} asOf={validDate} lookup={lookup} />}
         </div>
       </main>
     </div>
@@ -108,12 +118,13 @@ function AddressPanel({ chosen, asOf, lookup }: { chosen: AddressRow | null; asO
       </dl>
       {asOf && loading && <p className="mt-4 text-[var(--muted)]">Checking the rules for {asOf}…</p>}
       {asOf && error && <p role="alert" className="error mt-4">{error}</p>}
-      {asOf && data && <Results data={data} />}
+      {asOf && data && <Results key={`${data.address.address_id}|${data.as_of}`} data={data} />}
     </div>
   );
 }
 
 function Results({ data }: { data: LookupResponse }) {
+  const [filter, setFilter] = useState<string | null>(null);
   const { stack, address } = data;
   const legalCityName = stack.legal_city?.split(',')[0] ?? null;
   const counts = RESULT_ORDER.map(r => ({ r, n: data.results.filter(x => x.result === r).length }));
@@ -134,13 +145,19 @@ function Results({ data }: { data: LookupResponse }) {
       )}
 
       <h3 data-testid="results-as-of">Rules as of {data.as_of}</h3>
-      <p data-testid="summary">
-        {counts.map(({ r, n }) => `${n} ${label(RESULT_LABELS, r).toLowerCase()}`).join(' · ')}
-        {data.not_applicable > 0 && <span className="text-[var(--muted)]"> ({data.not_applicable} other extracted rules do not reach this address)</span>}
-      </p>
+      <div data-testid="summary" className="summary">
+        {counts.map(({ r, n }) => (
+          <button key={r} type="button" className="chip" aria-pressed={filter === r} disabled={n === 0} onClick={() => setFilter(filter === r ? null : r)}>
+            {n} {label(RESULT_LABELS, r).toLowerCase()}
+          </button>
+        ))}
+        {filter && <button type="button" className="chip chip-clear" onClick={() => setFilter(null)}>Show all</button>}
+        {data.not_applicable > 0 && <span className="text-[var(--muted)]">({data.not_applicable} other extracted rules do not reach this address)</span>}
+      </div>
 
       {CATEGORY_ORDER.map(cat => {
-        const items = data.results.filter(r => r.rule.category === cat);
+        const items = data.results.filter(r => r.rule.category === cat && (!filter || r.result === filter));
+        if (filter && items.length === 0) return null;
         return (
           <section key={cat} className="category">
             <h3>{CATEGORY_LABELS[cat]}</h3>

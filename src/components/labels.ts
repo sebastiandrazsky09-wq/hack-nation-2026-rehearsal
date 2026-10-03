@@ -29,6 +29,13 @@ export const DEFAULT_AS_OF = '2026-10-01';
 export function confidenceWords(c: number): string {
   return `${c >= 0.8 ? 'high' : c >= 0.5 ? 'medium' : 'low'} (${c.toFixed(2)})`;
 }
+export const FACT_LABELS: Record<string, string> = {
+  year_built: 'year built', units: 'number of units', legal_city: 'legal city',
+  owner_occupied: 'whether the owner lives there', owner_type: 'who owns it'
+};
+export function factName(name: string): string {
+  return FACT_LABELS[name] ?? name.replace(/_/g, ' ');
+}
 export function label(map: Record<string, string>, key: string): string {
   return map[key] ?? key.replace(/_/g, ' ');
 }
