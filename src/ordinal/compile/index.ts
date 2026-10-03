@@ -109,7 +109,8 @@ export async function runCompile(options: CompileOptions, deps: CompileDeps = {}
             if (second.verified) verification = { ...second, method: 'repaired' as const };
           }
         }
-        const record = buildRecord(doc, raw, verification, repaired, run_id);
+        // Per document, so a rule carries the same id whether its document was compiled alone or with the whole corpus.
+        const record = buildRecord(doc, raw, verification, repaired, 'run-' + sha256(JSON.stringify([PROMPT_VERSION, modelNames[0], doc.doc_id, sha256(doc.text)])).slice(0, 12));
         if (!record) { errors.push(`dropped ${label}: quote shorter than 20 characters`); continue; }
         const parsed = InternalRuleSchema.safeParse(record);
         if (!parsed.success) { errors.push(`dropped ${label}: ${parsed.error.issues[0]?.message ?? 'invalid record'}`); continue; }
