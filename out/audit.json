@@ -1,7 +1,7 @@
 {
   "as_of": "2026-10-01",
   "inputs": {
-    "rule_store_sha256": "817c009c3602f5b8e9e2c07176ce9f4c96f812daa3357c30c4ec48843e2c2acf",
+    "rule_store_sha256": "84340e038353b4fe5112d9f9d49b09cd3abb690b3941116eb1c31b0fa0a221f2",
     "stacks_sha256": "ef1c3c51a35e780405865f88bae58fcdf56c3c517be31a8c15e0e53904939ac5",
     "addresses_sha256": "3a8666679f83ae2e95ad6368ed752b30dec0399c81fef4082c54f6c246979ce4"
   },
@@ -119,17 +119,6 @@
       "also_supported_by": [
         "D023"
       ]
-    },
-    {
-      "team_rule_id": "CA-EVICT-fccc69",
-      "source_doc_id": "D042",
-      "source_origin": "official_captured",
-      "source_url": "https://housing.lacity.gov/rso-rent-increase-calculator",
-      "retrieved_at": "2026-10-01 22:36 UTC",
-      "verification_method": "exact",
-      "span_start": 532,
-      "span_end": 639,
-      "also_supported_by": []
     },
     {
       "team_rule_id": "CA-FEE-fbd444",
@@ -720,7 +709,7 @@
   ],
   "withheld": [],
   "result_counts": {
-    "applies": 3277,
+    "applies": 3027,
     "not_yet_effective": 140,
     "pending": 270,
     "superseded": 273,

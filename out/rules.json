@@ -211,28 +211,6 @@
       "conflict_note": null
     },
     {
-      "team_rule_id": "CA-EVICT-fccc69",
-      "jurisdiction": "CA",
-      "level": "state",
-      "category": "just_cause_eviction",
-      "status": "in_force",
-      "title": "State rent increase notice requirement",
-      "requirement": "State law requires landlords to give 30 days' written advance notice of rent increases of less than 10%.",
-      "key_value": "30 days' written notice for increases under 10%",
-      "coverage_conditions": null,
-      "exemptions": null,
-      "overrides": [],
-      "interaction": null,
-      "effective_date": null,
-      "citation": "State law (no specific citation given)",
-      "source_doc_id": "D042",
-      "source_url": "https://housing.lacity.gov/rso-rent-increase-calculator",
-      "quoted_span": "State law requires landlords to provide 30 days' written advance notice of rent increases of less than 10%.",
-      "confidence": 0.4,
-      "conflict_flag": false,
-      "conflict_note": null
-    },
-    {
       "team_rule_id": "CA-FEE-fbd444",
       "jurisdiction": "CA",
       "level": "state",

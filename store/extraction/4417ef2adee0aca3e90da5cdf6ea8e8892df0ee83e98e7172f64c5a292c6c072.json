@@ -8,7 +8,7 @@
    "jurisdiction": "Los Angeles, CA",
    "category": "rent_increase_limits",
    "title": "City of Los Angeles Rent Stabilization Ordinance (RSO)",
-   "requirement": "Annual rent increases for RSO units are limited to 3% for July 1, 2025 through June 30, 2026. Beginning February 2, 2026, landlords can no longer add any additional percentage increase for utilities. RSO and SCEP surcharges may be passed through only after the units are registered and written notice is given.",
+   "requirement": "Annual rent increases for RSO units are limited to 3% for July 1, 2025 through June 30, 2026. From February 2, 2026, landlords may no longer add any additional percentage for utilities. RSO and SCEP surcharges may be passed through only after the units are registered and written notice is given.",
    "key_value": "3% for 1 Jul 2025 to 30 Jun 2026",
    "penalty": null,
    "citation": "City of Los Angeles Rent Stabilization Ordinance (RSO)",
@@ -16,13 +16,13 @@
    "enacted_date": null,
    "effective_date": null,
    "repeal_date": null,
-   "status_basis": "Existing ordinance in force; the page announces the annual allowable increase, so no effective date is given.",
+   "status_basis": "Existing ordinance in force; page announces the annual allowable increase.",
    "coverage": {
     "requires": [
      {
-      "fact": "unavailable",
-      "name": "rso_covered_unit",
-      "text": "rental units subject to the City of Los Angeles Rent Stabilization Ordinance (RSO)"
+      "fact": "caveat",
+      "name": "rso_unit",
+      "text": "rental units subject to the City of Los Angeles Rent Stabilization Ordinance (check ZIMAS)"
      }
     ],
     "exempt_if": [],
@@ -33,36 +33,8 @@
     "relation": "none_stated",
     "text": null
    },
-   "quoted_span": "Annual rent increases for rental units subject to the City of Los Angeles Rent Stabilization Ordinance (RSO), effective\nJuly 1, 2025, through June 30, 2026\nis\n3%",
-   "confidence": 0.8,
-   "conflict_flag": false,
-   "conflict_note": null
-  },
-  {
-   "jurisdiction": "CA",
-   "category": "just_cause_eviction",
-   "title": "State rent increase notice requirement",
-   "requirement": "State law requires landlords to give 30 days' written advance notice of rent increases of less than 10%.",
-   "key_value": "30 days' written notice for increases under 10%",
-   "penalty": null,
-   "citation": "State law (no specific citation given)",
-   "legal_status": "enacted",
-   "enacted_date": null,
-   "effective_date": null,
-   "repeal_date": null,
-   "status_basis": "Described as current state law on the page.",
-   "coverage": {
-    "requires": [],
-    "exempt_if": [],
-    "summary": null,
-    "exemptions_summary": null
-   },
-   "precedence": {
-    "relation": "none_stated",
-    "text": null
-   },
-   "quoted_span": "State law requires landlords to provide 30 days' written advance notice of rent increases of less than 10%.",
-   "confidence": 0.4,
+   "quoted_span": "Annual rent increases for rental units subject to the City of Los Angeles Rent Stabilization Ordinance (RSO), effective\nJuly 1, 2025, through June 30, 2026\nis\n3%\n.",
+   "confidence": 0.85,
    "conflict_flag": false,
    "conflict_note": null
   }
