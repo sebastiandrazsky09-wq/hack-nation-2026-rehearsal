@@ -1,0 +1,15 @@
+{
+ "hoboken-outlaws-algorithmic-rent-fixing": {
+  "url": "https://www.hobokennj.gov/news/city-of-hoboken-outlaws-algorithmic-rent-fixing",
+  "status": "captured",
+  "retrieved_at": "2026-10-03 19:12 UTC",
+  "raw_file": "supplemental/extra/hoboken-outlaws-algorithmic-rent-fixing.html",
+  "raw_sha256": "0797da1e99249cab6d61c4c23f03df70c3a2dec52e6700b4b37e2c1d6eaea33a",
+  "method": "single page read with urllib; robots.txt checked"
+ },
+ "jersey-city-ordinance-25-057": {
+  "url": "https://cityofjerseycity.civicweb.net/document/429156/Ordinance%20Amending%20Chapter%20218%20creating%20section.pdf",
+  "status": "skipped",
+  "reason": "False"
+ }
+}

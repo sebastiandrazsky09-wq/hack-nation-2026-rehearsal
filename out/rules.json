@@ -1001,8 +1001,10 @@
       "key_value": null,
       "coverage_conditions": "Applies to rental property owners, coordinators and other persons dealing with rental residential dwelling units in New Jersey.",
       "exemptions": "Excludes government entities setting rents via affordability controls and certain research, public estimate and brokerage database uses.",
-      "overrides": [],
-      "interaction": null,
+      "overrides": [
+        "NJ-HOBOKEN-ALG-c7eb1c"
+      ],
+      "interaction": "Its text bars conflicting local ordinances; flagged for review.",
       "effective_date": "2027-07-01",
       "citation": "P.L. 2026, c.43 (A3497 1R ACS)",
       "source_doc_id": "D069",
@@ -1075,6 +1077,30 @@
       "source_url": "https://pub.njleg.gov/bills/2024/PL25/405_.HTM",
       "quoted_span": "A landlord, or\nagent thereof, shall not require an application or other similar fee to apply\nto lease or sublease a residential rental property for dwelling purposes, which\nexceeds $50.",
       "confidence": 0.95,
+      "conflict_flag": false,
+      "conflict_note": null
+    },
+    {
+      "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+      "jurisdiction": "Hoboken, NJ",
+      "level": "city",
+      "category": "algorithmic_rent_setting",
+      "status": "in_force",
+      "title": "City of Hoboken algorithmic rent-fixing ban",
+      "requirement": "Landlords renting residential units in Hoboken may not use software, algorithms, or data-sharing platforms to coordinate, recommend, or implement rental prices, lease terms, or occupancy levels among competing landlords.",
+      "key_value": null,
+      "coverage_conditions": "Applies to landlords renting residential units in Hoboken.",
+      "exemptions": null,
+      "overrides": [
+        "NJ-ALG-ff9a93"
+      ],
+      "interaction": "A state rule of this category bars conflicting local ordinances; flagged for review.",
+      "effective_date": null,
+      "citation": "City of Hoboken legislation adopted by City Council July 9, 2025 (no ordinance number given)",
+      "source_doc_id": "Xee6397c",
+      "source_url": "https://www.hobokennj.gov/news/city-of-hoboken-outlaws-algorithmic-rent-fixing",
+      "quoted_span": "It will now be illegal for landlords renting residential units in Hoboken to engage in price-fixing through algorithmic rent-fixing, meaning they can no longer use software, algorithms, or data-sharing platforms to coordinate, recommend, or implement rental prices, lease terms, or occupancy levels among competing landlords.",
+      "confidence": 0.85,
       "conflict_flag": false,
       "conflict_note": null
     },

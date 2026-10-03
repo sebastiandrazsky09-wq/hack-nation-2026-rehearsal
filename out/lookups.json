@@ -62,7 +62,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -81,6 +81,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -2346,7 +2352,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -2365,6 +2371,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -2892,7 +2904,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -2911,6 +2923,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -5428,7 +5446,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -5447,6 +5465,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -5534,7 +5558,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -5553,6 +5577,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -6232,7 +6262,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -6251,6 +6281,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -6376,7 +6412,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -6395,6 +6431,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -7382,7 +7424,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -7401,6 +7443,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -7742,7 +7790,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -7761,6 +7809,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -8376,7 +8430,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -8395,6 +8449,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -10318,7 +10378,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -10337,6 +10397,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -11112,7 +11178,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -11131,6 +11197,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -11156,7 +11228,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -11175,6 +11247,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -12912,7 +12990,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -12931,6 +13009,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -13944,7 +14028,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -13963,6 +14047,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -14192,7 +14282,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -14205,6 +14295,12 @@
         "result": "applies",
         "explanation": "Anti-Eviction Act (NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: applies to most residential rental properties including single-family homes, mobile homes and land in a mobile home park, apartment buildings, and complexes, and rooming and boarding homes; two- or three-unit owner-occupied premises with two (2) or fewer rental units; hotel guests, motel guests, or guest houses rented to a transient guest or seasonal tenant; a unit held in trust on behalf of a member of the immediate family who is developmentally disabled and permanently occupies the unit.",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -15108,7 +15204,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -15127,6 +15223,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -15288,7 +15390,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -15307,6 +15409,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -15830,7 +15938,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -15849,6 +15957,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -15930,7 +16044,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -15949,6 +16063,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -16264,7 +16384,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -16283,6 +16403,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -16700,7 +16826,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -16719,6 +16845,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -17804,7 +17936,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -17823,6 +17955,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -18614,7 +18752,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -18633,6 +18771,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -19190,7 +19334,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -19209,6 +19353,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -19946,7 +20096,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -19965,6 +20115,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -21508,7 +21664,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -21527,6 +21683,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -22172,7 +22334,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -22191,6 +22353,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -23330,7 +23498,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -23349,6 +23517,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -24020,7 +24194,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -24039,6 +24213,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -24562,7 +24742,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -24581,6 +24761,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -26052,7 +26238,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -26071,6 +26257,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -26692,7 +26884,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -26711,6 +26903,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -26736,7 +26934,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -26755,6 +26953,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -27382,7 +27586,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -27401,6 +27605,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -28894,7 +29104,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -28913,6 +29123,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -28938,7 +29154,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -28957,6 +29173,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -29124,7 +29346,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -29143,6 +29365,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -29950,7 +30178,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -29969,6 +30197,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
@@ -29994,7 +30228,7 @@
         "team_rule_id": "NJ-ALG-ff9a93",
         "result": "not_yet_effective",
         "explanation": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act (NJ) is enacted but takes effect 2027-07-01, after 2026-10-01; it is not yet in force at this address. Caveats: Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities..",
-        "conflict_flag": false
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-DEP-3ae416",
@@ -30013,6 +30247,12 @@
         "result": "unknown",
         "explanation": "Cannot tell whether P.L. 2025, c.405 (Residential rental property application fee limit) (NJ) applies as of 2026-10-01: the dataset has no real_estate_licensee_not_landlord, units for this address (\"a dwelling unit located in a one-family or two-family dwelling that is offered for rent\"; \"a licensee of the New Jersey Real Estate Commission, unless the licensee is the landlord of the residential rental property\").",
         "conflict_flag": false
+      },
+      {
+        "team_rule_id": "NJ-HOBOKEN-ALG-c7eb1c",
+        "result": "applies",
+        "explanation": "City of Hoboken algorithmic rent-fixing ban (Hoboken, NJ) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: landlords renting residential units in Hoboken.",
+        "conflict_flag": true
       },
       {
         "team_rule_id": "NJ-RENT-e461a0",
