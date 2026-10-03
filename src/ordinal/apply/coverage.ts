@@ -22,7 +22,7 @@ function all(items: Evaluated[]): Judged {
   return { value: true, deciding: items, unknowns: [] };
 }
 
-export function evaluateCoverage(spec: CoverageSpec, address: Pick<Address, 'year_built' | 'units'>, asOf: string): Coverage {
+export function evaluateCoverage(spec: CoverageSpec, address: Pick<Address, 'year_built' | 'units' | 'units_min' | 'units_max'>, asOf: string): Coverage {
   const caveats: string[] = [];
   /** A caveat is neutral: true in `requires`, false inside an exempt group. */
   const run = (conditions: Condition[], caveatValue: boolean): Evaluated[] => conditions.map(c => {

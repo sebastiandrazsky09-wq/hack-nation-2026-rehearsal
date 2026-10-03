@@ -1,6 +1,7 @@
 // Three-valued condition evaluation. Pure: the query date is always an argument.
 import type { Address, Condition } from '../contracts';
 import { dateCeil, dateFloor } from '../status';
+import { POLICY } from '../policy';
 
 /** true, false, or null for unknown. */
 export type Tri = boolean | null;
@@ -39,12 +40,18 @@ function minusMonths(iso: string, months: number): string {
 function unknown(c: Condition, kind: UnknownKind, fact?: string): Evaluated { return { value: null, text: c.text, kind, fact }; }
 
 /** Evaluate one non-caveat condition for an address on a query date. */
-export function evaluateCondition(c: Exclude<Condition, { fact: 'caveat' }>, address: Pick<Address, 'year_built' | 'units'>, asOf: string): Evaluated {
+export function evaluateCondition(c: Exclude<Condition, { fact: 'caveat' }>, address: Pick<Address, 'year_built' | 'units' | 'units_min' | 'units_max'>, asOf: string): Evaluated {
   switch (c.fact) {
     case 'unavailable':
       return unknown(c, 'unavailable', c.name);
     case 'units': {
-      if (address.units === null) return unknown(c, 'missing', 'units');
+      if (address.units === null) {
+        // Lead amendment: the use description may state bounds on the unit count; POLICY decides whether they settle the condition.
+        const min = address.units_min ?? null;
+        if (!POLICY.unitBoundsFromUseDescription || min === null) return unknown(c, 'missing', 'units');
+        const value = compare(c.op, [min, address.units_max ?? Number.MAX_SAFE_INTEGER], [c.value, c.value]);
+        return value === null ? unknown(c, 'missing', 'units') : { value, text: c.text };
+      }
       return { value: compare(c.op, [address.units, address.units], [c.value, c.value]), text: c.text };
     }
     case 'year_built': {

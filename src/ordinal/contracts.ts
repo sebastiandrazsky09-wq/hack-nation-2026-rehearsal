@@ -112,6 +112,8 @@ export type InternalRule = z.infer<typeof InternalRuleSchema>;
 export const AddressSchema = z.object({
   address_id: z.string(), street_address: z.string(), postal_city: z.string(), state: z.string(), zip: z.string(),
   year_built: z.number().int().nullable(), units: z.number().int().nullable(),
+  /** Bounds on the unit count read from use_description when `units` is empty ("APT 7-30 UNITS", "(5+ units)", "6U"). Facts only; whether the engine uses them is POLICY.unitBoundsFromUseDescription. */
+  units_min: z.number().int().nullable().optional(), units_max: z.number().int().nullable().optional(),
   use_code: z.string(), use_description: z.string(), source_dataset: z.string(), retrieved_at: z.string()
 });
 export type Address = z.infer<typeof AddressSchema>;

@@ -86,8 +86,31 @@ export function loadSupplementalDocs(): SourceDoc[] {
 }
 
 const int = (value: string) => (/^\d+$/.test(value.trim()) ? Number(value.trim()) : null);
+const WORD_NUMBERS: Record<string, number> = { two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 };
+/**
+ * Unit-count bounds an assessor use description states outright. Returns null when it states none or is ambiguous
+ * (two unit figures, as in "2F-4U/2F-2U"). "S- 8" in "SUBSD HOUSING S- 8" is a programme name, not a count: a figure
+ * counts only when followed by U or UNIT(S).
+ */
+export function unitBounds(useDescription: string): { min: number; max: number | null } | null {
+  const d = useDescription.trim();
+  let m = d.match(/(\d+)\s*(?:-|to)\s*(\d+)\s*-?\s*units?\b/i);
+  if (m) return { min: Number(m[1]), max: Number(m[2]) };
+  m = d.match(/>\s*(\d+)\s*-?\s*units?\b/i);
+  if (m) return { min: Number(m[1]) + 1, max: null };
+  m = d.match(/(\d+)\s*\+\s*units?\b/i) ?? d.match(/(\d+)\s*units?\s+or\s+more/i);
+  if (m) return { min: Number(m[1]), max: null };
+  const word = d.match(/\b(two|three|four|five|six|seven|eight|nine|ten)\s+or\s+more\b/i);
+  if (word) return { min: WORD_NUMBERS[word[1].toLowerCase()], max: null };
+  const exact = [...d.matchAll(/(?<![\d.])(\d+)\s?U(?![A-Za-z]*NIT)(?=[^A-Za-z]|[A-Z]?$|G\b)/g)].map(x => Number(x[1]));
+  if (exact.length === 1) return { min: exact[0], max: exact[0] };
+  return null;
+}
 export function loadAddresses(): Address[] {
-  return parseCsv(readFileSync(PATHS.addresses, 'utf8')).map(r => AddressSchema.parse({ ...r, year_built: int(r.year_built), units: int(r.units) }));
+  return parseCsv(readFileSync(PATHS.addresses, 'utf8')).map(r => {
+    const units = int(r.units); const bounds = units === null ? unitBounds(r.use_description) : null;
+    return AddressSchema.parse({ ...r, year_built: int(r.year_built), units, units_min: bounds?.min ?? null, units_max: bounds?.max ?? null });
+  });
 }
 
 /** A stored rule may claim `verified` only with a real span; the two verification fields may never contradict each other. */

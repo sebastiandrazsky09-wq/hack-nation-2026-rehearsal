@@ -91,3 +91,28 @@ describe('PROOF review regressions', () => {
     expect(quoteMatchesSource(ok, 'xxxx' + quote.replace('deposit', 'payment') + ' more')).toBe(false);
   });
 });
+
+describe('unit bounds from the use description', () => {
+  it('reads only what the description states outright', async () => {
+    const { unitBounds } = await import('../../../src/ordinal/corpus');
+    expect(unitBounds('APT 7-30 UNITS')).toEqual({ min: 7, max: 30 });
+    expect(unitBounds('4-8-UNIT-APT')).toEqual({ min: 4, max: 8 });
+    expect(unitBounds('Apartment 5 to 14 Units')).toEqual({ min: 5, max: 14 });
+    expect(unitBounds('>8-UNIT-APT')).toEqual({ min: 9, max: null });
+    expect(unitBounds('Alameda County use code (5+ units)')).toEqual({ min: 5, max: null });
+    expect(unitBounds('Apartment 15 Units or more')).toEqual({ min: 15, max: null });
+    expect(unitBounds('Five or more apartments')).toEqual({ min: 5, max: null });
+    expect(unitBounds('3S-F-D-6U-NH')).toEqual({ min: 6, max: 6 });
+    expect(unitBounds('10S-B-A-151U-HE')).toEqual({ min: 151, max: 151 });
+    expect(unitBounds('2SF3UG')).toEqual({ min: 3, max: 3 });
+    for (const none of ['SUBSD HOUSING S- 8', '3SB', '4SB', 'LUXURY APARTMENT', '2.5S.F.', '2F-4U/2F-2U', '']) expect(unitBounds(none), none).toBeNull();
+  });
+  it('fills bounds only for addresses with no unit count, and keeps the policy off by default', async () => {
+    const { POLICY } = await import('../../../src/ordinal/policy');
+    expect(POLICY.unitBoundsFromUseDescription).toBe(false);
+    const addresses = loadAddresses();
+    expect(addresses.filter(a => a.units !== null && (a.units_min ?? null) !== null)).toHaveLength(0);
+    const bounded = addresses.filter(a => a.units === null && (a.units_min ?? null) !== null);
+    expect(bounded.length).toBeGreaterThan(100);
+  });
+});
