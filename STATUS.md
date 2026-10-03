@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 3 Oct 23:05 CEST from observed runs at commit `6c16f09` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: Jersey City source, unknown-policy decision, deployment
+Updated: 4 Oct 00:14 CEST from observed runs at commit `5750df8` (production still serves `6c16f09`) · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: mentor slot 00:30, PO approval to redeploy the redesigned interface, Jersey City source, unknown-policy decision
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|
@@ -10,34 +10,34 @@ Updated: 3 Oct 23:05 CEST from observed runs at commit `6c16f09` · Deadline: Su
 | Added documents (official pages outside the pack) | 2 (Hoboken notice, San Diego code division) | — | 21:45 | CONTROL |
 | Extraction failures | 0 | 0 | 21:45 | BUILD-1 |
 | Candidates → consolidated rules | 100 → **57** | key reportedly 58 (unverified) | 22:30 | BUILD-1 |
-| Verified quoted spans | **57 / 57 (100%)**; 52 from supplied texts, 4 team-captured, 1 added | 100% | 22:30 | BUILD-1 |
+| Verified quoted spans | **57 / 57 (100%)**; 52 from supplied texts, 4 team-captured, 1 added | 100% | 00:13 | BUILD-1 |
 | Unverified affirmative exports | **0** | 0 | 21:50 | BUILD-2 |
-| Citation tokens not found in source | 14 rules (citation is a name, not a number) | — | 21:50 | CONTROL |
+| Citation tokens not found in source | 13 rules (citation is a name, not a number) | — | 00:13 | CONTROL |
 | Rules whose only source is team-captured | 5 | — | 21:50 | CONTROL |
 | Effective dates rejected by the date guard | 5 California amendment notes; a current-text version note is accepted (MA c.112 §87DDD½, 2025-08-01) | — | 22:30 | CONTROL |
-| Jurisdiction × category cells with no rule | 36 of 78 (key reportedly 19) | — | 21:50 | CONTROL |
+| Jurisdiction × category cells with no rule | 36 of 78 (key reportedly 19) | — | 00:13 | CONTROL |
 | Addresses resolved | **500 / 500** (geocoder 493, postal fallback 7) | 500 | 21:00 | BUILD-2 |
-| Lookups generated | **500 / 500**, 5,458 rows | 500 | 22:30 | BUILD-2 |
-| Result mix at 2026-10-01 | applies 3,027 · unknown 1,748 · superseded 273 · pending 270 · not yet effective 140 | — | 22:30 | BUILD-2 |
+| Lookups generated | **500 / 500**, 5,458 rows | 500 | 00:13 | BUILD-2 |
+| Result mix at 2026-10-01 | applies 3,027 · unknown 1,748 · superseded 273 · pending 270 · not yet effective 140 | — | 00:13 | BUILD-2 |
 | Rule-record schema validity | **57 / 57**, 0 errors; also by an independent Python verifier | 100% | 22:30 | BUILD-2 |
 | `rules.json` / `lookups.json` / `changes.json` | written, valid | valid | 21:50 | BUILD-2 |
-| T1 (CA AB 325, two dates) | **250** CA addresses change, not yet effective → applies | pass | 21:50 | CONTROL |
-| T2 (Hoboken vs Jersey City) | Hoboken 40 correct; **Jersey City rule missing** (warning, not failure) | pass | 21:50 | CONTROL |
-| T3 (NJ FAIR Act) | **140** NJ addresses change; conflict flags on Hoboken 40, **Jersey City 0 of 50** | pass | 21:50 | CONTROL |
-| T4 (MA pending bills) | **110** MA addresses, both bills pending | pass | 21:50 | CONTROL |
-| T5 (MA ballot question) | **0** affected, proposal recorded failed | pass | 21:50 | CONTROL |
+| T1 (CA AB 325, two dates) | **250** CA addresses change, not yet effective → applies | pass | 00:13 | CONTROL |
+| T2 (Hoboken vs Jersey City) | Hoboken 40 correct; **Jersey City rule missing** (warning, not failure) | pass | 00:13 | CONTROL |
+| T3 (NJ FAIR Act) | **140** NJ addresses change; conflict flags on Hoboken 40, **Jersey City 0 of 50** | pass | 00:13 | CONTROL |
+| T4 (MA pending bills) | **110** MA addresses, both bills pending | pass | 00:13 | CONTROL |
+| T5 (MA ballot question) | **0** affected, proposal recorded failed | pass | 00:13 | CONTROL |
 | Unseen-law rehearsals | **2 of 2** synthetic ordinances pass with zero code changes; 2 real documents ingested the same way | 2 | 22:27 | CONTROL |
 | Real T6 | unverified it exists | — | 21:15 | PO |
-| Selfcheck | **ok**, 0 failures | ok | 21:50 | CONTROL |
-| Offline rebuild (`ordinal demo`) | twice, 0 model calls, 0 changed files | byte-identical | 22:30 | CONTROL |
-| Unit tests | 140 pass | pass | 22:58 | CONTROL |
-| Build / browser tests | pass / 28 pass | pass | 22:38 | CONTROL |
-| Independent submission verifier (`npm run verify`) | 0 problems | 0 | 22:30 | CONTROL |
+| Selfcheck | **ok**, 0 failures | ok | 00:13 | CONTROL |
+| Offline rebuild (`ordinal demo`) | three times, 0 model calls, 0 changed files | byte-identical | 00:13 | CONTROL |
+| Unit tests | 140 pass | pass | 23:42 | CONTROL |
+| Build / browser tests | pass / 39 pass (28 earlier, 11 added with the redesign) | pass | 23:42 | CONTROL |
+| Independent submission verifier (`npm run verify`) | 0 problems | 0 | 00:13 | CONTROL |
 | PROOF (Codex) | **unavailable**: usage limit reached, resets 10 Oct | available | 22:28 | PO decision |
-| Queue tests (`test-ops.py`) | pass | pass | 21:50 | CONTROL |
+| Queue tests (`test-ops.py`) | pass | pass | 23:40 | CONTROL |
 | Secret scan (`gitleaks git`) | no leaks | none | 21:50 | CONTROL |
 | Hardcoding scan of `src/` | no test ids, organizer ids, address ids or expected sets | none | 21:40 | CONTROL |
-| UI | redesigned (`docs/DESIGN.md`): answer sentence first, rules as lines in time under a movable as-of date, evidence opens in place, changed answers marked, change cases on a time scale; **not yet deployed**, production still serves the earlier interface | judge-ready | 23:45 | CONTROL |
+| UI | redesigned (`docs/DESIGN.md`) and integrated at `5750df8`: answer sentence first, rules as lines in time under a movable as-of date, evidence opens in place, changed answers marked, change cases on a time scale; contrast and accessible-name checks pass; **not deployed, waiting for PO approval** | judge-ready | 00:14 | CONTROL |
 | Deployment URL | **https://hack-nation-machine-rehearsal.vercel.app** (deployed 22:58 from clean `6c16f09`) | live | 23:03 | CONTROL |
 | Production health check | `/api/health` ok: 57 rules, 500 addresses | ok | 23:00 | CONTROL |
 | Production browser tests (fresh context, no login) | 28 / 28 pass | pass | 23:02 | CONTROL |
