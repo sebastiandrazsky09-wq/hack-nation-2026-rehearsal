@@ -13,3 +13,4 @@ evals/results/
 __pycache__/
 .playwright-cli/
 .playwright/
+.vercel
