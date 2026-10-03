@@ -19,6 +19,8 @@ export const PATHS = {
   extractionCache: path.join(ROOT, 'store/extraction'),
   geocodeCache: path.join(ROOT, 'store/geocode'),
   stacks: path.join(ROOT, 'store/stacks.json'),
+  /** Change cases added after kickoff, same shape as the official change tests. */
+  extraCases: path.join(ROOT, 'store/change_cases.json'),
   out: path.join(ROOT, 'out')
 };
 

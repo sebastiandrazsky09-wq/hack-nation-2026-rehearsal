@@ -1,0 +1,649 @@
+{
+  "as_of": "2026-10-01",
+  "inputs": {
+    "rule_store_sha256": "393400c3ab4a57b878206afd455bfab5707da8f7042ea7cb5f06a5fc76416a20",
+    "stacks_sha256": "ef1c3c51a35e780405865f88bae58fcdf56c3c517be31a8c15e0e53904939ac5",
+    "addresses_sha256": "0d3391cf1914542765810c9699efebd18e0d177205d55d0f4e6bc658ca5840e8"
+  },
+  "rules": [
+    {
+      "team_rule_id": "CA-ALG-67bd94",
+      "source_doc_id": "D022",
+      "source_origin": "official_captured",
+      "source_url": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260AB325",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 3789,
+      "span_end": 4003,
+      "also_supported_by": [
+        "D028"
+      ]
+    },
+    {
+      "team_rule_id": "CA-BERKELEY-ALG-65d7de",
+      "source_doc_id": "D001",
+      "source_origin": "official_captured",
+      "source_url": "https://berkeleyca.gov/sites/default/files/documents/2025-12-02%20Item%2001%20Ordinance%207992.pdf",
+      "retrieved_at": "2026-10-01 22:44 UTC",
+      "verification_method": "repaired",
+      "span_start": 4829,
+      "span_end": 5081,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "CA-BERKELEY-DEP-efbcac",
+      "source_doc_id": "D007",
+      "source_origin": "official_captured",
+      "source_url": "https://rentboard.berkeleyca.gov/rights-responsibilities/security-deposits",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 3941,
+      "span_end": 4180,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "CA-BERKELEY-EVICT-1e5ec9",
+      "source_doc_id": "D004",
+      "source_origin": "official_captured",
+      "source_url": "https://rentboard.berkeleyca.gov/elected-rent-board/news/2026-adjustments-relocation-assistance-payments",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 677,
+      "span_end": 847,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "CA-BERKELEY-EVICT-40c73f",
+      "source_doc_id": "D009",
+      "source_origin": "official_captured",
+      "source_url": "https://rentboard.berkeleyca.gov/sites/default/files/documents/Rent%20Ordinance%20Coverage%20by%20Unit%20Type.pdf",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "normalized",
+      "span_start": 988,
+      "span_end": 1120,
+      "also_supported_by": [
+        "D004",
+        "D006"
+      ]
+    },
+    {
+      "team_rule_id": "CA-BERKELEY-FEE-1930c8",
+      "source_doc_id": "D005",
+      "source_origin": "official_captured",
+      "source_url": "https://rentboard.berkeleyca.gov/laws-regulations/city-berkeley-ordinances-affecting-rental-properties/tenant-screening-and",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 2647,
+      "span_end": 2961,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "CA-BERKELEY-RENT-33d716",
+      "source_doc_id": "D009",
+      "source_origin": "official_captured",
+      "source_url": "https://rentboard.berkeleyca.gov/sites/default/files/documents/Rent%20Ordinance%20Coverage%20by%20Unit%20Type.pdf",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 662,
+      "span_end": 748,
+      "also_supported_by": [
+        "D006",
+        "D008"
+      ]
+    },
+    {
+      "team_rule_id": "CA-BERKELEY-SCREEN-b4517b",
+      "source_doc_id": "D003",
+      "source_origin": "official_captured",
+      "source_url": "https://rentboard.berkeleyca.gov/Fair_Chance",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 294,
+      "span_end": 560,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "CA-DEP-ab1666",
+      "source_doc_id": "D025",
+      "source_origin": "official_captured",
+      "source_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1950.5",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "normalized",
+      "span_start": 2685,
+      "span_end": 2961,
+      "also_supported_by": [
+        "D007",
+        "D025"
+      ]
+    },
+    {
+      "team_rule_id": "CA-EVICT-7221ea",
+      "source_doc_id": "D023",
+      "source_origin": "official_captured",
+      "source_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1946.2",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "normalized",
+      "span_start": 1243,
+      "span_end": 1533,
+      "also_supported_by": [
+        "D023"
+      ]
+    },
+    {
+      "team_rule_id": "CA-FEE-b02c48",
+      "source_doc_id": "D026",
+      "source_origin": "official_captured",
+      "source_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1950.6",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 2307,
+      "span_end": 2653,
+      "also_supported_by": [
+        "D005",
+        "D017"
+      ]
+    },
+    {
+      "team_rule_id": "CA-LOS-ANGELES-EVICT-7a754a",
+      "source_doc_id": "D040",
+      "source_origin": "official_captured",
+      "source_url": "https://housing.lacity.gov/residents/just-cause-for-eviction-ordinance-jco",
+      "retrieved_at": "2026-10-01 22:36 UTC",
+      "verification_method": "exact",
+      "span_start": 570,
+      "span_end": 686,
+      "also_supported_by": [
+        "D041",
+        "D043",
+        "D043"
+      ]
+    },
+    {
+      "team_rule_id": "CA-LOS-ANGELES-EVICT-f564fc",
+      "source_doc_id": "D043",
+      "source_origin": "official_captured",
+      "source_url": "https://housing.lacity.gov/wp-content/uploads/2026/08/Relocation-Assistance-Bulletins-A-and-B-Combined.pdf",
+      "retrieved_at": "2026-10-01 22:36 UTC",
+      "verification_method": "normalized",
+      "span_start": 20236,
+      "span_end": 20384,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "CA-LOS-ANGELES-RENT-fa0b82",
+      "source_doc_id": "D041",
+      "source_origin": "official_captured",
+      "source_url": "https://housing.lacity.gov/residents/rso-overview",
+      "retrieved_at": "2026-10-01 22:36 UTC",
+      "verification_method": "normalized",
+      "span_start": 1934,
+      "span_end": 2073,
+      "also_supported_by": [
+        "D042"
+      ]
+    },
+    {
+      "team_rule_id": "CA-RENT-720034",
+      "source_doc_id": "D024",
+      "source_origin": "official_captured",
+      "source_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1947.12",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 1256,
+      "span_end": 1677,
+      "also_supported_by": [
+        "D040"
+      ]
+    },
+    {
+      "team_rule_id": "CA-SAN-DIEGO-ALG-6c9170",
+      "source_doc_id": "D076",
+      "source_origin": "official_captured",
+      "source_url": "https://sandiego.gov/sites/default/files/2025-04/automated-rent-price-fixing-prohibition-ordinance-materials.pdf",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "normalized",
+      "span_start": 15520,
+      "span_end": 15759,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "CA-SAN-DIEGO-EVICT-b5885e",
+      "source_doc_id": "D073",
+      "source_origin": "official_captured",
+      "source_url": "https://docs.sandiego.gov/municode/municodechapter09/ch09art08division07.pdf",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "normalized",
+      "span_start": 10256,
+      "span_end": 10413,
+      "also_supported_by": [
+        "D073",
+        "D077",
+        "D077"
+      ]
+    },
+    {
+      "team_rule_id": "CA-SAN-FRANCISCO-ALG-3724af",
+      "source_doc_id": "D081",
+      "source_origin": "official_captured",
+      "source_url": "https://www.sf.gov/news/new-law-prohibits-algorithmic-devices-used-set-rents-san-francisco",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "exact",
+      "span_start": 945,
+      "span_end": 1125,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "CA-SAN-FRANCISCO-DEP-bdbd1d",
+      "source_doc_id": "D083",
+      "source_origin": "official_captured",
+      "source_url": "https://www.sf.gov/reports--current-rates-including-rent-increase-relocation-sec-deposit",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "exact",
+      "span_start": 414,
+      "span_end": 483,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "CA-SAN-FRANCISCO-EVICT-69d4b7",
+      "source_doc_id": "D079",
+      "source_origin": "official_captured",
+      "source_url": "https://sf.gov/information/overview-just-cause-evictions",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "exact",
+      "span_start": 204,
+      "span_end": 378,
+      "also_supported_by": [
+        "D082",
+        "D083"
+      ]
+    },
+    {
+      "team_rule_id": "CA-SAN-FRANCISCO-RENT-6eee8b",
+      "source_doc_id": "D083",
+      "source_origin": "official_captured",
+      "source_url": "https://www.sf.gov/reports--current-rates-including-rent-increase-relocation-sec-deposit",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "exact",
+      "span_start": 346,
+      "span_end": 413,
+      "also_supported_by": [
+        "D080"
+      ]
+    },
+    {
+      "team_rule_id": "CA-SANTA-ANA-ALG-ce475b",
+      "source_doc_id": "D087",
+      "source_origin": "supplemental",
+      "source_url": "https://www.publicceo.com/2026/02/santa-ana-city-council-continues-to-strengthen-tenant-protections-by-banning-anticompetitive-rent-setting-software/",
+      "retrieved_at": "2026-10-03 17:32 UTC",
+      "verification_method": "exact",
+      "span_start": 1277,
+      "span_end": 1507,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "CA-SANTA-ANA-EVICT-0f546a",
+      "source_doc_id": "D085",
+      "source_origin": "official_captured",
+      "source_url": "https://santa-ana.gov/santa-ana-city-council-adopts-rent-stabilization-and-just-cause-eviction-ordinances-effective-nov-19",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "exact",
+      "span_start": 2701,
+      "span_end": 2817,
+      "also_supported_by": [
+        "D084"
+      ]
+    },
+    {
+      "team_rule_id": "CA-SANTA-ANA-RENT-1b8509",
+      "source_doc_id": "D085",
+      "source_origin": "official_captured",
+      "source_url": "https://santa-ana.gov/santa-ana-city-council-adopts-rent-stabilization-and-just-cause-eviction-ordinances-effective-nov-19",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "exact",
+      "span_start": 1208,
+      "span_end": 1428,
+      "also_supported_by": [
+        "D084"
+      ]
+    },
+    {
+      "team_rule_id": "CA-SCREEN-0fae94",
+      "source_doc_id": "D027",
+      "source_origin": "official_captured",
+      "source_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=12955",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "normalized",
+      "span_start": 8398,
+      "span_end": 8494,
+      "also_supported_by": [
+        "D016"
+      ]
+    },
+    {
+      "team_rule_id": "MA-ALG-1b9500",
+      "source_doc_id": "D045",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Bills/194/H5222",
+      "retrieved_at": "2026-10-01 22:36 UTC",
+      "verification_method": "exact",
+      "span_start": 192,
+      "span_end": 274,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-ALG-9beb3b",
+      "source_doc_id": "D046",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Bills/194/S2983",
+      "retrieved_at": "2026-10-01 22:36 UTC",
+      "verification_method": "exact",
+      "span_start": 192,
+      "span_end": 235,
+      "also_supported_by": [
+        "D047"
+      ]
+    },
+    {
+      "team_rule_id": "MA-BOSTON-EVICT-71eeb2",
+      "source_doc_id": "D014",
+      "source_origin": "official_captured",
+      "source_url": "https://www.boston.gov/sites/default/files/file/2020/11/Housing%20Stability%20Notification%20Act%20Tenant%20FAQs.pdf",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "repaired",
+      "span_start": 758,
+      "span_end": 859,
+      "also_supported_by": [
+        "D013"
+      ]
+    },
+    {
+      "team_rule_id": "MA-BOSTON-SCREEN-343e67",
+      "source_doc_id": "D012",
+      "source_origin": "official_captured",
+      "source_url": "https://www.boston.gov/departments/fair-housing-and-equity/boston-fair-housing-regulations",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 2693,
+      "span_end": 2846,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-BOSTON-SCREEN-fa7532",
+      "source_doc_id": "D010",
+      "source_origin": "official_captured",
+      "source_url": "https://drive.google.com/file/d/1j4U3fDtmnYuwcUWhx5BMUcXc1bnKT8Ku/view?usp=sharing",
+      "retrieved_at": "2026-10-01 22:44 UTC",
+      "verification_method": "normalized",
+      "span_start": 360,
+      "span_end": 754,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-CAMBRIDGE-ALG-5b2924",
+      "source_doc_id": "D030",
+      "source_origin": "supplemental",
+      "source_url": "https://www.cambridgeday.com/?p=158097",
+      "retrieved_at": "2026-10-03 17:32 UTC",
+      "verification_method": "exact",
+      "span_start": 5325,
+      "span_end": 5558,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-CAMBRIDGE-SCREEN-256d60",
+      "source_doc_id": "D029",
+      "source_origin": "official_captured",
+      "source_url": "https://www.cambridgema.gov/departments/humanrightscommission",
+      "retrieved_at": "2026-10-01 22:36 UTC",
+      "verification_method": "exact",
+      "span_start": 6645,
+      "span_end": 6849,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-DEP-514e94",
+      "source_doc_id": "D052",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186/Section15B",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "exact",
+      "span_start": 2178,
+      "span_end": 2399,
+      "also_supported_by": [
+        "D052"
+      ]
+    },
+    {
+      "team_rule_id": "MA-EVICT-4ee8e9",
+      "source_doc_id": "D050",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186/Section11",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "exact",
+      "span_start": 443,
+      "span_end": 866,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-EVICT-4f8772",
+      "source_doc_id": "D011",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Bills/193/H3744",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 196,
+      "span_end": 324,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-EVICT-603df7",
+      "source_doc_id": "D058",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186/Section31",
+      "retrieved_at": "2026-10-01 22:54 UTC",
+      "verification_method": "exact",
+      "span_start": 1737,
+      "span_end": 2066,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-EVICT-c8149d",
+      "source_doc_id": "D053",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186/Section18",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "exact",
+      "span_start": 2172,
+      "span_end": 2839,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-FEE-169e93",
+      "source_doc_id": "D054",
+      "source_origin": "supplemental",
+      "source_url": "https://masslandlords.net/can-massachusetts-landlords-charge-an-application-fee/",
+      "retrieved_at": "2026-10-03 17:32 UTC",
+      "verification_method": "exact",
+      "span_start": 7238,
+      "span_end": 7497,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-FEE-66f11f",
+      "source_doc_id": "D054",
+      "source_origin": "supplemental",
+      "source_url": "https://masslandlords.net/can-massachusetts-landlords-charge-an-application-fee/",
+      "retrieved_at": "2026-10-03 17:32 UTC",
+      "verification_method": "exact",
+      "span_start": 1234,
+      "span_end": 1396,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-FEE-d23b34",
+      "source_doc_id": "D057",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXVI/Chapter112/Section87DDD%201~2",
+      "retrieved_at": "2026-10-01 22:56 UTC",
+      "verification_method": "exact",
+      "span_start": 1726,
+      "span_end": 1875,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-RENT-6416ec",
+      "source_doc_id": "D011",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Bills/193/H3744",
+      "retrieved_at": "2026-10-01 22:35 UTC",
+      "verification_method": "exact",
+      "span_start": 196,
+      "span_end": 324,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "MA-RENT-cb2ea4",
+      "source_doc_id": "D048",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40P/Section4",
+      "retrieved_at": "2026-10-01 22:36 UTC",
+      "verification_method": "exact",
+      "span_start": 425,
+      "span_end": 601,
+      "also_supported_by": [
+        "D055"
+      ]
+    },
+    {
+      "team_rule_id": "MA-RENT-d84648",
+      "source_doc_id": "D055",
+      "source_origin": "supplemental",
+      "source_url": "https://massrealestatelawblog.com/tag/cella-v-attorney-general/",
+      "retrieved_at": "2026-10-03 17:32 UTC",
+      "verification_method": "exact",
+      "span_start": 1540,
+      "span_end": 1681,
+      "also_supported_by": [
+        "D059"
+      ]
+    },
+    {
+      "team_rule_id": "MA-SCREEN-9692d0",
+      "source_doc_id": "D049",
+      "source_origin": "official_captured",
+      "source_url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXXI/Chapter151B/Section4",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "exact",
+      "span_start": 37389,
+      "span_end": 37863,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "NJ-ALG-ff9a93",
+      "source_doc_id": "D069",
+      "source_origin": "official_captured",
+      "source_url": "https://pub.njleg.state.nj.us/Bills/2026/AL26/43_.HTM",
+      "retrieved_at": "2026-10-01 22:56 UTC",
+      "verification_method": "normalized",
+      "span_start": 8077,
+      "span_end": 8420,
+      "also_supported_by": [
+        "D060"
+      ]
+    },
+    {
+      "team_rule_id": "NJ-DEP-3ae416",
+      "source_doc_id": "D067",
+      "source_origin": "official_captured",
+      "source_url": "https://www.nj.gov/dca/codes/publications/pdf_lti/t_i_r.pdf",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "normalized",
+      "span_start": 42181,
+      "span_end": 42443,
+      "also_supported_by": [
+        "D067"
+      ]
+    },
+    {
+      "team_rule_id": "NJ-EVICT-998bc7",
+      "source_doc_id": "D067",
+      "source_origin": "official_captured",
+      "source_url": "https://www.nj.gov/dca/codes/publications/pdf_lti/t_i_r.pdf",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "repaired",
+      "span_start": 110983,
+      "span_end": 111104,
+      "also_supported_by": [
+        "D067",
+        "D067",
+        "D067"
+      ]
+    },
+    {
+      "team_rule_id": "NJ-FEE-1a7ee7",
+      "source_doc_id": "D066",
+      "source_origin": "official_captured",
+      "source_url": "https://pub.njleg.gov/bills/2024/PL25/405_.HTM",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "normalized",
+      "span_start": 427,
+      "span_end": 612,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "NJ-JERSEY-CITY-RENT-3146ab",
+      "source_doc_id": "D036",
+      "source_origin": "official_captured",
+      "source_url": "https://www.jerseycitynj.gov/landlordtenant",
+      "retrieved_at": "2026-10-01 22:36 UTC",
+      "verification_method": "exact",
+      "span_start": 3043,
+      "span_end": 3292,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "NJ-RENT-e461a0",
+      "source_doc_id": "D067",
+      "source_origin": "official_captured",
+      "source_url": "https://www.nj.gov/dca/codes/publications/pdf_lti/t_i_r.pdf",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "normalized",
+      "span_start": 64694,
+      "span_end": 64852,
+      "also_supported_by": [
+        "D067"
+      ]
+    },
+    {
+      "team_rule_id": "NJ-SCREEN-320b47",
+      "source_doc_id": "D065",
+      "source_origin": "official_captured",
+      "source_url": "https://pub.njleg.gov/bills/2020/PL21/110_.HTM",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "normalized",
+      "span_start": 4230,
+      "span_end": 4369,
+      "also_supported_by": []
+    },
+    {
+      "team_rule_id": "NJ-SCREEN-d42310",
+      "source_doc_id": "D068",
+      "source_origin": "official_captured",
+      "source_url": "https://www.nj.gov/oag/dcr/downloads/kyrhousing02.pdf",
+      "retrieved_at": "2026-10-01 22:37 UTC",
+      "verification_method": "normalized",
+      "span_start": 3509,
+      "span_end": 3843,
+      "also_supported_by": []
+    }
+  ],
+  "withheld": [],
+  "result_counts": {
+    "applies": 3187,
+    "not_yet_effective": 140,
+    "pending": 320,
+    "superseded": 195,
+    "unknown": 1082
+  }
+}

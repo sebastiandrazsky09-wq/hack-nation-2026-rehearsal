@@ -50,6 +50,11 @@ const commands: Record<string, () => Promise<number>> = {
     const report = await runExport({ asOf: flag('as-of') ? assertIsoDate(flag('as-of')!) : undefined });
     print(report); return report.schema_errors.length ? 1 : 0;
   },
+  async diff() {
+    const { runDiff } = await import('./diff/index');
+    const report = await runDiff({ asOf: flag('as-of') ? assertIsoDate(flag('as-of')!) : undefined });
+    print(report); return report.errors.length ? 1 : 0;
+  },
   async selfcheck() {
     const { runSelfcheck } = await import('./selfcheck/index');
     const report = await runSelfcheck(); print(report); return report.ok ? 0 : 1;
@@ -57,5 +62,5 @@ const commands: Record<string, () => Promise<number>> = {
 };
 
 const run = commands[command ?? ''];
-if (!run) { console.error('Usage: ordinal <compile|ingest|resolve|apply|export|selfcheck> [options]'); process.exit(2); }
+if (!run) { console.error('Usage: ordinal <compile|ingest|resolve|apply|export|diff|selfcheck> [options]'); process.exit(2); }
 run().then(code => process.exit(code), error => { console.error(error instanceof Error ? error.message : error); process.exit(1); });
