@@ -12,8 +12,14 @@ describe('how a document words a date', () => {
     expect(effectiveDateContext(doc('D025'), '2026-01-01')).toBe('amendment_note');
     expect(effectiveDateContext(doc('D026'), '2026-01-01')).toBe('amendment_note');
     expect(effectiveDateContext(doc('D027'), '2024-01-01')).toBe('amendment_note');
-    // Editorial version notes of a code page are the same thing.
-    expect(effectiveDateContext(doc('D057'), '2025-08-01')).toBe('amendment_note');
+  });
+  it('accepts the effective date of the current text in a code publisher version note (supplied text)', () => {
+    // The brief cites this section as "G.L. c.112 §87DDD½ (8/1/2025)": the date the current text took effect.
+    expect(effectiveDateContext(doc('D057'), '2025-08-01')).toBe('version_note');
+    const page = '[ Text of section effective until August 1, 2025.  For text effective August 1, 2025, see below.]\nold text\n[ Text of section as amended by 2025, 9, Sec. 43 effective August 1, 2025.  See 2025, 9, Sec. 136.  For text effective until August 1, 2025, see above.]\nnew text';
+    expect(effectiveDateContext(page, '2025-08-01')).toBe('version_note');
+    // A superseded-text note alone is not the current text's date.
+    expect(effectiveDateContext('[ Text of section effective until August 1, 2025.  For text effective August 1, 2025, see below.]', '2025-08-01')).toBe('amendment_note');
   });
   it('rejects the start of an annual rate period (supplied text)', () => {
     expect(effectiveDateContext(doc('D080'), '2026-03-01')).toBe('period_start');

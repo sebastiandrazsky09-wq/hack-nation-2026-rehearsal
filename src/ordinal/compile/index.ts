@@ -179,7 +179,9 @@ function buildRecord(doc: SourceDoc, raw: RawRule, v: Verification, repaired: st
   const context = raw.effective_date ? effectiveDateContext(doc.text, raw.effective_date) : 'stated';
   const rejected = REJECTED_DATE_REASON[context];
   const effective_date = rejected ? null : raw.effective_date;
-  const status_basis = rejected ? [raw.status_basis, `[effective_date ${raw.effective_date} not used: ${rejected}]`].filter(Boolean).join(' ') : raw.status_basis;
+  const status_basis = rejected ? [raw.status_basis, `[effective_date ${raw.effective_date} not used: ${rejected}]`].filter(Boolean).join(' ')
+    : context === 'version_note' ? [raw.status_basis, `[effective_date ${raw.effective_date} is the date the section's current text took effect, per the code page's version note]`].filter(Boolean).join(' ')
+    : raw.status_basis;
   return {
     team_rule_id: teamRuleId(raw.jurisdiction, raw.category, raw.citation),
     jurisdiction: raw.jurisdiction, level: levelOf(raw.jurisdiction), category: raw.category,
