@@ -4,7 +4,9 @@ export type Variant = { variant: string; query: string };
 
 const UNIT = /\s+(?:(?:APT|UNIT|STE|SUITE|FL|FLOOR)\.?\s*[A-Z0-9-]+|#\s*[A-Z0-9-]+|\d+\/\d+)\b/gi;
 const HOUSE_LETTER = /^(\d+)[A-Z]\b/i;
-const RANGE = /^(\d+)\s*-\s*(\d+)\s+(.+)$/;
+const RANGE = /^(\d+)[A-Z]?\s*[-&]\s*(\d+)(?:\.\d+)?[A-Z]?\s+(.+)$/i;
+/** Assessor files write ordinal streets with a leading zero ("05TH AV"); the geocoder needs "5TH AV". */
+const ZERO_ORDINAL = /\b0+(\d+(?:ST|ND|RD|TH))\b/gi;
 
 const clean = (street: string) => street.trim().replace(/\s+/g, ' ');
 
@@ -17,6 +19,7 @@ export function buildVariants(address: Pick<Address, 'street_address' | 'postal_
 
   add('as_given', address.zip ? `${street}, ${tail} ${address.zip}` : `${street}, ${tail}`);
   add('without_zip', `${street}, ${tail}`);
+  add('ordinal_zero_removed', `${street.replace(ZERO_ORDINAL, '$1')}, ${tail}`);
 
   const range = street.match(RANGE);
   let core = street;

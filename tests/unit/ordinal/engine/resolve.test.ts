@@ -122,3 +122,40 @@ describe('resolver', () => {
     expect(existsSync(path.join(h2.deps().cacheDir!, 'T8.json'))).toBe(false);
   });
 });
+
+describe('resolver ambiguity (lead amendment after the first live run)', () => {
+  it('never settles candidates in two different places by taking the first one', async () => {
+    const { runResolve } = await import('../../../../src/ordinal/resolve/index');
+    const { mkdtempSync, readFileSync } = await import('node:fs'); const { tmpdir } = await import('node:os'); const pathMod = await import('node:path');
+    const dir = mkdtempSync(pathMod.join(tmpdir(), 'ordinal-amb-'));
+    const cand = (place: string, zip: string) => ({ matchedAddress: `5 WESTERN AVE, CAMBRIDGE, MA, ${zip}`, geographies: { States: [{ STUSAB: 'MA' }], Counties: [{ NAME: 'X County' }], 'Incorporated Places': [{ BASENAME: place }] } });
+    const calls: string[] = [];
+    const fetchFake = (async (url: string) => {
+      calls.push(decodeURIComponent(url));
+      const ambiguous = decodeURIComponent(url).includes('322-322.5');
+      const matches = ambiguous ? [cand('Boston', '02163'), cand('Cambridge', '02139')] : [{ ...cand('Cambridge', '02139'), matchedAddress: '322 WESTERN AVE, CAMBRIDGE, MA, 02139' }];
+      return { ok: true, status: 200, json: async () => ({ result: { addressMatches: matches } }) };
+    }) as never;
+    const address = { address_id: 'A1', street_address: '322-322.5 Western Ave', postal_city: 'Cambridge', state: 'MA', zip: '', year_built: null, units: null, use_code: '', use_description: '', source_dataset: '', retrieved_at: '' };
+    await runResolve({}, { fetch: fetchFake, addresses: [address], cacheDir: pathMod.join(dir, 'geo'), stacksPath: pathMod.join(dir, 'stacks.json'), sleep: async () => {} });
+    const stack = JSON.parse(readFileSync(pathMod.join(dir, 'stacks.json'), 'utf8')).A1;
+    expect(stack.legal_city).toBe('Cambridge, MA'); expect(stack.matched_address).toContain('322 WESTERN'); expect(stack.note).toContain('range_first');
+    expect(calls.length).toBe(2);
+  });
+  it('keeps the candidate in the postal city when every variant stays ambiguous, at reduced confidence', async () => {
+    const { runResolve } = await import('../../../../src/ordinal/resolve/index');
+    const { mkdtempSync, readFileSync } = await import('node:fs'); const { tmpdir } = await import('node:os'); const pathMod = await import('node:path');
+    const dir = mkdtempSync(pathMod.join(tmpdir(), 'ordinal-amb-'));
+    const cand = (place: string) => ({ matchedAddress: `9 X ST, ${place.toUpperCase()}, MA, 02139`, geographies: { States: [{ STUSAB: 'MA' }], Counties: [{ NAME: 'X County' }], 'Incorporated Places': [{ BASENAME: place }] } });
+    const fetchFake = (async () => ({ ok: true, status: 200, json: async () => ({ result: { addressMatches: [cand('Boston'), cand('Cambridge')] } }) })) as never;
+    const address = { address_id: 'A2', street_address: '9 X ST', postal_city: 'Cambridge', state: 'MA', zip: '02139', year_built: null, units: null, use_code: '', use_description: '', source_dataset: '', retrieved_at: '' };
+    await runResolve({}, { fetch: fetchFake, addresses: [address], cacheDir: pathMod.join(dir, 'geo'), stacksPath: pathMod.join(dir, 'stacks.json'), sleep: async () => {} });
+    const stack = JSON.parse(readFileSync(pathMod.join(dir, 'stacks.json'), 'utf8')).A2;
+    expect(stack.legal_city).toBe('Cambridge, MA'); expect(stack.method).toBe('geocoder'); expect(stack.confidence).toBe(0.7);
+  });
+  it('strips the leading zero of an ordinal street name', async () => {
+    const { buildVariants } = await import('../../../../src/ordinal/resolve/variants');
+    const variants = buildVariants({ street_address: '397 05TH AV', postal_city: 'San Francisco', state: 'CA', zip: '' });
+    expect(variants.map(v => v.query)).toContain('397 5TH AV, San Francisco, CA');
+  });
+});

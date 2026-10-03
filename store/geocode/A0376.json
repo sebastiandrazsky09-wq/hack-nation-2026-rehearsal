@@ -1,0 +1,59 @@
+{
+ "address_id": "A0376",
+ "attempts": [
+  {
+   "variant": "as_given",
+   "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=ST%20JAMES%20ST%2C%20Roxbury%2C%20MA%2002119&benchmark=Public_AR_Current&vintage=Current_Current&layers=all&format=json",
+   "retrieved_at": "2026-10-03T18:55:42.224Z",
+   "response": {
+    "result": {
+     "input": {
+      "address": {
+       "address": "ST JAMES ST, Roxbury, MA 02119"
+      },
+      "vintage": {
+       "isDefault": true,
+       "id": "4",
+       "vintageName": "Current_Current",
+       "vintageDescription": "Current Vintage - Current Benchmark"
+      },
+      "benchmark": {
+       "isDefault": true,
+       "benchmarkDescription": "Public Address Ranges - Current Benchmark",
+       "id": "4",
+       "benchmarkName": "Public_AR_Current"
+      }
+     },
+     "addressMatches": []
+    }
+   }
+  },
+  {
+   "variant": "without_zip",
+   "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=ST%20JAMES%20ST%2C%20Roxbury%2C%20MA&benchmark=Public_AR_Current&vintage=Current_Current&layers=all&format=json",
+   "retrieved_at": "2026-10-03T18:55:42.441Z",
+   "response": {
+    "result": {
+     "input": {
+      "address": {
+       "address": "ST JAMES ST, Roxbury, MA"
+      },
+      "vintage": {
+       "isDefault": true,
+       "id": "4",
+       "vintageName": "Current_Current",
+       "vintageDescription": "Current Vintage - Current Benchmark"
+      },
+      "benchmark": {
+       "isDefault": true,
+       "benchmarkDescription": "Public Address Ranges - Current Benchmark",
+       "id": "4",
+       "benchmarkName": "Public_AR_Current"
+      }
+     },
+     "addressMatches": []
+    }
+   }
+  }
+ ]
+}

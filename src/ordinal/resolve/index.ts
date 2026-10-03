@@ -36,28 +36,38 @@ export function geocodeUrl(query: string): string {
 }
 
 type Geo = { NAME?: string; BASENAME?: string; STUSAB?: string };
-function firstMatch(response: unknown): { matchedAddress: string | null; geographies: Record<string, Geo[]> } | null {
-  const match = (response as { result?: { addressMatches?: { matchedAddress?: string; geographies?: Record<string, Geo[]> }[] } })?.result?.addressMatches?.[0];
-  if (!match) return null;
-  return { matchedAddress: match.matchedAddress ?? null, geographies: match.geographies ?? {} };
+type Match = { matchedAddress: string | null; geographies: Record<string, Geo[]> };
+function allMatches(response: unknown): Match[] {
+  const matches = (response as { result?: { addressMatches?: { matchedAddress?: string; geographies?: Record<string, Geo[]> }[] } })?.result?.addressMatches ?? [];
+  return matches.map(m => ({ matchedAddress: m.matchedAddress ?? null, geographies: m.geographies ?? {} }));
 }
-function matchedState(match: NonNullable<ReturnType<typeof firstMatch>>): string | null {
+const placeOf = (match: Match): string | null => match.geographies['Incorporated Places']?.[0]?.BASENAME ?? null;
+function matchedState(match: Match): string | null {
   const fromGeo = match.geographies['States']?.[0]?.STUSAB;
   if (fromGeo) return fromGeo.toUpperCase();
   return match.matchedAddress?.match(/,\s*([A-Z]{2})\s*,?\s*\d{0,5}\s*$/)?.[1] ?? null;
 }
-/** A response counts as a match only when the matched state equals the address row state. */
-function acceptedMatch(response: unknown, state: string) {
-  const match = firstMatch(response);
-  if (!match) return null;
-  return matchedState(match) === state.toUpperCase() ? match : null;
+const inState = (response: unknown, state: string): Match[] => allMatches(response).filter(m => matchedState(m) === state.toUpperCase());
+/**
+ * A response counts as a match only when the matched state equals the address row state and every candidate
+ * lies in the same place. Candidates in different places are an ambiguous answer, never settled by taking the first.
+ */
+function acceptedMatch(response: unknown, state: string): Match | null {
+  const candidates = inState(response, state);
+  if (!candidates.length) return null;
+  return new Set(candidates.map(placeOf)).size === 1 ? candidates[0] : null;
+}
+/** Postal name -> the legal city it would mean: the neighbourhood table first, otherwise the name itself. */
+function postalLegalCity(address: Address): { legal: string; fromTable: boolean } {
+  const table = POSTAL_NEIGHBOURHOODS[address.postal_city.trim().toLowerCase()];
+  return table && table.endsWith(`, ${address.state}`) ? { legal: table, fromTable: true } : { legal: `${address.postal_city.trim()}, ${address.state}`, fromTable: false };
 }
 
 function stackFromEntry(address: Address, entry: GeocodeCacheEntry, rawPath: string): JurisdictionStack {
   for (const attempt of entry.attempts) {
     const match = acceptedMatch(attempt.response, address.state);
     if (!match) continue;
-    const place = match.geographies['Incorporated Places']?.[0]?.BASENAME;
+    const place = placeOf(match);
     const county = match.geographies['Counties']?.[0]?.NAME ?? null;
     const asGiven = attempt.variant === 'as_given';
     return {
@@ -67,12 +77,21 @@ function stackFromEntry(address: Address, entry: GeocodeCacheEntry, rawPath: str
       note: `Census geocoder match (${attempt.variant})${place ? '' : '; no incorporated place in the response (unincorporated)'}`
     };
   }
-  const table = POSTAL_NEIGHBOURHOODS[address.postal_city.trim().toLowerCase()];
-  const legal = table && table.endsWith(`, ${address.state}`) ? table : `${address.postal_city.trim()}, ${address.state}`;
+  const { legal, fromTable } = postalLegalCity(address);
+  // Ambiguous responses only: accept the geocoder candidate that lies in the postal city, at reduced confidence.
+  for (const attempt of entry.attempts) {
+    const candidate = inState(attempt.response, address.state).find(m => placeOf(m) !== null && `${placeOf(m)}, ${address.state}` === legal);
+    if (!candidate) continue;
+    return {
+      address_id: address.address_id, state: address.state, county: candidate.geographies['Counties']?.[0]?.NAME ?? null, legal_city: legal,
+      method: 'geocoder', confidence: 0.7, matched_address: candidate.matchedAddress, raw_response_path: rawPath,
+      note: `Census geocoder returned candidates in more than one place (${attempt.variant}); kept the candidate in the postal city.`
+    };
+  }
   return {
     address_id: address.address_id, state: address.state, county: null, legal_city: legal,
     method: 'postal_fallback', confidence: 0.5, matched_address: null, raw_response_path: rawPath,
-    note: `Postal fallback: the geocoder matched none of ${entry.attempts.length} address variants in ${address.state}; legal city from ${table && legal === table ? 'the postal neighbourhood table' : 'the postal city name'}.`
+    note: `Postal fallback: the geocoder gave no unambiguous match for ${entry.attempts.length} address variants in ${address.state}; legal city from ${fromTable ? 'the postal neighbourhood table' : 'the postal city name'}.`
   };
 }
 

@@ -1,0 +1,59 @@
+{
+ "address_id": "A0295",
+ "attempts": [
+  {
+   "variant": "as_given",
+   "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=Harvard%20ST%20LOT%202A-13%2C%20Dorchester%2C%20MA%2002124&benchmark=Public_AR_Current&vintage=Current_Current&layers=all&format=json",
+   "retrieved_at": "2026-10-03T18:55:41.812Z",
+   "response": {
+    "result": {
+     "input": {
+      "address": {
+       "address": "Harvard ST LOT 2A-13, Dorchester, MA 02124"
+      },
+      "vintage": {
+       "isDefault": true,
+       "id": "4",
+       "vintageName": "Current_Current",
+       "vintageDescription": "Current Vintage - Current Benchmark"
+      },
+      "benchmark": {
+       "isDefault": true,
+       "benchmarkDescription": "Public Address Ranges - Current Benchmark",
+       "id": "4",
+       "benchmarkName": "Public_AR_Current"
+      }
+     },
+     "addressMatches": []
+    }
+   }
+  },
+  {
+   "variant": "without_zip",
+   "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=Harvard%20ST%20LOT%202A-13%2C%20Dorchester%2C%20MA&benchmark=Public_AR_Current&vintage=Current_Current&layers=all&format=json",
+   "retrieved_at": "2026-10-03T18:55:42.013Z",
+   "response": {
+    "result": {
+     "input": {
+      "address": {
+       "address": "Harvard ST LOT 2A-13, Dorchester, MA"
+      },
+      "vintage": {
+       "isDefault": true,
+       "id": "4",
+       "vintageName": "Current_Current",
+       "vintageDescription": "Current Vintage - Current Benchmark"
+      },
+      "benchmark": {
+       "isDefault": true,
+       "benchmarkDescription": "Public Address Ranges - Current Benchmark",
+       "id": "4",
+       "benchmarkName": "Public_AR_Current"
+      }
+     },
+     "addressMatches": []
+    }
+   }
+  }
+ ]
+}
