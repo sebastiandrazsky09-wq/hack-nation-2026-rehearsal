@@ -13,9 +13,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "check": "npm run typecheck && npm test && python3 scripts/secret-check.py",
+    "check": "npm run typecheck && npm test && python3 scripts/secret-check.py && python3 scripts/verify-submission.py > /dev/null",
     "status": "python3 scripts/ops.py status",
-    "ordinal": "tsx src/ordinal/cli.ts"
+    "ordinal": "tsx src/ordinal/cli.ts",
+    "verify": "python3 scripts/verify-submission.py"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "4.0.71",

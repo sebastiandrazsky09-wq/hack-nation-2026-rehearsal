@@ -22,9 +22,13 @@ export const applyRule: ApplyRule = (rule, address, stack, asOf) => {
     const hint = missing.includes('units') && address.units === null && min !== null
       ? ` The assessor's use description ("${address.use_description}") indicates ${max === null ? `${min} or more units` : max === min ? `${min} units` : `${min} to ${max} units`}; that is not treated as a unit count.`
       : '';
+    // A city rule decided on a legal city that came from the mailing city, not from the geocoder: say so in the answer itself.
+    const cityHint = result !== 'not_applicable' && levelOf(rule.jurisdiction) === 'city' && stack.method === 'postal_fallback'
+      ? ' The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.'
+      : '';
     return {
       ...base, result, reason_code: code, missing_facts: missing, caveats,
-      explanation: explain({ code, rule, stack, asOf, deciding: o.deciding ?? [], missing, caveats }, o.open) + hint
+      explanation: explain({ code, rule, stack, asOf, deciding: o.deciding ?? [], missing, caveats }, o.open) + hint + cityHint
     };
   };
 

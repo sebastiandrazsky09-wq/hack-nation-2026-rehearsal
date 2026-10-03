@@ -6643,19 +6643,19 @@
       {
         "team_rule_id": "MA-BOSTON-EVICT-71eeb2",
         "result": "applies",
-        "explanation": "Housing Stability Notification Act (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse.",
+        "explanation": "Housing Stability Notification Act (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "MA-BOSTON-SCREEN-343e67",
         "result": "applies",
-        "explanation": "Boston Fair Housing Regulations (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds.",
+        "explanation": "Boston Fair Housing Regulations (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "MA-BOSTON-SCREEN-fa7532",
         "result": "unknown",
-        "explanation": "Cannot tell whether Boston Fair Chance Tenant Selection Policy (Boston, MA) applies as of 2026-10-01: it depends on facts the dataset does not hold (public funding or inclusionary designation): \"Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy\".",
+        "explanation": "Cannot tell whether Boston Fair Chance Tenant Selection Policy (Boston, MA) applies as of 2026-10-01: it depends on facts the dataset does not hold (public funding or inclusionary designation): \"Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy\". The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
@@ -8671,19 +8671,19 @@
       {
         "team_rule_id": "MA-BOSTON-EVICT-71eeb2",
         "result": "applies",
-        "explanation": "Housing Stability Notification Act (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse.",
+        "explanation": "Housing Stability Notification Act (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "MA-BOSTON-SCREEN-343e67",
         "result": "applies",
-        "explanation": "Boston Fair Housing Regulations (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds.",
+        "explanation": "Boston Fair Housing Regulations (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "MA-BOSTON-SCREEN-fa7532",
         "result": "unknown",
-        "explanation": "Cannot tell whether Boston Fair Chance Tenant Selection Policy (Boston, MA) applies as of 2026-10-01: it depends on facts the dataset does not hold (public funding or inclusionary designation): \"Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy\".",
+        "explanation": "Cannot tell whether Boston Fair Chance Tenant Selection Policy (Boston, MA) applies as of 2026-10-01: it depends on facts the dataset does not hold (public funding or inclusionary designation): \"Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy\". The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
@@ -20009,19 +20009,19 @@
       {
         "team_rule_id": "MA-BOSTON-EVICT-71eeb2",
         "result": "applies",
-        "explanation": "Housing Stability Notification Act (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse.",
+        "explanation": "Housing Stability Notification Act (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "MA-BOSTON-SCREEN-343e67",
         "result": "applies",
-        "explanation": "Boston Fair Housing Regulations (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds.",
+        "explanation": "Boston Fair Housing Regulations (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "MA-BOSTON-SCREEN-fa7532",
         "result": "unknown",
-        "explanation": "Cannot tell whether Boston Fair Chance Tenant Selection Policy (Boston, MA) applies as of 2026-10-01: it depends on facts the dataset does not hold (public funding or inclusionary designation): \"Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy\".",
+        "explanation": "Cannot tell whether Boston Fair Chance Tenant Selection Policy (Boston, MA) applies as of 2026-10-01: it depends on facts the dataset does not hold (public funding or inclusionary designation): \"Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy\". The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
@@ -23483,13 +23483,13 @@
       {
         "team_rule_id": "CA-SAN-DIEGO-ALG-ac8158",
         "result": "applies",
-        "explanation": "Prohibition of Anti-Competitive Automated Rent Price-Fixing Ordinance (San Diego, CA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds.",
+        "explanation": "Prohibition of Anti-Competitive Automated Rent Price-Fixing Ordinance (San Diego, CA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "CA-SAN-DIEGO-EVICT-30b5a9",
         "result": "unknown",
-        "explanation": "Cannot tell whether Residential Tenant Protections (Tenants' Right to Know Regulations), San Diego Municipal Code Chapter 9, Article 8, Division 7 (San Diego, CA) applies as of 2026-10-01: the data for this address does not include the year built (\"housing that has been issued a certificate of occupancy within the previous 15 years, unless the housing is a mobilehome\"). Caveats: transient/tourist hotels, short-term occupancy, deed-restricted or subsidised affordable housing (not Section 8), mobilehomes under the Mobilehome Residency Law, care facilities, nonprofit hospitals, religious facilities, transitional housing, dormitories, shared bathroom or kitchen with the landlord.",
+        "explanation": "Cannot tell whether Residential Tenant Protections (Tenants' Right to Know Regulations), San Diego Municipal Code Chapter 9, Article 8, Division 7 (San Diego, CA) applies as of 2026-10-01: the data for this address does not include the year built (\"housing that has been issued a certificate of occupancy within the previous 15 years, unless the housing is a mobilehome\"). Caveats: transient/tourist hotels, short-term occupancy, deed-restricted or subsidised affordable housing (not Section 8), mobilehomes under the Mobilehome Residency Law, care facilities, nonprofit hospitals, religious facilities, transitional housing, dormitories, shared bathroom or kitchen with the landlord. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
@@ -25481,19 +25481,19 @@
       {
         "team_rule_id": "MA-BOSTON-EVICT-71eeb2",
         "result": "applies",
-        "explanation": "Housing Stability Notification Act (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse.",
+        "explanation": "Housing Stability Notification Act (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "MA-BOSTON-SCREEN-343e67",
         "result": "applies",
-        "explanation": "Boston Fair Housing Regulations (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds.",
+        "explanation": "Boston Fair Housing Regulations (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "MA-BOSTON-SCREEN-fa7532",
         "result": "unknown",
-        "explanation": "Cannot tell whether Boston Fair Chance Tenant Selection Policy (Boston, MA) applies as of 2026-10-01: it depends on facts the dataset does not hold (public funding or inclusionary designation): \"Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy\".",
+        "explanation": "Cannot tell whether Boston Fair Chance Tenant Selection Policy (Boston, MA) applies as of 2026-10-01: it depends on facts the dataset does not hold (public funding or inclusionary designation): \"Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy\". The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
@@ -25735,19 +25735,19 @@
       {
         "team_rule_id": "MA-BOSTON-EVICT-71eeb2",
         "result": "applies",
-        "explanation": "Housing Stability Notification Act (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse.",
+        "explanation": "Housing Stability Notification Act (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. Caveats: residences in any hospital, skilled nursing facility or health facility; residences in a non-profit facility whose primary purpose is providing short-term treatment, assistance or therapy for alcohol, drug, or other substance abuse. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "MA-BOSTON-SCREEN-343e67",
         "result": "applies",
-        "explanation": "Boston Fair Housing Regulations (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds.",
+        "explanation": "Boston Fair Housing Regulations (Boston, MA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "MA-BOSTON-SCREEN-fa7532",
         "result": "unknown",
-        "explanation": "Cannot tell whether Boston Fair Chance Tenant Selection Policy (Boston, MA) applies as of 2026-10-01: it depends on facts the dataset does not hold (public funding or inclusionary designation): \"Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy\".",
+        "explanation": "Cannot tell whether Boston Fair Chance Tenant Selection Policy (Boston, MA) applies as of 2026-10-01: it depends on facts the dataset does not hold (public funding or inclusionary designation): \"Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy\". The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
@@ -26037,25 +26037,25 @@
       {
         "team_rule_id": "CA-SAN-FRANCISCO-ALG-3724af",
         "result": "applies",
-        "explanation": "Section 37.10C of the Rent Ordinance (San Francisco, CA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds.",
+        "explanation": "Section 37.10C of the Rent Ordinance (San Francisco, CA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "CA-SAN-FRANCISCO-DEP-386d71",
         "result": "applies",
-        "explanation": "San Francisco Rent Board – Security Deposit Interest Rate (San Francisco, CA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds.",
+        "explanation": "San Francisco Rent Board – Security Deposit Interest Rate (San Francisco, CA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "CA-SAN-FRANCISCO-EVICT-69d4b7",
         "result": "applies",
-        "explanation": "San Francisco Rent Ordinance Section 37.9(a) (Just Cause Evictions) (San Francisco, CA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds.",
+        "explanation": "San Francisco Rent Ordinance Section 37.9(a) (Just Cause Evictions) (San Francisco, CA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
         "team_rule_id": "CA-SAN-FRANCISCO-RENT-e31c1b",
         "result": "applies",
-        "explanation": "San Francisco Rent Ordinance – Allowable Annual Rent Increase (San Francisco, CA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds.",
+        "explanation": "San Francisco Rent Ordinance – Allowable Annual Rent Increase (San Francisco, CA) applies to this address as of 2026-10-01; every coverage condition is met and no exemption holds. The legal city of this address was taken from its mailing city because the geocoder found no match; low confidence.",
         "conflict_flag": false
       },
       {
