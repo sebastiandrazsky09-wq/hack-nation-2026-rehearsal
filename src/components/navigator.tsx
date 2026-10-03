@@ -263,6 +263,13 @@ function EmptyState({ loading, examples, cases, asOf, onExample, onTab }: {
   );
 }
 
+/** The value once it has stopped changing for `ms`, so dragging the date does not ask for every day it passes. */
+function useSettled<T>(value: T, ms: number): T {
+  const [settled, setSettled] = useState(value);
+  useEffect(() => { const timer = setTimeout(() => setSettled(value), ms); return () => clearTimeout(timer); }, [value, ms]);
+  return settled;
+}
+
 function Fact({ name, value }: { name: string; value: string | number | null }) {
   const missing = value === null || value === '';
   return <div><dt>{name}</dt><dd className={missing ? 'is-missing' : ''}>{missing ? NOT_IN_DATA : value}</dd></div>;
@@ -303,7 +310,8 @@ function summarySentence(asOf: string, counts: { r: string; n: number }[]): stri
 function AddressView({ chosen, asOf, caseDates, onDate }: {
   chosen: AddressRow; asOf: string | null; caseDates: string[]; onDate: (date: string) => void;
 }) {
-  const lookup = useApi<LookupResponse>(asOf ? `/api/lookup?address_id=${encodeURIComponent(chosen.address_id)}&as_of=${asOf}` : null);
+  const queryDate = useSettled(asOf, 120);
+  const lookup = useApi<LookupResponse>(queryDate ? `/api/lookup?address_id=${encodeURIComponent(chosen.address_id)}&as_of=${queryDate}` : null);
   // The last answer shown for this address. While another date loads, its rows stay in place, dimmed.
   const [shown, setShown] = useState<LookupResponse | null>(null);
   // What each changed rule answered on the previous date (null: it did not reach the address then).
@@ -436,7 +444,7 @@ function AddressView({ chosen, asOf, caseDates, onDate }: {
                   {items.length === 0
                     ? <p className="category-none">No rule found at this address for this category.</p>
                     : items.map(item => (
-                      <RuleRow key={item.team_rule_id} item={item} asOf={data.as_of} open={openIds.has(item.team_rule_id)}
+                      <RuleRow key={item.team_rule_id} item={item} asOf={data.as_of} needle={asOf} open={openIds.has(item.team_rule_id)}
                         was={was?.map.has(item.team_rule_id) ? was.map.get(item.team_rule_id) : undefined}
                         onToggle={() => toggle(item.team_rule_id)} onJump={onDate} />
                     ))}

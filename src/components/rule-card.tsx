@@ -11,8 +11,9 @@ export type ResultRow = LookupResponse['results'][number];
  * One rule at this address: the answer, what the law requires, where it comes from and its line in time.
  * The evidence (why, the quoted sentence, source and conditions) opens in place.
  */
-export function RuleRow({ item, asOf, open, was, onToggle, onJump }: {
-  item: ResultRow; asOf: string; open: boolean; was: string | null | undefined;
+export function RuleRow({ item, asOf, needle, open, was, onToggle, onJump }: {
+  /** `asOf` is the date the answer was computed for; `needle` is where the date control is now. */
+  item: ResultRow; asOf: string; needle: string; open: boolean; was: string | null | undefined;
   onToggle: () => void; onJump: (date: string) => void;
 }) {
   const { rule } = item;
@@ -50,7 +51,7 @@ export function RuleRow({ item, asOf, open, was, onToggle, onJump }: {
             </p>
           )}
         </div>
-        <div className="rule-track"><Lifeline rule={rule} result={item.result} asOf={asOf} onJump={onJump} /></div>
+        <div className="rule-track"><Lifeline rule={rule} result={item.result} asOf={needle} onJump={onJump} /></div>
         {/* A second, pointer-only handle for the same disclosure; the title button is the one keyboards and screen readers use. */}
         <button type="button" className="rule-toggle" tabIndex={-1} aria-hidden onClick={onToggle}>
           <ChevronDown size={16} strokeWidth={1.75} aria-hidden />
