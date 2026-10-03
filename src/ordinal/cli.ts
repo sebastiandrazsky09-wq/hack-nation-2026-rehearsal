@@ -4,7 +4,7 @@ import nextEnv from '@next/env';
 nextEnv.loadEnvConfig(process.cwd());
 import { DEFAULT_AS_OF } from './contracts';
 import { assertIsoDate } from './status';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { loadAddresses, readRuleStore, readStacks, PATHS } from './corpus';
 
@@ -21,11 +21,25 @@ const commands: Record<string, () => Promise<number>> = {
     print(report); return report.docs_failed.length ? 1 : 0;
   },
   async ingest() {
-    const file = rest.find(a => !a.startsWith('--') && a !== flag('jurisdiction'));
-    if (!file) throw new Error('Usage: ordinal ingest PATH [--jurisdiction "City, ST"]');
+    const file = rest.find(a => !a.startsWith('--') && ![flag('jurisdiction'), flag('case'), flag('title')].includes(a));
+    if (!file) throw new Error('Usage: ordinal ingest PATH [--jurisdiction "City, ST"] [--case T6] [--title "..."]');
     const { runCompile } = await import('./compile/index');
     const report = await runCompile({ ingestPath: file, ingestJurisdiction: flag('jurisdiction'), force: has('force') });
-    print(report); return report.docs_failed.length ? 1 : 0;
+    print(report);
+    // `--case T6` records a change case for the new document in store/change_cases.json, so `ordinal diff` reports it.
+    const caseId = flag('case');
+    if (caseId) {
+      const { loadIngestedDocs } = await import('./compile/ingest'); const { caseForDocument, upsertCase } = await import('./diff/cases');
+      const name = path.basename(file);
+      const doc = loadIngestedDocs(PATHS.ingested).find(d => { const stored = path.basename(d.path); return stored.endsWith('_' + name) || stored.endsWith('_' + name + '.txt'); });
+      if (!doc) throw new Error(`Ingested document for ${name} not found in ${PATHS.ingested}`);
+      const existing = existsSync(PATHS.extraCases) ? JSON.parse(readFileSync(PATHS.extraCases, 'utf8')) : [];
+      const added = caseForDocument(readRuleStore(), doc.doc_id, caseId, DEFAULT_AS_OF, flag('title'));
+      mkdirSync(path.dirname(PATHS.extraCases), { recursive: true });
+      writeFileSync(PATHS.extraCases, JSON.stringify(upsertCase(existing, added), null, 1) + '\n');
+      print({ change_case: added });
+    }
+    return report.docs_failed.length ? 1 : 0;
   },
   async resolve() {
     const { runResolve } = await import('./resolve/index');

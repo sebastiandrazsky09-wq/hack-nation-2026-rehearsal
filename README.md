@@ -51,7 +51,7 @@ Extract again from the documents (calls a model): `npm run ordinal -- compile --
 ### Add a law the system has never seen
 
 ```bash
-npm run ordinal -- ingest path/to/new_ordinance.txt   # jurisdiction, category, dates and conditions are read from the text
+npm run ordinal -- ingest path/to/new_ordinance.txt --case T6   # jurisdiction, category, dates and conditions are read from the text; --case adds a change case for it
 npm run ordinal -- export && npm run ordinal -- diff && npm run ordinal -- selfcheck
 ```
 
