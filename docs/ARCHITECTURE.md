@@ -1,7 +1,6 @@
 # Architecture
-Browser -> Next.js route -> input schema -> provider SDK -> output schema -> grounding/business rules -> browser.
-Default: Next.js 16 / React 19 / TypeScript / Tailwind 4. No agent framework or local containers.
-Supabase cloud is optional: auth, private Postgres records, private object storage. SQL migration must be applied and RLS tested against two users before calling the capability ready.
-The sample replay is explicitly labelled and rejects unrelated input. APP_MODE=live enables paid provider calls. One OpenAI attempt then one Anthropic fallback share a 25-second deadline. They do not provide offline AI.
-Streaming/tool adapter is in src/server/ai/capabilities.ts; it is optional and has not been live-tested. Structured results use the non-streaming hero path to simplify final validation.
-Contract owner: lead. Root dependency/config owner: lead. Frontend: src/components + globals.css. Core: server + API routes. Research: docs/research. QA gets a separate task with tests/evals ownership after freezing test writers.
+Pipeline (TypeScript, run with `npm run ordinal -- <command>`): corpus → compile (LLM extraction + mechanical quote verification) → `store/rules.jsonl` → resolve (Census Geocoder, cached) → `store/stacks.json` → apply (pure, deterministic) → export → `out/*.json`. See `docs/CONTRACTS.md`; the code in `src/ordinal/{contracts,status,corpus,entrypoints,cli}.ts` is the contract.
+LLM extracts; deterministic code decides. The deployed UI reads the committed store and runs the engine; it makes no model call.
+Web: Next.js 16 / React 19 / TypeScript / Tailwind 4. No agent framework, no database, no containers. Provider SDK (`ai`, `@ai-sdk/anthropic`, `@ai-sdk/openai`) is used only by compile; see `src/server/ai/brief.ts` for the calling pattern already proven in this repo.
+Only the lead holds keys and runs live extraction. Workers use a fake model client and recorded outputs.
+Owners: contracts, package files, `official/`, `supplemental/`, `store/`, `out/`, docs: lead. Compile: `src/ordinal/compile`. Engine: `src/ordinal/{resolve,apply,export,selfcheck}`. UI: `src/components` + `globals.css`. Tests follow their module under `tests/unit/ordinal/`.

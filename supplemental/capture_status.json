@@ -1,0 +1,210 @@
+{
+  "D002": {
+    "status": "skipped",
+    "reason": "robots.txt disallows this path",
+    "url": "https://morganlewis.com/pubs/2026/08/algorithmic-rent-pricing-litigation-expands-under-new-state-and-local-laws",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D015": {
+    "status": "skipped",
+    "reason": "robots.txt disallows this path",
+    "url": "https://caanet.org/compliance-reminder-section-8-acceptance-and-criminal-background-checks-are-fair-housing-issues/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D017": {
+    "status": "captured",
+    "chars": 8567,
+    "retrieved_at": "2026-10-03 17:31 UTC",
+    "url": "https://california.public.law/codes/civil_code_section_1950.6",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D018": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://law.justia.com/codes/california/code-civ/division-3/part-4/title-5/chapter-2/section-1946-2/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D019": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://law.justia.com/codes/california/code-civ/division-3/part-4/title-5/chapter-2/section-1947-12/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D020": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://law.justia.com/codes/california/code-civ/division-3/part-4/title-5/chapter-2/section-1950-5/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D021": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-2-8/chapter-6/article-2/section-12955/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D028": {
+    "status": "captured",
+    "chars": 20086,
+    "retrieved_at": "2026-10-03 17:31 UTC",
+    "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing/californias-antitrust-law-amendments-kick-in-targeting-algorithmic-pricing",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D030": {
+    "status": "captured",
+    "chars": 11376,
+    "retrieved_at": "2026-10-03 17:32 UTC",
+    "url": "https://www.cambridgeday.com/?p=158097",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D032": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://ecode360.com/15252438",
+    "source_type": "code publisher"
+  },
+  "D033": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://ecode360.com/15252470",
+    "source_type": "code publisher"
+  },
+  "D034": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://ecode360.com/46833413",
+    "source_type": "code publisher"
+  },
+  "D035": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://hudsoncountyview.com/jersey-city-council-approves-realpage-ban-and-increasing-benefits-for-laborers/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D037": {
+    "status": "skipped",
+    "reason": "robots.txt disallows this path",
+    "url": "https://www.morganlewis.com/pubs/2026/08/algorithmic-rent-pricing-litigation-expands-under-new-state-and-local-laws",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D038": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://codelibrary.amlegal.com/codes/los_angeles/latest/lamc/0-0-0-322208",
+    "source_type": "code publisher"
+  },
+  "D044": {
+    "status": "skipped",
+    "reason": "robots.txt disallows this path",
+    "url": "https://members.aagla.org/news/city-of-la-security-deposit-interest-requirement",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D054": {
+    "status": "captured",
+    "chars": 8887,
+    "retrieved_at": "2026-10-03 17:32 UTC",
+    "url": "https://masslandlords.net/can-massachusetts-landlords-charge-an-application-fee/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D055": {
+    "status": "captured",
+    "chars": 11537,
+    "retrieved_at": "2026-10-03 17:32 UTC",
+    "url": "https://massrealestatelawblog.com/tag/cella-v-attorney-general/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D056": {
+    "status": "skipped",
+    "reason": "robots.txt disallows this path",
+    "url": "https://www.mass.gov/doc/803-cmr-5-criminal-offender-record-information-cori-housing/download",
+    "source_type": "official"
+  },
+  "D059": {
+    "status": "captured",
+    "chars": 5494,
+    "retrieved_at": "2026-10-03 17:32 UTC",
+    "url": "https://www.wbur.org/news/2026/06/23/massachusetts-high-court-rent-control-ballot-question-struck",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D060": {
+    "status": "captured",
+    "chars": 4978,
+    "retrieved_at": "2026-10-03 17:32 UTC",
+    "url": "https://daypitney.com/new-jersey-enacts-fair-act-to-prohibit-algorithmic-rent-setting-practices",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D061": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://law.justia.com/codes/new-jersey/title-10/section-10-5-12/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D062": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://law.justia.com/codes/new-jersey/title-2a/section-2a-18-61-1/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D063": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://law.justia.com/codes/new-jersey/title-46/section-46-8-21-2/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D064": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://law.justia.com/codes/new-jersey/title-46/section-46-8-26/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D070": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://ecode360.com/36623772",
+    "source_type": "code publisher"
+  },
+  "D071": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://ecode360.com/36637822",
+    "source_type": "code publisher"
+  },
+  "D072": {
+    "status": "blocked",
+    "reason": "HTTP 403",
+    "url": "https://ecode360.com/36642000",
+    "source_type": "code publisher"
+  },
+  "D074": {
+    "status": "blocked",
+    "reason": "HTTP 500",
+    "url": "https://gocodebook.com/library/us/ca/san-diego-zoning/division-11-prohibition-of-anti-competitive-automated-rent-price-fixing/98.1103-use-and-sale-of-algorithmic-devices-prohibited",
+    "source_type": "code publisher"
+  },
+  "D075": {
+    "status": "captured",
+    "chars": 13385,
+    "retrieved_at": "2026-10-03 17:32 UTC",
+    "url": "https://gocodebook.com/library/us/ca/san-diego-zoning/division-8-prohibition-of-discrimination-based-on-a-tenant-s-source-of-income",
+    "source_type": "code publisher"
+  },
+  "D077": {
+    "status": "captured",
+    "chars": 27096,
+    "retrieved_at": "2026-10-03 17:32 UTC",
+    "url": "https://www.lassd.org/resource/city-of-san-diego-tenant-protection-ordinance/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D086": {
+    "status": "skipped",
+    "reason": "robots.txt disallows this path",
+    "url": "https://www.ocbj.com/real-estate/santa-ana-bans-landlords-from-using-ai-apartment-rent-pricing-software/",
+    "source_type": "secondary (law firm / news / mirror)"
+  },
+  "D087": {
+    "status": "captured",
+    "chars": 5560,
+    "retrieved_at": "2026-10-03 17:32 UTC",
+    "url": "https://www.publicceo.com/2026/02/santa-ana-city-council-continues-to-strengthen-tenant-protections-by-banning-anticompetitive-rent-setting-software/",
+    "source_type": "secondary (law firm / news / mirror)"
+  }
+}
