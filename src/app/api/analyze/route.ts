@@ -6,7 +6,10 @@ import { appMode } from '../../../server/config';
 import { hasDemoAccess } from '../../../server/access';
 export const maxDuration = 30;
 export async function POST(request: Request) {
-  if (appMode() === 'live' && !hasDemoAccess((await cookies()).get('demo_access')?.value)) {
+  let mode: ReturnType<typeof appMode>;
+  try { mode = appMode(); }
+  catch { return NextResponse.json({ error: 'Invalid server configuration' }, { status: 503 }); }
+  if (mode === 'live' && !hasDemoAccess((await cookies()).get('demo_access')?.value)) {
     return NextResponse.json({ error: 'Enter the private demo access code before running live analysis.' }, { status: 401 });
   }
   const body = await request.json().catch(() => null);
