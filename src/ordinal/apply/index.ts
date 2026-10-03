@@ -1,5 +1,5 @@
 // Pure engine: no I/O, no clock, no randomness. The query date is always an argument.
-import { levelOf, type ApplyResult, type InternalRule } from '../contracts';
+import { levelOf, stateOf, type ApplyResult, type InternalRule } from '../contracts';
 import type { ApplyAddress, ApplyRule } from '../entrypoints';
 import { deriveStatus } from '../status';
 import { evaluateCoverage } from './coverage';
@@ -23,9 +23,12 @@ export const applyRule: ApplyRule = (rule, address, stack, asOf) => {
     };
   };
 
-  if (!covers(rule, stack)) return finish('not_applicable', 'outside_jurisdiction');
+  // Rule 6: an unresolved stack does not know the city, so a city rule of the stack's state cannot be ruled out.
+  const cityUnknown = levelOf(rule.jurisdiction) === 'city' && stack.method === 'unresolved' && stateOf(rule.jurisdiction) === stack.state;
+  if (!cityUnknown && !covers(rule, stack)) return finish('not_applicable', 'outside_jurisdiction');
   const status = deriveStatus(rule, asOf);
   if (status === 'failed') return finish('not_applicable', 'status_failed');
+  if (cityUnknown) return finish('unknown', 'jurisdiction_unresolved', { missing: ['legal_city'] });
 
   const coverage = evaluateCoverage(rule.coverage, address, asOf);
   const { caveats } = coverage;

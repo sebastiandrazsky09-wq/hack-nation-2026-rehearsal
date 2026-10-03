@@ -4,7 +4,7 @@ import type { Evaluated } from './conditions';
 
 export const REASON_CODES = [
   'covered', 'outside_jurisdiction', 'status_failed', 'status_pending', 'status_not_yet_effective', 'exempt',
-  'requirement_not_met', 'missing_fact', 'cutoff_ambiguous', 'unverifiable_condition', 'superseded_by_local', 'local_coverage_unknown'
+  'requirement_not_met', 'missing_fact', 'cutoff_ambiguous', 'unverifiable_condition', 'superseded_by_local', 'local_coverage_unknown', 'jurisdiction_unresolved'
 ] as const;
 export type ReasonCode = (typeof REASON_CODES)[number];
 
@@ -38,6 +38,7 @@ function core(i: ExplainInput): string {
     case 'unverifiable_condition': return `Cannot tell whether ${who} applies as of ${asOf}: it depends on facts the dataset does not hold (${list(i.missing)}): ${quoteAll(i.deciding)}.`;
     case 'superseded_by_local': return `${who} yields to a local rule where one governs; ${i.local?.title} (${i.local?.jurisdiction}) applies at this address as of ${asOf}, so the state rule is superseded.${i.rule.precedence.text ? ` Source wording: "${i.rule.precedence.text}"` : ''}`;
     case 'local_coverage_unknown': return `${who} yields to a stricter local rule; whether ${i.local?.title} (${i.local?.jurisdiction}) covers this address as of ${asOf} is unknown, so it cannot be said which rule governs.`;
+    case 'jurisdiction_unresolved': return `Cannot tell whether ${who} applies as of ${asOf}: the city containing this address could not be determined (missing: ${list(i.missing)}).`;
   }
 }
 
