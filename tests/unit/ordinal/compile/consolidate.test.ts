@@ -187,3 +187,24 @@ describe('consolidation', () => {
     });
   });
 });
+
+describe('date resolution across documents of one law (lead amendment)', () => {
+  it('takes a date the primary lacks from an agreeing co-member, records where it came from, and never calls that a conflict', async () => {
+    const { mergeGroup } = await import('../../../../src/ordinal/compile/merge');
+    const base = { verified: true, conflict_flag: false, conflict_note: null, status_basis: null, legal_status: 'enacted', repeal_date: null, also_supported_by: [], source_url: 'u', quoted_span: 'q'.repeat(30) } as never as import('../../../../src/ordinal/contracts').InternalRule;
+    const statute = { id: 'D1#1', rule: { ...base, source_doc_id: 'D1', source_origin: 'official_captured' as const, enacted_date: '2025-10-06', effective_date: null } };
+    const alert = { id: 'D2#1', rule: { ...base, source_doc_id: 'D2', source_origin: 'supplemental' as const, enacted_date: '2025-10', effective_date: '2026-01-01' } };
+    const merged = mergeGroup([statute, alert], 'D1#1');
+    expect(merged.source_doc_id).toBe('D1'); expect(merged.effective_date).toBe('2026-01-01'); expect(merged.enacted_date).toBe('2025-10-06');
+    expect(merged.status_basis).toContain('effective_date 2026-01-01 from D2'); expect(merged.conflict_flag).toBe(false);
+  });
+  it('keeps the primary date and flags a conflict when documents state different dates', async () => {
+    const { mergeGroup } = await import('../../../../src/ordinal/compile/merge');
+    const base = { verified: true, conflict_flag: false, conflict_note: null, status_basis: null, legal_status: 'enacted', enacted_date: null, repeal_date: null, also_supported_by: [], source_url: 'u', quoted_span: 'q'.repeat(30), source_origin: 'official_captured' } as never as import('../../../../src/ordinal/contracts').InternalRule;
+    const a = { id: 'D1#1', rule: { ...base, source_doc_id: 'D1', effective_date: '2026-03-01' } };
+    const b = { id: 'D2#1', rule: { ...base, source_doc_id: 'D2', effective_date: '2026-01' } };
+    const c = { id: 'D3#1', rule: { ...base, source_doc_id: 'D3', effective_date: null } };
+    const merged = mergeGroup([a, b, c], 'D3#1');
+    expect(merged.effective_date).toBeNull(); expect(merged.conflict_flag).toBe(true); expect(merged.conflict_note).toContain('"2026-01" (D2)'); expect(merged.conflict_note).toContain('"2026-03-01" (D1)');
+  });
+});

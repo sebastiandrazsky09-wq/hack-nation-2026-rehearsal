@@ -1,0 +1,15 @@
+{
+ "cell": "Berkeley, CA|rent_increase_limits",
+ "prompt_version": "ordinal-group-v1",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D006#2",
+    "D008#1",
+    "D009#1"
+   ],
+   "primary_id": "D009#1"
+  }
+ ]
+}

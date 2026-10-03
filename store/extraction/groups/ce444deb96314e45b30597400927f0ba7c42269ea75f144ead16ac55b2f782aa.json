@@ -1,0 +1,25 @@
+{
+ "cell": "MA|application_screening_fees",
+ "prompt_version": "ordinal-group-v1",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D054#1"
+   ],
+   "primary_id": "D054#1"
+  },
+  {
+   "member_ids": [
+    "D054#2"
+   ],
+   "primary_id": "D054#2"
+  },
+  {
+   "member_ids": [
+    "D057#1"
+   ],
+   "primary_id": "D057#1"
+  }
+ ]
+}

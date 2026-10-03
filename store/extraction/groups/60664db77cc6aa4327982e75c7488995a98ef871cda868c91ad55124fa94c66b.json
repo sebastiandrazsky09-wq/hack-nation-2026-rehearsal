@@ -1,0 +1,14 @@
+{
+ "cell": "MA|security_deposits",
+ "prompt_version": "ordinal-group-v1",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D052#1",
+    "D052#2"
+   ],
+   "primary_id": "D052#1"
+  }
+ ]
+}

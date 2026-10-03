@@ -1,0 +1,14 @@
+{
+ "cell": "NJ|rent_increase_limits",
+ "prompt_version": "ordinal-group-v1",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D067#4",
+    "D067#5"
+   ],
+   "primary_id": "D067#4"
+  }
+ ]
+}

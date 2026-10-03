@@ -1,0 +1,14 @@
+{
+ "cell": "Boston, MA|just_cause_eviction",
+ "prompt_version": "ordinal-group-v1",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D013#1",
+    "D014#1"
+   ],
+   "primary_id": "D014#1"
+  }
+ ]
+}

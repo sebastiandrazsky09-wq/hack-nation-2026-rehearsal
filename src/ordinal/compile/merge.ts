@@ -21,12 +21,30 @@ export function choosePrimary(members: Candidate[], modelPrimaryId: string): Can
   return pool.find(m => m.id === modelPrimaryId) ?? pool[0];
 }
 
+type DateField = 'enacted_date' | 'effective_date' | 'repeal_date';
+/**
+ * Distinct values verified members state for a date, with a less specific date dropped when a more specific one
+ * starts with it ("2025-10" and "2025-10-06" are one statement, not two).
+ */
+function statedDates(members: Candidate[], field: DateField): string[] {
+  const all = [...new Set(members.filter(m => m.rule.verified && m.rule[field] !== null).map(m => m.rule[field] as string))];
+  return all.filter(v => !all.some(o => o !== v && o.startsWith(v))).sort();
+}
+/** The primary's date when it states one compatibly, else the single date its verified co-members agree on, else what the primary has. */
+function resolveDate(primary: Candidate, members: Candidate[], field: DateField): string | null {
+  const stated = statedDates(members, field); const own = primary.rule[field];
+  if (stated.length !== 1) return own;
+  return own === null || stated[0].startsWith(own) ? stated[0] : own;
+}
+
 /** Values stated by verified members, as `"value" (doc ids)` lists, when they disagree. */
 function disagreement(members: Candidate[], field: 'effective_date' | 'legal_status'): string | null {
   const docsByValue = new Map<string, Set<string>>();
+  const specific = field === 'effective_date' ? new Set(statedDates(members, field)) : null;
   for (const m of members) {
     const value = m.rule[field];
     if (!m.rule.verified || value === null) continue;
+    if (specific && !specific.has(value)) continue;
     docsByValue.set(value, (docsByValue.get(value) ?? new Set()).add(m.rule.source_doc_id));
   }
   if (docsByValue.size < 2) return null;
@@ -42,8 +60,13 @@ export function mergeGroup(members: Candidate[], modelPrimaryId: string): Intern
   [...members].sort(byId).forEach(m => note(m.rule.conflict_note));
   const mechanical = [disagreement(members, 'effective_date'), disagreement(members, 'legal_status')];
   mechanical.forEach(note);
+  // A date the primary's document does not state comes from the other documents of the same law when they agree.
+  const dates = { enacted_date: resolveDate(primary, members, 'enacted_date'), effective_date: resolveDate(primary, members, 'effective_date'), repeal_date: resolveDate(primary, members, 'repeal_date') };
+  const borrowed = (Object.keys(dates) as DateField[]).filter(f => dates[f] !== primary.rule[f])
+    .map(f => `${f} ${dates[f]} from ${[...new Set(members.filter(m => m.rule.verified && m.rule[f] !== null && dates[f]!.startsWith(m.rule[f] as string) && (m.rule[f] as string).length === dates[f]!.length).map(m => m.rule.source_doc_id))].sort().join(', ')}`);
   return {
-    ...primary.rule,
+    ...primary.rule, ...dates,
+    status_basis: borrowed.length ? [primary.rule.status_basis, `[${borrowed.join('; ')}]`].filter(Boolean).join(' ') : primary.rule.status_basis,
     also_supported_by: others.map(m => ({ source_doc_id: m.rule.source_doc_id, source_url: m.rule.source_url, quoted_span: m.rule.quoted_span, verified: m.rule.verified })),
     conflict_flag: members.some(m => m.rule.conflict_flag) || mechanical.some(Boolean),
     conflict_note: notes.length ? notes.join('; ') : null

@@ -1,0 +1,19 @@
+{
+ "cell": "Boston, MA|screening_restrictions",
+ "prompt_version": "ordinal-group-v1",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D010#1"
+   ],
+   "primary_id": "D010#1"
+  },
+  {
+   "member_ids": [
+    "D012#1"
+   ],
+   "primary_id": "D012#1"
+  }
+ ]
+}

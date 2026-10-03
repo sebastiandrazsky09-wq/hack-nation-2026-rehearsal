@@ -1,0 +1,31 @@
+{
+ "cell": "MA|just_cause_eviction",
+ "prompt_version": "ordinal-group-v1",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D011#1"
+   ],
+   "primary_id": "D011#1"
+  },
+  {
+   "member_ids": [
+    "D050#1"
+   ],
+   "primary_id": "D050#1"
+  },
+  {
+   "member_ids": [
+    "D053#1"
+   ],
+   "primary_id": "D053#1"
+  },
+  {
+   "member_ids": [
+    "D058#1"
+   ],
+   "primary_id": "D058#1"
+  }
+ ]
+}
