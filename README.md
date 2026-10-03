@@ -1,55 +1,83 @@
-# Hackathon Machine Starter
+# Ordinal
 
-Prepared and locally tested on 3 October 2026. This is a generic preparation artifact, not a challenge submission. Check the actual event's pre-existing-code rules before using it.
+For any of the 500 sample addresses, Ordinal says which rental-housing rules apply on a given date, shows the exact sentence of law behind each answer, and reports which addresses each law-change case affects. Built for Hack-Nation 7, Challenge 02 (RealPage Rental Housing Law Navigator).
 
-## Start
+**Not legal advice.** A prototype that reads public law. Check the cited source before acting.
+
+## How it works
+
+```
+official/pack (54 supplied texts) + supplemental/ (team-captured pages) + store/ingested (documents added later)
+  -> compile    a language model proposes structured rules; every quote is then found character for character in its source
+  -> consolidate one rule per law per jurisdiction and category; disagreements between documents are flagged, not resolved
+  -> resolve    each address is placed in its legal city with the U.S. Census Geocoder (the mailing city is not trusted)
+  -> apply      fixed code tests dates, jurisdiction and building facts; a missing fact gives "unknown", never a guess
+  -> export     out/rules.json, out/lookups.json, out/changes.json, out/audit.json, out/selfcheck.json
+```
+
+The model extracts. Deterministic code decides. No model output reaches a result or an explanation, and the web app makes no model call.
+
+- A rule is exported only if its quote is the literal slice `text[span_start:span_end]` of its source file. This is checked at extraction and again at export.
+- Status is never stored. `enacted`, `pending` or `failed` plus the dates are stored, and the status for any query date is derived from them.
+- Coverage conditions are data (`requires` / `exempt_if` over year built, unit count and facts the dataset lacks), evaluated in three-valued logic. A building year that straddles a certificate-of-occupancy cutoff is `unknown`.
+- A state rule that yields to a stricter local rule is `superseded` where the local rule applies. A state rule whose text bars conflicting local ordinances sets a conflict flag on both rules for human review.
+- Nothing in `src/` names a test, an organizer rule id or an address id.
+
+## Run it
+
+Requires Node 22.
+
 ```bash
 npm ci
-cp .env.example .env.local
-npm run check
-npm run build
-npx playwright install chromium
-npm run test:e2e
-npm run dev
+npm run build && npm run start        # http://127.0.0.1:3000
 ```
-Open http://127.0.0.1:3000. The default is labelled sample replay, with no model cost. It rejects arbitrary input. No live functionality is implied by a replay test.
 
-## Live mode
-Enter server-side provider keys in .env.local using an editor; set APP_MODE=live and a random 32-character DEMO_ACCESS_TOKEN. Generate the code with openssl rand -hex 16 and store it privately; enter it once in the live browser. Do not export these keys into coding-agent shells. Run npm run live-check. This spends API money. Verify the primary and fallback separately by temporarily removing the other key locally. Exact model IDs: gpt-6.1-sol and claude-sonnet-5-5. Your ChatGPT/Claude subscription does not pay for these app calls.
+Rebuild every output from the committed store, with no model call and no network:
 
-The hero path has input/output validation, quote grounding, a shared 25-second provider deadline, and selected JSON telemetry. APP_MODE is server-side. No keys are exposed in browser code. The optional streaming/tool adapter is not wired into the hero path and must be live-tested before use.
-
-## Optional backend
-Create a dedicated Supabase cloud project. Set URL/publishable key and enable anonymous sign-ins. Apply supabase/migrations/001_private_runs.sql once. Visit /login and verify two-user record/storage isolation with separate browser profiles. Guest sessions do not verify real identity; use GitHub OAuth if the challenge needs it. Default Supabase email is restricted to team addresses and two messages/hour, so it is not the demo login path. server/data.ts provides save/upload adapters; the hero screen does not automatically persist reports. Realtime must be explicitly enabled for the needed table and exercised. The adapters/migration are supplied, but live auth, database, storage, and realtime are unverified.
-
-## UI
-Responsive native controls and Tailwind are included. components.json gives the shadcn registry configuration. Add an actual component only when the workflow needs it, through the lead:
 ```bash
-npx shadcn@4.21.1 add dialog
+npm run ordinal -- compile --offline  # replays the cached extraction (store/extraction)
+npm run ordinal -- resolve --offline  # replays the cached geocoder responses (store/geocode)
+npm run ordinal -- export             # out/rules.json, out/lookups.json, out/audit.json
+npm run ordinal -- diff               # out/changes.json
+npm run ordinal -- selfcheck          # out/selfcheck.json; exits 1 if an invariant fails
 ```
-Review added dependencies, styles, and accessibility, then rerun gates. The current starter has no shadcn primitives installed and does not need a dialog.
 
-## Worktrees
-Create your own project outside the synced source mirror, then initialize it:
+Other dates: `npm run ordinal -- export --as-of 2027-07-02`. One address: `npm run ordinal -- apply --address A0002 --as-of 2026-10-01`.
+
+Extract again from the documents (calls a model): `npm run ordinal -- compile --force`. Set `ANTHROPIC_API_KEY` (model from `ORDINAL_MODEL`, default `claude-sonnet-5-5`) or `OPENAI_API_KEY`. With no key set, the Claude Code CLI login is used.
+
+### Add a law the system has never seen
+
 ```bash
-git init -b main
-git add .
-git commit -m "Prepared generic starter; pre-event provenance"
-git switch -c integration
-python3 scripts/ops.py task fe-01 frontend 'Implement the chosen hero interface using the frozen contract'
+npm run ordinal -- ingest path/to/new_ordinance.txt   # jurisdiction, category, dates and conditions are read from the text
+npm run ordinal -- export && npm run ordinal -- diff && npm run ordinal -- selfcheck
 ```
-Review .ops/tasks/fe-01.json, especially acceptance, before running it. From another terminal: python3 scripts/ops.py run fe-01. Lead-only: python3 scripts/ops.py merge fe-01. A worker that exits 0 without a new commit, a committed docs/handoffs/ID.md, and a clean worktree is recorded as blocked, with the gaps shown by npm run status. Reissue a blocked or rejected task with python3 scripts/ops.py retry fe-01: it replays prior commits and uncommitted files onto current integration, keeps the previous log as .ops/logs/fe-01.attemptN.jsonl, and increments the attempt. Add --fresh to restart from integration; prior commits stay on task/fe-01-attemptN. The task queue does not launch a model until run is called. Claude auth and Node dependencies are prerequisites. QA is read-only; a test-writing task must be separately assigned with exclusive ownership.
 
-The merge gate is designed to use a temporary candidate worktree, run check/build/browser tests, and advance integration only by fast-forward. Path rejection and explicit current-base selection have been tested in a disposable repository. The full candidate integration gate was also exercised in a disposable repository: install, checks, production build, browser smoke, and fast-forward. Live worker dispatch, a blocked worker, a reissue, and two sequential gate merges were exercised in the 3 October rehearsal. Each worker run gets its own E2E_PORT, so two worktrees can run npm run test:e2e at once; the lead checkout and the gate use 3100. A successful candidate directory is removed after integration. Failed candidate directories are retained for inspection; remove them using git worktree remove after inspecting.
+No source change is needed. `rehearsal/run.sh rehearsal/synthetic_cambridge_1.txt 2027-03-02` does this in a throwaway copy of the store with a synthetic ordinance and prints the extracted rule and the affected addresses.
 
-## Release
-Independent review + human inspection of the hero flow precede release. Then fast-forward main, push, and deploy using the lead's credentials. Never push from a worker. Do not run concurrent merge gates.
+## Checks
 
-## Security and cost
-.env.local, logs, backups, and eval outputs are ignored. The local secret guard is basic; run gitleaks git --redact before publishing. The live endpoint requires a private demo access cookie and has no durable distributed per-user rate limiter. This blocks anonymous inference; distribute the demo access code privately and use account budgets plus the per-request token cap. Cost figures are short-context estimates, not invoices or enforced spending caps.
+```bash
+npm run check       # typecheck, unit tests, secret scan
+npm run test:e2e    # browser tests (run npm run build first)
+```
 
-## Verification
-See ../VERIFICATION.md for dated observed checks and outstanding readiness gates. npm run eval refuses replay mode; its two example cases are smoke tests, not a benchmark. Replace them with a labelled challenge-specific dev/holdout set.
+## Where things are
 
-## Skills
-Four repository skills live under .agents/skills; .claude/skills contains symlinks to them. The frontend skill is an unmodified snapshot of Anthropic's official skill, with its Apache 2.0 license. The three operation skills are custom. Browser skill installation is a separate runbook step through Microsoft's Playwright CLI.
+| Path | What |
+|---|---|
+| `official/pack/` | The organizers' starter pack, unmodified and read-only |
+| `supplemental/` | Pages we captured for manifest rows that had no supplied text, each with its own source header |
+| `store/` | Extraction cache, candidates, consolidated rules, geocoder responses, jurisdiction stacks, added documents |
+| `out/` | Submission files and the audit and selfcheck reports |
+| `src/ordinal/` | The pipeline; `contracts.ts`, `status.ts`, `corpus.ts` are the frozen contract (`docs/CONTRACTS.md`) |
+| `src/app`, `src/components` | The web interface and its read-only API |
+| `docs/RECONCILIATION.md` | Where the official files and our brief disagree |
+| `STATUS.md` | Current numbers |
+
+## Known limits
+
+- Rules exist only where a readable source exists. The supplied pack has no text for Hoboken or Newark, and code-publisher pages refuse scripted reads, so those cities are thin.
+- When the dataset has no unit count or year built, every rule that depends on it is `unknown`.
+- Extraction is one model pass with one quote-repair attempt. A verified quote proves the sentence exists in the source, not that the structured reading of it is right.
+- The corpus has not been reviewed by counsel, and neither has this output.
