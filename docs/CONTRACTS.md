@@ -1,6 +1,6 @@
-# Contracts (frozen 3 Oct 20:45 CEST, amended 21:00 after PROOF review)
+# Contracts (frozen 3 Oct 20:45 CEST; amended 21:00 after PROOF review, 21:50 and 22:25 after the extraction audits)
 Code is the contract. Lead-owned, workers import and never redefine:
-`src/ordinal/contracts.ts` (types, zod schemas) · `status.ts` (`deriveStatus`) · `corpus.ts` (loaders, file locations, rule store, stacks) · `entrypoints.ts` (module signatures) · `cli.ts`.
+`src/ordinal/contracts.ts` (types, zod schemas) · `status.ts` (`deriveStatus`) · `corpus.ts` (loaders, file locations, rule store, stacks, unit bounds) · `dates.ts` (how a document words a date) · `policy.ts` (judgement switches) · `entrypoints.ts` (module signatures) · `cli.ts`.
 A worker who needs a contract change stops and reports; it does not edit these files.
 
 ## Pipeline
@@ -18,6 +18,12 @@ LLM extracts. Deterministic code decides. No model output reaches a result or an
 8. **No hardcoding.** No test IDs, organizer rule IDs, address IDs, expected sets or jurisdiction-specific branches in `src/`. T1–T5 appear only in tests and in `official/pack/dev/change_tests.json`.
 9. **Determinism.** Sorted output, stable `team_rule_id` (jurisdiction + category + normalized citation), byte-identical reruns from the same store.
 10. **Explanations** are template text built from `reason_code`, `missing_facts`, `caveats` in `src/ordinal/apply`. Every interface says "Not legal advice".
+
+## Rules added after the audits
+11. **Consolidation.** Candidates of one jurisdiction and category are grouped by law in a model call that returns ids only. The merge is code: a verified quote from the supplied corpus is the primary; `pending` plus a dated `enacted` is enacted, `pending` plus `failed` is failed, `enacted` against `failed` is flagged; headline values of co-documents are kept beside the primary's; coverage is taken from a co-document only when the primary states none.
+12. **Effective dates.** A date is rejected when every mention in the document is an amendment note or the start of a rate period (`dates.ts`), at compile and again in selfcheck; a code page's note on the section's current text is accepted. A date is borrowed from a co-document only when the rule states its own enactment date and the lender's is compatible, or when the primary text states that same date itself. Two documents giving effective dates less than a year apart set a conflict flag.
+13. **Unit counts.** `corpus.ts` reads the bounds a use description states; `POLICY.unitBoundsFromUseDescription` (off) decides whether they settle unit conditions. Explanations report the bounds either way.
+14. **Change cases.** A selector that matches no rule is a warning, shown in the notes and the interface; it does not fail the run.
 
 ## Ownership
 | Area | Paths | Owner |

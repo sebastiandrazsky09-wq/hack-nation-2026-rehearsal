@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 3 Oct 22:30 CEST from observed runs at commit `ef68623` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: Jersey City source, unknown-policy decision, deployment
+Updated: 3 Oct 22:40 CEST from observed runs at commit `5a4d3da` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: Jersey City source, unknown-policy decision, deployment
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|
@@ -31,13 +31,13 @@ Updated: 3 Oct 22:30 CEST from observed runs at commit `ef68623` · Deadline: Su
 | Selfcheck | **ok**, 0 failures | ok | 21:50 | CONTROL |
 | Offline rebuild (`ordinal demo`) | twice, 0 model calls, 0 changed files | byte-identical | 22:30 | CONTROL |
 | Unit tests | 135 pass | pass | 22:30 | CONTROL |
-| Build / browser tests | pass / 19 pass | pass | 22:30 | CONTROL |
+| Build / browser tests | pass / 28 pass | pass | 22:38 | CONTROL |
 | Independent submission verifier (`npm run verify`) | 0 problems | 0 | 22:30 | CONTROL |
 | PROOF (Codex) | **unavailable**: usage limit reached, resets 10 Oct | available | 22:28 | PO decision |
 | Queue tests (`test-ops.py`) | pass | pass | 21:50 | CONTROL |
 | Secret scan (`gitleaks git`) | no leaks | none | 21:50 | CONTROL |
 | Hardcoding scan of `src/` | no test ids, organizer ids, address ids or expected sets | none | 21:40 | CONTROL |
-| UI | address search, as-of control, jurisdiction, rule cards, audit table, changes and pipeline tabs | minimum UI | 21:20 | UI |
+| UI | address search with examples and shareable links, as-of control, jurisdiction with low-confidence mark, rule cards, audit table, changes and pipeline tabs | minimum UI | 22:38 | UI |
 | Deployment URL | none (Vercel project linked, build ready) | live | 21:15 | PO decision |
 | Submission: public repo, 3 videos, HackOS | none | all | 21:15 | PO + CONTROL |
 | README, method note, demo and tech video scripts | written | done | 22:30 | CONTROL |
