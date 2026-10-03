@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "metrics": {
+    "official_docs_expected": 54,
+    "official_docs_processed": 54,
+    "supplemental_docs_available": 10,
+    "supplemental_docs_processed": 10,
+    "ingested_docs": 1,
+    "rules_total": 53,
+    "rules_verified": 53,
+    "rules_unverified": 0,
+    "rules_exported": 53,
+    "rules_withheld": 0,
+    "rules_by_jurisdiction": "{\"Berkeley, CA\":7,\"Boston, MA\":3,\"CA\":6,\"Cambridge, MA\":2,\"Hoboken, NJ\":1,\"Jersey City, NJ\":1,\"Los Angeles, CA\":3,\"MA\":14,\"NJ\":7,\"San Diego, CA\":2,\"San Francisco, CA\":4,\"Santa Ana, CA\":3}",
+    "rules_by_category": "{\"algorithmic_rent_setting\":10,\"application_screening_fees\":6,\"just_cause_eviction\":14,\"rent_increase_limits\":10,\"screening_restrictions\":8,\"security_deposits\":5}",
+    "rules_citation_not_in_source": 14,
+    "rules_supplemental_only": 6,
+    "conflicts": 3,
+    "addresses_total": 500,
+    "addresses_resolved": 500,
+    "resolve_methods": "{\"geocoder\":493,\"postal_fallback\":7}",
+    "lookup_addresses": 500,
+    "lookup_rows": 4964,
+    "result_counts": "{\"applies\":3227,\"not_yet_effective\":140,\"pending\":320,\"superseded\":195,\"unknown\":1082}",
+    "schema_errors": 0,
+    "empty_cells": "[\"Los Angeles, CA|security_deposits\",\"Los Angeles, CA|application_screening_fees\",\"Los Angeles, CA|screening_restrictions\",\"Los Angeles, CA|algorithmic_rent_setting\",\"San Francisco, CA|application_screening_fees\",\"San Francisco, CA|screening_restrictions\",\"San Diego, CA|rent_increase_limits\",\"San Diego, CA|security_deposits\",\"San Diego, CA|application_screening_fees\",\"San Diego, CA|screening_restrictions\",\"Santa Ana, CA|security_deposits\",\"Santa Ana, CA|application_screening_fees\",\"Santa Ana, CA|screening_restrictions\",\"Jersey City, NJ|just_cause_eviction\",\"Jersey City, NJ|security_deposits\",\"Jersey City, NJ|application_screening_fees\",\"Jersey City, NJ|screening_restrictions\",\"Jersey City, NJ|algorithmic_rent_setting\",\"Hoboken, NJ|rent_increase_limits\",\"Hoboken, NJ|just_cause_eviction\",\"Hoboken, NJ|security_deposits\",\"Hoboken, NJ|application_screening_fees\",\"Hoboken, NJ|screening_restrictions\",\"Newark, NJ|rent_increase_limits\",\"Newark, NJ|just_cause_eviction\",\"Newark, NJ|security_deposits\",\"Newark, NJ|application_screening_fees\",\"Newark, NJ|screening_restrictions\",\"Newark, NJ|algorithmic_rent_setting\",\"Boston, MA|rent_increase_limits\",\"Boston, MA|security_deposits\",\"Boston, MA|application_screening_fees\",\"Boston, MA|algorithmic_rent_setting\",\"Cambridge, MA|rent_increase_limits\",\"Cambridge, MA|just_cause_eviction\",\"Cambridge, MA|security_deposits\",\"Cambridge, MA|application_screening_fees\"]"
+  },
+  "failures": []
+}

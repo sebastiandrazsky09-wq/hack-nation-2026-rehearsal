@@ -4,7 +4,9 @@ import nextEnv from '@next/env';
 nextEnv.loadEnvConfig(process.cwd());
 import { DEFAULT_AS_OF } from './contracts';
 import { assertIsoDate } from './status';
-import { loadAddresses, readRuleStore, readStacks } from './corpus';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+import { loadAddresses, readRuleStore, readStacks, PATHS } from './corpus';
 
 const [command, ...rest] = process.argv.slice(2);
 function flag(name: string): string | undefined { const i = rest.indexOf('--' + name); return i >= 0 ? rest[i + 1] : undefined; }
@@ -57,7 +59,10 @@ const commands: Record<string, () => Promise<number>> = {
   },
   async selfcheck() {
     const { runSelfcheck } = await import('./selfcheck/index');
-    const report = await runSelfcheck(); print(report); return report.ok ? 0 : 1;
+    const report = await runSelfcheck();
+    // Kept beside the submission files so the interface and the README can show the same numbers.
+    mkdirSync(PATHS.out, { recursive: true }); writeFileSync(path.join(PATHS.out, 'selfcheck.json'), JSON.stringify(report, null, 2) + '\n');
+    print(report); return report.ok ? 0 : 1;
   }
 };
 

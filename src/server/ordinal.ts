@@ -63,3 +63,20 @@ export function changes(asOf: string): ChangesResponse {
   results.sort((a, b) => a.test_id < b.test_id ? -1 : 1);
   return { as_of: asOf, disclaimer: DISCLAIMER, cases: results.map(r => ({ ...r, expected_behavior: byId.get(r.test_id)?.expected_behavior ?? null })), errors };
 }
+
+export type PipelineResponse = { disclaimer: string; steps: { name: string; detail: string }[]; selfcheck: { ok: boolean; metrics: Record<string, number | string>; failures: string[] } | null };
+/** What the pipeline did, from the committed selfcheck report (written by `ordinal selfcheck`). */
+export function pipeline(): PipelineResponse {
+  const file = PATHS.out + '/selfcheck.json';
+  const selfcheck = existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) as PipelineResponse['selfcheck'] : null;
+  const m = selfcheck?.metrics ?? {};
+  const steps = [
+    { name: 'Read', detail: `${m.official_docs_processed ?? '?'} of ${m.official_docs_expected ?? '?'} supplied documents, ${m.supplemental_docs_processed ?? 0} team-captured pages, ${m.ingested_docs ?? 0} added documents` },
+    { name: 'Extract', detail: 'A language model reads each document and proposes structured rules; it never decides whether a rule applies' },
+    { name: 'Verify', detail: `${m.rules_verified ?? '?'} of ${m.rules_total ?? '?'} rules have a quote found character for character in their source; ${m.rules_withheld ?? 0} withheld` },
+    { name: 'Resolve', detail: `${m.addresses_resolved ?? '?'} of ${m.addresses_total ?? '?'} addresses placed in their legal city (${m.resolve_methods ?? ''})` },
+    { name: 'Apply', detail: `Fixed rules test dates, jurisdiction and building facts: ${m.lookup_rows ?? '?'} answers (${m.result_counts ?? ''})` },
+    { name: 'Export', detail: `${m.rules_exported ?? '?'} rule records, ${m.schema_errors ?? '?'} schema errors, lookups for ${m.lookup_addresses ?? '?'} addresses` }
+  ];
+  return { disclaimer: DISCLAIMER, steps, selfcheck };
+}
