@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.env*
+!.env.example
+.ops/
+test-results/
+playwright-report/
+backups/
+evals/results/
+*.tsbuildinfo
+.DS_Store
+.vercel/
+__pycache__/
+.playwright-cli/
+.playwright/

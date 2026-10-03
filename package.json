@@ -1,0 +1,46 @@
+{
+  "name": "hackathon-machine-starter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0 <23"
+  },
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build --webpack",
+    "start": "next start --hostname 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "check": "npm run typecheck && npm test && python3 scripts/secret-check.py",
+    "eval": "tsx scripts/eval.ts",
+    "live-check": "tsx scripts/live-check.ts",
+    "status": "python3 scripts/ops.py status",
+    "backup-demo": "python3 scripts/backup-demo.py"
+  },
+  "dependencies": {
+    "@next/env": "16.3.8",
+    "@ai-sdk/anthropic": "4.0.71",
+    "@ai-sdk/openai": "4.0.83",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.117.2",
+    "ai": "7.0.127",
+    "lucide-react": "1.51.0",
+    "next": "16.3.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.0.3"
+  }
+}
