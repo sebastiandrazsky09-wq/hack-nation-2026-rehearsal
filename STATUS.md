@@ -37,7 +37,7 @@ Updated: 3 Oct 23:05 CEST from observed runs at commit `6c16f09` · Deadline: Su
 | Queue tests (`test-ops.py`) | pass | pass | 21:50 | CONTROL |
 | Secret scan (`gitleaks git`) | no leaks | none | 21:50 | CONTROL |
 | Hardcoding scan of `src/` | no test ids, organizer ids, address ids or expected sets | none | 21:40 | CONTROL |
-| UI | address search with examples and shareable links, as-of control, jurisdiction with low-confidence mark, rule cards, audit table, changes and pipeline tabs | minimum UI | 22:38 | UI |
+| UI | redesigned (`docs/DESIGN.md`): answer sentence first, rules as lines in time under a movable as-of date, evidence opens in place, changed answers marked, change cases on a time scale; **not yet deployed**, production still serves the earlier interface | judge-ready | 23:45 | CONTROL |
 | Deployment URL | **https://hack-nation-machine-rehearsal.vercel.app** (deployed 22:58 from clean `6c16f09`) | live | 23:03 | CONTROL |
 | Production health check | `/api/health` ok: 57 rules, 500 addresses | ok | 23:00 | CONTROL |
 | Production browser tests (fresh context, no login) | 28 / 28 pass | pass | 23:02 | CONTROL |

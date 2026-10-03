@@ -27,6 +27,8 @@ test('every rule card has a quote, a source link, a retrieval date and the as-of
   await expect(cards.first()).toBeVisible();
   const count = await cards.count();
   expect(count).toBeGreaterThan(0);
+  // The evidence for a rule opens in place; open all of it, then check every card.
+  await page.getByRole('button', { name: 'Expand all evidence' }).click();
   for (let i = 0; i < count; i++) {
     const card = cards.nth(i);
     const quote = (await card.locator('blockquote').innerText()).trim();

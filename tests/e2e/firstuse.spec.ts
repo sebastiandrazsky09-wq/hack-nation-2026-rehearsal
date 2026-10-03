@@ -67,11 +67,11 @@ test('choosing an address updates the URL and offers Copy link', async ({ page }
 test('the summary sentence states the same counts as the count buttons', async ({ page }) => {
   await page.goto('/?address=A0002');
   const sentence = page.getByTestId('summary-sentence');
-  await expect(sentence).toContainText('On 2026-10-01,');
+  await expect(sentence).toContainText('On 1 October 2026,');
   const chips = await page.getByTestId('summary').locator('button.chip:not(.chip-clear)').allInnerTexts();
   const chipCounts = chips.map(t => Number(t.match(/^\d+/)?.[0])).filter(n => n > 0);
   expect(chipCounts.length).toBeGreaterThan(0);
-  const text = (await sentence.innerText()).replace(/\d{4}-\d{2}-\d{2}/, '');
+  const text = (await sentence.innerText()).replace(/^On \d+ \w+ \d{4},/, '');
   expect((text.match(/\d+/g) ?? []).map(Number)).toEqual(chipCounts);
 });
 

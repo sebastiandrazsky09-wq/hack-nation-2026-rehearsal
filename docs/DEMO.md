@@ -8,9 +8,9 @@ Run locally with `npm run build && npm run start`, or on the deployed URL. Every
 | 0–8 | Open the page. | "Type an address, pick a date, and Ordinal shows which rental rules apply there and the exact sentence of law behind each answer." |
 | 8–20 | Search `SHERMAN GROVE`, pick A0107 (Los Angeles, built 1978). | "This building was built in 1978. Los Angeles rent stabilization covers buildings with a certificate of occupancy on or before October 1, 1978. A year alone cannot settle that, so the answer is unknown, and it says why. The state rent cap is unknown too, because it yields to the local rule." |
 | 20–30 | Search `Bailey`, pick A0065 (mailing city Dorchester). | "The mailing city says Dorchester. The legal city is Boston, resolved with the Census Geocoder, so Boston's rules apply." |
-| 30–45 | Search `CLINTON`, pick A0002 (Hoboken). Press 2027-07-02. | "Hoboken banned algorithmic rent-setting. New Jersey's statewide act is enacted but not yet effective; move the date past July 1, 2027 and it applies. Its text bars conflicting local ordinances, so both carry a conflict flag for human review." |
+| 30–45 | Search `CLINTON`, pick A0002 (Hoboken). Press "See that day", or drag the date past July 2027. | "Hoboken banned algorithmic rent-setting. New Jersey's statewide act is enacted but not yet effective; move the date past July 1, 2027 and it applies. Its text bars conflicting local ordinances, so both carry a conflict flag for human review." |
 | 45–55 | Open "What is changing". | "The five official change cases, run by the same engine: 250 California addresses change for AB 325, the Massachusetts bills stay pending, the struck ballot question affects nobody." |
-| 55–60 | Open one card's source link. | "Every answer links to its source and retrieval date." |
+| 55–60 | Open one rule's evidence and its source link. | "Every answer links to its source and retrieval date." |
 
 ## Tech video: how it is produced
 | Seconds | Do | Say |

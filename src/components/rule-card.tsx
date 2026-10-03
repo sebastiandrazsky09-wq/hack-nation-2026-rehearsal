@@ -1,64 +1,99 @@
+'use client';
+import { ChevronDown, ExternalLink } from 'lucide-react';
 import type { LookupResponse } from '../server/ordinal';
-import { ORIGIN_LABELS, RESULT_LABELS, factName, label } from './labels';
+import { ORIGIN_LABELS, RESULT_LABELS, VERIFICATION_LABELS, factName, label, shortDate } from './labels';
+import { FlagMark, ResultBadge } from './signal';
+import { Lifeline, timingPhrase } from './timeline';
 
 export type ResultRow = LookupResponse['results'][number];
 
-export function ResultBadge({ result }: { result: string }) {
-  return <span data-testid="result-badge" className={`badge badge-${result}`}>{label(RESULT_LABELS, result)}</span>;
-}
-
-export function RuleCard({ item, asOf }: { item: ResultRow; asOf: string }) {
+/**
+ * One rule at this address: the answer, what the law requires, where it comes from and its line in time.
+ * The evidence (why, the quoted sentence, source and conditions) opens in place.
+ */
+export function RuleRow({ item, asOf, open, was, onToggle, onJump }: {
+  item: ResultRow; asOf: string; open: boolean; was: string | null | undefined;
+  onToggle: () => void; onJump: (date: string) => void;
+}) {
   const { rule } = item;
-  const showMissing = item.result === 'unknown' && item.missing_facts.length > 0;
-  const hasDetail = item.caveats.length > 0 || Boolean(rule.coverage_conditions) || Boolean(rule.exemptions);
+  const needs = item.result === 'unknown' && item.missing_facts.length > 0;
+  const detailId = `detail-${item.team_rule_id}`;
+  const timing = timingPhrase(rule);
+  // Other documents that support the same rule; the primary source is already shown.
+  const others = [...new Map(rule.also_supported_by.filter(s => s.source_doc_id !== rule.source_doc_id).map(s => [s.source_doc_id, s])).values()];
   return (
-    <article data-testid="rule-card" className="card">
-      <div className="flex flex-wrap items-center gap-2">
-        <ResultBadge result={item.result} />
-        <span className="text-sm text-[var(--muted)]">{rule.jurisdiction} · {rule.level === 'state' ? 'State rule' : 'City rule'}</span>
+    <article data-testid="rule-card" className={`rule ${open ? 'is-open' : ''} ${was !== undefined ? 'is-changed' : ''}`}>
+      <div className="rule-row">
+        <div className="rule-signal">
+          <ResultBadge result={item.result} />
+          {was !== undefined && <span className="was" data-testid="was">{was === null ? 'new on this date' : `was ${label(RESULT_LABELS, was).toLowerCase()}`}</span>}
+        </div>
+        <div className="rule-main">
+          <h4 className="rule-title">
+            <button type="button" aria-expanded={open} aria-controls={detailId} onClick={onToggle}>{rule.title}</button>
+          </h4>
+          <p className="rule-req">{rule.requirement}</p>
+          <p className="rule-meta">
+            <span>{rule.jurisdiction}, {rule.level === 'state' ? 'state rule' : 'city rule'}</span>
+            <span>{rule.citation}</span>
+            {timing && <span className="rule-timing">{timing}</span>}
+          </p>
+          {needs && (
+            <div className="needs" data-testid="needs">
+              <span className="needs-lead">What would settle it.</span> Needs:{' '}
+              <ul data-testid="missing-facts">{item.missing_facts.map(f => <li key={f}>{factName(f)}</li>)}</ul>
+            </div>
+          )}
+          {item.conflict_flag && (
+            <p className="conflict" role="note">
+              <FlagMark /> <strong>Conflict flagged for review.</strong> {item.conflict_note ?? 'No note was recorded.'}
+            </p>
+          )}
+        </div>
+        <div className="rule-track"><Lifeline rule={rule} result={item.result} asOf={asOf} onJump={onJump} /></div>
+        {/* A second, pointer-only handle for the same disclosure; the title button is the one keyboards and screen readers use. */}
+        <button type="button" className="rule-toggle" tabIndex={-1} aria-hidden onClick={onToggle}>
+          <ChevronDown size={16} strokeWidth={1.75} aria-hidden />
+        </button>
       </div>
-      <h4 className="mt-2 text-base font-semibold">{rule.title}</h4>
-      <p className="mt-2"><span className="field">Requirement</span> {rule.requirement}</p>
-      {rule.key_value && <p className="mt-1"><span className="field">Key value</span> {rule.key_value}</p>}
-      <p className="mt-2"><span className="field">Why this result</span> {item.explanation}</p>
-      {showMissing && (
-        <p className="needs mt-2" data-testid="needs">
-          <span className="field">What would settle it</span> Needs: {item.missing_facts.map(factName).join(', ')}
-        </p>
-      )}
-      {showMissing && (
-        <div className="mt-2" data-testid="missing-facts">
-          <p className="field">What is missing</p>
-          <ul className="ml-5 list-disc">{item.missing_facts.map(f => <li key={f}>{factName(f)}</li>)}</ul>
+      {open && (
+        <div className="rule-detail" id={detailId}>
+          <div className="detail-why">
+            <h5>Why this answer</h5>
+            <p>{item.explanation}</p>
+            {(rule.coverage_conditions || rule.exemptions || item.caveats.length > 0) && <h5>Who it covers</h5>}
+            {rule.coverage_conditions && <p>{rule.coverage_conditions}</p>}
+            {rule.exemptions && <p><span className="term">Exemptions.</span> {rule.exemptions}</p>}
+            {item.caveats.length > 0 && (
+              <>
+                <p><span className="term">Not tested against this building.</span></p>
+                <ul className="plain-list">{item.caveats.map(c => <li key={c}>{c}</li>)}</ul>
+              </>
+            )}
+          </div>
+          <div className="detail-law">
+            <h5>The law&rsquo;s own words</h5>
+            <blockquote className="quote">{rule.quoted_span}</blockquote>
+            <dl className="provenance">
+              <div><dt>Citation</dt><dd>{rule.citation}</dd></div>
+              {rule.key_value && <div><dt>Key value</dt><dd>{rule.key_value}</dd></div>}
+              {rule.penalty && <div><dt>Penalty</dt><dd>{rule.penalty}</dd></div>}
+              <div><dt>Effective</dt><dd>{rule.effective_date ? shortDate(rule.effective_date) : 'not stated in the source'}</dd></div>
+              <div>
+                <dt>Source</dt>
+                <dd>
+                  <a href={rule.source_url} target="_blank" rel="noopener noreferrer">{rule.source_doc_id}<ExternalLink size={12} strokeWidth={1.75} aria-hidden /></a>
+                  , {ORIGIN_LABELS[rule.source_origin] ?? rule.source_origin}. Retrieved {rule.retrieved_at ?? 'date not recorded'}. As of {asOf}.
+                </dd>
+              </div>
+              <div><dt>Quote check</dt><dd>The quoted text was {VERIFICATION_LABELS[rule.verification_method] ?? rule.verification_method}.</dd></div>
+              {others.length > 0 && (
+                <div><dt>Also in</dt><dd>{others.map((s, i) => <span key={`${s.source_doc_id}-${i}`}>{i > 0 ? ', ' : ''}<a href={s.source_url} target="_blank" rel="noopener noreferrer">{s.source_doc_id}</a></span>)}</dd></div>
+              )}
+            </dl>
+          </div>
         </div>
       )}
-      {item.conflict_flag && (
-        <p className="conflict mt-3" role="note">
-          <strong>Conflict flagged for review.</strong> {item.conflict_note ?? 'No note was recorded.'}
-        </p>
-      )}
-      <p className="mt-1"><span className="field">Citation</span> {rule.citation}</p>
-      <blockquote className="quote">{rule.quoted_span}</blockquote>
-      <p className="meta">
-        Source{' '}
-        <a href={rule.source_url} target="_blank" rel="noopener noreferrer">{rule.source_doc_id}</a>
-        {' '}· {ORIGIN_LABELS[rule.source_origin] ?? rule.source_origin}
-        {' '}· Retrieved {rule.retrieved_at ?? 'date not recorded'}
-        {' '}· As of {asOf}
-      </p>
-      <details className="more">
-        <summary>More detail</summary>
-        <p className="mt-2"><span className="field">Effective</span> {rule.effective_date ?? 'date not stated'}</p>
-        {rule.coverage_conditions && <p className="mt-1"><span className="field">Coverage conditions</span> {rule.coverage_conditions}</p>}
-        {rule.exemptions && <p className="mt-1"><span className="field">Exemptions</span> {rule.exemptions}</p>}
-        {item.caveats.length > 0 && (
-          <div className="mt-1">
-            <p className="field">Caveats</p>
-            <ul className="ml-5 list-disc">{item.caveats.map(c => <li key={c}>{c}</li>)}</ul>
-          </div>
-        )}
-        {!hasDetail && <p className="mt-1 text-[var(--muted)]">No caveats, coverage conditions or exemptions were recorded.</p>}
-      </details>
     </article>
   );
 }
