@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 4 Oct 00:14 CEST from observed runs at commit `5750df8` (production still serves `6c16f09`) · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: mentor slot 00:30, PO approval to redeploy the redesigned interface, Jersey City source, unknown-policy decision
+Updated: 4 Oct 02:15 CEST · Legal-gate build in progress on `integration`; fallback release tagged `baseline-19665a3`; production still serves `6c16f09` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00)
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|
@@ -44,6 +44,20 @@ Updated: 4 Oct 00:14 CEST from observed runs at commit `5750df8` (production sti
 | Production answers vs `out/` files | 45 addresses (501 rows), 57 rules and T1–T5 identical | identical | 23:03 | CONTROL |
 | Submission: public repo (held back on PO instruction), 3 videos, HackOS | none | all | 23:05 | PO + CONTROL |
 | README, method note, demo and tech video scripts | written | done | 22:30 | CONTROL |
+
+## Legal gate build (4 Oct)
+Goal: a deterministic decision layer over the unchanged engine: `check(subject, action, resource, context) -> PASS | BLOCK | REQUIRE | REVIEW` with determining rules, trace and quoted evidence. Three actions (algorithmic rent-setting, security deposit, application fee). The engine, the rule store and the scored outputs are protected.
+
+| Phase 0 baseline at `19665a3`, 01:52 | Result |
+|---|---|
+| `npm run check` | 140 unit tests pass, typecheck clean, secret guard pass |
+| `npm run build` | pass |
+| `npm run test:e2e` | 39 pass |
+| `npm run ordinal -- demo` | 0 model calls, 0 changed files, selfcheck passed |
+| `npm run verify` | 0 problems |
+| Protected hashes (sha256 prefix) | `out/rules.json 99e9004464cc68e4` · `out/lookups.json 7421607ab6fb4d12` · `out/changes.json 642081c735299147` · `store/rules.jsonl b1cf9c7a84903935` · `store/stacks.json ce00118ee28719d4` |
+| T1 to T5 (affected / conflict-flagged) | 250/0 · 40/40 · 140/40 · 110/0 · 0/0 |
+| Supplemental New Jersey sources (5.6) | not present locally; requested from the PO at 01:56 |
 
 No answer key or scorer exists. Every "pass" above means our general engine produced the set described; none is measured against the organizers' expectations.
 
