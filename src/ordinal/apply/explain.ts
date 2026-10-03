@@ -21,7 +21,10 @@ export type ExplainInput = {
 };
 
 const quoteAll = (items: Evaluated[]) => items.map(i => `"${i.text}"`).join('; ');
-const list = (items: string[]) => items.join(', ');
+const FACT_WORDS: Record<string, string> = { year_built: 'the year built', units: 'the unit count', legal_city: 'the legal city', owner_occupied: 'whether the owner lives there' };
+/** Fact names as a reader would say them; the machine names stay in `missing_facts`. */
+export const readableFact = (name: string) => FACT_WORDS[name] ?? name.replace(/_/g, ' ');
+const list = (items: string[]) => items.map(readableFact).join(', ');
 
 function core(i: ExplainInput): string {
   const { rule, asOf } = i; const who = `${rule.title} (${rule.jurisdiction})`;
@@ -33,7 +36,7 @@ function core(i: ExplainInput): string {
     case 'status_not_yet_effective': return `${who} is enacted but takes effect ${rule.effective_date}, after ${asOf}; it is not yet in force at this address.`;
     case 'exempt': return `${who} does not apply as of ${asOf}: an exemption holds (${quoteAll(i.deciding)}).`;
     case 'requirement_not_met': return `${who} does not apply as of ${asOf}: a coverage requirement is not met (${quoteAll(i.deciding)}).`;
-    case 'missing_fact': return `Cannot tell whether ${who} applies as of ${asOf}: the dataset has no ${list(i.missing)} for this address (${quoteAll(i.deciding)}).`;
+    case 'missing_fact': return `Cannot tell whether ${who} applies as of ${asOf}: the data for this address does not include ${list(i.missing)} (${quoteAll(i.deciding)}).`;
     case 'cutoff_ambiguous': return `Cannot tell whether ${who} applies as of ${asOf}: the building year alone does not settle the date test (${quoteAll(i.deciding)}).`;
     case 'unverifiable_condition': return `Cannot tell whether ${who} applies as of ${asOf}: it depends on facts the dataset does not hold (${list(i.missing)}): ${quoteAll(i.deciding)}.`;
     case 'superseded_by_local': return `${who} yields to a local rule where one governs; ${i.local?.title} (${i.local?.jurisdiction}) applies at this address as of ${asOf}, so the state rule is superseded.${i.rule.precedence.text ? ` Source wording: "${i.rule.precedence.text}"` : ''}`;

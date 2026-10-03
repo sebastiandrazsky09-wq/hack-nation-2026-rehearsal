@@ -17,9 +17,14 @@ export const applyRule: ApplyRule = (rule, address, stack, asOf) => {
   const base = { address_id: address.address_id, team_rule_id: rule.team_rule_id, conflict_flag: false, conflict_note: null };
   const finish = (result: ApplyResult['result'], code: ReasonCode, o: { deciding?: Parameters<typeof explain>[0]['deciding']; missing?: string[]; caveats?: string[]; open?: boolean } = {}): ApplyResult => {
     const missing = o.missing ?? []; const caveats = o.caveats ?? [];
+    // Transparency: when the unit count is empty but the assessor's use description states bounds, say so and say whether they were used.
+    const min = address.units_min ?? null; const max = address.units_max ?? null;
+    const hint = missing.includes('units') && address.units === null && min !== null
+      ? ` The assessor's use description ("${address.use_description}") indicates ${max === null ? `${min} or more units` : max === min ? `${min} units` : `${min} to ${max} units`}; that is not treated as a unit count.`
+      : '';
     return {
       ...base, result, reason_code: code, missing_facts: missing, caveats,
-      explanation: explain({ code, rule, stack, asOf, deciding: o.deciding ?? [], missing, caveats }, o.open)
+      explanation: explain({ code, rule, stack, asOf, deciding: o.deciding ?? [], missing, caveats }, o.open) + hint
     };
   };
 

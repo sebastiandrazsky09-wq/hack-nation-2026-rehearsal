@@ -18,7 +18,8 @@ describe('unresolved jurisdiction stack', () => {
   it('makes every city rule of the stack state unknown, asks for legal_city, and leaves state rules to evaluate', () => {
     const out = at(rules);
     for (const id of ['r-la', 'r-sd']) expect(out[id]).toMatchObject({ result: 'unknown', reason_code: 'jurisdiction_unresolved', missing_facts: ['legal_city'] });
-    expect(out['r-la'].explanation).toContain('legal_city');
+    // The machine name stays in missing_facts; the explanation says it in words.
+    expect(out['r-la'].explanation).toContain('the legal city');
     expect(out['r-state'].result).toBe('applies');
     expect(REASON_CODES).toContain('jurisdiction_unresolved');
   });

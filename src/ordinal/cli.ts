@@ -57,6 +57,26 @@ const commands: Record<string, () => Promise<number>> = {
     const report = await runDiff({ asOf: flag('as-of') ? assertIsoDate(flag('as-of')!) : undefined });
     print(report); return report.errors.length ? 1 : 0;
   },
+  /** The whole pipeline from the committed store, with no model call and no network: what the demo shows. */
+  async demo() {
+    const say = (step: string, detail: string) => console.log(`${step.padEnd(9)} ${detail}`);
+    const { runCompile } = await import('./compile/index'); const { runResolve } = await import('./resolve/index');
+    const { runExport } = await import('./export/index'); const { runDiff } = await import('./diff/index'); const { runSelfcheck } = await import('./selfcheck/index');
+    const c = await runCompile({ offline: true });
+    say('compile', `${c.docs_processed} documents, ${c.rules_total} rules, ${c.rules_verified} with a quote found in its source, ${c.rules_unverified} withheld; ${c.llm_calls} model calls (replayed from cache)`);
+    const r = await runResolve({ offline: true });
+    say('resolve', `${r.total} addresses: ${Object.entries(r.by_method).map(([k, v]) => `${v} by ${k.replace('_', ' ')}`).join(', ')}; ${r.unresolved.length} unresolved`);
+    const e = await runExport({});
+    say('export', `as of ${e.as_of}: ${e.rules} rule records, ${e.lookup_rows} answers for ${e.addresses} addresses, ${e.schema_errors.length} schema errors`);
+    const d = await runDiff({});
+    for (const [id, s] of Object.entries(d.summary)) say('change', `${id}: ${s.affected} addresses affected, ${s.conflict_flagged} flagged for conflict review (${s.rules.join(', ') || 'no rule matched'})`);
+    for (const w of d.warnings) say('warning', w);
+    const s = await runSelfcheck();
+    mkdirSync(PATHS.out, { recursive: true }); writeFileSync(path.join(PATHS.out, 'selfcheck.json'), JSON.stringify(s, null, 2) + '\n');
+    say('selfcheck', s.ok ? 'passed: quotes match sources, schema valid, no pending or failed rule in force, two exports identical' : `FAILED: ${s.failures.join('; ')}`);
+    console.log('Not legal advice.');
+    return s.ok && !c.docs_failed.length && !e.schema_errors.length && !d.errors.length ? 0 : 1;
+  },
   async selfcheck() {
     const { runSelfcheck } = await import('./selfcheck/index');
     const report = await runSelfcheck();
@@ -67,5 +87,5 @@ const commands: Record<string, () => Promise<number>> = {
 };
 
 const run = commands[command ?? ''];
-if (!run) { console.error('Usage: ordinal <compile|ingest|resolve|apply|export|diff|selfcheck> [options]'); process.exit(2); }
+if (!run) { console.error('Usage: ordinal <compile|ingest|resolve|apply|export|diff|selfcheck|demo> [options]'); process.exit(2); }
 run().then(code => process.exit(code), error => { console.error(error instanceof Error ? error.message : error); process.exit(1); });
