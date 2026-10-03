@@ -1,0 +1,36 @@
+SOURCE: https://example.invalid/rehearsal/cambridge-ordinance-2026-58
+RETRIEVED: 2026-10-03 19:30 UTC
+NOTE: SYNTHETIC DOCUMENT WRITTEN BY THE TEAM TO REHEARSE INGESTION OF AN UNSEEN LAW. NOT A REAL ORDINANCE.
+
+CITY OF CAMBRIDGE
+In the Year Two Thousand and Twenty-Six
+
+ORDINANCE NO. 2026-58
+
+AN ORDINANCE amending the Municipal Code of the City of Cambridge by inserting a new Chapter 8.73, entitled "Relocation Payments for Displaced Residents of Larger Older Buildings".
+
+Be it ordained by the City Council of the City of Cambridge as follows:
+
+SECTION 1. Purpose. The Council finds that residents of older apartment houses are displaced by renovation projects with little warning and less money, and that an orderly payment toward moving costs lessens the harm.
+
+SECTION 2. Chapter 8.73 is hereby inserted.
+
+8.73.010 Definitions.
+"Covered building" means a residential structure located in the City of Cambridge that contains eight or more dwelling units and for which a certificate of occupancy was first issued on or before December 31, 1989.
+"No-fault termination" means the ending of a tenancy by the owner for substantial renovation, demolition, or removal of the unit from the rental market, where the resident is not in default.
+
+8.73.020 Relocation payment required.
+An owner of a covered building who ends a tenancy by a no-fault termination shall pay the displaced household a relocation payment of six thousand five hundred dollars ($6,500) no later than fourteen days before the date the household must vacate. The owner shall give the household written notice of this right together with the notice ending the tenancy.
+
+8.73.030 Buildings not covered.
+This chapter does not apply to a building owned and operated by the Cambridge Housing Authority, nor to a dwelling unit in a building of fewer than eight units.
+
+8.73.040 Enforcement.
+An owner who fails to make the payment required by section 8.73.020 is liable to the household for three times the unpaid amount, and the City may impose a civil fine of three hundred dollars ($300) for each day the payment remains unpaid.
+
+8.73.050 Relation to other law.
+Nothing in this chapter limits any right of a resident under chapter 186 of the General Laws.
+
+SECTION 3. Effective date. This ordinance was ordained on September 21, 2026 and shall take effect on March 1, 2027.
+
+Attest: City Clerk

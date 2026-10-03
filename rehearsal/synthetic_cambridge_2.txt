@@ -1,0 +1,15 @@
+SOURCE: https://example.invalid/rehearsal/cambridge-ordinance-2026-61
+RETRIEVED: 2026-10-03 19:40 UTC
+NOTE: SYNTHETIC DOCUMENT WRITTEN BY THE TEAM TO REHEARSE INGESTION OF AN UNSEEN LAW. NOT A REAL ORDINANCE.
+
+City of Cambridge, Massachusetts. Ordinance Number 2026-61.
+
+Short title: the Upfront Charges Limitation Ordinance.
+
+1. No person letting a dwelling in Cambridge may demand from someone seeking to rent it any sum, however named, for reviewing that person's application, for checking credit or references, or for holding the dwelling, in excess of twenty-five dollars in total. A written receipt naming each charge must be handed over when the sum is taken.
+
+2. Paragraph 1 binds only dwellings in structures having no fewer than four apartments. A structure put up after the first day of January 2015 is outside this ordinance for the first twelve years after it was built.
+
+3. Whoever takes more than paragraph 1 allows shall return double the excess on demand.
+
+4. Passed to be ordained 28 September 2026. To be in force from and after the first day of the seventh month following passage.
