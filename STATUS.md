@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 3 Oct 21:10 CEST · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: Milestone 1 vertical slice, target 23:30
+Updated: 3 Oct 21:00 CEST · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: Milestone 1 vertical slice, target 23:30
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|

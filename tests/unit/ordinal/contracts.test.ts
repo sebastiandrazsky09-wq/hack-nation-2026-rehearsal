@@ -54,3 +54,40 @@ describe('official pack loaders', () => {
     expect(JSON.parse(readFileSync(PATHS.ruleSchema, 'utf8')).properties.category.enum).toEqual([...CATEGORIES]);
   });
 });
+
+describe('PROOF review regressions', () => {
+  it('rejects impossible calendar dates', async () => {
+    const { PartialDateSchema, IsoDateSchema } = await import('../../../src/ordinal/contracts');
+    for (const bad of ['2026-02-31', '2026-04-31', '2026-00', '2026-13', '2025-02-29', '26-01-01']) expect(PartialDateSchema.safeParse(bad).success, bad).toBe(false);
+    for (const good of ['2026', '2026-02', '2028-02-29', '2027-07-01']) expect(PartialDateSchema.safeParse(good).success, good).toBe(true);
+    expect(IsoDateSchema.safeParse('2026-07').success).toBe(false);
+    expect(() => deriveStatus({ legal_status: 'enacted', effective_date: null, repeal_date: null }, '2026-02-31')).toThrow('YYYY-MM-DD');
+  });
+  it('reports an enacted law as pending before its enactment date', () => {
+    const fair = { legal_status: 'enacted' as const, enacted_date: '2026-07-20', effective_date: '2027-07-01', repeal_date: null };
+    expect(deriveStatus(fair, '2026-07-19')).toBe('pending');
+    expect(deriveStatus(fair, '2026-07-20')).toBe('not_yet_effective');
+    expect(deriveStatus(fair, '2027-07-02')).toBe('in_force');
+  });
+  it('does not read a header value from the next line', async () => {
+    const { parseDocHeader } = await import('../../../src/ordinal/corpus');
+    expect(parseDocHeader('SOURCE:\nRETRIEVED: 2026-10-01\nbody')).toEqual({ source_url: null, retrieved_at: '2026-10-01' });
+    expect(parseDocHeader('SOURCE: https://x.test/a\nRETRIEVED:\nBody text')).toEqual({ source_url: 'https://x.test/a', retrieved_at: null });
+  });
+  it('rejects malformed CSV instead of inventing fields', () => {
+    expect(() => parseCsv('a,b\n1,"unterminated')).toThrow('unterminated');
+    expect(() => parseCsv('a,b\n1,2,3\n')).toThrow('row 2');
+    expect(parseCsv('a,b\n1,\n')).toEqual([{ a: '1', b: '' }]);
+  });
+  it('refuses a store that claims verification without a matching span', async () => {
+    const { assertRuleInvariants, quoteMatchesSource } = await import('../../../src/ordinal/corpus');
+    const quote = 'A security deposit may not exceed one and one-half months rent.';
+    const base = { team_rule_id: 'r', quoted_span: quote } as never as import('../../../src/ordinal/contracts').InternalRule;
+    expect(() => assertRuleInvariants({ ...base, verified: true, verification_method: 'failed', span_start: null, span_end: null })).toThrow('verified=true');
+    expect(() => assertRuleInvariants({ ...base, verified: true, verification_method: 'exact', span_start: 0, span_end: 5 })).toThrow('verified=true');
+    expect(() => assertRuleInvariants({ ...base, verified: false, verification_method: 'exact', span_start: null, span_end: null })).toThrow('verified=false');
+    const ok = assertRuleInvariants({ ...base, verified: true, verification_method: 'exact', span_start: 4, span_end: 4 + quote.length });
+    expect(quoteMatchesSource(ok, 'xxxx' + quote + ' more')).toBe(true);
+    expect(quoteMatchesSource(ok, 'xxxx' + quote.replace('deposit', 'payment') + ' more')).toBe(false);
+  });
+});

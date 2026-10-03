@@ -10,8 +10,15 @@ export const OfficialStatusSchema = z.enum(['in_force', 'not_yet_effective', 'pe
 export type OfficialStatus = z.infer<typeof OfficialStatusSchema>;
 export const LegalStatusSchema = z.enum(['enacted', 'pending', 'failed']);
 /** YYYY, YYYY-MM or YYYY-MM-DD: the official effective_date pattern. */
-export const PartialDateSchema = z.string().regex(/^\d{4}(-\d{2}(-\d{2})?)?$/);
-export const IsoDateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
+export function isRealPartialDate(value: string): boolean {
+  const m = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/.exec(value); if (!m) return false;
+  const year = Number(m[1]); const month = m[2] === undefined ? null : Number(m[2]); const day = m[3] === undefined ? null : Number(m[3]);
+  if (month !== null && (month < 1 || month > 12)) return false;
+  if (day !== null && (day < 1 || day > new Date(Date.UTC(year, month!, 0)).getUTCDate())) return false;
+  return true;
+}
+export const PartialDateSchema = z.string().refine(isRealPartialDate, 'Expected a real calendar date: YYYY, YYYY-MM or YYYY-MM-DD');
+export const IsoDateSchema = z.string().refine(v => v.length === 10 && isRealPartialDate(v), 'Expected a real calendar date: YYYY-MM-DD');
 export const DEFAULT_AS_OF = '2026-10-01';
 
 const Cmp = z.enum(['lt', 'lte', 'gt', 'gte', 'eq']);

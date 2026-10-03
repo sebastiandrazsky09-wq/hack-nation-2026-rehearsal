@@ -1,5 +1,5 @@
 // FROZEN CONTRACT. Lead-owned. The only place a rule's status for a query date is derived.
-import type { InternalRule, OfficialStatus } from './contracts';
+import { isRealPartialDate, type InternalRule, type OfficialStatus } from './contracts';
 
 /** Earliest day a partial date can mean: '2027' -> '2027-01-01', '2027-07' -> '2027-07-01'. */
 export function dateFloor(partial: string): string {
@@ -15,14 +15,15 @@ export function dateCeil(partial: string): string {
   return `${y}-${m}-${String(last).padStart(2, '0')}`;
 }
 export function assertIsoDate(value: string): string {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || Number.isNaN(Date.parse(value + 'T00:00:00Z'))) throw new Error(`Query date must be YYYY-MM-DD, got: ${value}`);
+  if (value.length !== 10 || !isRealPartialDate(value)) throw new Error(`Query date must be YYYY-MM-DD, got: ${value}`);
   return value;
 }
 
-type Dated = Pick<InternalRule, 'legal_status' | 'effective_date' | 'repeal_date'>;
+type Dated = Pick<InternalRule, 'legal_status' | 'effective_date' | 'repeal_date'> & Partial<Pick<InternalRule, 'enacted_date'>>;
 /**
  * Status of a rule on a query date. ISO dates compare lexicographically.
  * - failed and pending never become in force, whatever their dates say.
+ * - before its enactment date an enacted law was still a proposal: pending.
  * - enacted with an effective date after the query date is not_yet_effective. A partial effective date
  *   (year or month only) counts as effective from its first day.
  * - enacted with no effective date is in force.
@@ -32,6 +33,7 @@ export function deriveStatus(rule: Dated, asOf: string): OfficialStatus {
   assertIsoDate(asOf);
   if (rule.legal_status === 'failed') return 'failed';
   if (rule.legal_status === 'pending') return 'pending';
+  if (rule.enacted_date && dateFloor(rule.enacted_date) > asOf) return 'pending';
   if (rule.repeal_date && dateFloor(rule.repeal_date) <= asOf) return 'failed';
   if (rule.effective_date && dateFloor(rule.effective_date) > asOf) return 'not_yet_effective';
   return 'in_force';

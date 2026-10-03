@@ -1,6 +1,7 @@
 // Lead-owned. `npm run ordinal -- <command>`. Routes to module entry points; holds no pipeline logic.
-import { loadEnvConfig } from '@next/env';
-loadEnvConfig(process.cwd());
+import nextEnv from '@next/env';
+// @next/env is CommonJS: under tsx's ESM loading only the default export exists.
+nextEnv.loadEnvConfig(process.cwd());
 import { DEFAULT_AS_OF } from './contracts';
 import { assertIsoDate } from './status';
 import { loadAddresses, readRuleStore, readStacks } from './corpus';

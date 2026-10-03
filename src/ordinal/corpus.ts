@@ -39,9 +39,12 @@ export function parseCsv(text: string): Record<string, string>[] {
       row.push(field); field = ''; if (row.length > 1 || row[0] !== '') rows.push(row); row = [];
     } else field += c;
   }
+  if (quoted) throw new Error('CSV has an unterminated quoted field');
   if (field !== '' || row.length) { row.push(field); rows.push(row); }
   const [header, ...body] = rows;
-  return body.map(r => Object.fromEntries(header.map((h, i) => [h, r[i] ?? ''])));
+  if (!header) return [];
+  body.forEach((r, i) => { if (r.length !== header.length) throw new Error(`CSV row ${i + 2} has ${r.length} fields, expected ${header.length}`); });
+  return body.map(r => Object.fromEntries(header.map((h, i) => [h, r[i]])));
 }
 
 export type ManifestRow = { doc_id: string; jurisdictions: string; url: string; source_type: string; capture: string; retrieved_at: string; sha256: string; text_file: string; status: string };
@@ -62,7 +65,7 @@ export type SourceDoc = {
 /** Every text file starts with `SOURCE: <url>` and `RETRIEVED: <date>` lines. */
 export function parseDocHeader(text: string): { source_url: string | null; retrieved_at: string | null } {
   const head = text.slice(0, 2000);
-  return { source_url: head.match(/^SOURCE:\s*(\S+)/m)?.[1] ?? null, retrieved_at: head.match(/^RETRIEVED:\s*(.+)$/m)?.[1]?.trim() ?? null };
+  return { source_url: head.match(/^SOURCE:[ \t]*(\S+)[ \t]*$/m)?.[1] ?? null, retrieved_at: head.match(/^RETRIEVED:[ \t]*(\S.*)$/m)?.[1]?.trim() ?? null };
 }
 function docFrom(file: string, doc_id: string, origin: SourceDoc['origin'], row: ManifestRow | undefined): SourceDoc {
   const text = readFileSync(file, 'utf8'); const header = parseDocHeader(text);
@@ -85,14 +88,25 @@ export function loadAddresses(): Address[] {
   return parseCsv(readFileSync(PATHS.addresses, 'utf8')).map(r => AddressSchema.parse({ ...r, year_built: int(r.year_built), units: int(r.units) }));
 }
 
+/** A stored rule may claim `verified` only with a real span; the two verification fields may never contradict each other. */
+export function assertRuleInvariants(rule: InternalRule): InternalRule {
+  const span = rule.span_start !== null && rule.span_end !== null && rule.span_end > rule.span_start && rule.span_end - rule.span_start === rule.quoted_span.length;
+  if (rule.verified && (rule.verification_method === 'failed' || !span)) throw new Error(`${rule.team_rule_id}: verified=true needs a verification method and span offsets matching quoted_span`);
+  if (!rule.verified && rule.verification_method !== 'failed') throw new Error(`${rule.team_rule_id}: verified=false must carry verification_method "failed"`);
+  return rule;
+}
+/** The stored quote is still the literal slice of this document. Checked again at export, not trusted from the store. */
+export function quoteMatchesSource(rule: Pick<InternalRule, 'verified' | 'span_start' | 'span_end' | 'quoted_span'>, docText: string): boolean {
+  return rule.verified && rule.span_start !== null && rule.span_end !== null && docText.slice(rule.span_start, rule.span_end) === rule.quoted_span;
+}
 export function readRuleStore(file = PATHS.ruleStore): InternalRule[] {
   if (!existsSync(file)) return [];
-  return readFileSync(file, 'utf8').split('\n').filter(Boolean).map(line => InternalRuleSchema.parse(JSON.parse(line)));
+  return readFileSync(file, 'utf8').split('\n').filter(Boolean).map(line => assertRuleInvariants(InternalRuleSchema.parse(JSON.parse(line))));
 }
 /** Sorted by team_rule_id so the file is byte-identical for identical rules. */
 export function writeRuleStore(rules: InternalRule[], file = PATHS.ruleStore): void {
   mkdirSync(path.dirname(file), { recursive: true });
-  const sorted = [...rules].sort((a, b) => a.team_rule_id.localeCompare(b.team_rule_id)).map(r => InternalRuleSchema.parse(r));
+  const sorted = [...rules].sort((a, b) => a.team_rule_id.localeCompare(b.team_rule_id)).map(r => assertRuleInvariants(InternalRuleSchema.parse(r)));
   writeFileSync(file, sorted.map(r => JSON.stringify(r)).join('\n') + (sorted.length ? '\n' : ''));
 }
 export function readStacks(file = PATHS.stacks): Record<string, JurisdictionStack> {
