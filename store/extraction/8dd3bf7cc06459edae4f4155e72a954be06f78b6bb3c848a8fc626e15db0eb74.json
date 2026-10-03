@@ -1,0 +1,37 @@
+{
+ "doc_id": "D025",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "CA",
+   "category": "security_deposits",
+   "title": "California Civil Code section 1950.5 (Security deposits for residential rental property)",
+   "requirement": "A landlord may not demand or receive security above one month's rent (two months for small natural-person landlords with no more than two properties and four units; not applicable to service members). The landlord must hold the security for the tenant, offer an initial inspection, take photographs, and return it with an itemized statement within 21 calendar days after the tenant vacates.",
+   "key_value": "Maximum one month's rent (two months for small landlords); return within 21 calendar days",
+   "penalty": "Landlord who in bad faith fails to comply with the return and itemization requirements loses the right to claim any amount of the security.",
+   "citation": "Cal. Civ. Code § 1950.5",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Section appears in the California Civil Code; the cap in subdivision (c) does not apply to security collected before 2024-07-01.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to security for residential rental agreements where the property is the tenant's dwelling.",
+    "exemptions_summary": "The two-month cap applies only to landlords who are natural persons (or all-natural-person LLCs) owning no more than two rental properties with four units in total."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "(1) Except as provided in paragraph (2), (3), or (5), a landlord shall not demand or receive security, however denominated, in an amount or value in excess of an amount equal to one month’s rent, in addition to any rent for the first month paid on or before initial occupancy.",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

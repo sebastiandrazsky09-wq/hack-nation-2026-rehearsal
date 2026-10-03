@@ -1,0 +1,37 @@
+{
+ "doc_id": "D016",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "CA",
+   "category": "screening_restrictions",
+   "title": "Fair Employment and Housing Act (FEHA)",
+   "requirement": "Landlords may not refuse to rent based on source of income, including Section 8 vouchers and other rental assistance. They may not use arrests without conviction, sealed or expunged records, or juvenile records, and may not impose blanket bans on people with criminal history. Any denial based on a conviction must be directly related to tenant suitability.",
+   "key_value": null,
+   "penalty": "Remedies include out-of-pocket losses, injunction, access to the denied housing, emotional distress damages, civil penalties or punitive damages, and attorney's fees.",
+   "citation": "Fair Employment and Housing Act (FEHA)",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Described as existing California state law enforced by the Civil Rights Department.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to most housing providers, including landlords, screening companies, and property managers.",
+    "exemptions_summary": "An owner-occupant renting to one additional person may exclude applicants on protected characteristics, and senior housing may limit by age."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Housing providers are also prohibited from having “blanket bans” of all people with a criminal history.",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

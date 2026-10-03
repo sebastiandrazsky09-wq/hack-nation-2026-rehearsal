@@ -1,0 +1,37 @@
+{
+ "doc_id": "D017",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "CA",
+   "category": "application_screening_fees",
+   "title": "Civil Code section 1950.6 (Application screening fees)",
+   "requirement": "Landlords may charge an application screening fee no greater than actual out-of-pocket costs and the reasonable value of time, capped at $30 per applicant (CPI-adjustable annually since 1998). No fee may be charged when no unit is available, and the landlord must offer first-come-first-served screening or refund fees to unselected applicants, give an itemized receipt, return unused amounts, and provide a copy of the credit report within seven days.",
+   "key_value": "$30 per applicant, adjusted annually for CPI from Jan 1, 1998",
+   "penalty": null,
+   "citation": "Cal. Civil Code § 1950.6",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Section is in the California Civil Code (updated Jan. 1, 2026).",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to landlords (owners of residential rental property) and their agents charging applicants.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": "This section is not intended to preempt any provisions or regulations that govern the collection of deposits and fees under federal or state housing assistance programs."
+   },
+   "quoted_span": "In no case shall the amount of the application screening fee charged by the landlord or their agent be greater than thirty dollars ($30) per applicant.",
+   "confidence": 0.95,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

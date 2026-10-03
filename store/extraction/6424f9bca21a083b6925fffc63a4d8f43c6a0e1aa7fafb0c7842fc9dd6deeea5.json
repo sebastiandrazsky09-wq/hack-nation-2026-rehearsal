@@ -1,0 +1,73 @@
+{
+ "doc_id": "D006",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Berkeley, CA",
+   "category": "rent_increase_limits",
+   "title": "Measure BB (Berkeley Rent Ordinance amendments)",
+   "requirement": "Annual General Adjustment for fully covered units is set by a CPI-based formula but capped at 5%; banked AGAs may still be used to reach the rent ceiling. Government-owned or subsidized units must be registered and fully covered ones get a rent ceiling.",
+   "key_value": "AGA capped at 5% maximum (CPI-based formula)",
+   "penalty": null,
+   "citation": "Measure BB, Berkeley Rent Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Passed by Berkeley voters in the November 2024 election.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "year_built",
+      "op": "lt",
+      "date": "1980",
+      "basis": "certificate_of_occupancy",
+      "text": "Most units in multifamily properties built before 1980 are fully covered"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Fully covered units (mostly multifamily built before 1980) are subject to the AGA rent ceiling.",
+    "exemptions_summary": "Newer construction (certificate of occupancy after 1980), most single-family homes and condos are only partially covered."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The maximum AGA is 5%. This means that, if the formula in the Rent Ordinance results in an AGA that is greater than 5%, the AGA approved by the Board for that year can be no more than 5%.",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "Berkeley, CA",
+   "category": "just_cause_eviction",
+   "title": "Measure BB (Berkeley Rent Ordinance amendments)",
+   "requirement": "Tenants in fully or partially covered units can be evicted only for just cause. Nonpayment eviction requires debt of at least one month's Fair Market Rent, tenants cannot be evicted for refusing a new fixed-term lease, lease-breach evictions require substantial actual harm and a detailed notice, and termination notices must include Rent Board information and be filed with the Board within three business days.",
+   "key_value": "Rental debt of at least one month's HUD Fair Market Rent; copies filed with Rent Board within 3 business days",
+   "penalty": null,
+   "citation": "Measure BB, Berkeley Rent Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Passed by Berkeley voters in the November 2024 election.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to fully and partially covered units under the Rent Ordinance.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "For a landlord to evict a tenant for nonpayment of rent, the tenant must owe an amount of rental debt equal to or greater than one month of the Fair Market Rent (FMR) value for a unit of equivalent size in the metro area Oakland-Fremont, CA HUD Metro FMR as determined by the US Department of Housing and Urban Development for the fiscal year in which the rent is demanded.",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

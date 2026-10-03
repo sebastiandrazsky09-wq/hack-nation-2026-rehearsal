@@ -1,0 +1,37 @@
+{
+ "doc_id": "X91782df",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "algorithmic_rent_setting",
+   "title": "Prohibition of Anti-Competitive Automated Rent Price-Fixing",
+   "requirement": "It is unlawful to sell, license or provide an algorithmic device (software using nonpublic competitor data of two or more landlords to recommend rents or occupancy) to a landlord, and unlawful for a landlord to use one to set rents or occupancy levels. Each month and each property of use is a separate violation.",
+   "key_value": "Civil penalties up to $1,000 per violation",
+   "penalty": "Tenants may seek injunctive relief, damages, or civil penalties of up to $1,000 per violation, plus attorney's fees and costs for the prevailing party; City may enforce with civil and criminal remedies.",
+   "citation": "San Diego Municipal Code Chapter 9, Article 8, Division 11 (§§98.1101-98.1104); O-21955 N.S.",
+   "legal_status": "enacted",
+   "enacted_date": "2025-05-22",
+   "effective_date": "2025-06-21",
+   "repeal_date": null,
+   "status_basis": "Added 5-22-2025 by O-21955 N.S.; effective 6-21-2025.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to landlords of residential rental property in the City of San Diego and to persons who sell or license algorithmic devices to them.",
+    "exemptions_summary": "Excludes from 'algorithmic device' tools that publish aggregated historical data over 90 days old or public data, tools for affordable housing program rents, and appraisal software."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "It is unlawful for a person to sell, license, or otherwise provide an algorithmic device to a landlord.",
+   "confidence": 0.95,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

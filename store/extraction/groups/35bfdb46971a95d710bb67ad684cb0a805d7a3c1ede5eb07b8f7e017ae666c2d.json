@@ -1,0 +1,14 @@
+{
+ "cell": "Berkeley, CA|security_deposits",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D007#2",
+    "D009#3"
+   ],
+   "primary_id": "D009#3"
+  }
+ ]
+}

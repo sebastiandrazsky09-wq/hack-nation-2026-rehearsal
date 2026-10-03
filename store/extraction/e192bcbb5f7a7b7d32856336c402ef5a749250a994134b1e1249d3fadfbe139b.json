@@ -1,0 +1,37 @@
+{
+ "doc_id": "D045",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "MA",
+   "category": "algorithmic_rent_setting",
+   "title": "An Act relative to preventing algorithmic rent fixing in the rental housing market",
+   "requirement": "Bill H.5222 would address algorithmic rent fixing in the rental housing market. The page gives only the title and history, not the bill's definitions, prohibited conduct or penalties.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "Bill H.5222",
+   "legal_status": "pending",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Reported favorably by the House Housing committee on 3/12/2026 and referred to House Ways and Means; not enacted.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "An Act relative to preventing algorithmic rent fixing in the rental housing market",
+   "confidence": 0.5,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

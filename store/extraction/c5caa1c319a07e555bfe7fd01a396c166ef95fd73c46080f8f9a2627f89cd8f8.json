@@ -1,0 +1,37 @@
+{
+ "doc_id": "D087",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "algorithmic_rent_setting",
+   "title": "Santa Ana algorithmic rent-setting software ordinance",
+   "requirement": "Prohibits the sale, licensing, provision and use of certain algorithmic rent-setting software for residential rental properties in Santa Ana. Does not apply to pricing software relying solely on publicly available data, aggregate historical data, or tools used to comply with affordable housing program requirements. Tenants may sue directly and need only prove use of the prohibited technology, not intentional collusion.",
+   "key_value": "Civil penalties up to $1,000 per violation",
+   "penalty": "Injunctive relief, damages, or civil penalties of up to $1,000 per violation, plus attorney's fees",
+   "citation": "Santa Ana algorithmic rent-setting software ordinance (no ordinance number given)",
+   "legal_status": "pending",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Approved for first reading on Feb. 17 (2026); final vote set for March 3; final adoption not shown in the document.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Covers residential rental property within Santa Ana city limits.",
+    "exemptions_summary": "Does not apply to software using only public or aggregate historical data, or tools used to comply with affordable housing program requirements."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": "It is structured to operate alongside existing and proposed state antitrust laws while providing stronger local protections"
+   },
+   "quoted_span": "The ordinance, approved on Tuesday, Feb. 17, for a first reading and set for a final vote on March 3, prohibits the sale, licensing, provision and use of certain algorithmic rent-setting software for residential rental properties.",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

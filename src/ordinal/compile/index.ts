@@ -12,6 +12,7 @@ import { PROMPT_VERSION } from './prompt';
 import { configuredModelNames, createProviderClient } from './provider';
 import { RawRuleListSchema, type LlmClient, type RawRule } from './schema';
 import { verifyQuote } from './verify';
+import { effectiveDateContext, REJECTED_DATE_REASON } from '../dates';
 
 export { PROMPT_VERSION, SYSTEM_PROMPT } from './prompt';
 export { createProviderClient } from './provider';
@@ -173,13 +174,19 @@ function buildRecord(doc: SourceDoc, raw: RawRule, v: Verification, repaired: st
     quoted_span = [raw.quoted_span, repaired ?? ''].find(q => q.length >= 20) ?? '';
     if (!quoted_span) return null;
   }
+  // Structural guard, independent of the prompt: a date the document words only as the latest amendment's date or as the
+  // start of a rate period is not the law's effective date.
+  const context = raw.effective_date ? effectiveDateContext(doc.text, raw.effective_date) : 'stated';
+  const rejected = REJECTED_DATE_REASON[context];
+  const effective_date = rejected ? null : raw.effective_date;
+  const status_basis = rejected ? [raw.status_basis, `[effective_date ${raw.effective_date} not used: ${rejected}]`].filter(Boolean).join(' ') : raw.status_basis;
   return {
     team_rule_id: teamRuleId(raw.jurisdiction, raw.category, raw.citation),
     jurisdiction: raw.jurisdiction, level: levelOf(raw.jurisdiction), category: raw.category,
     title: raw.title, requirement: raw.requirement, key_value: raw.key_value, penalty: raw.penalty,
     citation: raw.citation, citation_in_source: citationInSource(raw.citation, doc.text),
-    legal_status: raw.legal_status, enacted_date: raw.enacted_date, effective_date: raw.effective_date, repeal_date: raw.repeal_date,
-    status_basis: raw.status_basis, coverage: raw.coverage, precedence: raw.precedence,
+    legal_status: raw.legal_status, enacted_date: raw.enacted_date, effective_date, repeal_date: raw.repeal_date,
+    status_basis, coverage: raw.coverage, precedence: raw.precedence,
     source_doc_id: doc.doc_id, source_url: doc.source_url || `doc:${doc.doc_id}`, source_origin: doc.origin, retrieved_at: doc.retrieved_at,
     quoted_span, span_start: v.span_start, span_end: v.span_end, verified: v.verified, verification_method: v.method,
     confidence: raw.confidence === null ? null : Math.min(1, Math.max(0, raw.confidence)),

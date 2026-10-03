@@ -1,0 +1,14 @@
+{
+ "cell": "Santa Ana, CA|rent_increase_limits",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D084#1",
+    "D085#1"
+   ],
+   "primary_id": "D085#1"
+  }
+ ]
+}

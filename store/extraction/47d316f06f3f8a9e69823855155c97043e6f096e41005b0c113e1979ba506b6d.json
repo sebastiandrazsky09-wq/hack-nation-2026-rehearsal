@@ -1,0 +1,43 @@
+{
+ "doc_id": "D050",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "MA",
+   "category": "just_cause_eviction",
+   "title": "General Laws Part II, Title I, Chapter 186, Section 11 - Determination of lease for nonpayment of rent",
+   "requirement": "For nonpayment of rent under a written lease, a landlord may end the lease with 14 days' written notice to quit, unless the tenant pays all rent due with interest and costs by the answer day. If nonpayment was caused by government payment delay, the court must continue the hearing at least seven days and treat the tenancy as not terminated if all rent is tendered in that time.",
+   "key_value": "14 days' written notice to quit",
+   "penalty": null,
+   "citation": "General Laws, Part II, Title I, Chapter 186, Section 11",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Appears in the Massachusetts General Laws",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "written_lease",
+      "text": "rent due under a written lease"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to tenancies under a written lease where rent is unpaid.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Upon the neglect or refusal to pay the rent due under a written lease, fourteen days' notice to quit, given in writing by the landlord to the tenant, shall be sufficient to determine the lease, unless the tenant, on or before the day the answer is due, in an action by the landlord to recover possession of the premises, pays or tenders to the landlord or to his attorney all rent then due, with interest and costs of suit.",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

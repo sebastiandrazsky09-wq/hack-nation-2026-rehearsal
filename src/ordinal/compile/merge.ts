@@ -103,7 +103,7 @@ export function mergeGroup(members: Candidate[], modelPrimaryId: string): Intern
   }
 
   // A primary that states no coverage at all takes the coverage another verified document of the same law states.
-  const empty = (m: Candidate) => m.rule.coverage.requires.length === 0 && m.rule.coverage.exempt_if.length === 0;
+  const empty = (m: Candidate) => [...m.rule.coverage.requires, ...m.rule.coverage.exempt_if.flat()].every(c => c.fact === 'caveat');
   const coverageSource = empty(primary) ? verified.filter(m => m !== primary && !empty(m))[0] ?? primary : primary;
   if (coverageSource !== primary) basis.push(`coverage from ${coverageSource.rule.source_doc_id}`);
 

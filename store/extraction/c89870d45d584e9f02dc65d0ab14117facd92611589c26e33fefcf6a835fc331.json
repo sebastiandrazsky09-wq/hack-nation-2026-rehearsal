@@ -1,0 +1,77 @@
+{
+ "doc_id": "D043",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "just_cause_eviction",
+   "title": "Relocation Assistance for No-Fault Evictions under the RSO & JCO",
+   "requirement": "Landlords must pay relocation assistance and file a Declaration of Intent to Evict with LAHD before a no-fault eviction from RSO or JCO units. The amount depends on tenant status (eligible or qualified), length of tenancy and income, and payment is due within 15 days of the notice.",
+   "key_value": "Eligible tenant $11,000 (under 3 years) or $14,400 (3+ years or low income); qualified tenant $23,150 or $27,400; for 1 Jul 2026 to 30 Jun 2027",
+   "penalty": "Failure to file the Landlord Declaration makes the eviction a violation of the RSO or JCO; the tenant may raise non-payment as an affirmative defense.",
+   "citation": "LAMC 151.09.A, 165.03, 165.06",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Existing code provisions described in LAHD bulletin; amounts are the annual figure for 1 Jul 2026 to 30 Jun 2027.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "unavailable",
+      "name": "rso_or_jco_covered",
+      "text": "units covered by the Rent Stabilization Ordinance or the Just Cause Ordinance"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to units covered by the RSO or JCO.",
+    "exemptions_summary": "Exempt are replacing a resident manager with another manager and evictions required by natural-disaster hazards."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "All tenant not- at-fault evictions require payment of relocation assistance and the filing of a \nDeclaration of Intent to Evict form with the Los Angeles Housing Department (LAHD) before \nevicting tenants from units covered by the Rent Stabilization Ordinance (RSO) or the Just Cause \nOrdinance (JCO).",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "just_cause_eviction",
+   "title": "Resident Protections Ordinance (relocation for demolition for new construction)",
+   "requirement": "Owners demolishing Protected Units for new construction must pay enhanced relocation to lower income tenants under the RPO and the state Housing Crisis Act, whichever is higher. Tenants also have rights to remain up to 6 months, return and first refusal.",
+   "key_value": "Standardized payment $115,480 extremely low, $96,750 very low, $87,450 low income; 1 Jul 2026 to 30 Jun 2027",
+   "penalty": "Financial penalties starting at $250,000 per displaced unit and withholding of LAHD permit clearances.",
+   "citation": "Ordinances # 188481 and #188482",
+   "legal_status": "enacted",
+   "enacted_date": "2025-02-11",
+   "effective_date": "2025-02-11",
+   "repeal_date": null,
+   "status_basis": "Bulletin says the City Council adopted the RPO on February 11, 2025, effective 2/11/2025.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "unavailable",
+      "name": "protected_unit",
+      "text": "Protected Units demolished for new construction"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies only to Protected Units being demolished for new construction.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Owners who demolish a Protected Unit for the purpose of new construction within 5 years after the \nfiling of the Notice of Intent to Withdraw or Declaration of Intent to Evict with LAHD are required to \ncomply with relocation requirements under the RPO. Failure to comply with the RPO may result in \nfinancial penalties starting at $250,000 per displaced unit and withholding of LAHD permit clearances.",
+   "confidence": 0.75,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

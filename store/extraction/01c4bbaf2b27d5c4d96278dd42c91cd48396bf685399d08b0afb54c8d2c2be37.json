@@ -1,0 +1,65 @@
+{
+ "doc_id": "D011",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "MA",
+   "category": "rent_increase_limits",
+   "title": "An Act petition for a special law authorizing the city of Boston to implement rent stabilization and tenant eviction protections",
+   "requirement": "Would authorize the city of Boston to implement rent stabilization. The bill text is not shown in this chunk, so no cap or formula is stated.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "H.3744",
+   "legal_status": "failed",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "On 9/9/2024 the bill was accompanied by a study order (H5035).",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "An Act petition for a special law authorizing the city of Boston to implement rent stabilization and tenant eviction protections",
+   "confidence": 0.6,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "MA",
+   "category": "just_cause_eviction",
+   "title": "An Act petition for a special law authorizing the city of Boston to implement rent stabilization and tenant eviction protections",
+   "requirement": "Would authorize the city of Boston to implement tenant eviction protections. The bill text is not shown in this chunk, so the specific grounds and duties are not stated.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "H.3744",
+   "legal_status": "failed",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "On 9/9/2024 the bill was accompanied by a study order (H5035).",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "An Act petition for a special law authorizing the city of Boston to implement rent stabilization and tenant eviction protections",
+   "confidence": 0.5,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

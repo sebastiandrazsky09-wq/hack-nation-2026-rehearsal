@@ -1,0 +1,20 @@
+{
+ "cell": "NJ|screening_restrictions",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D065#1"
+   ],
+   "primary_id": "D065#1"
+  },
+  {
+   "member_ids": [
+    "D067#4",
+    "D068#1"
+   ],
+   "primary_id": "D067#4"
+  }
+ ]
+}

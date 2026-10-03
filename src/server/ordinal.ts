@@ -59,9 +59,9 @@ export function changes(asOf: string): ChangesResponse {
   const read = (file: string): ChangeCase[] => existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) as ChangeCase[] : [];
   const byId = new Map([...read(PATHS.changeTests), ...read(PATHS.extraCases)].map(c => [c.test_id, c]));
   const cases = [...byId.values()];
-  const { results, errors } = computeChanges(cases, rules, addresses, stacks, asOf);
+  const { results, errors, warnings } = computeChanges(cases, rules, addresses, stacks, asOf);
   results.sort((a, b) => a.test_id < b.test_id ? -1 : 1);
-  return { as_of: asOf, disclaimer: DISCLAIMER, cases: results.map(r => ({ ...r, expected_behavior: byId.get(r.test_id)?.expected_behavior ?? null })), errors };
+  return { as_of: asOf, disclaimer: DISCLAIMER, cases: results.map(r => ({ ...r, expected_behavior: byId.get(r.test_id)?.expected_behavior ?? null })), errors: [...errors, ...warnings] };
 }
 
 export type PipelineResponse = { disclaimer: string; steps: { name: string; detail: string }[]; selfcheck: { ok: boolean; metrics: Record<string, number | string>; failures: string[] } | null };

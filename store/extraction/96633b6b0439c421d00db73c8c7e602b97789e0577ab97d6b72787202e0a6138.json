@@ -1,0 +1,43 @@
+{
+ "doc_id": "D010",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "screening_restrictions",
+   "title": "Boston Fair Chance Tenant Selection Policy",
+   "requirement": "Housing providers receiving DND funding or land, or with BPDA Inclusionary Development Policy income-restricted units, may not use blanket bans on applicants with arrests or convictions and must not consider non-conviction arrests, judicially relieved convictions, juvenile records, or convictions over 5 years old (except with a direct relationship to the housing or unreasonable risk to others). Credit scores may not be used to approve or deny applications; credit history may be used only in lieu of rental history.",
+   "key_value": "No consideration of convictions more than 5 years old; no use of credit scores",
+   "penalty": null,
+   "citation": "Boston Fair Chance Tenant Selection Policy (DND, February 2017)",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Policy document states housing providers agree to its terms; no adoption date given.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "unavailable",
+      "name": "public_funding_or_inclusionary_designation",
+      "text": "Housing providers receiving DND funding and/or land, or with income restricted units created under the BPDA Inclusionary Development Policy"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to housing receiving DND funding or land or inclusionary income-restricted units.",
+    "exemptions_summary": "Does not apply where there is a direct relationship between a conviction and the housing or unreasonable risk to others, or to current criminal behavior; conflicting federal or state law preempts."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": "Where federal or state law imposes a criminal history requirement that conflicts with a requirement of this guidance, the federal or state law preempts this policy."
+   },
+   "quoted_span": "Housing providers will consider applicants on a case-by-case basis.",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

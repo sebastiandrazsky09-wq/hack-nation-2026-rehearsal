@@ -253,7 +253,7 @@
       "A0500"
     ],
     "conflict_flag_address_ids": [],
-    "notes": "Selected CA-ALG-01 -> CA-ALG-67bd94. CA-ALG-67bd94 is \"AB 325 Cartwright Act: violations (Common pricing algorithms)\" (legal status enacted). Evaluated on 2025-12-31 and 2026-01-02 over 250 addresses in CA. Results on 2025-12-31: not_yet_effective 250. Results on 2026-01-02: applies 250. 250 addresses affected, 0 flagged for conflict."
+    "notes": "Selected CA-ALG-01 -> CA-ALG-d31ea6. CA-ALG-d31ea6 is \"AB 325 Cartwright Act: violations (Bus. & Prof. Code 16729, 16756.1)\" (legal status enacted). Evaluated on 2025-12-31 and 2026-01-02 over 250 addresses in CA. Results on 2025-12-31: not_yet_effective 250. Results on 2026-01-02: applies 250. 250 addresses affected, 0 flagged for conflict."
   },
   "T2": {
     "affected_address_ids": [
@@ -340,7 +340,7 @@
       "A0489",
       "A0490"
     ],
-    "notes": "Selected HOB-ALG-01 -> NJ-HOBOKEN-ALG-c7eb1c; JC-ALG-01 -> no rule. NJ-HOBOKEN-ALG-c7eb1c is \"City of Hoboken algorithmic rent-fixing ban\" (legal status enacted). JC-ALG-01 resolved to no rule. Evaluated on 2026-10-01 over 500 addresses. Results on 2026-10-01: applies 40, not_applicable 460. 40 addresses affected, 40 flagged for conflict."
+    "notes": "Selected HOB-ALG-01 -> NJ-HOBOKEN-ALG-c2a7cb; JC-ALG-01 -> no rule. NJ-HOBOKEN-ALG-c2a7cb is \"City of Hoboken algorithmic rent-fixing ordinance\" (legal status enacted). JC-ALG-01 resolved to no rule. Evaluated on 2026-10-01 over 500 addresses. Results on 2026-10-01: applies 40, not_applicable 460. 40 addresses affected, 40 flagged for conflict."
   },
   "T3": {
     "affected_address_ids": [
@@ -643,11 +643,11 @@
       "A0488"
     ],
     "conflict_flag_address_ids": [],
-    "notes": "Selected MA-ALG-P1 -> MA-ALG-1b9500, MA-ALG-9beb3b; MA-ALG-P2 -> MA-ALG-1b9500, MA-ALG-9beb3b. MA-ALG-1b9500 is \"An Act relative to preventing algorithmic rent fixing in the rental housing market\" (legal status pending). MA-ALG-9beb3b is \"An Act prohibiting algorithmic rent setting\" (legal status pending). Evaluated on 2026-10-01 over 110 addresses in MA. Results on 2026-10-01: pending 220. 110 addresses affected, 0 flagged for conflict."
+    "notes": "Selected MA-ALG-P1 -> MA-ALG-1b9500, MA-ALG-9beb3b; MA-ALG-P2 -> MA-ALG-1b9500, MA-ALG-9beb3b. MA-ALG-1b9500 is \"An Act relative to preventing algorithmic rent fixing in the rental housing market\" (legal status pending). MA-ALG-9beb3b is \"An Act prohibiting algorithmic rent setting (Bill S.2983)\" (legal status pending). Evaluated on 2026-10-01 over 110 addresses in MA. Results on 2026-10-01: pending 220. 110 addresses affected, 0 flagged for conflict."
   },
   "T5": {
     "affected_address_ids": [],
     "conflict_flag_address_ids": [],
-    "notes": "Selected MA-RENT-P1 -> MA-RENT-6416ec, MA-RENT-d84648. MA-RENT-6416ec is \"An Act petition for a special law authorizing the city of Boston to implement rent stabilization and tenant eviction protections (H.3744)\" (legal status failed; the rule failed and is not in force). MA-RENT-d84648 is \"Initiative Petition 25-21, An Initiative Petition to Protect Tenants by Limiting Rent Increases\" (legal status failed; the rule failed and is not in force). Evaluated on 2026-10-01 over 110 addresses in MA. Results on 2026-10-01: not_applicable 220. 0 addresses affected, 0 flagged for conflict."
+    "notes": "Selected MA-RENT-P1 -> MA-RENT-00a824, MA-RENT-8975ad. MA-RENT-00a824 is \"Initiative Petition 25-21, An Initiative Petition to Protect Tenants by Limiting Rent Increases\" (legal status failed; the rule failed and is not in force). MA-RENT-8975ad is \"An Act petition for a special law authorizing the city of Boston to implement rent stabilization and tenant eviction protections\" (legal status failed; the rule failed and is not in force). Evaluated on 2026-10-01 over 110 addresses in MA. Results on 2026-10-01: not_applicable 220. 0 addresses affected, 0 flagged for conflict."
   }
 }

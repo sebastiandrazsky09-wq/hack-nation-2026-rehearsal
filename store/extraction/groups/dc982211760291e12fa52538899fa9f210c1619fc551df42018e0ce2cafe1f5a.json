@@ -1,0 +1,41 @@
+{
+ "cell": "NJ|just_cause_eviction",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D067#9",
+    "D067#1",
+    "D067#10",
+    "D067#11",
+    "D067#6"
+   ],
+   "primary_id": "D067#9"
+  },
+  {
+   "member_ids": [
+    "D067#12"
+   ],
+   "primary_id": "D067#12"
+  },
+  {
+   "member_ids": [
+    "D067#13"
+   ],
+   "primary_id": "D067#13"
+  },
+  {
+   "member_ids": [
+    "D067#14"
+   ],
+   "primary_id": "D067#14"
+  },
+  {
+   "member_ids": [
+    "D067#15"
+   ],
+   "primary_id": "D067#15"
+  }
+ ]
+}

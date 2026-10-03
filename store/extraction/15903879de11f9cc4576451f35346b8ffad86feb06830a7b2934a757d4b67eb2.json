@@ -1,0 +1,93 @@
+{
+ "doc_id": "D083",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "San Francisco, CA",
+   "category": "rent_increase_limits",
+   "title": "San Francisco Rent Ordinance – Allowable Annual Rent Increase",
+   "requirement": "Landlords of units covered by the Rent Ordinance may raise rent annually by no more than the allowable percentage set by the Rent Board. The rate for March 1, 2026 – February 28, 2027 is 1.6%.",
+   "key_value": "1.6% for March 1, 2026 – February 28, 2027",
+   "penalty": null,
+   "citation": "Rent Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Existing Rent Ordinance; the page publishes the current annual allowable increase.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "1.6% for March 1, 2026 – February 28, 2027",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "San Francisco, CA",
+   "category": "security_deposits",
+   "title": "San Francisco Rent Board – Security Deposit Interest Rate",
+   "requirement": "Landlords must pay interest on tenant security deposits at the rate set by the Rent Board. The rate for March 1, 2026 – February 28, 2027 is 4.2%.",
+   "key_value": "4.2% for March 1, 2026 – February 28, 2027",
+   "penalty": null,
+   "citation": "Security Deposit Interest Rates (Rent Board)",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Page publishes the current annual interest rate; underlying law not cited.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "4.2% for March 1, 2026 – February 28, 2027",
+   "confidence": 0.6,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "San Francisco, CA",
+   "category": "just_cause_eviction",
+   "title": "San Francisco Rent Ordinance – Eviction Relocation Payments (Sections 37.9A and 37.9C)",
+   "requirement": "Landlords evicting for owner/relative move-in, demolition or permanent removal from housing use, capital improvement work, or substantial rehabilitation must pay relocation to each tenant, and Ellis Act evictions carry separate higher payments. Temporary displacement under 20 days is paid per day plus moving expenses.",
+   "key_value": "Sec. 37.9C for notices served 3/1/26–2/28/27: $8,245 per tenant, max $24,733 per unit, plus $5,497 per elderly/disabled tenant or household with minor child; Ellis Act (37.9A): $11,110.05 per tenant, max $33,330.13 per unit, plus $7,443.90 per elderly/disabled tenant; temporary displacement under 20 days: $446/day plus actual moving expenses",
+   "penalty": null,
+   "citation": "Rent Ordinance Sections 37.9A and 37.9C",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Existing Rent Ordinance sections; page publishes current amounts by date of service of notice.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Relocation Payments for Evictions based on Owner/Relative Move-in OR Demolition/Permanent Removal of Unit from Housing Use OR Temporary Capital Improvement Work* OR Substantial Rehabilitation",
+   "confidence": 0.6,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

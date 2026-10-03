@@ -1,0 +1,181 @@
+{
+ "doc_id": "D067",
+ "chunk_index": 6,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Anti-Eviction Act (Eviction Law)",
+   "requirement": "Tenants may be removed only by court order on listed good causes. In owner-occupied two- and three-family dwellings the landlord must prove one of the specified causes, with notice to quit of 3 months (at will or year-to-year), 1 month (month-to-month) or 3 days (disorderly, destructive or rule violations). Landlords who evict to occupy the unit must occupy it for 6 months, and landlords who evict to retire the building must keep it out of residential use for 5 years.",
+   "key_value": "3-month, 1-month or 3-day notice to quit depending on tenancy and cause; 6-month owner occupancy; 5-year bar on residential use",
+   "penalty": "Treble damages plus attorney fees and costs; civil penalty up to $10,000 per violation for residential use within 5 years of a removal-from-residential-use eviction",
+   "citation": "N.J.S.A. 2A:18-61.1",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Cited as existing State law in the guide.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to residential tenancies generally, including owner-occupied two- and three-family dwellings, rooming and boarding houses and public housing.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "A three (3) month notice to quit must be gi ven if an at will tenancy or year -to-year tenancy exists. A one (1) month notice to quit is required for a month-to-month tenancy and other types of tenancies are entitled to a one (1) month notice to quit.",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "New Jersey Foreclosure Fairness Act",
+   "requirement": "Foreclosure alone is not grounds for eviction. Before evicting a tenant of a foreclosed property bought by an owner-occupant, the landlord must give a 90-day notice to quit. The new owner must give notices in English and Spanish within 10 business days after the sale, and any offer to vacate must be voluntary and free of pressure tactics.",
+   "key_value": "90-day notice to quit; notice to tenants within 10 business days of sale",
+   "penalty": null,
+   "citation": "N.J.S.A. 2A:50-69 et seq.",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Cited as existing State law in the guide.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "foreclosed_property",
+      "text": "Applies to foreclosed property containing one or more residential rental units"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to tenants of foreclosed residential rental property.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Before a tenant can be evicted due to foreclosure, the landlord must provide the tenant with a 90 -day notice to qui t when the foreclosed property has been purchased by a buyer who wants to personally occupy it as his or her primary residence.",
+   "confidence": 0.75,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Senior Citizens and Disabled Protected Tenancy Act",
+   "requirement": "Eligible senior, disabled or disabled-veteran tenants in buildings being converted to condominium or cooperative ownership may be protected from eviction for 40 years if their income is within the limit. Landlords or converters must notify tenants of their right to apply.",
+   "key_value": "40 years of protection; income limit of 3 times county average per person income or $50,000, whichever is greater",
+   "penalty": null,
+   "citation": "N.J.S.A. 2A:18-61.22 to -61.39",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Cited as existing State law in the guide.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "condo_coop_conversion",
+      "text": "Building being converted to condominium, cooperative or fee simple ownership; tenant is 62+ or disabled"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to eligible tenants in converted buildings.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Tenants may be protected from eviction for 40 years if their family income is not more than three (3) times the average per person income in their county or $50,000.00, whichever  is greater (N.J.S.A. 2A:18-61.28).",
+   "confidence": 0.75,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Tenant Protection Act of 1992",
+   "requirement": "Extends protected tenancy against eviction to qualified tenants in converted buildings who were not eligible as seniors or disabled persons. The only qualified county is currently Hudson County.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "N.J.S.A. 2A:18-61.40 to -61.59",
+   "legal_status": "enacted",
+   "enacted_date": "1992",
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Cited as existing State law in the guide.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "hudson_county_conversion",
+      "text": "Qualified tenants in qualified counties (Hudson County) in converted buildings"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to qualified tenants in Hudson County converted buildings.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The Tenant Protection Law of 1992 amendment extends protections to qualified tenants in qualified counties in buildings converted or being converted who were not eligible for Protected Tenancy as either Senior Citizens or Disabled Persons under the “Senior Citizens and Disabled Protected Tenancy Act of 1981” (N.J.S.A. 2A:18-61.40 to -61.59; N.J.A.C. 5:24-3.1 to -3.4).",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Reprisal law (civil rights of tenants)",
+   "requirement": "A landlord cannot retaliate against a tenant by eviction, substantial alteration of lease terms or refusal to renew when the tenant exercises certain rights, such as enforcing lease rights, making good-faith complaints or organizing. A tenant may sue for damages.",
+   "key_value": null,
+   "penalty": "Civil action for damages",
+   "citation": "N.J.S.A. 2A:42-10.10",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Cited as existing State law in the guide.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "units",
+       "op": "lte",
+       "value": 3,
+       "text": "except owner-occupied two- or three-family dwellings"
+      },
+      {
+       "fact": "unavailable",
+       "name": "owner_occupied",
+       "text": "owner-occupied"
+      }
+     ]
+    ],
+    "summary": "Applies to all rental properties used for dwelling purposes, including mobile homes.",
+    "exemptions_summary": "Owner-occupied two- or three-family dwellings are excluded."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "A landlord cannot take reprisal action against a tenant by eviction, substantial alteration of a lease or its terms, or refusal to renew a lease when a tenant exercises certain civil rights (N.J.S.A. 2A:42-10.10).",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

@@ -1,0 +1,45 @@
+{
+ "doc_id": "D052",
+ "chunk_index": 1,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "MA",
+   "category": "security_deposits",
+   "title": "M.G.L. c. 186, § 15B (security deposits and rental advances)",
+   "requirement": "On transfer of the property, the lessor stays liable for the rental advance and interest until it is credited to the successor (with written notice to the tenant) or to the tenant; otherwise the successor assumes liability. Lease provisions conflicting with the section, and tenant waivers, are void; the section does not apply to tenancies of 100 days or less for vacation or recreational purposes.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "General Laws Part II, Title I, Chapter 186, Section 15B",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Appears in the Massachusetts General Laws.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "caveat",
+       "name": "short_term_vacation_rental",
+       "text": "any lease, rental, occupancy or tenancy of one hundred days or less in duration which lease or rental is for a vacation or recreational purpose"
+      }
+     ]
+    ],
+    "summary": "Applies to residential leases and tenancies in Massachusetts.",
+    "exemptions_summary": "Tenancies of 100 days or less for vacation or recreational purposes are exempt."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Any provision of a lease which conflicts with any provision of this section and any waiver by a tenant or prospective tenant of any provision of this section shall be deemed to be against public policy and therefore void and unenforceable.",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

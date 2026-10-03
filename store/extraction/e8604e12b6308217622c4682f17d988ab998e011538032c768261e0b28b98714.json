@@ -1,0 +1,65 @@
+{
+ "doc_id": "D052",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "MA",
+   "category": "security_deposits",
+   "title": "General Laws Part II, Title I, Chapter 186, Section 15B",
+   "requirement": "A lessor may require at or before tenancy start only first month's rent, last month's rent, a security deposit of no more than first month's rent, and the cost of a key and lock. Deposits must be held in a separate interest-bearing Massachusetts bank account, earn 5% interest (or the lesser bank rate) annually, and be returned within 30 days of the tenancy ending, less permitted deductions with an itemized sworn list. A statement of condition and receipts are required.",
+   "key_value": "Security deposit capped at 1 month's rent; interest 5% per year; return within 30 days",
+   "penalty": "Lessor forfeits the right to retain any of the deposit. Tenant is awarded three times the deposit plus 5% interest, court costs and attorney's fees. Unpaid interest is penalized at three times the interest owed.",
+   "citation": "G.L. c. 186, § 15B",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Section appears in the General Laws; the 2025 amendment (2025, 9) is effective August 1, 2025.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to residential real property leases and tenancies.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "(iii) a security deposit equal to the first month's rent provided that such security deposit is deposited as required by subsection (3) and that the tenant is given the statement of condition as required by subsection (2);",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "MA",
+   "category": "application_screening_fees",
+   "title": "General Laws Part II, Title I, Chapter 186, Section 15B (upfront charges)",
+   "requirement": "At or before the start of a tenancy, no lessor or agent may require a tenant or prospective tenant to pay more than first month's rent, last month's rent, a security deposit of up to one month's rent, and the cost of a key and lock. Lessors must give receipts for advance payments. A fee in lieu of a deposit may be authorized by regulation, capped at one month's rent in total.",
+   "key_value": "Upfront payments limited to first month, last month, deposit of 1 month, and key/lock cost",
+   "penalty": null,
+   "citation": "G.L. c. 186, § 15B",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Section appears in the General Laws; the amendment extending the limit to agents is effective August 1, 2025.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to residential real property leases and tenancies.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "(b) At or prior to the commencement of any tenancy, no lessor or agent of the lessor may require a tenant or prospective tenant to pay, to the lessor or to an agent of the lessor, any amount in excess of the following:",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

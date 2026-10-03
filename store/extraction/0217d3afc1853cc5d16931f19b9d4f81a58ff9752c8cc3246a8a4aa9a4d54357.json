@@ -1,0 +1,52 @@
+{
+ "doc_id": "D031",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "just_cause_eviction",
+   "title": "Tenants Rights and Resources Ordinance (Chapter 8.71, Cambridge Municipal Code)",
+   "requirement": "Owners, landlords and management companies must give tenants a city Guide on housing rights and resources at the start of a tenancy and when legal steps to terminate it are taken (e.g., Notice to Quit or Summary Process). It does not bar evictions otherwise allowed by law.",
+   "key_value": "Guide provided at tenancy start and at termination; fine of $300 per day of violation",
+   "penalty": "Fine of $300 for each day's violation (Sec. 8.71.070)",
+   "citation": "Chapter 8.71 of the Cambridge Municipal Code",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Described as an existing ordinance in the Cambridge Municipal Code; adoption and effective dates not stated.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "caveat",
+       "name": "health_or_treatment_facility",
+       "text": "rental units in a hospital, skilled nursing facility or health facility or in a non-profit facility that has the primary purpose of providing short term assistance, treatment, assistance or therapy for alcohol, drug or other substance abuse"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "short_term_rental_units",
+       "text": "Short Term Rental Units as set forth in Article 4, Section 4.60 of the Cambridge Zoning Ordinance"
+      }
+     ]
+    ],
+    "summary": "Applies to residential rental agreements, including a single residential dwelling unit and tenants at will.",
+    "exemptions_summary": "Does not apply to hospital, skilled nursing or health facility units, non-profit short-term substance abuse treatment facilities, or short term rental units."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The Ordinance also requires that a landlord provide the Guide to tenants when legal steps to terminate a tenancy are taken (ex. Notice to Quit or Summary Process).",
+   "confidence": 0.85,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

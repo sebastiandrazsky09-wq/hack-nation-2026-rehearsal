@@ -1,0 +1,14 @@
+{
+ "cell": "CA|screening_restrictions",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D016#1",
+    "D027#1"
+   ],
+   "primary_id": "D027#1"
+  }
+ ]
+}

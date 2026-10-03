@@ -21,7 +21,7 @@ function datesOf(c: ChangeCase, defaultAsOf: string): string[] {
 }
 
 export const computeChanges: ComputeChanges = (cases, rules, addresses, stacks, defaultAsOf) => {
-  const errors: string[] = [];
+  const errors: string[] = []; const warnings: string[] = [];
   const ordered = [...addresses].sort((a, b) => cmp(a.address_id, b.address_id));
   const withStack = ordered.filter(a => stacks[a.address_id]);
   if (withStack.length < ordered.length) errors.push(`${ordered.length - withStack.length} addresses have no jurisdiction stack and were skipped`);
@@ -37,7 +37,7 @@ export const computeChanges: ComputeChanges = (cases, rules, addresses, stacks, 
     const selections = selectRules(c, rules);
     const selectedIds = new Set(selections.flatMap(s => s.team_rule_ids));
     const unresolved = selections.filter(s => !s.team_rule_ids.length).map(s => s.selector);
-    for (const selector of unresolved) errors.push(`${c.test_id}: ${selector} resolved to no rule`);
+    for (const selector of unresolved) warnings.push(`${c.test_id}: ${selector} resolved to no rule`);
     const base = { test_id: c.test_id, title: c.title ?? null, type: c.type, dates, selected: selections.map(s => ({ selector: s.selector, team_rule_ids: s.team_rule_ids })) };
     const bad = dates.find(d => { try { assertIsoDate(d); return false; } catch { return true; } });
     if (bad !== undefined) {
@@ -80,7 +80,7 @@ export const computeChanges: ComputeChanges = (cases, rules, addresses, stacks, 
 
     return { ...base, affected_address_ids: [...affected].sort(cmp), conflict_flag_address_ids: [...flagged].sort(cmp), notes: sentences.join(' '), counts };
   });
-  return { results, errors };
+  return { results, errors, warnings };
 };
 
 /** `cases` replaces both case files; `casesFile` and `extraCasesFile` replace their paths. */
@@ -104,14 +104,14 @@ export const runDiff = async ({ asOf = DEFAULT_AS_OF, outDir = PATHS.out }: Para
     }
     cases = [...byId.values()];
   }
-  const { results, errors } = computeChanges(cases, rules, addresses, stacks, asOf);
+  const { results, errors, warnings } = computeChanges(cases, rules, addresses, stacks, asOf);
   results.sort((a, b) => cmp(a.test_id, b.test_id));
   const body = Object.fromEntries(results.map(r => [r.test_id, { affected_address_ids: r.affected_address_ids, conflict_flag_address_ids: r.conflict_flag_address_ids, notes: r.notes }]));
   mkdirSync(outDir, { recursive: true });
   const file = path.join(outDir, 'changes.json');
   writeFileSync(file, JSON.stringify(body, null, 2) + '\n');
   return {
-    cases: results.length, errors: [...loadErrors, ...errors], file,
+    cases: results.length, errors: [...loadErrors, ...errors], warnings, file,
     summary: Object.fromEntries(results.map(r => [r.test_id, {
       affected: r.affected_address_ids.length, conflict_flagged: r.conflict_flag_address_ids.length,
       rules: [...new Set(r.selected.flatMap(s => s.team_rule_ids))].sort(cmp)

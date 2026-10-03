@@ -1,0 +1,94 @@
+{
+ "doc_id": "D024",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "CA",
+   "category": "rent_increase_limits",
+   "title": "California Civil Code 1947.12 (Tenant Protection Act rent cap, as added by SB 567)",
+   "requirement": "An owner of residential real property may not raise the gross rental rate more than 5 percent plus the local percentage change in cost of living, or 10 percent, whichever is lower, over any 12-month period, with no more than two increments in that period. The initial rent for a new tenancy is not capped.",
+   "key_value": "5% plus CPI change, or 10%, whichever is lower, per 12 months",
+   "penalty": "Civil action by tenant for injunctive relief, damages for the excess, attorney's fees and costs, and up to three times the excess if willful or malicious; enforcement by the Attorney General, city attorney or county counsel.",
+   "citation": "California Civil Code § 1947.12",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": "2024-01-01",
+   "repeal_date": "2030-01-01",
+   "status_basis": "Added by Stats. 2023, Ch. 290 (SB 567), effective January 1, 2024, operative April 1, 2024; repealed January 1, 2030 by its own provisions.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "caveat",
+       "name": "deed_restricted_affordable_housing",
+       "text": "Housing restricted by deed, regulatory agreement or other recorded document as affordable housing, or subject to an affordable housing subsidy agreement"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "dormitory",
+       "text": "Dormitories owned and operated by an institution of higher education or a K-12 school"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "local_rent_control_stricter",
+       "text": "Housing subject to rent or price control under Chapter 2.7 that restricts annual increases to less than subdivision (a)"
+      }
+     ],
+     [
+      {
+       "fact": "building_age_years",
+       "op": "lt",
+       "years": 15,
+       "basis": "certificate_of_occupancy",
+       "text": "Housing that has been issued a certificate of occupancy within the previous 15 years, unless the housing is a mobilehome"
+      }
+     ],
+     [
+      {
+       "fact": "units",
+       "op": "lte",
+       "value": 1,
+       "text": "Residential real property alienable separate from the title to any other dwelling unit"
+      },
+      {
+       "fact": "unavailable",
+       "name": "owner_not_REIT_corporation_or_LLC_with_corporate_member_and_notice_given",
+       "text": "Owner is not a REIT, corporation, LLC with a corporate member, or mobilehome park management, and written exemption notice was provided"
+      }
+     ],
+     [
+      {
+       "fact": "units",
+       "op": "eq",
+       "value": 2,
+       "text": "Two separate dwelling units within a single structure"
+      },
+      {
+       "fact": "unavailable",
+       "name": "owner_occupied",
+       "text": "Owner occupied one unit as principal residence at the beginning of the tenancy and continues in occupancy; neither unit is an ADU or JADU"
+      }
+     ]
+    ],
+    "summary": "Applies to most residential rentals statewide, other than the listed exempt categories.",
+    "exemptions_summary": "Exempts deed-restricted affordable housing, dormitories, housing under stricter local rent control, housing with a certificate of occupancy within 15 years, certain separately alienable homes with non-corporate owners, and owner-occupied duplexes."
+   },
+   "precedence": {
+    "relation": "yields_to_stricter_local",
+    "text": "This section shall not apply to housing subject to rent or price control ... that restricts annual increases in the rental rate to an amount less than that provided in subdivision (a); it does not authorize or limit local rent control consistent with Chapter 2.7."
+   },
+   "quoted_span": "Subject to subdivision (b), an owner of residential real property shall not, over the course of any 12-month period, increase the gross rental rate for a dwelling or a unit more than 5 percent plus the percentage change in the cost of living, or 10 percent, whichever is lower, of the lowest gross rental rate charged for that dwelling or unit at any time during the 12 months prior to the effective date of the increase.",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

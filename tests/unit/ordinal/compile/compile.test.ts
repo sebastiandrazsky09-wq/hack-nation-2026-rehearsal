@@ -233,3 +233,23 @@ describe('long documents', () => {
     expect(text.slice(rule.span_start!, rule.span_end!)).toBe(rule.quoted_span);
   });
 });
+
+describe('effective-date guard at extraction (lead amendment after the independent audit)', () => {
+  it('drops an effective date the document gives only as the latest amendment or a rate period, and says why', async () => {
+    const { effectiveDateContext, REJECTED_DATE_REASON } = await import('../../../../src/ordinal/dates');
+    const statute = 'SOURCE: https://x.test/s\nRETRIEVED: 2026-10-01\n\nA landlord shall not demand more than one month of rent as security.\n(Amended by Stats. 2025, Ch. 340, Sec. 1. (AB 414) Effective January 1, 2026.)\n';
+    expect(REJECTED_DATE_REASON[effectiveDateContext(statute, '2026-01-01')]).toContain('latest amendment');
+    const rates = 'The annual allowable increase amount effective March 1, 2026 through February 28, 2027 is 1.6%.';
+    expect(REJECTED_DATE_REASON[effectiveDateContext(rates, '2026-03-01')]).toContain('rate period');
+    expect(REJECTED_DATE_REASON[effectiveDateContext('This act takes effect July 1, 2027.', '2027-07-01')]).toBeUndefined();
+  });
+  it('the committed store holds no effective date of either kind', async () => {
+    const { effectiveDateContext, REJECTED_DATE_REASON } = await import('../../../../src/ordinal/dates');
+    const { loadOfficialDocs, loadSupplementalDocs, readRuleStore, PATHS } = await import('../../../../src/ordinal/corpus');
+    const { loadIngestedDocs } = await import('../../../../src/ordinal/compile/ingest');
+    const text = new Map([...loadOfficialDocs(), ...loadSupplementalDocs(), ...loadIngestedDocs(PATHS.ingested)].map(d => [d.doc_id, d.text]));
+    const bad = readRuleStore().filter(r => r.effective_date && !([r.source_doc_id, ...r.also_supported_by.map(s => s.source_doc_id)].map(id => effectiveDateContext(text.get(id) ?? '', r.effective_date!)).includes('stated'))
+      && [r.source_doc_id, ...r.also_supported_by.map(s => s.source_doc_id)].some(id => effectiveDateContext(text.get(id) ?? '', r.effective_date!) in REJECTED_DATE_REASON)).map(r => r.team_rule_id);
+    expect(bad).toEqual([]);
+  });
+});

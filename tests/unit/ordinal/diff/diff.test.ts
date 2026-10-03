@@ -85,7 +85,9 @@ describe('computeChanges', () => {
     expect(out.results[0].affected_address_ids).toEqual([]);
     expect(out.results[0].selected.every(s => s.team_rule_ids.length === 0)).toBe(true);
     expect(out.results[0].notes).toContain('ZZ-ALG-01 resolved to no rule');
-    expect(out.errors).toEqual(expect.arrayContaining(['g: ZZ-ALG-01 resolved to no rule', 'g: NJ-RENT-01 resolved to no rule', 'g: nope resolved to no rule']));
+    // A selector that matches no rule is a reported gap, not a failure of the run.
+    expect(out.warnings).toEqual(expect.arrayContaining(['g: ZZ-ALG-01 resolved to no rule', 'g: NJ-RENT-01 resolved to no rule', 'g: nope resolved to no rule']));
+    expect(out.errors).toEqual([]);
   });
 });
 

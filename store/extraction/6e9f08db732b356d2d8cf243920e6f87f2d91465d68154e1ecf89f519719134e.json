@@ -1,0 +1,45 @@
+{
+ "doc_id": "D069",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "algorithmic_rent_setting",
+   "title": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act",
+   "requirement": "Makes it an unlawful antitrust violation for rental property owners to pay for or use a coordinator's services, for coordinators to facilitate rent-fixing agreements, for anyone to engage in parallel pricing coordination, or for any person to perform a coordinating function (algorithmic setting or recommending of rents, lease terms or occupancy using competitors' nonpublic information). Municipalities may not enact conflicting ordinances.",
+   "key_value": null,
+   "penalty": "Violation of the New Jersey Antitrust Act; enforcement under sections 6 through 17 of P.L.1970, c.73 (C.56:9-6 through 9-17).",
+   "citation": "P.L. 2026, c.43 (A3497 1R ACS)",
+   "legal_status": "enacted",
+   "enacted_date": "2026-07-20",
+   "effective_date": "2027-07-01",
+   "repeal_date": null,
+   "status_basis": "Approved July 20, 2026; takes effect the first day of the twelfth month next following enactment.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "caveat",
+       "name": "excluded_facilities",
+       "text": "Residential dwelling unit does not include inpatient medical care, licensed long-term care, or detention or correctional facilities."
+      }
+     ]
+    ],
+    "summary": "Applies to rental residential dwelling units in New Jersey and to the owners and coordinators who set or recommend their rents.",
+    "exemptions_summary": "Excludes inpatient medical care, licensed long-term care and detention facilities, and government setting rents through affordability controls."
+   },
+   "precedence": {
+    "relation": "preempts_local",
+    "text": "A municipality shall be prohibited from enacting an ordinance that conflicts with this act."
+   },
+   "quoted_span": "any person to perform a coordinating function.",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

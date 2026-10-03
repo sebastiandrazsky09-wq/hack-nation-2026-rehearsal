@@ -1,0 +1,15 @@
+{
+ "cell": "Berkeley, CA|just_cause_eviction",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D004#1",
+    "D006#1",
+    "D009#1"
+   ],
+   "primary_id": "D009#1"
+  }
+ ]
+}

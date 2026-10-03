@@ -1,0 +1,16 @@
+{
+ "cell": "San Diego, CA|just_cause_eviction",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D073#1",
+    "D073#2",
+    "D077#1",
+    "D077#2"
+   ],
+   "primary_id": "D073#1"
+  }
+ ]
+}

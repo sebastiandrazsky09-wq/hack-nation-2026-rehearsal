@@ -1,0 +1,65 @@
+{
+ "doc_id": "D043",
+ "chunk_index": 1,
+ "prompt_version": "ordinal-extract-v4",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "just_cause_eviction",
+   "title": "Los Angeles Rent Stabilization Ordinance (RSO) relocation assistance, LAMC 151.09",
+   "requirement": "Landlords terminating a tenancy for a no-fault reason under the RSO must pay relocation assistance per unit, within 15 days of the written notice (or into escrow within that period). Amounts depend on tenant status (eligible or qualified), length of tenancy and income.",
+   "key_value": "Eligible tenant $11,000 (under 3 years) or $14,400 (3+ years or low income); qualified tenant $23,150 or $27,400; for 1 Jul 2026 to 30 Jun 2027, increasing each July 1",
+   "penalty": "Tenant may raise the landlord's failure to provide relocation assistance as an affirmative defense to an action to recover possession, and may file a complaint with LAHD.",
+   "citation": "LAMC 151.09",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Cited as existing code section in LAHD Relocation Assistance Bulletin Rev 07.01.2026.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to tenancies covered by the RSO, as described in the bulletin.",
+    "exemptions_summary": "Landlord may offset accumulated rent against relocation assistance unless the termination is due to a government order to vacate an unpermitted dwelling."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Payments shall be made available within fifteen (15) days of service of the written notice of eviction;",
+   "confidence": 0.6,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "just_cause_eviction",
+   "title": "Los Angeles Just Cause Ordinance (JCO) relocation assistance, LAMC 165.06",
+   "requirement": "Landlords terminating a tenancy under the JCO must pay relocation assistance per unit, using the same amounts as the RSO, within 15 days of the written notice. A natural-person owner of a single-family dwelling (no more than four dwelling units plus a single-family home on a separate lot) owes one month's rent instead.",
+   "key_value": "Eligible tenant $11,000 or $14,400; qualified tenant $23,150 or $27,400 (1 Jul 2026 to 30 Jun 2027); one month's rent for qualifying natural-person single-family owners",
+   "penalty": "Failure to pay is an affirmative defense for the tenant in a possession action; tenant may file an LAHD complaint or a private action.",
+   "citation": "LAMC 165.06",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Cited as existing code section in LAHD Relocation Assistance Bulletin Rev 07.01.2026.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to tenancies covered by the JCO.",
+    "exemptions_summary": "Landlord may offset accumulated rent against relocation assistance unless the termination is due to a government order to vacate an unpermitted dwelling."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The entire payment shall be made to a tenant who is the only tenant in a rental unit.",
+   "confidence": 0.55,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

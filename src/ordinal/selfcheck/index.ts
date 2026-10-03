@@ -1,4 +1,5 @@
 // Recomputes everything from the store; nothing is read from a previous export.
+import { effectiveDateContext, REJECTED_DATE_REASON } from '../dates';
 import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -85,6 +86,13 @@ export async function runSelfcheck(deps: SelfcheckDeps = {}): Promise<SelfcheckR
   if (build.exported.length === 0) failures.push('zero rules exported');
   const stale = build.exported.filter(r => !quoteMatchesSource(r, docText.get(r.source_doc_id) ?? '')).map(r => r.team_rule_id);
   if (stale.length) failures.push(`exported rule(s) whose quote does not match the source document: ${sample(stale)}`);
+  // An exported effective date must be worded as one somewhere in the rule's documents, or not written at all (computed).
+  const misdated = build.exported.filter(r => {
+    if (!r.effective_date) return false;
+    const contexts = [r.source_doc_id, ...r.also_supported_by.map(s => s.source_doc_id)].map(id => effectiveDateContext(docText.get(id) ?? '', r.effective_date!));
+    return !contexts.includes('stated') && contexts.some(c => c in REJECTED_DATE_REASON);
+  }).map(r => r.team_rule_id);
+  if (misdated.length) failures.push(`effective date taken from an amendment note or a rate period: ${sample(misdated)}`);
   const orphan = [...new Set(rows.filter(r => !exportedIds.has(r.team_rule_id)).map(r => `${r.address_id}->${r.team_rule_id}`))];
   if (orphan.length) failures.push(`lookup row(s) point at a rule that is not exported: ${sample(orphan)}`);
   const uncovered = addresses.filter(a => !(a.address_id in build.lookups)).map(a => a.address_id);

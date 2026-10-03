@@ -64,7 +64,7 @@ export type ChangeResult = {
   counts: Record<string, Record<string, number>>;
 };
 /** Pure: no I/O. */
-export type ComputeChanges = (cases: ChangeCase[], rules: InternalRule[], addresses: Address[], stacks: Record<string, JurisdictionStack>, defaultAsOf: string) => { results: ChangeResult[]; errors: string[] };
+export type ComputeChanges = (cases: ChangeCase[], rules: InternalRule[], addresses: Address[], stacks: Record<string, JurisdictionStack>, defaultAsOf: string) => { results: ChangeResult[]; /** A case that could not be evaluated. */ errors: string[]; /** A selector that matched no extracted rule: a known gap, reported and not fatal. */ warnings: string[] };
 export type DiffOptions = { asOf?: string; outDir?: string };
-export type DiffReport = { cases: number; errors: string[]; file: string; summary: Record<string, { affected: number; conflict_flagged: number; rules: string[] }> };
+export type DiffReport = { cases: number; errors: string[]; warnings: string[]; file: string; summary: Record<string, { affected: number; conflict_flagged: number; rules: string[] }> };
 export type RunDiff = (options: DiffOptions) => Promise<DiffReport>;

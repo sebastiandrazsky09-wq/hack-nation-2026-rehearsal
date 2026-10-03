@@ -1,0 +1,28 @@
+{
+ "cell": "Los Angeles, CA|just_cause_eviction",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D040#1",
+    "D043#2"
+   ],
+   "primary_id": "D040#1"
+  },
+  {
+   "member_ids": [
+    "D041#2",
+    "D043#4",
+    "D043#1"
+   ],
+   "primary_id": "D041#2"
+  },
+  {
+   "member_ids": [
+    "D043#3"
+   ],
+   "primary_id": "D043#3"
+  }
+ ]
+}
