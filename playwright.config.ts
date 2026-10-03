@@ -8,6 +8,6 @@ export default defineConfig({
   webServer: {
     command: `npm run start -- --port ${port}`, url: `http://127.0.0.1:${port}/api/health`,
     reuseExistingServer: false, timeout: 60000,
-    env: { APP_MODE: 'replay', OPENAI_API_KEY: '', ANTHROPIC_API_KEY: '' }
+    env: { OPENAI_API_KEY: '', ANTHROPIC_API_KEY: '' }
   }
 });

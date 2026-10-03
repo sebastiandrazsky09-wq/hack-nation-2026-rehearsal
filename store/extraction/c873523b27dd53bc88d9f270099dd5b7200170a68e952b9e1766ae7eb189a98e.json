@@ -1,0 +1,43 @@
+{
+ "doc_id": "D073",
+ "chunk_index": 1,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "just_cause_eviction",
+   "title": "Just Cause Required for Termination of Tenancy (San Diego Municipal Code Chapter 9, Article 8, Division 7)",
+   "requirement": "Landlords must give tenants notice of protections, and for at-fault terminations give notice and opportunity to cure. For no-fault terminations they must give written notice stating the basis, pay relocation assistance (direct payment or rent waiver), and offer to re-lease within five years. Landlords must notify the Commission, and failure to comply voids the termination notice. Buyout agreements are regulated and cannot be for less than the relocation assistance.",
+   "key_value": "Relocation assistance of 2 months' rent (3 months if tenant is senior or disabled) for no-fault terminations",
+   "penalty": "Termination notice void; damages of not less than three times actual economic damages for wrongful eviction; not less than three times required relocation assistance plus actual damages; punitive damages; attorney's fees and costs in court's discretion; City enforcement with civil and criminal remedies.",
+   "citation": "San Diego Municipal Code §§98.0705-98.0710",
+   "legal_status": "enacted",
+   "enacted_date": "2023-05-25",
+   "effective_date": "2023-06-24",
+   "repeal_date": null,
+   "status_basis": "Added 5-25-2023 by O-21647 N.S.; effective 6-24-2023; amended 2-27-2024 by O-21769 N.S., effective 3-28-2024.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "residential_rental_property_subject_to_division",
+      "text": "A landlord of residential rental property subject to this Division"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to residential rental property subject to Division 7 of Article 8.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The landlord shall, regardless of the tenant’s income or length of tenancy and at the landlord’s option, provide relocation assistance to the tenant by one of the following:",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

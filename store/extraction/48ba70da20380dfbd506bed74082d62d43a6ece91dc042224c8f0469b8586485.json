@@ -1,0 +1,67 @@
+{
+ "doc_id": "D067",
+ "chunk_index": 4,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Anti-Eviction Act",
+   "requirement": "A landlord may recover possession of a residential unit only by consent or through court eviction, and must have good cause to evict or fail to renew a lease. Each cause except nonpayment must be described in a written Notice to Quit (and sometimes a Notice to Cease), and a Judgment for Possession must be entered before the tenant must move.",
+   "key_value": "Warrant for possession not issuable until 3 business days after judgment; tenant then has 3 business days to move",
+   "penalty": null,
+   "citation": "N.J.S.A. 2A:18-61.1 to 61.12",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "residential_rental",
+      "text": "applies to most residential rental properties including single-family homes, mobile homes and land in a mobile home park, apartment buildings, and complexes, and rooming and boarding homes"
+     }
+    ],
+    "exempt_if": [
+     [
+      {
+       "fact": "caveat",
+       "name": "owner_occupied_small",
+       "text": "two- or three-unit owner-occupied premises with two (2) or fewer rental units"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "transient_guest",
+       "text": "hotel guests, motel guests, or guest houses rented to a transient guest or seasonal tenant"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "family_trust_unit",
+       "text": "a unit held in trust on behalf of a member of the immediate family who is developmentally disabled and permanently occupies the unit"
+      }
+     ]
+    ],
+    "summary": "Applies to most residential rentals including houses, mobile homes, apartments and rooming/boarding homes.",
+    "exemptions_summary": "Does not apply to certain small owner-occupied premises, transient or seasonal hotel/motel guests, and units held in trust for a developmentally disabled family member."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "A landlord must have good cause to evict a tenant (N.J.S.A. 2A:18-53). No residential landlord may evict or fail to renew a lease, whether it is a written or an oral lease without good cause.",
+   "confidence": 0.85,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {
+  "fe67d603cf49f8f5c19040c9baabc1268b2ee66105610462acd738994a7483d9": "No residential landlord may evict or fail to renew a \nlease, whether it is a written or an oral lease without good cause."
+ }
+}

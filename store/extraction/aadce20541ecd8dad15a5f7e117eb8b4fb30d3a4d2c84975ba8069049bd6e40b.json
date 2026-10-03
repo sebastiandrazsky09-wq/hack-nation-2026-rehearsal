@@ -1,0 +1,139 @@
+{
+ "doc_id": "D040",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "just_cause_eviction",
+   "title": "Just Cause For Eviction Ordinance (JCO)",
+   "requirement": "Landlords may not terminate covered tenancies without just cause (at-fault reasons or specified no-fault reasons). No-fault evictions require relocation assistance; evictions for non-payment require the amount owed to exceed Fair Market Rent; eviction notices must be filed with LAHD within three business days.",
+   "key_value": "Relocation assistance for no-fault evictions; rent owed must exceed FMR for non-payment eviction",
+   "penalty": null,
+   "citation": "Just Cause Ordinance (JCO)",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "tenancy_duration",
+      "text": "the tenant either has lived in the same unit for at least six months or that their original lease expired, whichever comes first"
+     },
+     {
+      "fact": "caveat",
+      "name": "not_rso",
+      "text": "covers most residential properties in the City of Los Angeles that are not regulated by the City's Rent Stabilization Ordinance (RSO)"
+     }
+    ],
+    "exempt_if": [
+     [
+      {
+       "fact": "caveat",
+       "name": "special_housing",
+       "text": "transient hotels, licensed care facilities, fraternity or sorority houses, owner's roommate, cooperatives under certain circumstances, some non-profit facilities for the homeless or short-term treatment centers for substance abuse, and some properties owned by HACLA or the government"
+      }
+     ]
+    ],
+    "summary": "Applies to most Los Angeles residential rentals not covered by the RSO after six months of tenancy or expiry of the original lease.",
+    "exemptions_summary": "Exceptions include transient hotels, licensed care facilities, fraternity or sorority houses, owner's roommate, certain cooperatives, some homeless or treatment facilities and some government-owned properties."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "It prohibits terminations of tenancies without just cause and requires relocation assistance for no-fault evictions.",
+   "confidence": 0.85,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "CA",
+   "category": "rent_increase_limits",
+   "title": "California Tenant Protection Act of 2019 (AB 1482)",
+   "requirement": "Annual rent increases are limited to 5% plus the regional cost-of-living change, or 10%, whichever is lower, for covered buildings older than 15 years.",
+   "key_value": "8.9% maximum (Aug 1, 2024 to Jul 31, 2025)",
+   "penalty": null,
+   "citation": "AB 1482; Civil Code Section 1947.12",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [
+     {
+      "fact": "building_age_years",
+      "op": "gt",
+      "years": 15,
+      "basis": "other",
+      "text": "buildings that are older than 15 years old"
+     }
+    ],
+    "exempt_if": [
+     [
+      {
+       "fact": "building_age_years",
+       "op": "lte",
+       "years": 15,
+       "basis": "construction",
+       "text": "Units that were constructed within the last 15 years (rolling basis)"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "restricted_affordable",
+       "text": "Units restricted by a deed, regulatory restrictions, or other recorded document limiting the affordability to low or moderate-income households"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "dormitories",
+       "text": "Certain dormitories"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "owner_occupied_two_unit",
+       "text": "A two-unit property, provided the second unit was occupied by an owner of the property for the entire period of the tenancy"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "sfh_condo_non_corporate_owner_with_notice",
+       "text": "Single-family homes and condominiums not owned by a real estate trust, corporation, or LLC with at least one corporate member, where the landlord gave written notice of the exemption"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "city_rso",
+       "text": "Units that are already subject to the City's RSO"
+      }
+     ]
+    ],
+    "summary": "Applies to California rental buildings older than 15 years.",
+    "exemptions_summary": "Exempt are buildings built within 15 years, deed-restricted affordable units, certain dormitories, owner-occupied two-unit properties, qualifying single-family homes and condos with written notice, and units under the City's RSO."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Annual rent increases are limited to no more than 5% plus the percentage change in the cost of living for the region in which the property is located, or 10% whichever is lower",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {
+  "109b877f4fa266e983f1514494ea1d88e1b5fe771f0eeac3be7f1e09eff58088": "(\nA\nnnual rent increases are limited to no more than 5% plus the percentage change in the cost of living for the region in which the property is located, or 10% whichever is lower)."
+ }
+}

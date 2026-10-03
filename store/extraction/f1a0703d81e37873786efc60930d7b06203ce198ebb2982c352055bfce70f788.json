@@ -1,0 +1,65 @@
+{
+ "doc_id": "D010",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "screening_restrictions",
+   "title": "Boston Fair Chance Tenant Selection Policy",
+   "requirement": "Housing providers with DND funding or land, or BPDA inclusionary income-restricted units, may not use blanket bans based on arrests or convictions and must review applicants case by case. They may not consider non-conviction arrests, convictions with judicial relief, juvenile records, or convictions over 5 years old, and may not use credit scores to approve or deny applications.",
+   "key_value": "Convictions more than 5 years old may not be considered",
+   "penalty": null,
+   "citation": "Boston Fair Chance Tenant Selection Policy (DND, February 2017)",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Document dated February 2017; no adoption or effective date stated.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "dnd_funded_or_inclusionary",
+      "text": "Housing providers receiving Department of Neighborhood Development (DND) funding and/or land, or that have income restricted units created under the Boston Planning and Development Agency (BPDA) Inclusionary Development Policy"
+     }
+    ],
+    "exempt_if": [
+     [
+      {
+       "fact": "caveat",
+       "name": "direct_relationship_or_risk",
+       "text": "A direct relationship between a conviction and the housing sought and or unreasonable risk of substantial harm to the safety of others."
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "current_criminal_behavior",
+       "text": "This guidance does not apply to current criminal behavior."
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "conflicting_federal_state_law",
+       "text": "Where federal or state law imposes a criminal history requirement that conflicts with a requirement of this guidance, the federal or state law preempts this policy."
+      }
+     ]
+    ],
+    "summary": "Applies to housing providers with DND funding or land, or BPDA inclusionary income-restricted units.",
+    "exemptions_summary": "The arrest and conviction limits do not apply where a conviction directly relates to the housing or poses unreasonable risk to others' safety, or to current criminal behavior. Conflicting federal or state law also preempts the policy."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": "Where federal or state law imposes a criminal history requirement that conflicts with a requirement of this guidance, the federal or state law preempts this policy."
+   },
+   "quoted_span": "Housing providers receiving Department of Neighborhood Development (DND) funding and/or land, or that have income restricted units created under the Boston Planning and Development Agency (BPDA) Inclusionary Development Policy will not impose a blanket policy that denies housing to anyone with arrests and or convictions. Housing providers will consider applicants on a case-by-case basis.",
+   "confidence": 0.85,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

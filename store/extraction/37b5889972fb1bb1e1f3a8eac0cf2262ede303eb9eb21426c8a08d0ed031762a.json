@@ -1,0 +1,8 @@
+{
+ "doc_id": "D049",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [],
+ "repairs": {}
+}

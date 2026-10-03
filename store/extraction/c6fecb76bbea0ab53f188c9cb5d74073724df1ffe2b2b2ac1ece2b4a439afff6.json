@@ -1,0 +1,37 @@
+{
+ "doc_id": "D016",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "CA",
+   "category": "screening_restrictions",
+   "title": "Fair Employment and Housing Act (FEHA) – source of income and criminal history in housing",
+   "requirement": "Housing providers may not discriminate based on source of income, including Section 8 vouchers and other rental assistance, and must comply with subsidy program paperwork. They may not consider arrests without conviction, sealed or expunged records, or juvenile records, may not use blanket bans on people with criminal history, and may deny based on a conviction only if it is directly related to tenant suitability or safety.",
+   "key_value": null,
+   "penalty": "Remedies include recovery of out-of-pocket losses, injunctions, access to denied housing, emotional distress damages, civil penalties or punitive damages, and attorney's fees.",
+   "citation": "California Fair Employment and Housing Act (FEHA)",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to most housing providers, landlords and tenant screening companies in California.",
+    "exemptions_summary": "Owner-occupied homes renting to one additional person and senior housing have limited exclusions for some protected characteristics."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "No. California law protects tenants from discrimination based on how a tenant will be paying rent (“source of income”). This includes the State of California’s COVID-19 Rent Relief Program, Housing Choice (Section 8) vouchers, (SSI) social security disability benefits, or wages earned from a job.",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

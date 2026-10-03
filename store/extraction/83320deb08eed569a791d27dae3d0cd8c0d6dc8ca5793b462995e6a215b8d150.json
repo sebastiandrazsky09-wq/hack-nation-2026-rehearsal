@@ -1,0 +1,43 @@
+{
+ "doc_id": "D069",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "algorithmic_rent_setting",
+   "title": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act",
+   "requirement": "Makes it an antitrust violation for rental property owners to pay for or use a coordinator's services, for anyone to perform a coordinating function (algorithmic setting or recommending of rents, lease terms or occupancy using shared competitively sensitive information), or to engage in or facilitate parallel pricing coordination. Government affordability controls, public free rent estimates, research use and equal-terms brokerage databases are excluded.",
+   "key_value": null,
+   "penalty": "Violation of the New Jersey Antitrust Act, P.L.1970, c.73; enforcement under sections 6 through 17 of that act remains applicable.",
+   "citation": "P.L. 2026, c.43 (A3497 1R ACS)",
+   "legal_status": "enacted",
+   "enacted_date": "2026-07-20",
+   "effective_date": "2027-07-01",
+   "repeal_date": null,
+   "status_basis": "Takes effect on the first day of the twelfth month next following the date of enactment (approved July 20, 2026).",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "residential_dwelling_unit",
+      "text": "Applies to rental residential dwelling units intended as a primary residence in the State; excludes inpatient medical care, licensed long-term care, or detention or correctional facilities."
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to rental property owners, coordinators and other persons dealing with rental residential dwelling units in New Jersey.",
+    "exemptions_summary": "Excludes government entities setting rents via affordability controls and certain research, public estimate and brokerage database uses."
+   },
+   "precedence": {
+    "relation": "preempts_local",
+    "text": "A municipality shall be prohibited from enacting an ordinance that conflicts with this act."
+   },
+   "quoted_span": "It shall be unlawful and a violation of the “New Jersey Antitrust Act,” P.L.1970, c.73 (C.56:9-1 et seq.) for:\na.     a rental property owner, or any agent, representative, or subcontractor thereof, to receive, subscribe to, contract for, or otherwise exchange any form of consideration in return for the use of, the services of a coordinator;",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

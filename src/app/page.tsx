@@ -1,4 +1,3 @@
-import { Workspace } from '../components/workspace';
-import { appMode } from '../server/config';
+import { Navigator } from '../components/navigator';
 export const dynamic = 'force-dynamic';
-export default function Page() { return <Workspace mode={appMode()} />; }
+export default function Page() { return <Navigator />; }

@@ -1,0 +1,52 @@
+{
+ "doc_id": "D067",
+ "chunk_index": 1,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "security_deposits",
+   "title": "New Jersey Security Deposit Law",
+   "requirement": "Landlords may collect a security deposit of no more than one and one-half times one month's rent, and annual increases may not exceed 10% of the current deposit. Deposits must be held in trust in an interest-bearing account, interest belongs to the tenant, and the tenant must receive written notice of the bank and account details within 30 days.",
+   "key_value": "1.5 times one month's rent; annual increase up to 10%",
+   "penalty": "If the tenant does not receive proper notice or interest, the tenant may apply the deposit plus 7% per annum interest to rent.",
+   "citation": "N.J.S.A. 46:8-21.2",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "unavailable",
+       "name": "owner_occupied_two_or_three_family",
+       "text": "The exception is an owner-occupied two-, or three-family dwelling."
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "seasonal_rental",
+       "text": "This section of the Security Deposit Law does not apply to security deposits for seasonal use or rental (interest-bearing account provisions)."
+      }
+     ]
+    ],
+    "summary": "Applies to most residential rental properties, including mobile homes.",
+    "exemptions_summary": "Owner-occupied two- or three-family dwellings are exempt unless the tenant requests coverage in writing, and the interest-account provisions do not apply to seasonal rentals."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The maximum-security deposit to be collected by the landlord cannot be more than one and one-half times one month’s rent ( N.J.S.A. 46:8-21.2 ). It can be less. Any additional yearly security deposit increase may not exceed 10% of the current security deposit.",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

@@ -14,10 +14,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "check": "npm run typecheck && npm test && python3 scripts/secret-check.py",
-    "eval": "tsx scripts/eval.ts",
-    "live-check": "tsx scripts/live-check.ts",
     "status": "python3 scripts/ops.py status",
-    "backup-demo": "python3 scripts/backup-demo.py",
     "ordinal": "tsx src/ordinal/cli.ts"
   },
   "dependencies": {

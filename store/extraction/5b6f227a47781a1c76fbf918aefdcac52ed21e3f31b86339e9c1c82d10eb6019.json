@@ -1,0 +1,37 @@
+{
+ "doc_id": "D067",
+ "chunk_index": 5,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Anti-Eviction Statute (Causes for Eviction)",
+   "requirement": "A landlord may evict only on enumerated statutory grounds (e.g., nonpayment, disorderly conduct, property damage, lease violations, habitual late payment, removal from rental market, conversion, owner occupancy, certain criminal offenses), generally after a Notice to Cease and/or Notice to Quit of 3 days to 3 years depending on ground. Tenants evicted for health/safety or illegal occupancy grounds are owed relocation assistance (six times monthly rent for illegal occupancy).",
+   "key_value": "Notice to Quit from 3 days up to 3 years (conversion); 18 months for permanent retirement; relocation of 6x monthly rent for illegal occupancy",
+   "penalty": "Self-help eviction or lockout is illegal; landlord may be liable for damages, court costs and attorney fees; unpaid relocation accrues 18% annual interest and becomes a lien on the property.",
+   "citation": "N.J.S.A. 2A:18-61.1",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to residential tenancies in New Jersey, with ground-specific notice periods.",
+    "exemptions_summary": "Owner-occupied two- and three-family dwellings are subject to a separate eviction regime with different grounds."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Listed below are the statutory grounds for eviction as set forth in the Anti-Eviction Statute.",
+   "confidence": 0.85,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

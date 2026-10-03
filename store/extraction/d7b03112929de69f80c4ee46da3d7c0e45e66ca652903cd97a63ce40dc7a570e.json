@@ -1,0 +1,51 @@
+{
+ "doc_id": "D029",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "screening_restrictions",
+   "title": "Cambridge Fair Housing Ordinance, chapter 14.04",
+   "requirement": "Landlords, sellers and rental agents may not discriminate in renting, including on the basis of source of income (which includes Section 8 and public benefits). They may use any reasonable tenant-selection standard, such as ability to pay rent and ability to care for the apartment, if it is applied equally and uniformly to all applicants.",
+   "key_value": null,
+   "penalty": "Civil fines of up to $300 per violation, plus possible criminal complaint, injunctive relief, damages and expenses.",
+   "citation": "Cambridge Fair Housing Ordinance, chapter 14.04",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "units",
+       "op": "eq",
+       "value": 2,
+       "text": "exemption for 2-family dwellings"
+      },
+      {
+       "fact": "unavailable",
+       "name": "owner_occupancy",
+       "text": "when the owner lives there"
+      }
+     ]
+    ],
+    "summary": "Applies to housing rentals, sales and related real estate transactions in Cambridge.",
+    "exemptions_summary": "Two-family dwellings where the owner lives are exempt."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Under the law, landlords, sellers and rental agents may use any reasonable standard to determine which applicants are selected, as long as that standard is applied equally and uniformly to all applicants.",
+   "confidence": 0.6,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

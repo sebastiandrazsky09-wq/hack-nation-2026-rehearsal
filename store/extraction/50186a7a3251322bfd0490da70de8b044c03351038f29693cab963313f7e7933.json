@@ -1,0 +1,43 @@
+{
+ "doc_id": "D053",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "MA",
+   "category": "just_cause_eviction",
+   "title": "Reprisal for reporting violations of law or for tenant's union activity (G.L. c. 186, § 18)",
+   "requirement": "Landlords and their agents may not threaten or take reprisals against a residential tenant for enforcing housing laws, reporting code violations, or organizing or joining a tenants' union. A termination of tenancy (other than for nonpayment), rent increase or substantial change in tenancy terms within six months of such activity is presumed to be a reprisal, and the landlord can rebut this only by clear and convincing evidence.",
+   "key_value": "Six-month rebuttable presumption; damages of one to three months' rent or actual damages, whichever is greater",
+   "penalty": "Liable for damages of not less than one month's rent nor more than three months' rent, or actual damages if greater, plus costs and reasonable attorney's fees.",
+   "citation": "General Laws c. 186, § 18",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "residential_tenancy",
+      "text": "any tenant of residential premises"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to tenants of residential premises who engage in protected activity such as reporting violations, enforcing housing laws or organizing a tenants' union.",
+    "exemptions_summary": "Notices of termination for nonpayment of rent do not trigger the presumption."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The receipt of any notice of termination of tenancy, except for nonpayment of rent, or, of increase in rent, or, of any substantial alteration in the terms of tenancy within six months after the tenant has commenced, proceeded with, or obtained relief in such action, exercised such rights, made such report or complaint, or organized or joined such tenants' union or within six months after any other person has taken such action or actions on behalf of the tenant or in, or relating to, the building in which the tenant resides, shall create a rebuttable presumption that such notice or other action is a reprisal against the tenant for engaging in such activities.",
+   "confidence": 0.6,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { appMode } from '../../../server/config';
+import { dataset } from '../../../server/ordinal';
+export const dynamic = 'force-dynamic';
 export function GET() {
-  try { return NextResponse.json({ ok: true, mode: appMode(), version: '0.1.0' }); }
-  catch { return NextResponse.json({ ok: false, error: 'Invalid server configuration' }, { status: 503 }); }
+  try { const d = dataset(); return NextResponse.json({ ok: true, rules: d.rules.length, withheld: d.withheld, addresses: d.addresses.length, version: '0.2.0' }); }
+  catch { return NextResponse.json({ ok: false, error: 'Store could not be read' }, { status: 503 }); }
 }

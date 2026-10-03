@@ -1,0 +1,95 @@
+{
+ "doc_id": "D073",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "just_cause_eviction",
+   "title": "San Diego Municipal Code Chapter 9, Article 8, Division 7: Residential Tenant Protections (Tenants' Right to Know Regulations)",
+   "requirement": "A landlord may not terminate a tenancy without just cause, either at-fault (e.g. non-payment, breach, nuisance) or no-fault (owner move-in, withdrawal from market, government order, demolition or substantial remodel). No-fault terminations carry notice content, re-offer and relocation duties, and landlords must give tenants a written notice of protections with the Tenant Protection Guide.",
+   "key_value": "Owner move-in requires occupancy within 90 days for at least 12 continuous months; substantial remodel requires vacating at least 30 continuous days",
+   "penalty": null,
+   "citation": "San Diego Municipal Code §§98.0701-98.0705",
+   "legal_status": "enacted",
+   "enacted_date": "2023-05-25",
+   "effective_date": "2023-06-24",
+   "repeal_date": null,
+   "status_basis": "Retitled and amended 5-25-2023 by O-21647 N.S.; effective 6-24-2023; amended 2-27-2024 by O-21769 N.S., effective 3-28-2024.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "tenancy_over_30_days",
+      "text": "Tenancy means the lawful right to use or occupy residential rental property for more than 30 days; does not include a fixed-term lease of three months or less."
+     }
+    ],
+    "exempt_if": [
+     [
+      {
+       "fact": "caveat",
+       "name": "transient_or_short_term",
+       "text": "transient and tourist hotel occupancy; short-term residential occupancy"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "affordable_or_subsidized_housing",
+       "text": "housing restricted or subsidized as affordable for very low, low, or moderate income persons (Section 8 is not exempt)"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "mobilehome_mrl",
+       "text": "mobilehomes subject to the Mobilehome Residency Law"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "institutional_housing",
+       "text": "nonprofit hospital, religious facility, extended care, residential care facility for the elderly, adult residential facility, non-profit transitional housing, dormitories"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "owner_occupancy",
+       "text": "tenant shares bathroom or kitchen with landlord who lives there; owner-occupied single-family residence renting no more than two bedrooms/ADUs; duplex where landlord occupies one unit"
+      }
+     ],
+     [
+      {
+       "fact": "year_built",
+       "op": "gt",
+       "date": "2009",
+       "basis": "certificate_of_occupancy",
+       "text": "housing that has been issued a certificate of occupancy within the previous 15 years, unless the housing is a mobilehome"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "owner_type_and_notice",
+       "text": "property alienable separate from title to any other dwelling unit, landlord not a REIT, corporation, LLC with a corporate member, or mobilehome park management, and tenants given written exemption notice in lease"
+      }
+     ]
+    ],
+    "summary": "Applies to residential rental tenancies of more than 30 days in San Diego.",
+    "exemptions_summary": "Exempts transient, affordable/subsidized, mobilehome, institutional, some owner-occupied, buildings with a certificate of occupancy within 15 years, and qualifying separately alienable properties with non-corporate landlords."
+   },
+   "precedence": {
+    "relation": "allows_stricter_local",
+    "text": "The rights conferred by this Division are in addition to any existing rights provided to tenants by state or federal law."
+   },
+   "quoted_span": "A landlord shall not terminate a tenancy without just cause. For purposes of this Division, just cause includes at-fault just cause and no-fault just cause.",
+   "confidence": 0.85,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

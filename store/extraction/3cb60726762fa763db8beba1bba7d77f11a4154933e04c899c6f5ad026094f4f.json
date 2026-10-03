@@ -1,0 +1,180 @@
+{
+ "doc_id": "D009",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v2",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Berkeley, CA",
+   "category": "rent_increase_limits",
+   "title": "Berkeley Rent Stabilization and Eviction for Just Cause Ordinance",
+   "requirement": "Rent control applies only to fully covered units: most pre-1980 multifamily units, single-family homes with tenancies that began before 1996, and rooming houses. Newer construction, post-1995 single-family tenancies, most condominiums, certain subsidized units and several owner-related or institutional units are not rent controlled.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "Berkeley Rent Stabilization and Eviction for Just Cause Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "fully_covered_unit_type",
+      "text": "Most units in multifamily properties built before 1980; single family homes with current tenancies that began before 1996; rooming houses (single-family homes with five or more rooms rented individually with separate leases)"
+     }
+    ],
+    "exempt_if": [
+     [
+      {
+       "fact": "year_built",
+       "op": "gte",
+       "date": "1980-06",
+       "basis": "certificate_of_occupancy",
+       "text": "New construction: units that were built and received a Certificate of Occupancy after June 1980"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "single_family_post_1996",
+       "text": "Single-family home with a tenancy that began on or after January 1, 1996"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "condominium",
+       "text": "Most condominiums"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "section_202_811_subsidy",
+       "text": "Units with Section 202 Supportive Housing for the Elderly or Section 811 Supportive Housing for Persons with Disabilities subsidies"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "hud_insured_project_subsidy",
+       "text": "Units with Rental Supplement Program, Section 8 Loan Management Set Aside, Project-based Section 8 subsidies AND in a project with a mortgage insured or held by HUD"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "golden_duplex",
+       "text": "Duplex that was owner-occupied on December 31, 1979, and currently has an owner living in one of the units"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "owner_shares_kitchen_or_bath",
+       "text": "Unit where the owner shares a kitchen or bath with the tenant if the owner lived on the property at the time the tenancy started"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "adu_owner_occupied",
+       "text": "Tenancies started after Nov 7, 2018, on properties where one unit is an ADU and either unit is owner-occupied"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "university_housing",
+       "text": "University rental units such as dormitories"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "nonprofit_cooperative",
+       "text": "Nonprofit Cooperative"
+      }
+     ]
+    ],
+    "summary": "Fully covered units (most pre-1980 multifamily, pre-1996 single-family tenancies, rooming houses) are subject to rent control.",
+    "exemptions_summary": "Partially covered units (post-June 1980 construction, post-1995 single-family tenancies, most condos, certain subsidized units) and exempt units (golden duplex, shared kitchen/bath, owner-occupied ADU properties, dormitories, nonprofit cooperatives) have no rent control."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Most units in multifamily properties built before 1980** Fully Covered Yes Yes Yes Yes",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "Berkeley, CA",
+   "category": "just_cause_eviction",
+   "title": "Berkeley Rent Stabilization and Eviction for Just Cause Ordinance",
+   "requirement": "Just cause for eviction applies to fully covered and partially covered units. Only the exempt categories (golden duplex, owner-shared kitchen or bath, owner-occupied ADU properties, university housing, nonprofit cooperatives) are outside it.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "Berkeley Rent Stabilization and Eviction for Just Cause Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "unavailable",
+       "name": "golden_duplex",
+       "text": "Duplex that was owner-occupied on December 31, 1979, and currently has an owner living in one of the units"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "owner_shares_kitchen_or_bath",
+       "text": "Unit where the owner shares a kitchen or bath with the tenant if the owner lived on the property at the time the tenancy started"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "adu_owner_occupied",
+       "text": "Tenancies started after Nov 7, 2018, on properties where one unit is an ADU and either unit is owner-occupied"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "university_housing",
+       "text": "University rental units such as dormitories"
+      }
+     ],
+     [
+      {
+       "fact": "unavailable",
+       "name": "nonprofit_cooperative",
+       "text": "Nonprofit Cooperative"
+      }
+     ]
+    ],
+    "summary": "Just cause protections cover all fully and partially covered units, including newer construction, condos and post-1995 single-family tenancies.",
+    "exemptions_summary": "Golden duplexes, owner-shared kitchen/bath units, owner-occupied ADU properties, university housing and nonprofit cooperatives are exempt."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "New construction: units that were built and received a Certificate of Occupancy after June 1980** \nPartially Covered Yes No Yes Yes",
+   "confidence": 0.65,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}
