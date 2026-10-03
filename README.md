@@ -55,7 +55,7 @@ npm run ordinal -- ingest path/to/new_ordinance.txt   # jurisdiction, category, 
 npm run ordinal -- export && npm run ordinal -- diff && npm run ordinal -- selfcheck
 ```
 
-No source change is needed. `rehearsal/run.sh rehearsal/synthetic_cambridge_1.txt 2027-03-02` does this in a throwaway copy of the store with a synthetic ordinance and prints the extracted rule and the affected addresses.
+The file may be plain text, PDF (`pdftotext`), Word `.docx` or HTML; a converted file is stored as text with a line saying how it was made, and the original is kept beside it. No source change is needed. `rehearsal/run.sh rehearsal/synthetic_cambridge_1.txt 2027-03-02` does this in a throwaway copy of the store with a synthetic ordinance and prints the extracted rule and the affected addresses.
 
 ## Checks
 

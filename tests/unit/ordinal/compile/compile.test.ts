@@ -253,3 +253,32 @@ describe('effective-date guard at extraction (lead amendment after the independe
     expect(bad).toEqual([]);
   });
 });
+
+describe('ingest of documents that are not plain text (loader level only)', () => {
+  it('turns HTML and Word XML into text without touching the wording', async () => {
+    const { htmlToText, docxXmlToText } = await import('../../../../src/ordinal/compile/ingest');
+    expect(htmlToText('<html><head><title>x</title><style>p{}</style></head><body><h1>Ordinance&nbsp;9</h1><p>No owner may charge more than &#36;25 &amp; a receipt is due.</p><script>var a=1</script></body></html>'))
+      .toBe('Ordinance 9\nNo owner may charge more than $25 & a receipt is due.');
+    expect(docxXmlToText('<w:document><w:body><w:p><w:r><w:t>SECTION 1.</w:t></w:r><w:r><w:tab/><w:t>Purpose</w:t></w:r></w:p><w:p><w:r><w:t xml:space="preserve">Takes effect </w:t></w:r><w:r><w:t>March 1, 2027.</w:t></w:r></w:p></w:body></w:document>'))
+      .toBe('SECTION 1. Purpose\nTakes effect March 1, 2027.');
+  });
+  it('stores a converted document as text beside its original and verifies quotes against the stored text', async () => {
+    const { mkdtempSync, writeFileSync, readFileSync, existsSync, readdirSync } = await import('node:fs'); const { tmpdir } = await import('node:os'); const pathMod = await import('node:path');
+    const { ingestFile, loadIngestedDocs, convertToText } = await import('../../../../src/ordinal/compile/ingest');
+    const { verifyQuote } = await import('../../../../src/ordinal/compile/verify');
+    const dir = mkdtempSync(pathMod.join(tmpdir(), 'ordinal-ingest-')); const src = pathMod.join(dir, 'notice.html');
+    writeFileSync(src, '<!doctype html><html><body><h1>City of Example</h1><p>A landlord of a building with eight or more units shall pay a relocation payment of $6,500.</p></body></html>');
+    expect(convertToText(pathMod.join(dir, 'plain.txt'), Buffer.from('SOURCE: x\n\nplain text'))).toBeNull();
+    const store = pathMod.join(dir, 'ingested');
+    const doc = ingestFile(src, store, undefined, new Date('2026-10-04T08:00:00Z'));
+    expect(doc.origin).toBe('ingested'); expect(doc.path.endsWith('notice.html.txt')).toBe(true);
+    expect(doc.text.startsWith('CONVERTED: HTML tags removed from notice.html (sha256 ')).toBe(true);
+    expect(existsSync(pathMod.join(store, 'originals', `${doc.doc_id}_notice.html`))).toBe(true);
+    expect(readFileSync(pathMod.join(store, 'originals', `${doc.doc_id}_notice.html`), 'utf8')).toContain('<h1>City of Example</h1>');
+    expect(verifyQuote(doc.text, 'A landlord of a building with eight or more units shall pay a relocation payment of $6,500.').verified).toBe(true);
+    // Ingesting the same file again is idempotent, and the originals folder is not read as a document.
+    expect(ingestFile(src, store, undefined, new Date('2026-10-04T09:00:00Z')).doc_id).toBe(doc.doc_id);
+    expect(loadIngestedDocs(store).map(d => d.doc_id)).toEqual([doc.doc_id]);
+    expect(readdirSync(store).sort()).toEqual([`${doc.doc_id}_notice.html.txt`, 'index.json', 'originals'].sort());
+  });
+});
