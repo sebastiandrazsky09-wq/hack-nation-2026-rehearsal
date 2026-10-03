@@ -117,16 +117,25 @@ export async function runCompile(options: CompileOptions, deps: CompileDeps = {}
     return { rules, errors };
   };
 
-  const fresh: InternalRule[] = []; const processed = new Set<string>();
-  for (const doc of selected) {
-    try {
-      const { rules, errors } = await processDoc(doc);
-      fresh.push(...rules); processed.add(doc.doc_id);
-      if (errors.length) docs_failed.push({ doc_id: doc.doc_id, error: errors.join('; ') });
-    } catch (error) {
-      docs_failed.push({ doc_id: doc.doc_id, error: error instanceof Error ? error.message : String(error) });
+  // Documents run in a small pool; results are collected by index so the store does not depend on completion order.
+  const outcomes: ({ rules: InternalRule[]; errors: string[] } | { failure: string })[] = new Array(selected.length);
+  let cursor = 0;
+  const workers = Math.max(1, Math.min(Number(process.env.ORDINAL_CONCURRENCY ?? 4) || 1, selected.length));
+  await Promise.all(Array.from({ length: workers }, async () => {
+    while (cursor < selected.length) {
+      const i = cursor++;
+      try { outcomes[i] = await processDoc(selected[i]); }
+      catch (error) { outcomes[i] = { failure: error instanceof Error ? error.message : String(error) }; }
+      if (process.env.ORDINAL_PROGRESS) console.error(`[compile] ${selected[i].doc_id} ${'failure' in outcomes[i] ? 'FAILED' : 'ok'}`);
     }
-  }
+  }));
+  const fresh: InternalRule[] = []; const processed = new Set<string>();
+  selected.forEach((doc, i) => {
+    const outcome = outcomes[i];
+    if ('failure' in outcome) { docs_failed.push({ doc_id: doc.doc_id, error: outcome.failure }); return; }
+    fresh.push(...outcome.rules); processed.add(doc.doc_id);
+    if (outcome.errors.length) docs_failed.push({ doc_id: doc.doc_id, error: outcome.errors.join('; ') });
+  });
 
   const existing = readRuleStore(storePath);
   const retained = existing.filter(r => !processed.has(r.source_doc_id))
