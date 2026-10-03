@@ -13,7 +13,7 @@ import { selectRules } from './select';
 export { categoryCodes, resolveJurisdiction, selectRules } from './select';
 
 const cmp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
-const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+const plural = (n: number, word: string) => `${n} ${n === 1 ? word : word.endsWith('s') ? word + 'es' : word + 's'}`;
 
 function datesOf(c: ChangeCase, defaultAsOf: string): string[] {
   if (c.type === 'as_of') return [c.as_of_before ?? c.as_of ?? defaultAsOf, c.as_of_after ?? c.as_of ?? defaultAsOf];

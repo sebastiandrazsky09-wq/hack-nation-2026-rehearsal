@@ -1,7 +1,10 @@
 // Lead-owned. The one place the web app reads the committed store. No model call happens at request time.
 import { loadAddresses, loadOfficialDocs, loadSupplementalDocs, quoteMatchesSource, readRuleStore, readStacks, PATHS, type SourceDoc } from '../ordinal/corpus';
 import { loadIngestedDocs } from '../ordinal/compile/ingest';
+import { existsSync, readFileSync } from 'node:fs';
 import { applyAddress } from '../ordinal/apply/index';
+import { computeChanges } from '../ordinal/diff/index';
+import type { ChangeCase, ChangeResult } from '../ordinal/entrypoints';
 import { deriveStatus } from '../ordinal/status';
 import { DEFAULT_AS_OF, isRealPartialDate, type Address, type ApplyResult, type InternalRule, type JurisdictionStack } from '../ordinal/contracts';
 
@@ -47,4 +50,16 @@ export function lookup(addressId: string, asOf: string): LookupResponse | null {
   const all = applyAddress(rules, address, stack, asOf);
   const shown = all.filter(r => r.result !== 'not_applicable');
   return { as_of: asOf, disclaimer: DISCLAIMER, address, stack, results: shown.map(r => ({ ...r, rule: ruleView(byId.get(r.team_rule_id)!, asOf) })), not_applicable: all.length - shown.length };
+}
+
+export type ChangesResponse = { as_of: string; disclaimer: string; cases: (ChangeResult & { expected_behavior: string | null })[]; errors: string[] };
+/** The official change cases plus any added after kickoff, evaluated by the same engine as the lookups. */
+export function changes(asOf: string): ChangesResponse {
+  const { rules, addresses, stacks } = dataset();
+  const read = (file: string): ChangeCase[] => existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) as ChangeCase[] : [];
+  const byId = new Map([...read(PATHS.changeTests), ...read(PATHS.extraCases)].map(c => [c.test_id, c]));
+  const cases = [...byId.values()];
+  const { results, errors } = computeChanges(cases, rules, addresses, stacks, asOf);
+  results.sort((a, b) => a.test_id < b.test_id ? -1 : 1);
+  return { as_of: asOf, disclaimer: DISCLAIMER, cases: results.map(r => ({ ...r, expected_behavior: byId.get(r.test_id)?.expected_behavior ?? null })), errors };
 }
