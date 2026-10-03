@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { LookupResponse } from '../server/ordinal';
 import { AuditTable } from './audit-table';
 import { ChangesPanel } from './changes-panel';
@@ -12,9 +12,20 @@ type AddressRow = {
   address_id: string; street_address: string; postal_city: string; state: string; zip: string;
   year_built: number | null; units: number | null; use_description: string; legal_city: string | null;
 };
+type Tab = 'address' | 'audit' | 'changes' | 'pipeline';
+const TABS: Tab[] = ['address', 'audit', 'changes', 'pipeline'];
 const NOT_IN_DATA = 'not in the data';
 const optionText = (a: AddressRow) => `${a.address_id} · ${a.street_address}, ${a.postal_city}, ${a.state}`;
 const isDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const cityName = (legal: string | null) => legal?.split(',')[0] ?? null;
+
+// Example buttons are picked from the address list by property, so no address id is written here.
+const EXAMPLES: { label: string; pick: (a: AddressRow) => boolean }[] = [
+  { label: 'A 1978 building in Los Angeles: a cutoff year', pick: a => a.year_built === 1978 && cityName(a.legal_city) === 'Los Angeles' },
+  { label: 'Mailing city is not the legal city', pick: a => { const c = cityName(a.legal_city); return c !== null && c.toLowerCase() !== a.postal_city.toLowerCase(); } },
+  { label: 'A city rule and a state rule in tension', pick: a => cityName(a.legal_city) === 'Hoboken' },
+  { label: 'Pending bills', pick: a => cityName(a.legal_city) === 'Cambridge' }
+];
 
 export function Navigator() {
   const addressesApi = useApi<{ addresses: AddressRow[] }>('/api/addresses');
@@ -23,12 +34,38 @@ export function Navigator() {
   const [open, setOpen] = useState(false);
   const [addressId, setAddressId] = useState('');
   const [asOf, setAsOf] = useState(DEFAULT_AS_OF);
-  const [tab, setTab] = useState<'address' | 'audit' | 'changes' | 'pipeline'>('address');
+  const [tab, setTab] = useState<Tab>('address');
+  const hydrated = useRef(false);
   const openAddress = (id: string, date: string) => {
     const a = addresses.find(x => x.address_id === id);
     if (a) setQuery(optionText(a));
     setAddressId(id); setAsOf(date); setOpen(false); setTab('address');
   };
+
+  // Read ?address, ?as_of and ?tab once, when the address list arrives. Unknown values keep the defaults.
+  useEffect(() => {
+    if (hydrated.current || addresses.length === 0) return;
+    hydrated.current = true;
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('address');
+    const a = id ? addresses.find(x => x.address_id === id) : undefined;
+    const date = params.get('as_of');
+    const wantedTab = TABS.find(t => t === params.get('tab'));
+    if (a) { setAddressId(a.address_id); setQuery(optionText(a)); }
+    if (date && isDate(date) && !Number.isNaN(Date.parse(date))) setAsOf(date);
+    if (wantedTab) setTab(wantedTab);
+  }, [addresses]);
+
+  // Keep the URL in step with the page so it can be shared. Skipped until the incoming URL has been read.
+  useEffect(() => {
+    if (!hydrated.current) return;
+    const params = new URLSearchParams();
+    if (addressId) params.set('address', addressId);
+    if (isDate(asOf) && (addressId || asOf !== DEFAULT_AS_OF)) params.set('as_of', asOf);
+    if (addressId || tab !== 'address') params.set('tab', tab);
+    const qs = params.toString();
+    window.history.replaceState(null, '', `${window.location.pathname}${qs ? `?${qs}` : ''}`);
+  }, [addressId, asOf, tab]);
 
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -93,7 +130,11 @@ export function Navigator() {
           {tab === 'audit' && <AuditTable asOf={validDate} />}
           {tab === 'changes' && <ChangesPanel addresses={addresses} onOpen={openAddress} />}
           {tab === 'pipeline' && <PipelinePanel />}
-          {tab === 'address' && <AddressPanel chosen={chosen} asOf={validDate} lookup={lookup} />}
+          {tab === 'address' && (
+            <AddressPanel chosen={chosen} asOf={validDate} lookup={lookup}
+              examples={chosen ? [] : EXAMPLES.map(e => ({ label: e.label, id: addresses.find(e.pick)?.address_id ?? null }))}
+              onExample={id => openAddress(id, validDate ?? DEFAULT_AS_OF)} />
+          )}
         </div>
       </main>
     </div>
@@ -105,12 +146,48 @@ function Fact({ name, value }: { name: string; value: string | number | null }) 
   return <div><dt>{name}</dt><dd className={missing ? 'text-[var(--muted)]' : ''}>{missing ? NOT_IN_DATA : value}</dd></div>;
 }
 
-function AddressPanel({ chosen, asOf, lookup }: { chosen: AddressRow | null; asOf: string | null; lookup: ReturnType<typeof useApi<LookupResponse>> }) {
-  if (!chosen) return <p className="text-[var(--muted)]">Choose an address above to see its legal jurisdiction and the rules that reach it.</p>;
+function CopyLink() {
+  const [state, setState] = useState<'idle' | 'copied' | 'failed'>('idle');
+  const copy = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => setState('copied'), () => setState('failed'));
+  };
+  return (
+    <span className="copy-link">
+      <button type="button" className="quiet-button" onClick={copy}>Copy link</button>
+      <span role="status" className="text-sm text-[var(--muted)]">
+        {state === 'copied' && 'Link copied.'}
+        {state === 'failed' && 'Could not copy; use the address bar instead.'}
+      </span>
+    </span>
+  );
+}
+
+function AddressPanel({ chosen, asOf, lookup, examples, onExample }: {
+  chosen: AddressRow | null; asOf: string | null; lookup: ReturnType<typeof useApi<LookupResponse>>;
+  examples: { label: string; id: string | null }[]; onExample: (id: string) => void;
+}) {
+  if (!chosen) {
+    return (
+      <div>
+        <p className="text-[var(--muted)]">Choose an address above to see its legal jurisdiction and the rules that reach it.</p>
+        <section className="examples" aria-labelledby="examples-heading">
+          <h2 id="examples-heading" className="examples-title">Try an example</h2>
+          <div className="examples-list">
+            {examples.map(e => (
+              <button key={e.label} type="button" disabled={e.id === null} onClick={() => e.id && onExample(e.id)}>{e.label}</button>
+            ))}
+          </div>
+        </section>
+      </div>
+    );
+  }
   const { data, error, loading } = lookup;
   return (
     <div>
-      <h2>{chosen.street_address}, {chosen.postal_city}, {chosen.state} {chosen.zip}</h2>
+      <div className="heading-row">
+        <h2>{chosen.street_address}, {chosen.postal_city}, {chosen.state} {chosen.zip}</h2>
+        <CopyLink />
+      </div>
       <dl className="facts">
         <Fact name="Year built" value={chosen.year_built} />
         <Fact name="Units" value={chosen.units} />
@@ -123,28 +200,54 @@ function AddressPanel({ chosen, asOf, lookup }: { chosen: AddressRow | null; asO
   );
 }
 
+// One clause per non-zero count. The first clause names the noun so the sentence reads on its own.
+const CLAUSES: Record<string, (n: number, noun: string) => string> = {
+  applies: (n, noun) => `${noun || n} ${n === 1 ? 'applies' : 'apply'} at this address`,
+  unknown: (n, noun) => `${noun || n} cannot be determined from the data`,
+  superseded: (n, noun) => `${noun || n} ${n === 1 ? 'is' : 'are'} overridden by another rule`,
+  not_yet_effective: (n, noun) => `${noun || n} ${n === 1 ? 'is' : 'are'} not yet in effect`,
+  pending: (n, noun) => `${noun || n} ${n === 1 ? 'is' : 'are'} pending`
+};
+function summarySentence(asOf: string, counts: { r: string; n: number }[]): string {
+  const shown = counts.filter(c => c.n > 0);
+  if (shown.length === 0) return 'No rule in the extracted set reaches this address on this date.';
+  const parts = shown.map(({ r, n }, i) => CLAUSES[r](n, i === 0 ? `${n} ${n === 1 ? 'rule' : 'rules'}` : ''));
+  const list = parts.length > 1 ? `${parts.slice(0, -1).join(', ')}, and ${parts[parts.length - 1]}` : parts[0];
+  return `On ${asOf}, ${list}.`;
+}
+
 function Results({ data }: { data: LookupResponse }) {
   const [filter, setFilter] = useState<string | null>(null);
   const { stack, address } = data;
-  const legalCityName = stack.legal_city?.split(',')[0] ?? null;
+  const legalCityName = cityName(stack.legal_city);
   const counts = RESULT_ORDER.map(r => ({ r, n: data.results.filter(x => x.result === r).length }));
+  const lowConfidence = stack.method === 'postal_fallback' || stack.confidence < 0.85;
   return (
     <div>
       <h3>Legal jurisdiction</h3>
       <ol data-testid="stack" className="stack">
         <li><span className="field">State</span> {stack.state}</li>
         <li><span className="field">County</span> {stack.county ?? NOT_IN_DATA}</li>
-        <li><span className="field">Legal city</span> {stack.legal_city ?? 'none found (no incorporated city for this address)'}</li>
+        <li>
+          <span className="field">Legal city</span> {stack.legal_city ?? 'none found (no incorporated city for this address)'}
+          {lowConfidence && <span data-testid="low-confidence" className="low-confidence">Low confidence</span>}
+        </li>
       </ol>
+      {lowConfidence && (
+        <p className="low-confidence-why mt-2">
+          {stack.note ?? `${METHOD_LABELS[stack.method] ?? stack.method}, at confidence ${stack.confidence.toFixed(2)}.`}
+        </p>
+      )}
       <p className="mt-2">
         Resolution: {METHOD_LABELS[stack.method] ?? stack.method}; confidence {confidenceWords(stack.confidence)}.
-        {stack.note ? ` ${stack.note}` : ''}
+        {!lowConfidence && stack.note ? ` ${stack.note}` : ''}
       </p>
       {legalCityName && legalCityName.toLowerCase() !== address.postal_city.toLowerCase() && (
         <p className="mt-1 font-medium">Mailing city {address.postal_city}; legal city {legalCityName}.</p>
       )}
 
       <h3 data-testid="results-as-of">Rules as of {data.as_of}</h3>
+      <p data-testid="summary-sentence" className="summary-sentence">{summarySentence(data.as_of, counts)}</p>
       <div data-testid="summary" className="summary">
         {counts.map(({ r, n }) => (
           <button key={r} type="button" className="chip" aria-pressed={filter === r} disabled={n === 0} onClick={() => setFilter(filter === r ? null : r)}>

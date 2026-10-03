@@ -22,6 +22,11 @@ export function RuleCard({ item, asOf }: { item: ResultRow; asOf: string }) {
       {rule.key_value && <p className="mt-1"><span className="field">Key value</span> {rule.key_value}</p>}
       <p className="mt-2"><span className="field">Why this result</span> {item.explanation}</p>
       {showMissing && (
+        <p className="needs mt-2" data-testid="needs">
+          <span className="field">What would settle it</span> Needs: {item.missing_facts.map(factName).join(', ')}
+        </p>
+      )}
+      {showMissing && (
         <div className="mt-2" data-testid="missing-facts">
           <p className="field">What is missing</p>
           <ul className="ml-5 list-disc">{item.missing_facts.map(f => <li key={f}>{factName(f)}</li>)}</ul>

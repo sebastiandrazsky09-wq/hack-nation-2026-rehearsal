@@ -66,3 +66,16 @@ table.plain{min-width:0;width:100%;background:var(--white);border:1px solid var(
 .idlist button{padding:6px 10px;min-height:36px;border:1px solid #8a948d;border-radius:6px;background:var(--white)}
 .verdict-ok{padding:10px 12px;border:1px solid #7cc294;background:#dcf1e2;color:#11522a;border-radius:6px}
 th{background:#eef0ea;position:sticky;top:0}
+.examples{margin-top:16px}
+.examples-title{font-size:17px}
+.examples-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.examples-list button{padding:8px 12px;min-height:44px;border:1px solid #8a948d;border-radius:6px;background:var(--white);text-align:left}
+.examples-list button:hover:not(:disabled){background:#eef3ec}
+.examples-list button:disabled{opacity:.5;cursor:default}
+.heading-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+.copy-link{display:inline-flex;align-items:center;gap:8px}
+.quiet-button{padding:6px 12px;min-height:40px;border:1px solid #8a948d;border-radius:6px;background:var(--white)}
+.low-confidence{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;border:1px solid #d9b95b;background:#fdf3d4;color:#6b4800;font-size:13px;font-weight:700}
+.low-confidence-why{padding:8px 12px;border:1px solid #d9b95b;background:#fdf3d4;border-radius:6px}
+.summary-sentence{margin:0 0 10px;font-weight:600}
+.needs{margin-bottom:0}
