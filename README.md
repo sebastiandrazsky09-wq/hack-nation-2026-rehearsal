@@ -42,6 +42,8 @@ npm run ordinal -- diff               # out/changes.json
 npm run ordinal -- selfcheck          # out/selfcheck.json; exits 1 if an invariant fails
 ```
 
+Or all five steps with a one-line summary each: `npm run ordinal -- demo`. An independent check of the three submission files, sharing no code with the pipeline: `npm run verify`.
+
 Other dates: `npm run ordinal -- export --as-of 2027-07-02`. One address: `npm run ordinal -- apply --address A0002 --as-of 2026-10-01`.
 
 Extract again from the documents (calls a model): `npm run ordinal -- compile --force`. Set `ANTHROPIC_API_KEY` (model from `ORDINAL_MODEL`, default `claude-sonnet-5-5`) or `OPENAI_API_KEY`. With no key set, the Claude Code CLI login is used.
