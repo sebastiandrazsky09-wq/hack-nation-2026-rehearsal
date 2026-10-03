@@ -1,0 +1,58 @@
+{
+ "doc_id": "D016",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "CA",
+   "category": "screening_restrictions",
+   "title": "California Fair Employment and Housing Act (FEHA) – source of income and criminal history screening",
+   "requirement": "Housing providers may not refuse to rent based on source of income, including Section 8 vouchers and other rental assistance, and must comply with subsidy program paperwork and inspections. They may not consider arrests without conviction, sealed or expunged records, or juvenile records, may not impose blanket bans on people with criminal history, and may deny based on a conviction only if directly related to being a good tenant and not a threat to health and safety.",
+   "key_value": null,
+   "penalty": "Remedies include recovery of out-of-pocket losses, injunction, access to the denied housing, emotional distress damages, civil penalties or punitive damages, and attorney's fees.",
+   "citation": "Fair Employment and Housing Act (FEHA)",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Described by the Civil Rights Department as current state law; no dates given.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "units",
+       "op": "lte",
+       "value": 2,
+       "text": "When an owner is occupying a home and is renting to one additional person"
+      },
+      {
+       "fact": "unavailable",
+       "name": "owner_occupied",
+       "text": "owner is occupying the home"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "senior_housing",
+       "text": "Housing specifically for seniors may be limited based on age."
+      }
+     ]
+    ],
+    "summary": "Applies to most housing providers, landlords and tenant screening companies for rental housing in California.",
+    "exemptions_summary": "Owner-occupied homes renting to one additional person and qualifying senior housing may exclude applicants on certain protected characteristics."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "California law protects tenants from discrimination based on how a tenant will be paying rent (“source of income”).",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

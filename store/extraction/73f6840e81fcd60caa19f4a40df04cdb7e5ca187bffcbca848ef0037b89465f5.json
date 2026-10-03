@@ -1,0 +1,65 @@
+{
+ "doc_id": "D043",
+ "chunk_index": 1,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "just_cause_eviction",
+   "title": "Rent Stabilization Ordinance (RSO) relocation assistance",
+   "requirement": "Landlords terminating an RSO tenancy for a no-fault reason must pay relocation assistance per unit, split pro rata among tenants, made available within 15 days of the written notice (or placed in escrow within that period). Amounts depend on whether the tenant is eligible or qualified, length of tenancy and income.",
+   "key_value": "Eligible tenant $11,000 (under 3 years) or $14,400 (3+ years or low income); qualified tenant $23,150 or $27,400; effective 1 Jul 2026 to 30 Jun 2027",
+   "penalty": "Tenant may raise failure to pay relocation as an affirmative defense to an eviction action, file a complaint with LAHD, or seek a private right of action.",
+   "citation": "LAMC 151.09.G",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to tenancies covered by the RSO.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Payments shall be made available within fifteen (15) days of service of the written notice of eviction; however, the landlord may, at the landlord's sole discretion and at the landlord's cost, elect to pay the monetary relocation benefits through an escrow account.",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "just_cause_eviction",
+   "title": "Just Cause Ordinance (JCO) relocation assistance",
+   "requirement": "Landlords terminating a JCO tenancy for a no-fault reason must pay the same relocation amounts per unit within 15 days of notice. Single-family dwellings owned by natural persons owning no more than four dwelling units and a single-family home on a separate lot owe one month's rent as payment or credit.",
+   "key_value": "Eligible tenant $11,000 or $14,400; qualified tenant $23,150 or $27,400 (1 Jul 2026 to 30 Jun 2027); one month's rent for qualifying single-family dwellings",
+   "penalty": "Tenant may raise failure to pay relocation as an affirmative defense to an eviction action, file a complaint with LAHD, or seek a private right of action.",
+   "citation": "LAMC 165.06",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to tenancies covered by the JCO.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "When the residential real property is a single-family dwelling subject to the JCO and the owner is a natural person, including natural persons who hold properties in a trust or registered legal entity controlled by that natural person, who owns no more than four dwelling units and a single-family home on a separate lot in the City of Los Angeles: one month's rent that was in effect when the landlord served the written notice to terminate the tenancy, as either a monetary payment or credit.",
+   "confidence": 0.65,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

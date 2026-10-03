@@ -1,0 +1,43 @@
+{
+ "doc_id": "D010",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "screening_restrictions",
+   "title": "Boston Fair Chance Tenant Selection Policy",
+   "requirement": "Housing providers receiving DND funding or land, or with BPDA Inclusionary Development Policy income-restricted units, may not use blanket bans based on arrests or convictions and must not consider non-conviction arrests, convictions with judicial relief, juvenile records, or convictions more than 5 years old. They also may not use credit scores to approve or deny applications, and may use credit history only in lieu of rental history.",
+   "key_value": "No consideration of convictions more than 5 years old; no credit score use",
+   "penalty": null,
+   "citation": "Boston Fair Chance Tenant Selection Policy (DND, February 2017)",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Policy dated February 2017; adoption date not stated.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "unavailable",
+      "name": "dnd_funded_or_inclusionary_income_restricted",
+      "text": "Housing providers receiving Department of Neighborhood Development (DND) funding and/or land, or that have income restricted units created under the Boston Planning and Development Agency (BPDA) Inclusionary Development Policy"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to housing providers with DND funding or land, or BPDA inclusionary income-restricted units.",
+    "exemptions_summary": "The criminal-history rules do not apply where a conviction directly relates to the housing sought, poses unreasonable risk of substantial harm to others, or involves current criminal behavior."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": "Where federal or state law imposes a criminal history requirement that conflicts with a requirement of this guidance, the federal or state law preempts this policy."
+   },
+   "quoted_span": "The Developer/Agent (Agent) agrees to not consider any of the following categories when determining housing eligibility and or considering eviction:",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

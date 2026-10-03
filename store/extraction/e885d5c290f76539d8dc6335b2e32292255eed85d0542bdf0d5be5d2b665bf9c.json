@@ -1,0 +1,65 @@
+{
+ "doc_id": "D084",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "rent_increase_limits",
+   "title": "Rent Stabilization and Just Cause Eviction Ordinance",
+   "requirement": "Annual rent increases cannot exceed the lesser of 3% of current rent or 80% of the CPI change. Landlords may charge a registration-fee pass-through of up to $50 per rental unit, and tenants may petition for review of excess increases.",
+   "key_value": "Lesser of 3% or 80% of CPI change; 2.87% for 1 Sep 2026 to 31 Aug 2027",
+   "penalty": "Landlord must reimburse a registration fee pass-through overpayment above $50.",
+   "citation": "Rent Stabilization and Just Cause Eviction Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Described as the current ordinance administered by the city's Rent Stabilization Office.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The increase cannot be more than 3% of your current rent or 80% of the Consumer Price Index (CPI) change, whichever is less.",
+   "confidence": 0.85,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "just_cause_eviction",
+   "title": "Rent Stabilization and Just Cause Eviction Ordinance",
+   "requirement": "A landlord must have a valid reason to evict, such as nonpayment, lease violation, or owner move-in. Relocation assistance may be owed for certain no-fault evictions.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "Rent Stabilization and Just Cause Eviction Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Described as the current ordinance administered by the city's Rent Stabilization Office.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Your landlord must have a valid reason to evict you. This could be for not paying rent, breaking the lease, or if the landlord wants to move into the property themselves.",
+   "confidence": 0.85,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

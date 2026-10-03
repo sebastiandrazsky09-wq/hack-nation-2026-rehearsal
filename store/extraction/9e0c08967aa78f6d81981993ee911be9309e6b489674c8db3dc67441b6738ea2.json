@@ -1,0 +1,37 @@
+{
+ "doc_id": "D067",
+ "chunk_index": 3,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "rent_increase_limits",
+   "title": "Prohibition on rent increases to cover condominium/cooperative conversion costs",
+   "requirement": "When a building is converted to a condominium, cooperative or fee simple ownership of units, landlords may not raise rents to cover costs resulting solely from the conversion. Rents may still be raised to cover new services or amenities, and the bar applies to all tenants in the building.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "N.J.S.A. 2A:18-61.31",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Cited as existing state statute in the DCA landlord-tenant guide.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to buildings converted to condominium, cooperative or fee simple unit ownership.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "If a building is converted to a condominium or cooperative form of ownership, or to fee simple ownership of units, rents may not be increased to cover cos ts resulting solely from the conversion (N.J.S.A. 2A:18-61.31).",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

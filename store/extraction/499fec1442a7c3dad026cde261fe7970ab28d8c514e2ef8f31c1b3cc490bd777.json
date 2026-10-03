@@ -1,0 +1,83 @@
+{
+ "doc_id": "D067",
+ "chunk_index": 2,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "security_deposits",
+   "title": "New Jersey Security Deposit Law (interest, notice and return of security deposits)",
+   "requirement": "Landlords must pay tenants the interest earned on security deposits annually, give written notice of the bank, amount, account type and rate within 30 days of receipt and at each interest payment, and return the deposit with interest less itemized deductions within 30 days after the tenancy ends. A tenant may sue for double the wrongfully withheld amount plus costs and attorney's fees.",
+   "key_value": "Return within 30 days of termination; 5 business days if displaced by fire, flood or condemnation; double damages for wrongful withholding; 7% per annum interest if tenant applies deposit to rent",
+   "penalty": "Double the amount wrongfully withheld plus court costs and attorney's fees; civil penalty of $500 to $2,000 per offense for willfully withholding the deposit of a tenant receiving government assistance; disorderly persons offense for unlawful use of deposit monies",
+   "citation": "N.J.S.A. 46:8-19; 46:8-19.1; 46:8-21; 46:8-21.1",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "caveat",
+       "name": "seasonal_use",
+       "text": "The landlord shall have the burden of proving that the use or rental of the residential property is seasonal"
+      }
+     ]
+    ],
+    "summary": "Applies to residential rental security deposits generally.",
+    "exemptions_summary": "Seasonal rentals are treated separately, and the landlord bears the burden of proving the use is seasonal."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Within 30 days after the termination of a tenancy, a landlord must return the security deposit, plus interest earned less deductions, to the tenant ( N.J.S.A. 46:8-21.1).",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "NJ",
+   "category": "rent_increase_limits",
+   "title": "Newly Constructed Multiple Dwellings Law (exemption from local rent control)",
+   "requirement": "Newly constructed multiple dwellings are exempt from any local rent control ordinance for 30 years following completion of construction. New Jersey has no state rent control, and municipalities may adopt rent control or leveling ordinances.",
+   "key_value": "30 years exemption from completion of construction",
+   "penalty": null,
+   "citation": "N.J.S.A. 2A:42-84.5",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "building_age_years",
+       "op": "lt",
+       "years": 30,
+       "basis": "construction",
+       "text": "newly constructed multiple dwellings shall be exempt from any local rent control ordinances for a period of 30 years following completion of construction of the building"
+      }
+     ]
+    ],
+    "summary": "Local rent control ordinances apply to multiple dwellings in municipalities that have adopted them.",
+    "exemptions_summary": "Multiple dwellings less than 30 years after construction are exempt from local rent control."
+   },
+   "precedence": {
+    "relation": "preempts_local",
+    "text": "newly constructed multiple dwellings shall be exempt from any local rent control ordinances for a period of 30 years following completion of construction of the building"
+   },
+   "quoted_span": "Under the Newly Constructed Multiple Dwellings Law ( N.J.S.A. 2A:42 -84.5), newly \nconstructed multiple dwellings shall be exempt from any local rent control ordinances for a period \nof 30 years following completion of construction of the building.",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

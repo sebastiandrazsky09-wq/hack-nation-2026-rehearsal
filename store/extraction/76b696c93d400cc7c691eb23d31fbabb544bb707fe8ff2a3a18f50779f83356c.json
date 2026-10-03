@@ -1,0 +1,65 @@
+{
+ "doc_id": "D004",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Berkeley, CA",
+   "category": "just_cause_eviction",
+   "title": "Rent Stabilization and Good Cause for Eviction Ordinance",
+   "requirement": "Owners must pay tenants relocation assistance when evicting for an owner move-in. The payments are indexed to inflation and the Rent Board publishes the yearly increase.",
+   "key_value": "Standard payment $19,413 plus additional $6,471 for qualifying households (1.5% CPI adjustment, from 1 Jan 2026)",
+   "penalty": null,
+   "citation": "Rent Stabilization and Good Cause for Eviction Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Page announces the 2026 inflation adjustment, effective January 1, 2026; the ordinance's own dates are not stated.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The Rent Stabilization and Good Cause for Eviction Ordinance requires owners to pay tenants relocation assistance in the event of an owner move-in eviction.",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "Berkeley, CA",
+   "category": "just_cause_eviction",
+   "title": "Ellis Implementation Ordinance",
+   "requirement": "Owners must pay the same relocation assistance to tenants evicted so the owner can remove the property from the rental market under the Ellis Act. Payments are indexed to inflation and the Rent Board publishes the yearly increase.",
+   "key_value": "Standard payment $19,413 plus additional $6,471 for qualifying households (1.5% CPI adjustment, from 1 Jan 2026)",
+   "penalty": null,
+   "citation": "Ellis Implementation Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Page announces the 2026 inflation adjustment, effective January 1, 2026; the ordinance's own dates are not stated.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The Ellis Implementation Ordinance requires the same relocation assistance payments for tenants evicted so the owner can remove a property from the rental housing market.",
+   "confidence": 0.75,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

@@ -1,0 +1,45 @@
+{
+ "doc_id": "D051",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "MA",
+   "category": "just_cause_eviction",
+   "title": "General Laws Part II, Title I, Chapter 186, Section 12 - Notice to determine estate at will",
+   "requirement": "A tenancy at will may be ended by either party with three months' written notice, or the rent-payment interval or 30 days, whichever is longer, if rent is payable at periods under three months. For nonpayment of rent, 14 days' written notice to quit suffices, but the tenant can prevent termination by paying the full rent due within 10 days if no similar notice was received in the prior 12 months. The notice must include a prescribed notification of this right.",
+   "key_value": "3 months' notice (or rental interval/30 days if longer); 14 days' notice to quit for nonpayment; 10-day right to cure",
+   "penalty": "If the notice omits the required notification, the tenant's time to pay or tender rent is extended to the day the answer is due in any action for possession.",
+   "citation": "G.L. c. 186, § 12",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Appears in the Massachusetts General Laws",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "tenancy_at_will",
+      "text": "Applies to estates (tenancies) at will"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to tenancies at will.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Estates at will may be determined by either party by three months' notice in writing for that purpose given to the other party; and, if the rent reserved is payable at periods of less than three months, the time of such notice shall be sufficient if it is equal to the interval between the days of payment or thirty days, whichever is longer. In case of neglect or refusal to pay the rent due from a tenant at will, fourteen days' notice to quit, given in writing by the landlord to the tenant, shall be sufficient to determine the tenancy;",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {
+  "61007124a143f63083e4edae165e8a57aeb6e38c797aafdfdf381b7f12a3bbf0": "Estates at will may be determined by either party by three months' notice in writing for that purpose given to the other party; and, if the rent reserved is payable at periods of less than three months, the time of such notice shall be sufficient if it is equal to the interval between the days of payment or thirty days, whichever is longer."
+ }
+}

@@ -11,5 +11,13 @@
   "url": "https://cityofjerseycity.civicweb.net/document/429156/Ordinance%20Amending%20Chapter%20218%20creating%20section.pdf",
   "status": "skipped",
   "reason": "False"
+ },
+ "san-diego-municode-ch09-art08-div11": {
+  "url": "https://docs.sandiego.gov/municode/municodechapter09/ch09art08division11.pdf",
+  "status": "captured",
+  "retrieved_at": "2026-10-03 19:31 UTC",
+  "raw_file": "supplemental/extra/san-diego-municode-ch09-art08-div11.pdf",
+  "raw_sha256": "148024782085fa471e2764e6f24fbd3412d8ba43d7f215198af601f070686970",
+  "method": "single read with urllib; robots.txt checked; pdftotext -layout"
  }
 }

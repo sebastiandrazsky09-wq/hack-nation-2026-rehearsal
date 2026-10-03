@@ -1,4 +1,9 @@
 {
+ "X91782df": {
+  "jurisdiction": null,
+  "source_url": "ingested:san-diego-municode-ch09-art08-div11.txt",
+  "retrieved_at": "2026-10-03T19:33:56.974Z"
+ },
  "Xee6397c": {
   "jurisdiction": null,
   "source_url": "ingested:hoboken-outlaws-algorithmic-rent-fixing.txt",

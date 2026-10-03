@@ -1,0 +1,37 @@
+{
+ "doc_id": "D077",
+ "chunk_index": 1,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "just_cause_eviction",
+   "title": "City of San Diego Tenant Protection Ordinance",
+   "requirement": "Landlords must strictly comply with buyout agreement formalities (written, copy to tenant, bold 14-point tenant-rights statements, translation when negotiated in another language) or the agreement is void. Buyouts below the available relocation assistance, or waiving tenant rights, are void; tenants may sue for damages and raise violations as a defense in unlawful detainer.",
+   "key_value": "Wrongful eviction damages of at least 3x actual economic damages; failure to pay relocation assistance under § 98.0706(c) is liable for at least 3x the required relocation assistance plus actual damages",
+   "penalty": "Civil liability: injunctive and equitable relief, money damages including punitive damages, at least 3x actual economic damages for wrongful eviction, at least 3x relocation assistance plus actual damages, and attorney's fees and costs in non-unlawful-detainer actions",
+   "citation": "San Diego Municipal Code Chapter 9, Article 8, Division 7",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": "2023-06-24",
+   "repeal_date": null,
+   "status_basis": "Document refers to termination notices served before June 24, 2023 as the effective period.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": null,
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Buyout agreements for amounts less than the amount of relocation assistance available to Tenant is void. Buyout agreements which attempt to waive or limit a Tenant’s rights under this Ordinance are contrary to public policy and void.",
+   "confidence": 0.6,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

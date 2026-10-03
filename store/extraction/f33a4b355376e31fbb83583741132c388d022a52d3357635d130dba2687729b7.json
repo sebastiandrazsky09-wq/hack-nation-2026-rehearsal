@@ -1,0 +1,65 @@
+{
+ "doc_id": "D067",
+ "chunk_index": 4,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Anti-Eviction Act",
+   "requirement": "A landlord may recover possession of a residential unit only by consent or court eviction, and must have good cause to evict or fail to renew a lease. Every good-cause eviction except nonpayment requires a detailed written Notice to Quit (and sometimes a Notice to Cease), and a judgment for possession must be entered before the tenant must move.",
+   "key_value": "Warrant for possession not issued until 3 business days after judgment; tenant then has 3 business days to move",
+   "penalty": null,
+   "citation": "N.J.S.A. 2A:18-61.1 to 61.12",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "units",
+       "op": "lte",
+       "value": 3,
+       "text": "two- or three-unit owner-occupied premises with two or fewer rental units"
+      },
+      {
+       "fact": "unavailable",
+       "name": "owner_occupied",
+       "text": "owner-occupied premises"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "transient_or_seasonal_lodging",
+       "text": "hotel guests, motel guests, or guest houses rented to a transient guest or seasonal tenant"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "family_trust_unit",
+       "text": "unit held in trust on behalf of a developmentally disabled immediate family member who permanently occupies it"
+      }
+     ]
+    ],
+    "summary": "Applies to most residential rental properties including single-family homes, mobile homes, apartment buildings, complexes, and rooming and boarding homes.",
+    "exemptions_summary": "Owner-occupied premises with two or fewer rental units, transient or seasonal hotel/motel/guest house occupants, and certain family-trust units are exempt."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "A landlord must have good cause to evict a tenant (N.J.S.A. 2A:18-53). There are several grounds for a good cause eviction. Each cause, except for nonpayment of rent, must be described in detail by the landlord in a written notice to the tenant.",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

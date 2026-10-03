@@ -1,0 +1,37 @@
+{
+ "doc_id": "D042",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "rent_increase_limits",
+   "title": "City of Los Angeles Rent Stabilization Ordinance (RSO)",
+   "requirement": "Annual rent increases for RSO units are capped at a set percentage; landlords may no longer add a utilities percentage from February 2, 2026. Landlords may pass through RSO and SCEP surcharges monthly with written notice after registering the units.",
+   "key_value": "3% annual allowable increase for 1 Jul 2025 to 30 Jun 2026; RSO surcharge $1.61/month, SCEP surcharge $2.83/month",
+   "penalty": null,
+   "citation": "City of Los Angeles Rent Stabilization Ordinance (RSO)",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to rental units subject to the City of Los Angeles RSO.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Annual rent increases for rental units subject to the City of Los Angeles Rent Stabilization Ordinance (RSO), effective\nJuly 1, 2025, through June 30, 2026\nis\n3%\n.",
+   "confidence": 0.8,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

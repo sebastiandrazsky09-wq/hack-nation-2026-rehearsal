@@ -191,7 +191,7 @@ describe('consolidation', () => {
 describe('date resolution across documents of one law (lead amendment)', () => {
   it('takes a date the primary lacks from an agreeing co-member, records where it came from, and never calls that a conflict', async () => {
     const { mergeGroup } = await import('../../../../src/ordinal/compile/merge');
-    const base = { verified: true, conflict_flag: false, conflict_note: null, status_basis: null, legal_status: 'enacted', repeal_date: null, also_supported_by: [], source_url: 'u', quoted_span: 'q'.repeat(30) } as never as import('../../../../src/ordinal/contracts').InternalRule;
+    const base = { verified: true, conflict_flag: false, conflict_note: null, status_basis: null, legal_status: 'enacted', repeal_date: null, also_supported_by: [], source_url: 'u', quoted_span: 'q'.repeat(30), key_value: null, coverage: { requires: [], exempt_if: [], summary: null, exemptions_summary: null } } as never as import('../../../../src/ordinal/contracts').InternalRule;
     const statute = { id: 'D1#1', rule: { ...base, source_doc_id: 'D1', source_origin: 'official_captured' as const, enacted_date: '2025-10-06', effective_date: null } };
     const alert = { id: 'D2#1', rule: { ...base, source_doc_id: 'D2', source_origin: 'supplemental' as const, enacted_date: '2025-10', effective_date: '2026-01-01' } };
     const merged = mergeGroup([statute, alert], 'D1#1');
@@ -200,11 +200,50 @@ describe('date resolution across documents of one law (lead amendment)', () => {
   });
   it('keeps the primary date and flags a conflict when documents state different dates', async () => {
     const { mergeGroup } = await import('../../../../src/ordinal/compile/merge');
-    const base = { verified: true, conflict_flag: false, conflict_note: null, status_basis: null, legal_status: 'enacted', enacted_date: null, repeal_date: null, also_supported_by: [], source_url: 'u', quoted_span: 'q'.repeat(30), source_origin: 'official_captured' } as never as import('../../../../src/ordinal/contracts').InternalRule;
+    const base = { verified: true, conflict_flag: false, conflict_note: null, status_basis: null, legal_status: 'enacted', enacted_date: null, repeal_date: null, also_supported_by: [], source_url: 'u', quoted_span: 'q'.repeat(30), source_origin: 'official_captured', key_value: null, coverage: { requires: [], exempt_if: [], summary: null, exemptions_summary: null } } as never as import('../../../../src/ordinal/contracts').InternalRule;
     const a = { id: 'D1#1', rule: { ...base, source_doc_id: 'D1', effective_date: '2026-03-01' } };
     const b = { id: 'D2#1', rule: { ...base, source_doc_id: 'D2', effective_date: '2026-01' } };
     const c = { id: 'D3#1', rule: { ...base, source_doc_id: 'D3', effective_date: null } };
     const merged = mergeGroup([a, b, c], 'D3#1');
     expect(merged.effective_date).toBeNull(); expect(merged.conflict_flag).toBe(true); expect(merged.conflict_note).toContain('"2026-01" (D2)'); expect(merged.conflict_note).toContain('"2026-03-01" (D1)');
+  });
+});
+
+describe('status, dates and coverage across documents of one law (lead amendment after the extraction audit)', () => {
+  type R = import('../../../../src/ordinal/contracts').InternalRule;
+  const none = { requires: [], exempt_if: [], summary: null, exemptions_summary: null };
+  const base = { verified: true, conflict_flag: false, conflict_note: null, status_basis: null, legal_status: 'enacted', enacted_date: null, effective_date: null, repeal_date: null, key_value: null, coverage: none, also_supported_by: [], source_url: 'u', quoted_span: 'q'.repeat(30), source_origin: 'official_captured' } as never as R;
+  const cand = (id: string, over: Partial<R>) => ({ id, rule: { ...base, source_doc_id: id.split('#')[0], ...over } as R });
+  const merge = async (members: ReturnType<typeof cand>[], pick: string) => (await import('../../../../src/ordinal/compile/merge')).mergeGroup(members, pick);
+
+  it('a draft marked pending plus the adopted code marked enacted is an enacted law with the code\'s dates and no conflict', async () => {
+    const merged = await merge([cand('D1#1', { legal_status: 'pending' }), cand('X1#1', { source_origin: 'ingested', enacted_date: '2025-05-22', effective_date: '2025-06-21' })], 'D1#1');
+    expect(merged.source_doc_id).toBe('D1'); expect(merged.legal_status).toBe('enacted'); expect(merged.enacted_date).toBe('2025-05-22'); expect(merged.effective_date).toBe('2025-06-21');
+    expect(merged.conflict_flag).toBe(false); expect(merged.status_basis).toContain('legal_status enacted from X1');
+  });
+  it('pending plus failed is failed; enacted against failed, or enacted without any date against pending, is flagged and left with the primary', async () => {
+    expect((await merge([cand('D1#1', { legal_status: 'pending' }), cand('D2#1', { legal_status: 'failed' })], 'D1#1')).legal_status).toBe('failed');
+    const clash = await merge([cand('D1#1', { enacted_date: '2024-01-01' }), cand('D2#1', { legal_status: 'failed' })], 'D1#1');
+    expect(clash.legal_status).toBe('enacted'); expect(clash.conflict_flag).toBe(true); expect(clash.conflict_note).toContain('legal_status differs');
+    const undated = await merge([cand('D1#1', { legal_status: 'pending' }), cand('D2#1', {})], 'D1#1');
+    expect(undated.legal_status).toBe('pending'); expect(undated.conflict_flag).toBe(true);
+  });
+  it('does not borrow an effective date when the primary states no enactment, or when the lender describes another enactment', async () => {
+    expect((await merge([cand('D1#1', {}), cand('D2#1', { enacted_date: '2025-10-16', effective_date: '2026-01-01' })], 'D1#1')).effective_date).toBeNull();
+    expect((await merge([cand('D1#1', { enacted_date: '2019-10-08' }), cand('D2#1', { enacted_date: '2025-10-16', effective_date: '2026-01-01' })], 'D1#1')).effective_date).toBeNull();
+    expect((await merge([cand('D1#1', { enacted_date: '2025-10-06' }), cand('D2#1', { effective_date: '2026-01-01' })], 'D1#1')).effective_date).toBe('2026-01-01');
+  });
+  it('flags effective dates under a year apart and treats dates further apart as different amendments', async () => {
+    const near = await merge([cand('D1#1', { effective_date: '2026-02-02' }), cand('D2#1', { effective_date: '2026-01-24' })], 'D1#1');
+    expect(near.conflict_flag).toBe(true); expect(near.conflict_note).toContain('"2026-01-24" (D2)');
+    const far = await merge([cand('D1#1', { effective_date: '2026-01-01' }), cand('D2#1', { effective_date: '2024-07-01' })], 'D1#1');
+    expect(far.conflict_flag).toBe(false); expect(far.effective_date).toBe('2026-01-01');
+  });
+  it('takes coverage and extra headline values from another document only where the primary is silent', async () => {
+    const cutoff = { requires: [{ fact: 'year_built' as const, op: 'lte' as const, date: '1979-06-13', basis: 'certificate_of_occupancy' as const, text: 'on or before June 13, 1979' }], exempt_if: [], summary: 'older buildings', exemptions_summary: null };
+    const merged = await merge([cand('D1#1', { key_value: '60% of CPI, at most 7%' }), cand('D2#1', { coverage: cutoff, key_value: '1.6% for 1 Mar 2026 to 28 Feb 2027' })], 'D1#1');
+    expect(merged.coverage).toEqual(cutoff); expect(merged.key_value).toBe('60% of CPI, at most 7%; 1.6% for 1 Mar 2026 to 28 Feb 2027'); expect(merged.status_basis).toContain('coverage from D2');
+    const own = { requires: [{ fact: 'units' as const, op: 'gte' as const, value: 5, text: 'five or more' }], exempt_if: [], summary: null, exemptions_summary: null };
+    expect((await merge([cand('D1#1', { coverage: own }), cand('D2#1', { coverage: cutoff })], 'D1#1')).coverage).toEqual(own);
   });
 });

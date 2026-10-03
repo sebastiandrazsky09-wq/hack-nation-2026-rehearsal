@@ -1,0 +1,83 @@
+{
+ "doc_id": "D041",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "rent_increase_limits",
+   "title": "Rent Stabilization Ordinance (RSO)",
+   "requirement": "Rent for RSO units may be increased once every 12 months by the allowable rent increase percentage published by LAHD. Additional increases require LAHD approval through programs such as capital improvement, primary renovation, seismic retrofit, rehabilitation, and just and reasonable rent increase. Rent may go to market rate after certain vacancies.",
+   "key_value": "Once every 12 months by the allowable percentage published by LAHD; no utility add-on or dependent-based 10% increase since 2026-02-02",
+   "penalty": null,
+   "citation": "LAMC Section 151.28",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Page describes the ordinance as in force; specific enactment dates are not stated.",
+   "coverage": {
+    "requires": [
+     {
+      "fact": "year_built",
+      "op": "lte",
+      "date": "1978-10-01",
+      "basis": "construction",
+      "text": "rental properties that were first built on or before October 1, 1978"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to rental properties first built on or before October 1, 1978, including apartments, duplexes, and similar units.",
+    "exemptions_summary": "Condominiums and townhomes are not rent-regulated for tenancies commencing after December 31, 1995."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Rent may be increased once every 12 months by the allowable rent increase percentage (click here to\nview the allowable rent increase PDF\n).",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "just_cause_eviction",
+   "title": "Rent Stabilization Ordinance (RSO) just cause eviction provisions",
+   "requirement": "RSO tenancies may be ended only for listed at-fault or no-fault reasons. No-fault evictions require a Landlord Declaration of Intent to Evict filed with LAHD, 30-day and 60-day written notice, and tenant relocation assistance. All termination notices must be filed with LAHD within three business days of service.",
+   "key_value": "Termination notices filed with LAHD within 3 business days of service",
+   "penalty": null,
+   "citation": "Los Angeles Municipal Code 151.09.C.9 & 165.05.B.5",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [
+     {
+      "fact": "year_built",
+      "op": "lte",
+      "date": "1978-10-01",
+      "basis": "construction",
+      "text": "rental properties that were first built on or before October 1, 1978"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Applies to units covered by the RSO.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "No-fault evictions require the payment of\nrelocation assistance.",
+   "confidence": 0.65,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {
+  "34467b5db18876d13da3ccf206444dfa4f51fe3e5b82f45890697475829fe70b": "All notices to terminate a tenancy for all rental units subject to\nCity’s Rent Stabilization Ordinance (RSO\n) must be filed with the Los Angeles Housing Department (LAHD) within\nthree (3) business days of service on the tenant\nper Los Angeles Municipal Code 151.09.C.9 & 165.05.B.5."
+ }
+}

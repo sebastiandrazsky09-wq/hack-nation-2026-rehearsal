@@ -1,0 +1,141 @@
+{
+ "doc_id": "D067",
+ "chunk_index": 6,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Anti-Eviction Act (Eviction Law) – owner-occupied two- and three-family dwellings and penalties",
+   "requirement": "Tenants in landlord-occupied two- and three-family dwellings may be removed only by court order on listed grounds, with set notices to quit. Landlords who evict to occupy or to remove a property from residential use must honor use periods or face treble damages and penalties.",
+   "key_value": "Notices to quit: 3 months (at will/year-to-year), 1 month (month-to-month), 3 days for disorderly/destructive/rule violations; 5-year bar on residential use after removal; civil penalty up to $10,000 per violation",
+   "penalty": "Treble damages plus attorney fees and costs; civil penalty up to $10,000.00 per violation",
+   "citation": "N.J.S.A. 2A:18-61.2(a)",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Describes eviction grounds for owner-occupied two- and three-family dwellings and penalties for misuse of owner-occupancy and removal notices.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Tenants of landlord-occupied two- and three-family dwellings can be removed only when a court issues an order for eviction.",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Tenant reprisal law (Civil Rights of Tenants)",
+   "requirement": "A landlord may not evict, substantially alter lease terms, or refuse to renew a lease in reprisal for a tenant exercising protected rights such as enforcing lease rights, good-faith complaints, or joining a tenant organization.",
+   "key_value": null,
+   "penalty": "Tenant may sue the landlord for damages in a civil action",
+   "citation": "N.J.S.A. 2A:42-10.10",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "units",
+       "op": "lte",
+       "value": 3,
+       "text": "except owner-occupied two- or three-family dwellings"
+      },
+      {
+       "fact": "unavailable",
+       "name": "owner_occupied",
+       "text": "owner-occupied"
+      }
+     ]
+    ],
+    "summary": "Applies to all rental properties used for dwelling purposes, including mobile homes.",
+    "exemptions_summary": "Owner-occupied two- or three-family dwellings are excluded."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "A landlord cannot take reprisal action against a tenant by eviction, substantial alteration of a lease or its terms, or refusal to renew a lease when a tenant exercises certain civil rights (N.J.S.A. 2A:42-10.10).",
+   "confidence": 0.75,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "New Jersey Foreclosure Fairness Act (tenant protections)",
+   "requirement": "Foreclosure alone is not grounds for eviction; a tenant may be removed after foreclosure only with a 90-day notice to quit when the buyer will occupy the unit, and new owners must give tenants notice of the ownership change. Monetary offers to vacate must be voluntary and free of pressure tactics.",
+   "key_value": "90-day notice to quit; notices within 10 business days after sale",
+   "penalty": null,
+   "citation": "N.J.S.A. 2A:50-69 et seq.",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to foreclosed properties containing residential rental units.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Foreclosure alone is not grounds for eviction in New Jersey.",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Senior Citizens and Disabled Protected Tenancy Act",
+   "requirement": "Eligible senior, disabled and disabled-veteran tenants in buildings converted to condominium or cooperative may be protected from eviction for 40 years if income limits are met, and landlords must notify tenants of the right to apply.",
+   "key_value": "40 years protection; income up to 3 times county per-person average or $50,000, whichever is greater",
+   "penalty": null,
+   "citation": "N.J.S.A. 2A:18-61.22 to -61.39",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [
+     {
+      "fact": "caveat",
+      "name": "condo_conversion_eligible_tenant",
+      "text": "building being converted to a condominium, cooperative or fee simple ownership; tenant aged 62+, disabled, or disabled veteran, resident at least one year before conversion recording"
+     }
+    ],
+    "exempt_if": [],
+    "summary": "Reaches eligible tenants in buildings being converted to condominium or cooperative.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Tenants may be protected from eviction for 40 years if their family income is not more than three (3) times the average per person income in their county or $50,000.00, whichever  is greater (N.J.S.A. 2A:18-61.28).",
+   "confidence": 0.75,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

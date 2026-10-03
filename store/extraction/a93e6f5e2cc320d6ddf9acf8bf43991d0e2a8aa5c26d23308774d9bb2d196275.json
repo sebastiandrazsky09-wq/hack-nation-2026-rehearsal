@@ -1,0 +1,94 @@
+{
+ "doc_id": "D067",
+ "chunk_index": 1,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "security_deposits",
+   "title": "Security Deposit Law",
+   "requirement": "Security deposit may not exceed one and one-half times one month's rent, with annual increases capped at 10% of the current deposit. Deposits must be held in trust in interest-bearing accounts, with interest paid to the tenant annually and written notice of the account given within 30 days.",
+   "key_value": "1.5 times monthly rent; annual increase at most 10%; 7% per annum interest if notice/interest not provided",
+   "penalty": "If proper notice or interest is not provided, the tenant may apply the deposit plus 7% per annum interest to rent.",
+   "citation": "N.J.S.A. 46:8-21.2",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "units",
+       "op": "lte",
+       "value": 3,
+       "text": "owner-occupied two-, or three-family dwelling"
+      },
+      {
+       "fact": "unavailable",
+       "name": "owner_occupied",
+       "text": "owner-occupied"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "seasonal_rental",
+       "text": "seasonal use or rental for a term of not more than 125 consecutive days (interest section only)"
+      }
+     ]
+    ],
+    "summary": "Applies to most residential rental properties, including mobile homes.",
+    "exemptions_summary": "Owner-occupied two- or three-family dwellings are exempt unless the tenant requests coverage; the interest section does not apply to seasonal rentals."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The maximum-security deposit to be collected by the landlord cannot be more than one and one-half times one month’s rent ( N.J.S.A. 46:8-21.2 ). It can be less. Any additional yearly security deposit increase may not exceed 10% of the current security deposit.",
+   "confidence": 0.85,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "NJ",
+   "category": "just_cause_eviction",
+   "title": "Termination of a Lease Agreement (lease termination by tenant and landlord limits)",
+   "requirement": "A landlord cannot evict a tenant just because the lease term has ended; a lease may be terminated only where the tenant refuses a new lease with different terms. Tenants may terminate early for specified reasons, such as disability, illness, or domestic violence, with 30 to 40 days' notice.",
+   "key_value": "40-day notice (disability/illness); 30 days (domestic violence)",
+   "penalty": null,
+   "citation": "N.J.S.A. 46:8-9.2",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": null,
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "caveat",
+       "name": "transient_or_seasonal",
+       "text": "This law does not apply to transient or seasonal rentals."
+      }
+     ]
+    ],
+    "summary": "Applies to residential leases generally.",
+    "exemptions_summary": "Domestic violence termination provisions do not apply to transient or seasonal rentals."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "The only reason a landlord can terminate a lease is if they offer a new lease to the tenant with different terms, i.e. higher rent or new rules and regulations, and the tenant does not agree. A landlord cannot evict a tenant just because the lease term has ended.",
+   "confidence": 0.6,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

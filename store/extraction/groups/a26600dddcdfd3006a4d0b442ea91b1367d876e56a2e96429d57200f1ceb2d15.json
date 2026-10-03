@@ -1,0 +1,14 @@
+{
+ "cell": "NJ|security_deposits",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D067#3",
+    "D067#4"
+   ],
+   "primary_id": "D067#3"
+  }
+ ]
+}

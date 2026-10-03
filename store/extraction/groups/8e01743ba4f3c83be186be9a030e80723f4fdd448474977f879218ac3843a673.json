@@ -1,0 +1,14 @@
+{
+ "cell": "San Diego, CA|algorithmic_rent_setting",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D076#1",
+    "X91782df#1"
+   ],
+   "primary_id": "X91782df#1"
+  }
+ ]
+}

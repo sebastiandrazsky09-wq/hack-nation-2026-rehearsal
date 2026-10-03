@@ -1,0 +1,14 @@
+{
+ "cell": "Los Angeles, CA|rent_increase_limits",
+ "prompt_version": "ordinal-group-v2",
+ "model": "claude-sonnet-5-5",
+ "groups": [
+  {
+   "member_ids": [
+    "D041#1",
+    "D042#1"
+   ],
+   "primary_id": "D041#1"
+  }
+ ]
+}

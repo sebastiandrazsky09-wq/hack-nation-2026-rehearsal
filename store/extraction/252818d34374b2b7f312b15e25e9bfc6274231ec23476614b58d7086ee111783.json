@@ -1,0 +1,37 @@
+{
+ "doc_id": "D069",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "NJ",
+   "category": "algorithmic_rent_setting",
+   "title": "Forbidding the Algorithmic Inflation of Rent (FAIR) Act",
+   "requirement": "Makes it an antitrust violation for rental property owners to pay for or use a coordinator's algorithmic software or device that performs a coordinating function, for coordinators to facilitate such agreements, and for anyone to engage in parallel pricing coordination or perform a coordinating function. The Attorney General receives complaints and may adopt rules.",
+   "key_value": null,
+   "penalty": "Violation of the New Jersey Antitrust Act, P.L.1970, c.73 (C.56:9-1 et seq.); sections 6 through 17 of that act remain applicable.",
+   "citation": "P.L. 2026, c.43 (A3497 1R ACS)",
+   "legal_status": "enacted",
+   "enacted_date": "2026-07-20",
+   "effective_date": "2027-07-01",
+   "repeal_date": null,
+   "status_basis": "Takes effect on the first day of the twelfth month next following the date of enactment (approved July 20, 2026).",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to rental property owners and coordinators for residential dwelling units in the State.",
+    "exemptions_summary": "Residential dwelling units exclude inpatient medical care, licensed long-term care, and detention or correctional facilities; governments setting rents through affordability controls are not coordinators."
+   },
+   "precedence": {
+    "relation": "preempts_local",
+    "text": "A municipality shall be prohibited from enacting an ordinance that conflicts with this act."
+   },
+   "quoted_span": "It shall be unlawful and a violation of the “New Jersey Antitrust Act,” P.L.1970, c.73 (C.56:9-1 et seq.) for:\na.     a rental property owner, or any agent, representative, or subcontractor thereof, to receive, subscribe to, contract for, or otherwise exchange any form of consideration in return for the use of, the services of a coordinator;",
+   "confidence": 0.93,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

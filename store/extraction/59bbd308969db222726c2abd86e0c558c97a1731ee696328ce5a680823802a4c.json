@@ -1,0 +1,46 @@
+{
+ "doc_id": "D036",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Jersey City, NJ",
+   "category": "rent_increase_limits",
+   "title": "Rent Control Ordinance, Chapter 260 of the Jersey City Municipal Code",
+   "requirement": "Jersey City regulates rents under its Rent Control Ordinance, administered by the Office of Landlord/Tenant Relations. Landlords must apply for permitted increases such as capital improvement, vacancy capital improvement and hardship increases, and tenants may petition over illegal rent or failure to maintain service. The page gives no cap figure.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "Jersey City Municipal Code, Chapter 260",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Ordinance is in the municipal code and is currently administered and enforced by the Office of Landlord/Tenant Relations.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "units",
+       "op": "lte",
+       "value": 4,
+       "text": "All 1-4 Unit Properties are exempt from rent control"
+      }
+     ]
+    ],
+    "summary": "Applies to rental properties in Jersey City, other than those exempted.",
+    "exemptions_summary": "All properties with 1-4 units are exempt, and the ordinance allows other exemptions by request to the Office."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "(Please Note: All 1-4 Unit Properties are exempt from rent control)",
+   "confidence": 0.7,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

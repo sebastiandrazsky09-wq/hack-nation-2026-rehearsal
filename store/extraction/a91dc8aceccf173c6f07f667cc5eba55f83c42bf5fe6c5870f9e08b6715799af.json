@@ -1,0 +1,37 @@
+{
+ "doc_id": "D049",
+ "chunk_index": 1,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "MA",
+   "category": "screening_restrictions",
+   "title": "M.G.L. c. 151B, § 4(10) – Discrimination against public assistance and housing subsidy recipients",
+   "requirement": "It is unlawful for anyone furnishing rental accommodations to discriminate against an individual because they receive federal, state or local public assistance or a housing subsidy (including rental assistance or supplements), or because of any requirement of such a program.",
+   "key_value": null,
+   "penalty": null,
+   "citation": "M.G.L. c. 151B, § 4, subsection 10",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": null,
+   "repeal_date": null,
+   "status_basis": "Appears in the Massachusetts General Laws",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [],
+    "summary": "Applies to any person furnishing rental accommodations, with no stated size or age limits.",
+    "exemptions_summary": null
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "For any person furnishing credit, services or rental accommodations to discriminate against any individual who is a recipient of federal, state, or local public assistance, including medical assistance, or who is a tenant receiving federal, state, or local housing subsidies, including rental assistance or rental supplements, because the individual is such a recipient, or because of any requirement of such public assistance, rental assistance, or housing subsidy program.",
+   "confidence": 0.85,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}

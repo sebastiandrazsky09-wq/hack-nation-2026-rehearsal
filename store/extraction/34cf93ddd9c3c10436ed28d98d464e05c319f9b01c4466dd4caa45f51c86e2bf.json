@@ -1,0 +1,120 @@
+{
+ "doc_id": "D085",
+ "chunk_index": 0,
+ "prompt_version": "ordinal-extract-v3",
+ "model": "claude-sonnet-5-5",
+ "rules": [
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "rent_increase_limits",
+   "title": "Rent Stabilization Ordinance",
+   "requirement": "Residential rent increases are limited to the lower of 3% per year or 80% of the CPI change over the most recent 12 months; no increase if CPI is negative. Owners may petition for relief to obtain a fair and reasonable return, and must give written notice of the ordinance and tenant rights.",
+   "key_value": "Lower of 3% or 80% of CPI change per year",
+   "penalty": null,
+   "citation": "Santa Ana Rent Stabilization Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": "2021-11-19",
+   "repeal_date": null,
+   "status_basis": "The new ordinances are not effective until November 19, 2021.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "year_built",
+       "op": "gt",
+       "date": "1995-02-01",
+       "basis": "construction",
+       "text": "residential buildings constructed after February 1, 1995"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "mobile_home_space_after_1990",
+       "text": "mobile home spaces offered for rent after January 1, 1990"
+      }
+     ]
+    ],
+    "summary": "Applies to residential rental buildings in Santa Ana.",
+    "exemptions_summary": "Buildings constructed after February 1, 1995 and mobile home spaces offered for rent after January 1, 1990 are exempt."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "Increase in residential rents are limited to the lower of 3% per year, or 80% of the percent change in the Consumer Price Index over the most recent 12-month period. If the CPI is negative, no rent increase is permitted.",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  },
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "just_cause_eviction",
+   "title": "Just Cause Eviction Ordinance",
+   "requirement": "After 30 days, an owner may not terminate a tenancy without just cause stated in a written notice. For at-fault causes, a notice to cure must come first; for no-fault causes the owner must give 3 months of relocation assistance or waive the final 3 months of rent.",
+   "key_value": "3 months relocation assistance or rent waiver for no-fault terminations",
+   "penalty": null,
+   "citation": "Santa Ana Just Cause Eviction Ordinance",
+   "legal_status": "enacted",
+   "enacted_date": null,
+   "effective_date": "2021-11-19",
+   "repeal_date": null,
+   "status_basis": "The new ordinances are not effective until November 19, 2021.",
+   "coverage": {
+    "requires": [],
+    "exempt_if": [
+     [
+      {
+       "fact": "building_age_years",
+       "op": "lt",
+       "years": 15,
+       "basis": "other",
+       "text": "housing produced in the last 15 years"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "deed_restricted_affordable",
+       "text": "deed-restricted affordable housing"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "hotel_transient",
+       "text": "hotel and transient occupancy"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "care_facilities",
+       "text": "hospital and care facilities"
+      }
+     ],
+     [
+      {
+       "fact": "caveat",
+       "name": "dormitory_shared_living",
+       "text": "dormitories; and other shared living quarters"
+      }
+     ]
+    ],
+    "summary": "Applies to residential rental property in Santa Ana after 30 days of tenancy.",
+    "exemptions_summary": "Housing produced in the last 15 years, deed-restricted affordable housing, hotels and transient occupancy, hospital and care facilities, dormitories and other shared living quarters are exempt."
+   },
+   "precedence": {
+    "relation": "none_stated",
+    "text": null
+   },
+   "quoted_span": "After 30 days, an owner shall not terminate a tenancy without just cause, which shall be stated in a written notice.",
+   "confidence": 0.9,
+   "conflict_flag": false,
+   "conflict_note": null
+  }
+ ],
+ "repairs": {}
+}
