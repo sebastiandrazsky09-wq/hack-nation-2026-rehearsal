@@ -247,3 +247,25 @@ describe('status, dates and coverage across documents of one law (lead amendment
     expect((await merge([cand('D1#1', { coverage: own }), cand('D2#1', { coverage: cutoff })], 'D1#1')).coverage).toEqual(own);
   });
 });
+
+describe('an effective date the primary document itself states (lead amendment for a statute whose text gives only an applicability clause)', () => {
+  type R = import('../../../../src/ordinal/contracts').InternalRule;
+  const none = { requires: [], exempt_if: [], summary: null, exemptions_summary: null };
+  const base = { verified: true, conflict_flag: false, conflict_note: null, status_basis: null, legal_status: 'enacted', enacted_date: null, effective_date: null, repeal_date: null, key_value: null, coverage: none, also_supported_by: [], source_url: 'u', quoted_span: 'q'.repeat(30), source_origin: 'official_captured' } as never as R;
+  const cand = (id: string, over: Partial<R>) => ({ id, rule: { ...base, source_doc_id: id.split('#')[0], ...over } as R });
+  const texts: Record<string, string> = { D1: 'This subdivision shall not apply to a security collected before July 1, 2024.', D3: '(Amended by Stats. 2025. Effective January 1, 2026.)' };
+  const statesDate = (docId: string, date: string) => date === '2024-07-01' ? /July 1, 2024/.test(texts[docId] ?? '') : false;
+
+  it('is adopted from another document of the same law, with the provenance recorded', async () => {
+    const { mergeGroup } = await import('../../../../src/ordinal/compile/merge');
+    const merged = mergeGroup([cand('D1#1', {}), cand('D2#1', { effective_date: '2024-07-01' })], 'D1#1', { statesDate });
+    expect(merged.source_doc_id).toBe('D1'); expect(merged.effective_date).toBe('2024-07-01');
+    expect(merged.status_basis).toContain('effective_date 2024-07-01 from D2, a date D1 also states'); expect(merged.conflict_flag).toBe(false);
+  });
+  it('is not adopted when the primary document does not state that date, when documents offer two dates, or without the check', async () => {
+    const { mergeGroup } = await import('../../../../src/ordinal/compile/merge');
+    expect(mergeGroup([cand('D3#1', {}), cand('D2#1', { effective_date: '2026-01-01' })], 'D3#1', { statesDate }).effective_date).toBeNull();
+    expect(mergeGroup([cand('D1#1', {}), cand('D2#1', { effective_date: '2024-07-01' }), cand('D4#1', { effective_date: '2019-01-01' })], 'D1#1', { statesDate }).effective_date).toBeNull();
+    expect(mergeGroup([cand('D1#1', {}), cand('D2#1', { effective_date: '2024-07-01' })], 'D1#1').effective_date).toBeNull();
+  });
+});

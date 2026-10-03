@@ -1,7 +1,7 @@
 {
   "as_of": "2026-10-01",
   "inputs": {
-    "rule_store_sha256": "970d0b7871691e0b6a0362d81cd95231a446677306a51e61a399d936d7294811",
+    "rule_store_sha256": "817c009c3602f5b8e9e2c07176ce9f4c96f812daa3357c30c4ec48843e2c2acf",
     "stacks_sha256": "ef1c3c51a35e780405865f88bae58fcdf56c3c517be31a8c15e0e53904939ac5",
     "addresses_sha256": "3a8666679f83ae2e95ad6368ed752b30dec0399c81fef4082c54f6c246979ce4"
   },

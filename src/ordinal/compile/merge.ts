@@ -47,7 +47,12 @@ function resolveStatus(primary: Candidate, verified: Candidate[]): { status: Int
   return { status: winner, from: own === winner ? null : evidence, conflict: false };
 }
 
-export function mergeGroup(members: Candidate[], modelPrimaryId: string): InternalRule {
+export type MergeOptions = {
+  /** True when the document with this id writes the date as an ordinary statement (not an amendment note, not a rate period). */
+  statesDate?: (docId: string, date: string) => boolean;
+};
+
+export function mergeGroup(members: Candidate[], modelPrimaryId: string, options: MergeOptions = {}): InternalRule {
   const primary = choosePrimary(members, modelPrimaryId);
   const others = members.filter(m => m !== primary).sort(byId);
   const verified = [...members].filter(m => m.rule.verified).sort(byId);
@@ -80,6 +85,16 @@ export function mergeGroup(members: Candidate[], modelPrimaryId: string): Intern
     const lenders = peers.filter(m => m.rule.effective_date !== null && (m.rule.enacted_date === null || compatible(m.rule.enacted_date, enacted_date!)));
     const offered = distinctDates(lenders.map(m => m.rule.effective_date));
     if (offered.length === 1) { effective_date = offered[0]; basis.push(`effective_date ${effective_date} from ${[...new Set(lenders.map(m => m.rule.source_doc_id))].sort().join(', ')}`); }
+  }
+  // Or from a document of the same law when the rule's own document writes that very date as an ordinary statement:
+  // the date is then in the primary source, and the other document only says what it is the date of.
+  if (effective_date === null && options.statesDate) {
+    const lenders = peers.filter(m => m !== dateSource && m.rule.effective_date !== null);
+    const offered = distinctDates(lenders.map(m => m.rule.effective_date));
+    if (offered.length === 1 && options.statesDate(dateSource.rule.source_doc_id, offered[0])) {
+      effective_date = offered[0];
+      basis.push(`effective_date ${effective_date} from ${[...new Set(lenders.map(m => m.rule.source_doc_id))].sort().join(', ')}, a date ${dateSource.rule.source_doc_id} also states`);
+    }
   }
   if (status.from) {
     if (status.from.rule.enacted_date !== primary.rule.enacted_date && enacted_date) basis.push(`enacted_date ${enacted_date} from ${status.from.rule.source_doc_id}`);

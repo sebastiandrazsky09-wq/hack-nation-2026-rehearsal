@@ -151,7 +151,8 @@ export async function runCompile(options: CompileOptions, deps: CompileDeps = {}
     const result = await consolidate(all, {
       cacheDir, modelNames, offline, force,
       client: () => (client ??= createProviderClient()),
-      onCall: () => { counters.llm_calls++; }, onHit: () => { counters.cache_hits++; }
+      onCall: () => { counters.llm_calls++; }, onHit: () => { counters.cache_hits++; },
+      statesDate: (docId, date) => { const doc = known.get(docId); return doc !== undefined && effectiveDateContext(doc.text, date) === 'stated'; }
     });
     docs_failed.push(...result.failures);
     writeRuleStore(result.rules, storePath);

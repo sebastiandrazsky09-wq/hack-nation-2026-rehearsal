@@ -19,6 +19,8 @@ export type ConsolidateDeps = {
   client: () => LlmClient;
   onCall: () => void;
   onHit: () => void;
+  /** Passed to the merge: whether a document writes a date as an ordinary statement. */
+  statesDate?: (docId: string, date: string) => boolean;
 };
 
 export type ConsolidateResult = {
@@ -129,7 +131,7 @@ export async function consolidate(candidates: Candidate[], deps: ConsolidateDeps
       const bucket = buckets.get(teamId);
       if (bucket) bucket.members.push(...mine); else buckets.set(teamId, { members: mine, pick: g.primary_id });
     }
-    for (const bucket of buckets.values()) rules.push(mergeGroup(bucket.members, bucket.pick));
+    for (const bucket of buckets.values()) rules.push(mergeGroup(bucket.members, bucket.pick, { statesDate: deps.statesDate }));
   }
   return { rules, failures, cells: keys.length, grouped: multi.length, calls };
 }
