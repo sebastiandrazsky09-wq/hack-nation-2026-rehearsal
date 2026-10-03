@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 3 Oct 22:40 CEST from observed runs at commit `5a4d3da` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: Jersey City source, unknown-policy decision, deployment
+Updated: 3 Oct 23:05 CEST from observed runs at commit `6c16f09` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: Jersey City source, unknown-policy decision, deployment
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|
@@ -30,7 +30,7 @@ Updated: 3 Oct 22:40 CEST from observed runs at commit `5a4d3da` · Deadline: Su
 | Real T6 | unverified it exists | — | 21:15 | PO |
 | Selfcheck | **ok**, 0 failures | ok | 21:50 | CONTROL |
 | Offline rebuild (`ordinal demo`) | twice, 0 model calls, 0 changed files | byte-identical | 22:30 | CONTROL |
-| Unit tests | 135 pass | pass | 22:30 | CONTROL |
+| Unit tests | 140 pass | pass | 22:58 | CONTROL |
 | Build / browser tests | pass / 28 pass | pass | 22:38 | CONTROL |
 | Independent submission verifier (`npm run verify`) | 0 problems | 0 | 22:30 | CONTROL |
 | PROOF (Codex) | **unavailable**: usage limit reached, resets 10 Oct | available | 22:28 | PO decision |
@@ -38,8 +38,11 @@ Updated: 3 Oct 22:40 CEST from observed runs at commit `5a4d3da` · Deadline: Su
 | Secret scan (`gitleaks git`) | no leaks | none | 21:50 | CONTROL |
 | Hardcoding scan of `src/` | no test ids, organizer ids, address ids or expected sets | none | 21:40 | CONTROL |
 | UI | address search with examples and shareable links, as-of control, jurisdiction with low-confidence mark, rule cards, audit table, changes and pipeline tabs | minimum UI | 22:38 | UI |
-| Deployment URL | none (Vercel project linked, build ready) | live | 21:15 | PO decision |
-| Submission: public repo, 3 videos, HackOS | none | all | 21:15 | PO + CONTROL |
+| Deployment URL | **https://hack-nation-machine-rehearsal.vercel.app** (deployed 22:58 from clean `6c16f09`) | live | 23:03 | CONTROL |
+| Production health check | `/api/health` ok: 57 rules, 500 addresses | ok | 23:00 | CONTROL |
+| Production browser tests (fresh context, no login) | 28 / 28 pass | pass | 23:02 | CONTROL |
+| Production answers vs `out/` files | 45 addresses (501 rows), 57 rules and T1–T5 identical | identical | 23:03 | CONTROL |
+| Submission: public repo (held back on PO instruction), 3 videos, HackOS | none | all | 23:05 | PO + CONTROL |
 | README, method note, demo and tech video scripts | written | done | 22:30 | CONTROL |
 
 No answer key or scorer exists. Every "pass" above means our general engine produced the set described; none is measured against the organizers' expectations.
