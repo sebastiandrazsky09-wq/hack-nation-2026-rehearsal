@@ -450,3 +450,36 @@ table { border-collapse: collapse; }
   .is-changed .rule-row { animation: none; }
   .rule-toggle svg, .category { transition: none; }
 }
+
+/* ---- The same system on the secondary screens: medium weights, tight tracking, hairlines, one shadow (the suggestion list). ---- */
+.answer-sentence { font-size: 34px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.14; max-width: 26em; }
+.subject h2 { font-size: 24px; font-weight: 500; letter-spacing: -0.02em; }
+.field label { font-weight: 500; color: var(--fg-3); }
+.quick button, .chip, .button-quiet { font-weight: 500; }
+.quick button[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); }
+.facts dd, .stack li { font-weight: 500; }
+.category > h3 { font-size: 13px; font-weight: 500; color: var(--fg-3); }
+.rule-title { font-size: 17px; font-weight: 500; letter-spacing: -0.012em; }
+.rule-title button { font-weight: 500; }
+.rules-head { background: rgb(255 255 255 / 0.96); border-top: 0; box-shadow: none; }
+.rules-head-answer, .rules-head-rule { font-weight: 500; color: var(--fg-3); }
+.signal { font-weight: 500; }
+.case-head h3 { font-size: 26px; font-weight: 500; letter-spacing: -0.025em; }
+.case-count { font-size: 32px; font-weight: 500; letter-spacing: -0.03em; }
+.case-rule-name { font-weight: 500; }
+.bar i { background: var(--fg); }
+.section-title, .selfcheck h3 { font-weight: 500; letter-spacing: -0.02em; }
+.plane h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; }
+.plane ol > li strong { font-weight: 500; }
+.empty-lead h2 { font-size: 40px; font-weight: 500; letter-spacing: -0.035em; line-height: 1.05; }
+.examples h3, .tracking h3, .empty-lead h3 { font-weight: 500; }
+.examples button, .tracking-title, .match-street, .audit-title, .bar-n, .counts td { font-weight: 500; }
+.steps li::before { background: var(--fg); font-weight: 500; }
+.steps li strong, .term, .needs-lead { font-weight: 500; }
+.axis-flag, .case-needle em, .tracking-needle em { border-radius: 4px; font-weight: 500; }
+.audit-table th, .measures th, .counts th { font-weight: 500; }
+.gap { border-color: #f3e3b3; border-radius: var(--radius); background: var(--review-bg); color: #7a4a00; }
+.error { border-color: #f6c9c9; border-radius: var(--radius); }
+
+/* Presentation screens: everything a step larger, so a room can read it. */
+@media (min-width: 1800px) { .app { zoom: 1.12; } }

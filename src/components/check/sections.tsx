@@ -75,7 +75,7 @@ export function Determining({ rows, review }: { rows: CheckResponse['determining
           <li key={id} data-rule={id}>
             <p className={`ck-outcome ck-outcome-${OUTCOMES[top.outcome].mark}`}><DecisionMark decision={OUTCOMES[top.outcome].mark} size={13} />{OUTCOMES[top.outcome].word}</p>
             <p className="ck-rule-title">{top.title}</p>
-            <p className="ck-rule-meta"><span>{top.jurisdiction}</span><span className="ck-cite">{top.citation}</span>{effects.length > 0 && <span>{effects.map(e => EFFECT_WORDS[e] ?? e).join(', ')}</span>}</p>
+            <p className="ck-rule-meta"><span>{top.jurisdiction}</span>{top.citation !== top.title && <span className="ck-cite">{top.citation}</span>}{effects.length > 0 && <span>{effects.map(e => EFFECT_WORDS[e] ?? e).join(', ')}</span>}</p>
             {measured.map((r, i) => <p key={i} className="ck-rule-detail">{r.detail}</p>)}
             {reasons.map(v => <p key={v.code} className="ck-rule-detail">{REASON_WORDS[v.code] ?? v.code}{v.code === 'missing_fact' && v.missing_facts.length ? `: ${v.missing_facts.map(factName).join(', ')}` : ''}.</p>)}
             {duties > 0 && <p className="ck-rule-detail">{duties === 1 ? 'One duty attaches' : `${duties} duties attach`}, listed under Before proceeding.</p>}
@@ -136,7 +136,6 @@ function SourceLine({ e }: { e: EvidenceItem }) {
   const href = safeHref(e.source_url);
   return (
     <p className="ck-source">
-      <span>{e.citation}</span>
       <span>{href ? <a href={href} target="_blank" rel="noreferrer noopener">{e.source_doc_id}</a> : e.source_doc_id}</span>
       <span>{label(ORIGIN_LABELS, e.source_origin)}</span>
       {e.retrieved_at && <span>retrieved {e.retrieved_at.slice(0, 10)}</span>}

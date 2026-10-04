@@ -14,11 +14,12 @@
 .pf-counts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 24px; max-width: 620px; }
 .pf-count { display: flex; flex-direction: column; gap: 6px; }
 .pf-figure { font-size: 64px; font-weight: 600; line-height: 0.95; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
-.pf-count-BLOCK .pf-figure, .pf-count-BLOCK .pf-word { color: var(--block-display); }
-.pf-count-REVIEW .pf-figure, .pf-count-REVIEW .pf-word { color: var(--review-display); }
-.pf-count-REQUIRE .pf-figure, .pf-count-REQUIRE .pf-word { color: var(--require-display); }
-.pf-count-PASS .pf-figure, .pf-count-PASS .pf-word { color: var(--pass-display); }
-.pf-count-zero .pf-figure, .pf-count-zero .pf-word { color: var(--faint); }
+/* The figure is large and takes the display hue; its word is small and takes the darker one. */
+.pf-count-BLOCK .pf-figure { color: var(--block-display); } .pf-count-BLOCK .pf-word { color: var(--block); }
+.pf-count-REVIEW .pf-figure { color: var(--review-display); } .pf-count-REVIEW .pf-word { color: var(--review); }
+.pf-count-REQUIRE .pf-figure { color: var(--require-display); } .pf-count-REQUIRE .pf-word { color: var(--require); }
+.pf-count-PASS .pf-figure { color: var(--pass-display); } .pf-count-PASS .pf-word { color: var(--pass); }
+.pf-count-zero .pf-figure { color: #8f8f8f; } .pf-count-zero .pf-word { color: var(--fg-3); }
 .pf-word { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; }
 .pf-word .dmark { color: inherit; }
 .pf-meta { margin-top: 20px; font-family: var(--mono); font-size: 12.5px; color: var(--fg-3); }

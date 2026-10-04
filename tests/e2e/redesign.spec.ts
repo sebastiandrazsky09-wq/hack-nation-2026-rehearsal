@@ -4,6 +4,8 @@ import { test, expect, type Page } from '@playwright/test';
 type Row = { team_rule_id: string; result: string; conflict_flag: boolean; rule: { title: string; effective_date: string | null } };
 const LABELS: Record<string, string> = { applies: 'Applies', unknown: 'Unknown', superseded: 'Superseded', not_yet_effective: 'Not yet effective', pending: 'Pending' };
 const VIEWS = ['/record', '/record?address=A0002&as_of=2026-10-01', '/changes', '/system', '/system#rules'];
+// The gate screens, in states that show every decision colour.
+const GATE_VIEWS = ['/', '/?action=collect_security_deposit&property=A0008&as_of=2026-10-01&amount=2', '/?action=collect_security_deposit&property=A0008&as_of=2026-10-01&amount=1.5&units=24', '/?action=set_rent_with_pricing_algorithm&property=A0006&as_of=2026-10-01', '/portfolio', '/portfolio?action=collect_security_deposit&amount=1&as_of=2026-10-01'];
 
 async function openAddress(page: Page, asOf = '2026-10-01') {
   await page.goto(`/record?address=A0002&as_of=${asOf}`);
@@ -122,9 +124,10 @@ test('at 390px each dated rule says when it starts, in words', async ({ page }) 
   expect(await page.evaluate(() => document.body.scrollWidth)).toBe(390);
 });
 
-test('all text meets 4.5:1 contrast on every view', async ({ page }) => {
-  for (const url of VIEWS) {
+test('all text meets WCAG AA contrast on every view: 4.5:1, or 3:1 for large text', async ({ page }) => {
+  for (const url of [...VIEWS, ...GATE_VIEWS]) {
     await settled(page, url);
+    await expect(page.getByText('Not legal advice').first()).toBeVisible();
     if (url.includes('address=')) await page.getByRole('button', { name: 'Expand all evidence' }).click();
     const low = await page.evaluate(() => {
       type C = { r: number; g: number; b: number; a: number };
@@ -147,7 +150,9 @@ test('all text meets 4.5:1 contrast on every view', async ({ page }) => {
         const bg = ground(el);
         const a = lum(over(parse(style.color), bg)), b = lum(bg);
         const ratio = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
-        if (ratio < 4.5) bad.add(`${ratio.toFixed(2)} "${text.slice(0, 40)}"`);
+        // WCAG 1.4.3: large text is 24px and up, or 18.66px and up when bold.
+        const size = parseFloat(style.fontSize); const large = size >= 24 || (size >= 18.66 && Number(style.fontWeight) >= 700);
+        if (ratio < (large ? 3 : 4.5)) bad.add(`${ratio.toFixed(2)} "${text.slice(0, 40)}"`);
       }
       return [...bad];
     });

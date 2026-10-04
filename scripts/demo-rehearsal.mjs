@@ -39,7 +39,7 @@ async function rehearse(browser, n) {
   const shown = JSON.parse(await page.getByTestId('payload-request').textContent());
   const first = await api('/api/v1/check', shown);
   same(await word(), first.decision, 'step 1 default decision');
-  if (!(await page.getByTestId('determining').locator('q').first().innerText().catch(() => '')).length && first.determining.length) fail('step 1: no quoted sentence beside the determining rule');
+  if (!(await page.getByTestId('evidence').locator('blockquote').first().innerText().catch(() => '')).length && first.determining.length) fail('step 1: no quoted sentence under the determining rule');
   steps.push(`1 load: ${first.decision} at ${shown.resource.id} (${first.determining[0]?.title ?? 'no determining rule'})`);
 
   // 2. Another place, then a date on which the law changes the decision.

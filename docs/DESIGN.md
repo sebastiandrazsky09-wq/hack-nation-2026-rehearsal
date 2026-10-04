@@ -1,79 +1,54 @@
 # Ordinal design system
 
-Not shipped to the browser. Describes the interface as built.
+Describes the interface as built. Not shipped to the browser.
 
-## The gate screens (added 4 Oct)
-The same system, a different hierarchy. The first screen is a decision that is already evaluated when the page arrives.
+## Position
+A program proposes an action; Ordinal answers. The interface is that exchange made visible, and nothing else: the request as a sentence, the decision as one word, then why, then the sentence of law that proves it. The machinery (trace, coverage, every other quote, the raw request and response) is one press away and never in the way.
 
-- **Check (`/`).** Left, 380px: the proposed action as a form (actor, action, its parameter, property, date, facts). Right, in this fixed order: the decision, the determining rules, duties, what cannot be resolved, time, trace, evidence, coverage, the request and response. On a phone the form folds into three lines with an Edit button so the decision stays in the first screen.
-- **One dominant element.** The decision word at 30px with its mark and a 4px rule in its colour. Nothing else is above 20px.
-- **Four decisions, each a shape and a colour:** BLOCK filled square `#B3261E`; REVIEW triangle `#8A5700` on `#FFF3D1`; REQUIRE list mark in navy; PASS open ring `#147A43`, no fill and no tick, because PASS is not a verdict of legality.
-- **Why, with proof in the same row.** One row per determining rule; under it, the quoted sentence in Caslon with its source link.
-- **Uncertainty is a question with its answer field beside it.** A REVIEW row names the missing fact in words and holds the input that supplies it. A fact input appears only where the gate asks for that fact.
-- **Time.** The needle, then a dated schedule of the points where the law changes, each one press away.
-- **Monospace** only for ids and payloads.
-- **Portfolio (`/portfolio`).** One action over the registry on one date: four counts, a grid of cells grouped by legal city (the decision shapes at 12px), then a sortable table. Cells that change with the date are outlined once.
-- **System (`/system`).** The compile plane and the decision plane as two rows of steps with counted figures, then how the rule store was produced, then the rule registry.
-- No gradient, blur or glass. Two shadows in the whole system (address suggestions, the pinned time header). Motion: the needle, a 900 ms tint on what changed, disclosures.
-
-## Thesis
-A point-in-time view of the law at one address. A judge has under a minute; the page must say what applies here, on this day, why, and what moves when the day moves. The category default (a search box over a stack of badge-and-text cards) is what this replaces.
-
-The product's world is American statute research: citators that mark a law's status with a shape and a colour, annotated codes where the statute's own words sit beside notes about them, point-in-time views of legislation, and the assessor's property record. From that world the interface takes four things and nothing else: type, palette, density, and one signature move. Layout, navigation and controls stay standard.
-
-## Signature move
-Every rule is a line in time; the query date is a needle across all of them. A line starts with a tick where the source states an effective date, and with an open ring where it states none. A dashed lead-in runs from enactment to effect. A pending bill is dashed throughout. Where the needle meets a line, the mark shows the answer at this address on that day. Moving the needle re-asks the engine; answers that change are marked with what they were.
+The references are developer and infrastructure products, not legal software and not dashboards: Linear and Vercel for restraint and type, Stripe and Resend for showing the API beside the product, and the policy playgrounds (Cedar, OPA) as the form-heavy pattern this avoids.
 
 ## Type
-- **Libre Franklin** for everything Ordinal says: navigation, labels, answers, explanations, data. Weights 400, 500, 600, 700. Tabular numerals wherever dates or counts align.
-- **Libre Caslon Text**, roman, only for text copied word for word from a source. Serif means "the law's own words"; nothing else is set in it.
-- Fixed rem scale, ratio about 1.15: 12, 13, 15 (body), 17, 20, 24, 30. Body line height 1.5; headings 1.2; quoted law 17px on 1.6.
-- No capitals for labels, no label above a heading, no italics for emphasis.
+- **Host Grotesk** for everything. Weights 400, 500, 600. Headings are medium, not bold, with tight tracking.
+- **Geist Mono** for ids, citations, dates in lists, and payloads.
+- Scale: 12.5 and 13 (labels, meta), 14 to 16 (text), 21 to 22 (summary, quote, rule title), 30 (the request sentence), 44 (page titles), 64 (portfolio counts), and the decision word, which scales with its column from 64 to 136.
+- No serif. A quoted sentence of law is set in the same face, larger, behind a black rule.
 
 ## Colour
-Restrained, with colour doing jobs: the shell, the state of each answer, the needle.
+Near-monochrome. White ground, `#0a0a0a` text, `#5c5c5c` and `#737373` for secondary text, `#ebebeb` hairlines. The only colour on a page is a decision or a rule-level answer.
 
-| Name | Hex | Job |
-|---|---|---|
-| Bluebook navy | `#10213F` | Top bar, needle, primary button, focus |
-| Ink | `#131C2B` | Text |
-| Muted | `#55607A` | Secondary text |
-| Bench | `#F2F4F8` | Query bar, time header, table heads |
-| Rule line | `#D7DCE5` | Row and table separators |
-| Applies | `#147A43` | In force and covers the address |
-| Unknown | `#8A5700` on `#FFF3D1` | A needed fact is missing |
-| Superseded | `#5A6577` | Covered, another rule governs |
-| Not yet effective | `#1E5FD0` | Enacted, starts later |
-| Pending | `#7446B8` | A bill or proposal, not law |
-| Conflict | `#B3261E` | Flagged for human review |
-| Link | `#1447B8` | Always underlined |
+| Decision | Shape | Display (large type, cells) | Text (small type) |
+|---|---|---|---|
+| BLOCK | filled square | `#E5342B` | `#DC2626` |
+| REVIEW | triangle | `#DD7A00` | `#B45309` |
+| REQUIRE | list mark | `#2563EB` | `#2563EB` |
+| PASS | open ring, no fill, no tick | `#16A34A` | `#15803D` |
 
-Every state has a shape as well as a colour: disc (applies), triangle (unknown), barred ring (superseded), ring (not yet effective), dashed ring (pending), flag (conflict).
+Large type needs 3:1 and small type 4.5:1; a browser test checks both on every screen. One dark surface exists: the API panel.
 
-## Space, shape, depth
-- 4px base: 4, 8, 12, 16, 24, 32, 48, 64. Page width 1200, gutters 24 (16 on phones).
-- Rows and tables, not cards. Radius 3px on controls and tags, none on rows.
-- One-pixel rule lines. Shadow only on the address suggestions and under the pinned time header.
+## Space and shape
+- Page width 1240, gutters 32 (16 on phones). On the gate screens: a 112px label gutter, a text column, and a 392px rail.
+- Sections are separated by space (44 to 64px), not by boxes. Hairlines separate rows.
+- Radius 8 on controls, 12 on the API panel and the missing-fact field, 2 on grid cells. One shadow in the product: the address suggestions.
+- On screens 1800px and wider everything is set 12% larger, for a room.
 
-## Icons
-Authored SVG signal marks, 16px, one stroke weight. Lucide for search, link, chevron and external link at the same size and weight.
+## Check
+Four steps down the left gutter: Proposed action, Decision, Why, Evidence.
+- **Proposed action.** A sentence. The actor, the action, its amount, the property and the date are the controls; the connecting words are grey. Under it, what the record holds about the building.
+- **Decision.** The word with its shape, then one sentence, then the decision id, ruleset and time in mono. If a fact the caller can supply is missing, its field sits directly under the decision.
+- **Why.** The rules that fixed the outcome: outcome, title, jurisdiction, citation. For REQUIRE, the duties.
+- **Evidence.** The quoted sentence and where it came from.
+- **Over time.** The date needle and the dated points where the law changes; each is one press.
+- **More.** Closed until asked for: other unresolved points, duties, the per-rule trace, coverage.
+- **The API panel** beside it: the exact request, the exact response, a curl. It updates with every change.
 
-## Hierarchy
-1. The answer sentence for this address and day.
-2. Rule rows: signal, title, what the law requires, where it comes from, its line in time.
-3. Evidence on demand: why, the quoted sentence, citation, source and retrieval date, conditions.
+## Portfolio
+The same sentence, for every property. Four large counts, the registry as a grid of cells by legal city (the decision shapes), the change points beside it, then a sortable table.
 
-## Interaction
-- Address: search field with suggestions; arrow keys move, Enter chooses, Escape closes. Four examples when nothing is chosen.
-- Date: the needle (a native range input), a date field for exact entry, and one button per change-case date. All three set the same value.
-- Rows expand in place; "Expand all evidence" opens every row. Result counts filter the list.
-- Address, date and tab live in the URL.
+## Record, Law changes, System
+The same shell, type and colour. Rule rows on a time scale, change cases with counts by city, the compile and decision planes with counted figures.
 
-## Motion
-Answers to actions only. The needle follows the date with no easing, so it never lags a drag. A row whose answer changed is tinted once for 900ms and keeps a "was …" note. Rows dim only if a new date takes longer than about a tenth of a second to load. Nothing animates on load. Reduced-motion users get none of it.
+## Interaction and motion
+Every change to the sentence re-checks. A superseded request is cancelled. The decision word fades in once when it changes and says what it was. Disclosures open in place. Reduced-motion users get none of the motion.
 
-## Responsive
-Below 960px the time column is replaced by a sentence per rule ("takes effect 1 Jul 2027"); the needle gives way to the date field and case dates. Controls stack. Wide tables scroll inside their own frame; the page never scrolls sideways.
-
-## States
-Empty: what the product does and four real examples. Loading: placeholder rows, or the previous day's rows dimmed while the new day loads. Error: what failed and what to do. Unknown: the missing fact named in words. Conflict: a flag on the row and the reason. Low confidence: a mark beside the legal city and the reason.
+## Accessibility
+Every control has a label (visually hidden where the sentence carries the meaning), focus is always outlined, the decision is a live region, and no state is carried by colour alone.
