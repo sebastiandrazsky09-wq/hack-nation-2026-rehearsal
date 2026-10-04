@@ -41,7 +41,7 @@ Updated: 4 Oct 13:17 CEST · **Production serves the product as Mortise** (deplo
 | Production health check | `/api/health` ok: 57 rules, 500 addresses; ruleset `70ebdca11f01` equal to the local store; 33 constraints verified, 3 withheld; a decision and the request sentence are in the first HTML of `/`; five security headers present | ok | 09:04 | CONTROL |
 | Production browser tests (fresh context, no login) | 77 / 77 pass against the production URL | pass | 09:43 | CONTROL |
 | Production answers vs `out/` files | 50 addresses (544 rows, result and conflict flag), 57 rule ids and T1 to T5 affected and conflict sets identical | identical | 09:40 | CONTROL |
-| Submission: public repo (held back on PO instruction), 3 videos, HackOS | demo film (59 s), nine-slide deck and one-page method note PDF are in `submission/` (not tracked); repo private with 84 commits not pushed; no tech video; HackOS not submitted | all | 13:17 | PO + CONTROL |
+| Submission: public repo (held back on PO instruction), 3 videos, HackOS | demo film (59 s), nine-slide deck and one-page method note PDF are in `submission/` (not tracked); repo private, nothing pushed since 3 Oct; no tech video; HackOS not submitted | all | 13:17 | PO + CONTROL |
 | README, method note, demo and tech video scripts | written; README and method note open with the name Mortise and the live URL; `docs/Mortise-Method-Note.pdf` is one A4 page | done | 13:16 | CONTROL |
 
 ## Legal gate build (4 Oct)
