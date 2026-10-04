@@ -1,3 +1,5 @@
+import { DEFAULT_AS_OF } from '../ordinal/contracts';
+import type { CheckRequest } from '../gate/contract';
 // Loads everything a decision rests on once and serves it from memory. No model call happens at request time.
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -21,4 +23,15 @@ export function gateData(): GateData {
   const constraints = readConstraints().filter(c => known.has(c.rule_id));
   cached = { rules, addresses, stacks, constraints, rulesetVersion: version, gaps: computeKnownGaps(rules, cases, manifest, supplementalIds), manifest, supplementalIds };
   return cached;
+}
+
+/**
+ * The request the Check screen opens with: the algorithmic-pricing action at the first registry property in San Francisco
+ * whose record states both year built and units, on the default date. Chosen by attribute; no property id is written here.
+ */
+export function defaultCheckRequest(): CheckRequest {
+  const { addresses, stacks } = gateData();
+  const complete = (a: (typeof addresses)[number]) => a.units !== null && a.year_built !== null;
+  const property = addresses.find(a => stacks[a.address_id]?.legal_city === 'San Francisco, CA' && complete(a)) ?? addresses.find(complete) ?? addresses[0];
+  return { subject: { type: 'property_manager' }, action: { name: 'set_rent_with_pricing_algorithm' }, resource: { type: 'property', id: property.address_id }, context: { as_of: DEFAULT_AS_OF } };
 }

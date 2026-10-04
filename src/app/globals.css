@@ -14,6 +14,9 @@
   --pending: #7446b8; --pending-bg: #f1eafb;
   --conflict: #b3261e; --conflict-bg: #fdecea;
   --link: #1447b8;
+  /* Decisions of the gate. The same four hues the rule-level answers use, one meaning each. */
+  --block: #b3261e; --block-bg: #fdecea; --review: #8a5700; --review-bg: #fff3d1; --require: #10213f; --require-bg: #e9edf5; --pass: #147a43;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --ui: var(--font-ui), "Libre Franklin", "Franklin Gothic Medium", "Helvetica Neue", Arial, sans-serif;
   --law: var(--font-law), "Libre Caslon Text", "Iowan Old Style", Georgia, serif;
   --signal-w: 172px; --track-w: 440px; --toggle-w: 40px; --head-h: 64px;
@@ -47,6 +50,12 @@ ul, ol { padding: 0; list-style: none; }
 .signal-pending, .mark-pending { color: var(--pending); }
 .signal-failed, .mark-failed, .mark-conflict { color: var(--conflict); }
 .mark-not_applicable { color: var(--faint); }
+.dmark { display: inline-block; flex: none; }
+.dmark-BLOCK, .dword-BLOCK { color: var(--block); }
+.dmark-REVIEW, .dword-REVIEW { color: var(--review); }
+.dmark-REQUIRE, .dword-REQUIRE { color: var(--require); }
+.dmark-PASS, .dword-PASS { color: var(--pass); }
+.dword { display: inline-flex; align-items: center; gap: 7px; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; }
 .link { padding: 0; border: 0; background: none; color: var(--link); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
 .link:hover { text-decoration-thickness: 2px; }
 

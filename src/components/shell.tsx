@@ -3,8 +3,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PRODUCT_NAME } from '../lib/product';
 
-/** The views, in nav order. Later tasks add "Check" and "Portfolio" in front of this list. */
+/** The views, in nav order. */
 export const NAV: { href: string; name: string }[] = [
+  { href: '/', name: 'Check' },
+  { href: '/portfolio', name: 'Portfolio' },
   { href: '/record', name: 'Property record' },
   { href: '/changes', name: 'Law changes' },
   { href: '/system', name: 'System' }
