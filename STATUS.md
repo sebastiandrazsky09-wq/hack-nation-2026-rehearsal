@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 4 Oct 09:15 CEST · **Production serves the new product design** (deployed 09:02 from `cbb6d69` after PO approval); earlier versions tagged `gate-v1-deployed` and `baseline-19665a3` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: videos, public repository, HackOS
+Updated: 4 Oct 09:28 CEST · **Production serves the new product design with the load-time warm-up** (deployed 09:20 from `abb8757`); earlier versions tagged `gate-v1-deployed` and `baseline-19665a3` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: videos, public repository, HackOS
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|
@@ -37,10 +37,10 @@ Updated: 4 Oct 09:15 CEST · **Production serves the new product design** (deplo
 | Secret scan (`gitleaks git`) | no leaks | none | 21:50 | CONTROL |
 | Hardcoding scan of `src/` | no test ids, organizer ids, address ids or expected sets | none | 21:40 | CONTROL |
 | UI | the new product design (`docs/DESIGN.md`): `/` Check, `/portfolio`, `/record`, `/changes`, `/system` | judge-ready | 09:15 | CONTROL |
-| Deployment URL | **https://hack-nation-machine-rehearsal.vercel.app** serves the new product design (deployed 09:02 from clean `cbb6d69`) | live | 09:15 | CONTROL |
+| Deployment URL | **https://hack-nation-machine-rehearsal.vercel.app** serves the new product design (deployed 09:20 from clean `abb8757`) | live | 09:28 | CONTROL |
 | Production health check | `/api/health` ok: 57 rules, 500 addresses; ruleset `70ebdca11f01` equal to the local store; 33 constraints verified, 3 withheld; a decision and the request sentence are in the first HTML of `/`; five security headers present | ok | 09:04 | CONTROL |
-| Production browser tests (fresh context, no login) | 76 / 76 pass against the production URL | pass | 09:07 | CONTROL |
-| Production answers vs `out/` files | 50 addresses (544 rows, result and conflict flag), 57 rule ids and T1 to T5 affected and conflict sets identical | identical | 09:04 | CONTROL |
+| Production browser tests (fresh context, no login) | 77 / 77 pass against the production URL | pass | 09:26 | CONTROL |
+| Production answers vs `out/` files | 50 addresses (544 rows, result and conflict flag), 57 rule ids and T1 to T5 affected and conflict sets identical | identical | 09:22 | CONTROL |
 | Submission: public repo (held back on PO instruction), 3 videos, HackOS | none | all | 23:05 | PO + CONTROL |
 | README, method note, demo and tech video scripts | written | done | 22:30 | CONTROL |
 
@@ -80,6 +80,7 @@ Goal: a deterministic decision layer over the unchanged engine: `check(subject, 
 | One test changed after deployment | the Check keyboard test now accepts a check request that the page itself cancelled as superseded; on a real network two checks can overlap, locally they never did. App code in production is unchanged |
 | Product design pass, 08:00 to 08:45 | The first gate interface was rejected by the PO as an internal dashboard. Redesigned from first principles after capturing about twenty real product sites: one grotesque (Host Grotesk) and a mono (Geist Mono), near-monochrome, the request as a sentence, the decision as one word at up to 136px, why, then the quoted sentence, the API call in a panel beside it, everything else behind disclosures. Portfolio, record, changes and system share the system (`docs/DESIGN.md`). No backend, contract or decision change |
 | Production demo rehearsal, 09:10 | two batches of 5 runs, all 10 pass and are identical; server evaluation at most 31 ms. Round trip from Vienna: median 161 ms, but one call took 3.6 s and one 373 ms: a cold start of the check function after idle. **Open `/`, change one field, and open `/portfolio` once before presenting or recording** |
+| Warm-up, deployed 09:20 | the Check page asks the check function once in the background when it loads, with the request it shows, so the first change a person makes does not wait for a cold start. Browser test: exactly one such call, nothing on screen changes. Rehearsal replayed against production at 09:27: 5 of 5 identical, server evaluation at most 34 ms, round trip median 192 ms, slowest 340 ms. A page that has itself been idle can still be slow to load once |
 | Cut | `/developers` page (the three endpoints are live and shown through the request panel and `GET /api/v1/actions`); optional engine fact extension 5.5. Nothing from the demo was cut |
 | What the demo shows instead of the brief's guess | step 2 uses Los Angeles (PASS before AB 325 takes effect, REVIEW after) because Newark is REVIEW for a source gap at every date; step 3 uses Jersey City because Newark deposits also sit in that gap; the portfolio step compares 6 Oct 2025 with 1 Jan 2026 (80 properties change) |
 | Residue removed | Supabase dependencies, starter contract file, T6 and hour-16 text (the pack names T1 to T5 only) |

@@ -6,7 +6,7 @@ Official files are in `official/pack/` (README.md is the participant guide). Dif
 Extraction is automated from the corpus, never hand-coded. "unknown" is a valid answer when a fact is missing. Every interface says "Not legal advice". Public data only. Deadline Sun 4 Oct 15:00 CEST; freeze 14:00.
 Priority: scorer correctness > T1–T5 and generalization to unseen law > citation integrity > submission artifacts > live deployment > usability > polish.
 ## Current release
-Live at https://hack-nation-machine-rehearsal.vercel.app, deployed 4 Oct 09:02 CEST from integration `cbb6d69` (the legal gate in the new product design). The pipeline, the engine, the exports and the web app are complete for the supplied corpus (57 rules, 500 addresses, T1–T5). The GitHub repository is not public yet.
+Live at https://hack-nation-machine-rehearsal.vercel.app, deployed 4 Oct 09:20 CEST from integration `abb8757` (the legal gate in the new product design). The pipeline, the engine, the exports and the web app are complete for the supplied corpus (57 rules, 500 addresses, T1–T5). The GitHub repository is not public yet.
 ## Current priority
 Keep the accepted baseline stable. Open items need the product owner: Jersey City source, unit-count policy, the public repository, videos and the HackOS submission. The organizers' pack states there is no hour-16 release and no T6; a new document, if any, goes through `npm run ordinal -- ingest`.
 ## Task queue

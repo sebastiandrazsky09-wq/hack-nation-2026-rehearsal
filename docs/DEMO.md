@@ -3,7 +3,7 @@
 Run locally with `npm run build && npm run start`, or on the deployed URL. Every screen carries "Not legal advice".
 
 ## Before presenting or recording
-Warm the deployment: open `/`, change the date once, open `/portfolio`, open `/system`. The first call to a function that has been idle can take a few seconds; every call after it returns in well under a second (the server's own evaluation is under 40 ms).
+Open `/`, `/portfolio` and `/system` once before you start. A page that has been idle can take a few seconds to load the first time. The Check page warms its own API function when it loads, so once the page is up the first change is fast (the server's own evaluation is under 40 ms).
 
 ## Demo video: the decision gate (60 to 90 seconds)
 One argument: software proposes a consequential action; the gate says which external rules govern it here and now, refuses to guess when a fact is missing, takes the fact, and returns a decision backed by the exact source. Every word on screen comes from the API. `node scripts/demo-rehearsal.mjs <url> 5` rehearses these five steps and checks each against the API.
