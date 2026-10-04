@@ -1,4 +1,6 @@
-# Ordinal: method note
+# Mortise: method note
+
+Mortise is the product (a decision gate, live at https://hack-nation-machine-rehearsal.vercel.app). Ordinal is its engine: the navigator of Modules A to C that the challenge scores.
 
 **Question answered.** Which rental-housing rules apply at this address on this date, what is the source sentence, and which addresses does each law-change case affect? Not legal advice.
 

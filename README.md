@@ -1,6 +1,6 @@
 # Mortise
 
-**Live:** https://hack-nation-machine-rehearsal.vercel.app · **Method note:** [docs/METHOD.md](docs/METHOD.md) · **Submission files:** [out/](out/) · **Current numbers:** [STATUS.md](STATUS.md)
+**Live:** https://hack-nation-machine-rehearsal.vercel.app · **Method note:** [one page, PDF](docs/Mortise-Method-Note.pdf) ([source](docs/METHOD.md)) · **Submission files:** [out/](out/) · **Current numbers:** [STATUS.md](STATUS.md)
 
 A decision gate for actions governed by external law. Software proposes an action on a property on a date; Mortise answers **PASS, BLOCK, REQUIRE or REVIEW**, names the rules that determined the answer, shows the steps, and quotes the sentence of law behind it. Rental housing is the first policy domain: three actions (set rents with a pricing algorithm that uses non-public competitor data, collect a security deposit, charge an application fee) across the 500 sample properties of Hack-Nation 7, Challenge 02 (RealPage Rental Housing Law Navigator).
 
