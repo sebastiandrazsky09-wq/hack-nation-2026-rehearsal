@@ -1,6 +1,7 @@
 /* Check: propose an action, read the decision, then why, then the evidence. Tokens come from globals.css. */
 
-.ck { display: grid; grid-template-columns: minmax(0, 1fr) 392px; column-gap: 72px; align-items: start; padding-top: 52px; padding-bottom: 160px; }
+/* The gap between the request and the API panel grows with the screen, up to 104px; the panel gives up 12px so the text column keeps its measure. */
+.ck { display: grid; grid-template-columns: minmax(0, 1fr) 380px; column-gap: clamp(64px, 7.2vw, 104px); align-items: start; padding-top: 52px; padding-bottom: 160px; }
 .ck-step { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: 24px; padding-bottom: 56px; }
 .ck-main > .ck-step { padding-bottom: 44px; }
 .ck-label { margin: 0; padding-top: 0.55em; font-size: 13px; font-weight: 500; line-height: 1.3; color: var(--fg-3); }
