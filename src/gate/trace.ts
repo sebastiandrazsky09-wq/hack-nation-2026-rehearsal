@@ -43,7 +43,7 @@ function stepsFor(rule: InternalRule, result: ApplyResult, constraints: Constrai
   }
   if (result.result === 'applies') {
     // matched = a constraint bears on this request (violated or a duty); not_matched = checked and satisfied or without effect; unknown = needs review.
-    const findings = judgeConstraints(rule, constraints, action, value);
+    const findings = judgeConstraints(rule, constraints, action, value, asOf);
     if (findings.length === 0) steps.push({ check: 'constraint', outcome: 'not_matched', detail: 'The verified constraints have no effect on this action.' });
     for (const f of findings) steps.push({ check: 'constraint', outcome: f.kind === 'review' ? 'unknown' : f.kind === 'satisfied' ? 'not_matched' : 'matched', detail: f.detail });
   }

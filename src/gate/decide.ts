@@ -28,19 +28,29 @@ export type Finding =
 
 const quoted = (text: string | null) => (text ? ` "${text}"` : '');
 
-function judgeLimit(c: Constraint, action: ActionSpec, value: number | null): Finding {
+function judgeLimit(c: Constraint, action: ActionSpec, value: number | null, asOf: string): Finding {
   const unit = action.parameter?.unit ?? '';
   const shown = value === null ? 'no value' : `${value} ${unit}`;
-  if (value !== null && c.max !== null && value <= c.max) return { kind: 'satisfied', constraint: c, detail: `${shown} is within the limit of ${c.max} ${unit}${quoted(c.value_text)}.` };
-  const cap = c.hard_max ?? c.max;
-  if (value !== null && cap !== null && value > cap) {
-    return { kind: 'violated', constraint: c, detail: `${shown} exceeds the limit of ${cap} ${unit}${quoted(c.hard_max !== null ? c.hard_max_text : c.value_text)}.` };
+  const review = (why: string): Finding => ({ kind: 'review', code: 'limit_not_computable', constraint: c, detail: `${why} The request is ${shown}.` });
+  // A figure the text states for one calendar year says nothing about another year.
+  if (c.figure_year !== null && c.figure_year !== undefined && Number(asOf.slice(0, 4)) !== c.figure_year) {
+    return review(`The source states the limit${quoted(c.value_text)} for ${c.figure_year}; the figure for ${asOf.slice(0, 4)} is not in the data.`);
   }
-  return { kind: 'review', code: 'limit_not_computable', constraint: c, detail: `The limit${quoted(c.value_text ?? c.evidence_quote)} cannot be computed from the data; the request is ${shown}.` };
+  if (value !== null && c.max !== null && value <= c.max) return { kind: 'satisfied', constraint: c, detail: `${shown} is within the limit of ${c.max} ${unit}${quoted(c.value_text)}.` };
+  if (value !== null && c.hard_max !== null && value > c.hard_max) {
+    return { kind: 'violated', constraint: c, detail: `${shown} exceeds the highest limit the text allows in any case, ${c.hard_max} ${unit}${quoted(c.hard_max_text)}.` };
+  }
+  // One cap for everyone, not adjustable: over it is a violation.
+  if (value !== null && c.max !== null && c.hard_max === null && !c.open_above && value > c.max) {
+    return { kind: 'violated', constraint: c, detail: `${shown} exceeds the limit of ${c.max} ${unit}${quoted(c.value_text)}.` };
+  }
+  if (c.max !== null && c.hard_max !== null) return review(`The limit is ${c.max} ${unit}${quoted(c.value_text)} in general and up to ${c.hard_max} ${unit}${quoted(c.hard_max_text)} in cases the data cannot tell apart.`);
+  if (c.max !== null && c.open_above) return review(`The limit of ${c.max} ${unit}${quoted(c.value_text)} may be adjusted upward over time and the adjusted figure is not in the data.`);
+  return review(`The limit${quoted(c.value_text ?? c.hard_max_text ?? c.evidence_quote)} cannot be computed from the data.`);
 }
 
 /** Each verified constraint of an applying rule judged against the request. No constraint at all is itself a review item. */
-export function judgeConstraints(rule: DecideRule['rule'], constraints: Constraint[], action: ActionSpec, value: number | null): Finding[] {
+export function judgeConstraints(rule: DecideRule['rule'], constraints: Constraint[], action: ActionSpec, value: number | null, asOf: string): Finding[] {
   if (constraints.length === 0) return [{ kind: 'review', code: 'constraint_not_modeled', constraint: null, detail: rule.requirement }];
   const findings: Finding[] = [];
   for (const c of constraints) {
@@ -48,7 +58,7 @@ export function judgeConstraints(rule: DecideRule['rule'], constraints: Constrai
       findings.push(c.elements_untestable === null
         ? { kind: 'violated', constraint: c, detail: `${rule.citation} prohibits this action.` }
         : { kind: 'review', code: 'conditional_prohibition', constraint: c, detail: `${rule.citation} prohibits this action only where: ${c.elements_untestable}` });
-    } else if (c.effect === 'limit') findings.push(judgeLimit(c, action, value));
+    } else if (c.effect === 'limit') findings.push(judgeLimit(c, action, value, asOf));
     else if (c.effect === 'obligation') findings.push({ kind: 'obligation', constraint: c, detail: c.obligation_text ?? rule.requirement });
   }
   return findings;
@@ -79,8 +89,9 @@ export function decide(input: DecideInput): Decided {
     switch (result.result) {
       case 'not_applicable': case 'superseded': break;
       case 'pending': case 'not_yet_effective': {
-        const own = judgeConstraints(rule, constraints, action, value);
-        upcoming.push({ rule_id: id, title: rule.title, status: result.result, effective_date: rule.effective_date, would_be: constraints.length ? decisionOf(own) : null });
+        // An enacted rule's text is fixed, so what it would decide can be stated. A pending proposal's text can still change: no forecast.
+        const own = result.result === 'not_yet_effective' && constraints.length ? judgeConstraints(rule, constraints, action, value, rule.effective_date && /^\d{4}-\d{2}-\d{2}$/.test(rule.effective_date) ? rule.effective_date : asOf) : null;
+        upcoming.push({ rule_id: id, title: rule.title, status: result.result, effective_date: rule.effective_date, would_be: own ? decisionOf(own) : null });
         break;
       }
       case 'unknown': {
@@ -89,7 +100,7 @@ export function decide(input: DecideInput): Decided {
         break;
       }
       case 'applies': {
-        const findings = judgeConstraints(rule, constraints, action, value);
+        const findings = judgeConstraints(rule, constraints, action, value, asOf);
         findingsByRule.set(id, findings);
         for (const f of findings) {
           if (f.kind === 'review') review.push({ code: f.code, rule_id: id, detail: f.detail, missing_facts: [], resolvable_by: [] });
@@ -153,7 +164,8 @@ export function decide(input: DecideInput): Decided {
 }
 
 function summarize(decision: Decision, asOf: string, rows: Row[], review: ReviewItem[], obligations: Decided['obligations'], upcoming: Decided['upcoming'], gaps: string[]): string {
-  const head = decision === 'PASS' ? passSummary(asOf)
+  // With nothing in force the PASS sentence is the fixed one. With a limit in force that the request stays within, saying "no constraint in force" would be false.
+  const head = decision === 'PASS' ? (rows.length ? `No modeled constraint is violated: the request is within the ${rows.length === 1 ? 'modeled limit' : `${rows.length} modeled limits`} in force for this action at this property on ${asOf}.` : passSummary(asOf))
     : decision === 'BLOCK' ? `Blocked: ${rows.length === 1 ? 'a rule' : `${rows.length} rules`} in force at this property on ${asOf} prohibit or cap this action as requested.`
     : decision === 'REVIEW' ? `Needs review: ${review.length === 1 ? 'one point' : `${review.length} points`} cannot be settled from the data and the verified constraints on ${asOf}.`
     : `No modeled prohibition in force on ${asOf}; ${obligations.length === 1 ? 'one modeled duty attaches' : `${obligations.length} modeled duties attach`} to this action.`;

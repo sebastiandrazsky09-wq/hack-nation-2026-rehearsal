@@ -34,7 +34,8 @@ describe('decide: engine results that never decide', () => {
   it.each(['pending', 'not_yet_effective'] as const)('%s goes to upcoming and never decides', res => {
     const d = run([entry('R1', { result: res }, [constraint({ effect: 'prohibit' })])]);
     expect(d.decision).toBe('PASS');
-    expect(d.upcoming).toEqual([{ rule_id: 'R1', title: 'Title R1', status: res, effective_date: '2027-07-01', would_be: 'BLOCK' }]);
+    // An enacted rule's effect can be stated ahead of time; a pending proposal's text can still change, so no forecast is made for it.
+    expect(d.upcoming).toEqual([{ rule_id: 'R1', title: 'Title R1', status: res, effective_date: '2027-07-01', would_be: res === 'not_yet_effective' ? 'BLOCK' : null }]);
     expect(d.summary).toContain('Not yet in force: Title R1');
   });
   it('would_be is null when the upcoming rule has no verified constraint, and follows limits and obligations otherwise', () => {
@@ -196,5 +197,34 @@ describe('decide: known gaps', () => {
   it('BLOCK still outranks a gap', () => {
     const d = run([entry('R1', {}, [constraint({ effect: 'prohibit', parameter: null })])], { gaps: [gap] });
     expect(d.decision).toBe('BLOCK'); expect(d.review.map(r => r.code)).toEqual(['coverage_gap']);
+  });
+});
+
+describe('decide: limits whose figure is not one fixed number (added by the lead after the first live constraint pass)', () => {
+  const one = (c: Partial<Constraint>, value: number, asOf = ASOF) => {
+    const d = run([entry('R1', {}, [constraint(c)])], { value, asOf });
+    return { decision: d.decision, code: d.review[0]?.code ?? null };
+  };
+  it('a general cap with a higher cap in some cases: under the general cap passes, over the higher cap blocks, between is review', () => {
+    expect(one({ max: 1, hard_max: 2 }, 1)).toEqual({ decision: 'PASS', code: null });
+    expect(one({ max: 1, hard_max: 2 }, 1.5)).toEqual({ decision: 'REVIEW', code: 'limit_not_computable' });
+    expect(one({ max: 1, hard_max: 2 }, 2)).toEqual({ decision: 'REVIEW', code: 'limit_not_computable' });
+    expect(one({ max: 1, hard_max: 2 }, 2.5)).toEqual({ decision: 'BLOCK', code: null });
+  });
+  it('a cap the text lets rise never blocks above its base figure', () => {
+    expect(one({ max: 30, open_above: true }, 30)).toEqual({ decision: 'PASS', code: null });
+    expect(one({ max: 30, open_above: true }, 31)).toEqual({ decision: 'REVIEW', code: 'limit_not_computable' });
+    expect(one({ max: 30, open_above: true }, 5000)).toEqual({ decision: 'REVIEW', code: 'limit_not_computable' });
+    expect(one({ max: 30, open_above: false }, 31)).toEqual({ decision: 'BLOCK', code: null });
+  });
+  it('a figure stated for one year decides only in that year', () => {
+    expect(one({ max: 60, figure_year: 2026 }, 70, '2026-10-01')).toEqual({ decision: 'BLOCK', code: null });
+    expect(one({ max: 60, figure_year: 2026 }, 50, '2026-10-01')).toEqual({ decision: 'PASS', code: null });
+    expect(one({ max: 60, figure_year: 2026 }, 70, '2027-07-02')).toEqual({ decision: 'REVIEW', code: 'limit_not_computable' });
+    expect(one({ max: 60, figure_year: 2026 }, 50, '2025-12-31')).toEqual({ decision: 'REVIEW', code: 'limit_not_computable' });
+  });
+  it('only a highest cap: over it blocks, at or under it is review', () => {
+    expect(one({ max: null, hard_max: 2 }, 3)).toEqual({ decision: 'BLOCK', code: null });
+    expect(one({ max: null, hard_max: 2 }, 2)).toEqual({ decision: 'REVIEW', code: 'limit_not_computable' });
   });
 });
