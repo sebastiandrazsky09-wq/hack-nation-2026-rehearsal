@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { RuleView } from '../server/ordinal';
 import { CATEGORY_LABELS, ORIGIN_LABELS, STATUS_LABELS, VERIFICATION_LABELS, label, shortDate } from './labels';
 import { FlagMark, SignalMark } from './signal';
+import { SourceLink } from './source-link';
 import { useApi } from './use-api';
 
 type RulesResponse = { as_of: string; withheld_unverified: number; rules: RuleView[] };
@@ -50,7 +51,7 @@ export function AuditTable({ asOf }: { asOf: string | null }) {
                 <td>{label(CATEGORY_LABELS, r.category)}</td>
                 <td className="num">{r.effective_date ? shortDate(r.effective_date) : 'not stated'}</td>
                 <td>{r.citation}</td>
-                <td><a href={r.source_url} target="_blank" rel="noopener noreferrer">{r.source_doc_id}</a><span className="audit-id">{ORIGIN_LABELS[r.source_origin] ?? r.source_origin}; retrieved {r.retrieved_at ?? 'not recorded'}</span></td>
+                <td><SourceLink url={r.source_url}>{r.source_doc_id}</SourceLink><span className="audit-id">{ORIGIN_LABELS[r.source_origin] ?? r.source_origin}; retrieved {r.retrieved_at ?? 'not recorded'}</span></td>
                 <td>{VERIFICATION_LABELS[r.verification_method] ?? r.verification_method}</td>
               </tr>
             ))}

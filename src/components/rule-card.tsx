@@ -1,8 +1,9 @@
 'use client';
-import { ChevronDown, ExternalLink } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import type { LookupResponse } from '../server/ordinal';
 import { ORIGIN_LABELS, RESULT_LABELS, VERIFICATION_LABELS, factName, label, shortDate } from './labels';
 import { FlagMark, ResultBadge } from './signal';
+import { SourceLink } from './source-link';
 import { Lifeline, timingPhrase } from './timeline';
 
 export type ResultRow = LookupResponse['results'][number];
@@ -83,13 +84,13 @@ export function RuleRow({ item, asOf, needle, open, was, onToggle, onJump }: {
               <div>
                 <dt>Source</dt>
                 <dd>
-                  <a href={rule.source_url} target="_blank" rel="noopener noreferrer">{rule.source_doc_id}<ExternalLink size={12} strokeWidth={1.75} aria-hidden /></a>
+                  <SourceLink url={rule.source_url} icon>{rule.source_doc_id}</SourceLink>
                   , {ORIGIN_LABELS[rule.source_origin] ?? rule.source_origin}. Retrieved {rule.retrieved_at ?? 'date not recorded'}. As of {asOf}.
                 </dd>
               </div>
               <div><dt>Quote check</dt><dd>The quoted text was {VERIFICATION_LABELS[rule.verification_method] ?? rule.verification_method}.</dd></div>
               {others.length > 0 && (
-                <div><dt>Also in</dt><dd>{others.map((s, i) => <span key={`${s.source_doc_id}-${i}`}>{i > 0 ? ', ' : ''}<a href={s.source_url} target="_blank" rel="noopener noreferrer">{s.source_doc_id}</a></span>)}</dd></div>
+                <div><dt>Also in</dt><dd>{others.map((s, i) => <span key={`${s.source_doc_id}-${i}`}>{i > 0 ? ', ' : ''}<SourceLink url={s.source_url}>{s.source_doc_id}</SourceLink></span>)}</dd></div>
               )}
             </dl>
           </div>

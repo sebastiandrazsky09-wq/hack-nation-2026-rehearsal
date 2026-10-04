@@ -1,5 +1,5 @@
 {
-  "name": "hackathon-machine-starter",
+  "name": "ordinal",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -22,8 +22,6 @@
     "@ai-sdk/anthropic": "4.0.71",
     "@ai-sdk/openai": "4.0.83",
     "@next/env": "16.3.8",
-    "@supabase/ssr": "0.12.7",
-    "@supabase/supabase-js": "2.117.2",
     "ai": "7.0.127",
     "ajv": "8.20.0",
     "lucide-react": "1.51.0",

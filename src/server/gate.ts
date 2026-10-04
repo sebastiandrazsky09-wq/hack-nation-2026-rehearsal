@@ -1,5 +1,5 @@
 import { DEFAULT_AS_OF } from '../ordinal/contracts';
-import type { CheckRequest } from '../gate/contract';
+import { ACTIONS, type CheckRequest } from '../gate/contract';
 // Loads everything a decision rests on once and serves it from memory. No model call happens at request time.
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -15,12 +15,20 @@ let cached: GateData | null = null;
 export function gateData(): GateData {
   const version = rulesetVersion();
   if (cached && cached.rulesetVersion === version) return cached;
-  const { rules, addresses, stacks } = dataset();
+  const { rules, addresses, stacks, docs } = dataset();
   const manifest = loadManifest();
   const supplementalIds = new Set(manifest.filter(r => existsSync(path.join(PATHS.supplementalText, r.doc_id + '.txt'))).map(r => r.doc_id));
   const cases = existsSync(PATHS.changeTests) ? JSON.parse(readFileSync(PATHS.changeTests, 'utf8')) as ChangeCase[] : [];
-  const known = new Set(rules.map(r => r.team_rule_id));
-  const constraints = readConstraints().filter(c => known.has(c.rule_id));
+  // Verified again at serve time, like the rules: a constraint decides only while its quote is still the literal slice of its
+  // source document, its rule is still served, and it belongs to the action its rule's category maps to. Otherwise it is dropped,
+  // and a rule left without a constraint can only produce REVIEW.
+  const served = new Map(rules.map(r => [r.team_rule_id, r]));
+  const constraints = readConstraints().filter(c => {
+    const rule = served.get(c.rule_id); const doc = docs.get(c.source_doc_id);
+    if (!rule || !doc || rule.source_doc_id !== c.source_doc_id || ACTIONS[c.action].category !== rule.category) return false;
+    if (doc.text.slice(c.span_start, c.span_end) !== c.evidence_quote) return false;
+    return !c.hard_max_quote || doc.text.includes(c.hard_max_quote);
+  });
   cached = { rules, addresses, stacks, constraints, rulesetVersion: version, gaps: computeKnownGaps(rules, cases, manifest, supplementalIds), manifest, supplementalIds };
   return cached;
 }

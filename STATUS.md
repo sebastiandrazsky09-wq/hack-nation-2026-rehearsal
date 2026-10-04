@@ -27,7 +27,6 @@ Updated: 4 Oct 02:15 CEST · Legal-gate build in progress on `integration`; fall
 | T4 (MA pending bills) | **110** MA addresses, both bills pending | pass | 00:13 | CONTROL |
 | T5 (MA ballot question) | **0** affected, proposal recorded failed | pass | 00:13 | CONTROL |
 | Unseen-law rehearsals | **2 of 2** synthetic ordinances pass with zero code changes; 2 real documents ingested the same way | 2 | 22:27 | CONTROL |
-| Real T6 | unverified it exists | — | 21:15 | PO |
 | Selfcheck | **ok**, 0 failures | ok | 00:13 | CONTROL |
 | Offline rebuild (`ordinal demo`) | three times, 0 model calls, 0 changed files | byte-identical | 00:13 | CONTROL |
 | Unit tests | 140 pass | pass | 23:42 | CONTROL |
@@ -86,4 +85,3 @@ No answer key or scorer exists. Every "pass" above means our general engine prod
 - **Independent review is down.** The Codex account behind PROOF hit its usage limit; the pre-freeze review did not complete.
 - **No provider API key.** Extraction runs through the Claude Code login and shares the weekly limit with the lead and workers.
 - Hoboken (except its algorithmic ban) and Newark have no readable source at all: 11 empty cells.
-- Hour-16 release contradicts the pack brief; scorer and key absent (see `docs/RECONCILIATION.md`).

@@ -21,8 +21,5 @@ Run locally with `npm run build && npm run start`, or on the deployed URL. Every
 | 40–52 | Open "How it was produced" in the app; show the selfcheck. | "Selfcheck fails the build if a quote stops matching its source, a pending bill shows as in force, or two exports differ by a byte." |
 | 52–60 | Show `out/` and `python3 scripts/verify-submission.py`. | "Three submission files, verified by an independent script against the official schema." |
 
-## If the hour-16 document arrives
-`npm run ordinal -- ingest PATH --case T6 && npm run ordinal -- demo`, then record the tech video's middle section on the real file. `--case T6` writes the change case for the new document (default date against the day after its effective date), so `changes.json` gains a T6 entry with no hand-edited JSON. Text, PDF, Word and HTML are accepted.
-
 ## Before recording
 Seeded browser tab, terminal font large, `npm run ordinal -- demo` already run once (warm disk cache). Never show a fixture as live: the extraction replay says "replayed from cache" on screen.
