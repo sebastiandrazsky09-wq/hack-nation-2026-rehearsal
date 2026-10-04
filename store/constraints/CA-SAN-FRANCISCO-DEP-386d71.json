@@ -1,0 +1,23 @@
+{
+ "key": "896689b2357c5f9f06935362627e40df68b0591a7830cd26ebad58fae941b5e8",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "none",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": null,
+    "evidence_quote": "4.2% for March 1, 2026 – February 28, 2027"
+   }
+  ]
+ },
+ "repairs": {}
+}

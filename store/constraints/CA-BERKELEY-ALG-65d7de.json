@@ -1,0 +1,23 @@
+{
+ "key": "982a876f9d1aba3c52fbd486be490db15f3b958182d2158caf227e9612f6408a",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "prohibit",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": "in coordination between one City of Berkeley landlord and one or more of such landlord's competitors, including through a third-party vendor",
+    "obligation_text": null,
+    "evidence_quote": "It shall be unlawful for a landlord to use a coordinated pricing algorithm described in subsection A when setting rents or occupancy levels for residential dwelling units in the City of Berkeley."
+   }
+  ]
+ },
+ "repairs": {}
+}

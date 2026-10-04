@@ -1,0 +1,23 @@
+{
+ "key": "ce36d230b36e4e46ec21e983637b1773474dcc4511ce331e94bf60eba27fa86d",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "limit",
+    "max": 50,
+    "value_text": "$50",
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": true,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": null,
+    "evidence_quote": "A landlord, or\nagent thereof, shall not require an application or other similar fee to apply\nto lease or sublease a residential rental property for dwelling purposes, which\nexceeds $50."
+   }
+  ]
+ },
+ "repairs": {}
+}

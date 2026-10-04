@@ -1,0 +1,23 @@
+{
+ "key": "7723e3448017e67d9fd263d6ec3b3c20973f9c7730f406199765f2772bf681b6",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "prohibit",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": null,
+    "evidence_quote": "The ordinance, approved on Tuesday, Feb. 17, for a first reading and set for a final vote on March 3, prohibits the sale, licensing, provision and use of certain algorithmic rent-setting software for residential rental properties. It addresses the growing use of algorithmic devices that set rental rates in the private housing market using nonpublic competitor data, including real-time rents, lease renewals and occupancy levels."
+   }
+  ]
+ },
+ "repairs": {}
+}

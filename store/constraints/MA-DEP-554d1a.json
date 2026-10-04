@@ -1,0 +1,62 @@
+{
+ "key": "62c62c6128d45a72b0e476e7ba5d6e618295a8a669689a309f023b96275b567f",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "limit",
+    "max": 1,
+    "value_text": "first month's rent",
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": null,
+    "evidence_quote": "(iii) a security deposit equal to the first month's rent provided that such security deposit is deposited as required by subsection (3) and that the tenant is given the statement of condition as required by subsection (2);"
+   },
+   {
+    "effect": "obligation",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": "Hold the security deposit in a separate, interest-bearing bank account located within Massachusetts, and give the tenant a receipt naming the bank, amount and account number within thirty days.",
+    "evidence_quote": "Any security deposit received by such lessor shall be held in a separate, interest-bearing account in a bank, located within the commonwealth under such terms as will place such deposit beyond the claim of creditors of the lessor, including a foreclosing mortgagee or trustee in bankruptcy, and as will provide for its transfer to a subsequent owner of said property."
+   },
+   {
+    "effect": "obligation",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": "Give the tenant a signed receipt at the time of receiving the deposit, stating the amount, receiver, date and premises.",
+    "evidence_quote": "Any lessor or his agent who receives a security deposit from a tenant or prospective tenant shall give said tenant or prospective tenant at the time of receiving such security deposit a receipt indicating the amount of such security deposit, the name of the person receiving it and, in the case of an agent, the name of the lessor for whom such security deposit is received, the date on which it is received, and a description of the premises leased or rented."
+   },
+   {
+    "effect": "obligation",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": "Furnish the tenant a separate written statement of the present condition of the premises, listing existing damage, upon receipt of the deposit or within ten days after tenancy begins, whichever is later.",
+    "evidence_quote": "Any lessor of residential real property, or his agent, who accepts a security deposit from a tenant or prospective tenant shall, upon receipt of such security deposit, or within ten days after commencement of the tenancy, whichever is later, furnish to such tenant or prospective tenant a separate written statement of the present condition of the premises to be leased or rented."
+   }
+  ]
+ },
+ "repairs": {}
+}

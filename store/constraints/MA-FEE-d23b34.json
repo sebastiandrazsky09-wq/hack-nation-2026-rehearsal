@@ -1,0 +1,23 @@
+{
+ "key": "e8c817270b04c3846d55611f025826dbbf4bc149aa7ddeb94e237030220282ed",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "none",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": null,
+    "evidence_quote": "Any fee shall only be paid by the party, lessor or tenant who originally engaged and entered into a contract with the licensed broker or salesperson."
+   }
+  ]
+ },
+ "repairs": {}
+}

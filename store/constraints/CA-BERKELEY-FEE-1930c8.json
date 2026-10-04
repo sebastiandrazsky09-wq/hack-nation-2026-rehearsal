@@ -1,0 +1,64 @@
+{
+ "key": "d8b83038aa37b036bd5b81db536f99b9ddbf555940c59f78f62fc13649ec4f62",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "limit",
+    "max": 68.96,
+    "value_text": "$68.96",
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": 2026,
+    "elements_untestable": null,
+    "obligation_text": null,
+    "evidence_quote": "The maximum tenant screening fee for 2026 is\n$68.96"
+   },
+   {
+    "effect": "obligation",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": "Before receiving the fee, provide in the rental application or a separate disclosure a clear and conspicuous tenant screening fee rights statement and a statement of the maximum fee cap under California Civil Code Section 1950.6(b).",
+    "evidence_quote": "the owner must provide, either in the rental application or in a separate disclosure before receiving the fee, a clear and conspicuous tenant screening fee rights statement and a statement of the maximum fee cap permitted under"
+   },
+   {
+    "effect": "obligation",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": "Do not charge a screening fee if no rental unit is actually available, and return the fee to any applicant not selected unless following a first-qualified-applicant-in-order policy with no fee charged to applicants not considered.",
+    "evidence_quote": "The landlord cannot charge a prospective tenant a screening fee if no rental unit is actually available."
+   },
+   {
+    "effect": "prohibit",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": null,
+    "evidence_quote": "An owner of residential rental property (or the owner’s agent) cannot charge a non-refundable fee to any existing tenant for the purpose of renewing a tenancy, in whole or in part, including any fee associated with the departure of a roommate or to request to add or replace a roommate in a pre-existing household."
+   }
+  ]
+ },
+ "repairs": {
+  "operative:The landlord cannot charge a prospective tenant a screening fee if no rental unit is actually available.": "The landlord cannot charge a prospective tenant a screening fee if no rental unit is actually available. The landlord must also return a screening fee to any applicant not selected, or have a policy under which they: (1) review applications in the order received and the first qualified applicant gets the unit, and (2) do not charge a screening fee to any applicant not considered."
+ }
+}

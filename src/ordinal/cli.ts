@@ -100,6 +100,13 @@ const commands: Record<string, () => Promise<number>> = {
   }
 };
 
+// The gate's second compile step lives in src/gate; it is only dispatched from here.
+commands.constrain = async () => {
+  const { runConstrain } = await import('../gate/compile');
+  const report = await runConstrain({ offline: has('offline'), force: has('force'), ruleIds: list('rules') }, { log: line => console.log(line) });
+  console.log(JSON.stringify(report, null, 2));
+  return report.errors.length ? 1 : 0;
+};
 const run = commands[command ?? ''];
-if (!run) { console.error('Usage: ordinal <compile|ingest|resolve|apply|export|diff|selfcheck|demo> [options]'); process.exit(2); }
+if (!run) { console.error('Usage: ordinal <compile|ingest|resolve|apply|export|diff|selfcheck|demo|constrain> [options]'); process.exit(2); }
 run().then(code => process.exit(code), error => { console.error(error instanceof Error ? error.message : error); process.exit(1); });

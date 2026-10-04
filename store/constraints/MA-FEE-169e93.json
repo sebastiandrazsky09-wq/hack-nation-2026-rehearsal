@@ -1,0 +1,36 @@
+{
+ "key": "6ebf22bd7975dd0e002761ceb505fc6bdc50e30e5c33f3d8c0a113a591dde0d6",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "obligation",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": "Before charging the fee, tell the applicant in writing the amount of the broker's fee, the time and manner of payment, and whether it is contingent on the owner and applicant entering into a lease or rental agreement, at the first personal meeting, with the applicant signing the notice or the refusal being recorded on it.",
+    "evidence_quote": "In addition to holding a valid license, the broker has to tell the applicant in writing the amount of the broker’s fee, the time and manner of payment, and whether it is contingent on the owner and applicant actually entering into a lease or rental agreement."
+   },
+   {
+    "effect": "obligation",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": "Only a licensed broker or salesman may charge a fee for finding dwelling accommodations for prospective tenants.",
+    "evidence_quote": "The law provides that “no person shall engage in the business of finding dwelling accommodations for prospective tenants for a fee unless such person is a licensed broker or salesman.”"
+   }
+  ]
+ },
+ "repairs": {}
+}

@@ -1,0 +1,16 @@
+{
+  "rejected": [
+    {
+      "constraint_id": "CA-BERKELEY-FEE-1930c8:prohibit:a65c23",
+      "reason": "the quoted sentence bans a renewal fee charged to an existing tenant, not an application fee charged to an applicant"
+    },
+    {
+      "constraint_id": "CA-BERKELEY-DEP-ddd60c:none:011347",
+      "reason": "the quote is a row of a coverage table and the rule does impose a duty (interest on deposits); 'none' is not supported"
+    },
+    {
+      "constraint_id": "CA-SAN-FRANCISCO-DEP-386d71:none:03deb7",
+      "reason": "the quote is an interest-rate figure and the rule does impose a duty (interest on deposits); 'none' is not supported"
+    }
+  ]
+}

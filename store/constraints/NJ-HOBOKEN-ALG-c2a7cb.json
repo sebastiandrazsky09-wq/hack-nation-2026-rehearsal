@@ -1,0 +1,23 @@
+{
+ "key": "ae3fc71e489471ff10063c6a2f3b4562df3208437c5679a598c02d1cb9422504",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "prohibit",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": "engage in price-fixing through algorithmic rent-fixing, meaning they can no longer use software, algorithms, or data-sharing platforms to coordinate, recommend, or implement rental prices, lease terms, or occupancy levels among competing landlords",
+    "obligation_text": null,
+    "evidence_quote": "It will now be illegal for landlords renting residential units in Hoboken to engage in price-fixing through algorithmic rent-fixing, meaning they can no longer use software, algorithms, or data-sharing platforms to coordinate, recommend, or implement rental prices, lease terms, or occupancy levels among competing landlords."
+   }
+  ]
+ },
+ "repairs": {}
+}

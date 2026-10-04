@@ -127,6 +127,12 @@ export const ConstraintSchema = z.strictObject({
   /** limit only: the highest cap under any reading of the text. Over this is a violation whatever the missing figure is. */
   hard_max: z.number().nullable(),
   hard_max_text: z.string().nullable(),
+  /** limit only: the sentence that states hard_max when it is not in evidence_quote. Also a literal slice of the source. */
+  hard_max_quote: z.string().nullable().optional(),
+  /** limit only: the text lets the cap rise (an index, a yearly adjustment) without stating the result. Above `max` is then not computable, never a violation. */
+  open_above: z.boolean().optional(),
+  /** limit only: the calendar year the quoted figure is stated for. For a date in another year the limit is not computable. */
+  figure_year: z.number().int().nullable().optional(),
   /** prohibit only: elements of the ban the engine cannot test (agreement, coercion, intent). Non-null means the ban is conditional. */
   elements_untestable: z.string().nullable(),
   /** obligation only: what must be done, in the model's words; shown beside the quote, never used to decide. */

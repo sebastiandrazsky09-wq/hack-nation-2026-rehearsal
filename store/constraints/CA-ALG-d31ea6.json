@@ -1,0 +1,36 @@
+{
+ "key": "e3b7b3a7acdf12e435ad1ae99f6098e54962bf4850f91505c62a85c9148acde5",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "prohibit",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": "as part of a contract, combination in the form of a trust, or conspiracy to restrain trade or commerce",
+    "obligation_text": null,
+    "evidence_quote": "It shall be unlawful for a person to use or distribute a common pricing algorithm as part of a contract, combination in the form of a trust, or conspiracy to restrain trade or commerce in violation of this chapter."
+   },
+   {
+    "effect": "prohibit",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": "if the person coerces another person to set or adopt a recommended price or commercial term recommended by the common pricing algorithm",
+    "obligation_text": null,
+    "evidence_quote": "It shall be unlawful for a person to use or distribute a common pricing algorithm if the person coerces another person to set or adopt a recommended price or commercial term recommended by the common pricing algorithm for the same or similar products or services in the jurisdiction of this state."
+   }
+  ]
+ },
+ "repairs": {}
+}

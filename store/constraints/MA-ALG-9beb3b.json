@@ -1,0 +1,23 @@
+{
+ "key": "fce3eea38c3c374c36260258ed0b2435fddf43801c4701bbc36e78ad7bd6e5d6",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "gate-constrain-v2",
+ "proposal": {
+  "constraints": [
+   {
+    "effect": "none",
+    "max": null,
+    "value_text": null,
+    "hard_max": null,
+    "hard_max_text": null,
+    "hard_max_quote": null,
+    "cap_can_rise": false,
+    "figure_year": null,
+    "elements_untestable": null,
+    "obligation_text": null,
+    "evidence_quote": "An Act prohibiting algorithmic rent setting"
+   }
+  ]
+ },
+ "repairs": {}
+}
