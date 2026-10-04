@@ -66,6 +66,8 @@ ul, ol { padding: 0; list-style: none; }
 .brand { display: inline-flex; align-items: center; gap: 9px; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
 .tabs { display: flex; gap: 2px; min-width: 0; overflow-x: auto; scrollbar-width: none; align-self: stretch; flex: none; max-width: 100%; }
 .tabs::-webkit-scrollbar { display: none; }
+.nav-short { display: none; }
+.sep-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: pre; }
 .tabs a { position: relative; display: inline-flex; align-items: center; padding: 0 12px; color: rgb(255 255 255 / 0.74); font-size: 14px; font-weight: 500; white-space: nowrap; text-decoration: none; }
 .tabs a:hover { color: #fff; }
 .tabs a[aria-current="page"] { color: #fff; font-weight: 600; }
@@ -405,7 +407,11 @@ table { border-collapse: collapse; }
 @media (max-width: 640px) {
   .page { padding-inline: 16px; }
   .notice { order: 3; flex-basis: 100%; text-align: left; margin-left: 0; padding-bottom: 8px; font-size: 12.5px; white-space: normal; }
-  .tabs { order: 2; margin: 0 -16px; padding: 0 4px; flex-basis: calc(100% + 32px); }
+  .tabs { order: 2; margin: 0 -16px; padding: 0 6px; flex-basis: calc(100% + 32px); }
+  .tabs a { padding: 0 10px; }
+  .tabs a[aria-current="page"]::after { left: 10px; right: 10px; }
+  .nav-long { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .nav-short { display: inline; }
   .tracking { --date-w: 88px; --n-w: 96px; }
   .tracking-title { font-size: 14px; padding-right: 10px; }
   .answers-key > div { grid-template-columns: 148px minmax(0, 1fr); }

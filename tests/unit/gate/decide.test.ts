@@ -141,10 +141,17 @@ describe('decide: aggregation', () => {
     expect(d.determining.map(r => r.rule_id)).toEqual(['R2']);
     expect(d.obligations).toHaveLength(1);
   });
-  it('REQUIRE beats PASS and lists only the obligation rules', () => {
+  it('REQUIRE beats PASS and lists the duties together with the limits the request stays within', () => {
     const d = run([satisfied(), duty()]);
     expect(d.decision).toBe('REQUIRE');
-    expect(d.determining.map(r => r.rule_id)).toEqual(['R3']);
+    expect(d.determining.map(r => [r.rule_id, r.outcome])).toEqual([['R4', 'satisfied'], ['R3', 'obligation']]);
+    expect(d.summary).toContain('Nothing modeled is violated');
+  });
+  it('the BLOCK sentence agrees in number with the rules that block', () => {
+    const one = run([entry('R1', {}, [constraint({ effect: 'prohibit' })])]);
+    expect(one.summary).toContain('a rule in force at this property on 2026-10-01 prohibits or caps');
+    const two = run([entry('R1', {}, [constraint({ effect: 'prohibit' })]), entry('R2', {}, [constraint({ effect: 'prohibit' })])]);
+    expect(two.summary).toContain('2 rules in force at this property on 2026-10-01 prohibit or cap');
   });
   it('PASS lists the satisfied limits', () => {
     const d = run([satisfied()]);

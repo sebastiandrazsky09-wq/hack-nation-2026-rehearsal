@@ -57,7 +57,7 @@ export function judgeConstraints(rule: DecideRule['rule'], constraints: Constrai
     if (c.effect === 'prohibit') {
       findings.push(c.elements_untestable === null
         ? { kind: 'violated', constraint: c, detail: `${rule.citation} prohibits this action.` }
-        : { kind: 'review', code: 'conditional_prohibition', constraint: c, detail: `${rule.citation} prohibits this action only where: ${c.elements_untestable}` });
+        : { kind: 'review', code: 'conditional_prohibition', constraint: c, detail: `A ban that holds only together with elements the gate cannot observe: ${c.elements_untestable}.` });
     } else if (c.effect === 'limit') findings.push(judgeLimit(c, action, value, asOf));
     else if (c.effect === 'obligation') findings.push({ kind: 'obligation', constraint: c, detail: c.obligation_text ?? rule.requirement });
   }
@@ -149,10 +149,12 @@ export function decide(input: DecideInput): Decided {
       if (c) constraintEvidence(item.rule_id, c);
     }
   } else {
-    const kind = decision === 'BLOCK' ? 'violated' : decision === 'REQUIRE' ? 'obligation' : 'satisfied';
+    // What fixed the outcome: the violations for BLOCK; for REQUIRE the duties and any limit the request stays within; for PASS those limits.
+    const kinds: Finding['kind'][] = decision === 'BLOCK' ? ['violated'] : decision === 'REQUIRE' ? ['obligation', 'satisfied'] : ['satisfied'];
     for (const [id, findings] of findingsByRule) {
       for (const f of findings) {
-        if (f.kind !== kind) continue;
+        if (f.kind === 'review' || !kinds.includes(f.kind)) continue;
+        const kind = f.kind;
         row(id, f.constraint.effect, kind, f.detail, kind === 'violated' ? conflicts.get(id) ?? (conflicts.has(id) ? 'Possible conflict with another rule; the sources do not settle it.' : null) : null);
         ruleEvidence(id);
         constraintEvidence(id, f.constraint);
@@ -164,11 +166,12 @@ export function decide(input: DecideInput): Decided {
 }
 
 function summarize(decision: Decision, asOf: string, rows: Row[], review: ReviewItem[], obligations: Decided['obligations'], upcoming: Decided['upcoming'], gaps: string[]): string {
+  const blocking = new Set(rows.map(r => r.rule_id)).size;
   // With nothing in force the PASS sentence is the fixed one. With a limit in force that the request stays within, saying "no constraint in force" would be false.
   const head = decision === 'PASS' ? (rows.length ? `No modeled constraint is violated: the request is within the ${rows.length === 1 ? 'modeled limit' : `${rows.length} modeled limits`} in force for this action at this property on ${asOf}.` : passSummary(asOf))
-    : decision === 'BLOCK' ? `Blocked: ${rows.length === 1 ? 'a rule' : `${rows.length} rules`} in force at this property on ${asOf} prohibit or cap this action as requested.`
+    : decision === 'BLOCK' ? `Blocked: ${blocking === 1 ? 'a rule in force at this property' : `${blocking} rules in force at this property`} on ${asOf} ${blocking === 1 ? 'prohibits or caps' : 'prohibit or cap'} this action as requested.`
     : decision === 'REVIEW' ? `Needs review: ${review.length === 1 ? 'one point' : `${review.length} points`} cannot be settled from the data and the verified constraints on ${asOf}.`
-    : `No modeled prohibition in force on ${asOf}; ${obligations.length === 1 ? 'one modeled duty attaches' : `${obligations.length} modeled duties attach`} to this action.`;
+    : `Nothing modeled is violated on ${asOf}; ${obligations.length === 1 ? 'one modeled duty attaches' : `${obligations.length} modeled duties attach`} to this action.`;
   const soon = upcoming.length
     ? ` Not yet in force: ${upcoming.map(u => `${u.title} (${u.status === 'pending' ? 'pending, not enacted' : `effective ${u.effective_date ?? 'on a later date'}`})`).join('; ')}.`
     : '';

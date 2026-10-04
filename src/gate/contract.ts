@@ -22,21 +22,23 @@ export type ParameterName = z.infer<typeof ParameterNameSchema>;
 
 export type ActionSpec = {
   name: ActionName; label: string;
+  /** The label without its qualification, for a narrow control. The full label is always shown beside it. */
+  short: string;
   /** The rule category this action is checked against. Fixed here, never chosen by a model. */
   category: Category;
   parameter: null | { name: ParameterName; label: string; unit: string; min: number; min_exclusive: boolean; max: number; example: number };
 };
 export const ACTIONS: Record<ActionName, ActionSpec> = {
   set_rent_with_pricing_algorithm: {
-    name: 'set_rent_with_pricing_algorithm', label: 'Set rents with a pricing algorithm that uses non-public competitor data',
+    name: 'set_rent_with_pricing_algorithm', label: 'Set rents with a pricing algorithm that uses non-public competitor data', short: 'Set rents with a pricing algorithm',
     category: 'algorithmic_rent_setting', parameter: null
   },
   collect_security_deposit: {
-    name: 'collect_security_deposit', label: 'Collect a security deposit', category: 'security_deposits',
+    name: 'collect_security_deposit', label: 'Collect a security deposit', short: 'Collect a security deposit', category: 'security_deposits',
     parameter: { name: 'amount_months_rent', label: 'Deposit', unit: 'months of rent', min: 0, min_exclusive: true, max: 12, example: 2 }
   },
   charge_application_fee: {
-    name: 'charge_application_fee', label: 'Charge an application fee', category: 'application_screening_fees',
+    name: 'charge_application_fee', label: 'Charge an application fee', short: 'Charge an application fee', category: 'application_screening_fees',
     parameter: { name: 'fee_usd', label: 'Fee', unit: 'US dollars', min: 0, min_exclusive: false, max: 10000, example: 75 }
   }
 };

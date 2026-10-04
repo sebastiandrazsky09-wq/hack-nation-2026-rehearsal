@@ -152,7 +152,10 @@ export function PortfolioView({ initial }: { initial: PortfolioInitial }) {
       {points.length > 0 && data && (
         <div className="pf-points" role="group" aria-label="Dates when the law changes">
           {points.map(p => (
-            <button key={`${p.date}-${p.label}`} type="button" aria-pressed={p.date === asOf} onClick={() => setAsOf(p.date)}>{pointLabel(p)}</button>
+            <button key={`${p.date}-${p.label}`} type="button" className="pf-point" aria-pressed={p.date === asOf} onClick={() => setAsOf(p.date)} aria-label={pointLabel(p)}>
+              <span className="pf-point-date">{pointLabel(p).split(': ')[0]}</span><span className="sep-hidden">: </span>
+              <span>{pointLabel(p).split(': ').slice(1).join(': ')}</span>
+            </button>
           ))}
           {data.change_points.length > MAX_POINTS && (
             <button type="button" className="pf-all" aria-expanded={showAllPoints} onClick={() => setShowAllPoints(v => !v)}>

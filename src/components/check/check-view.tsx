@@ -146,8 +146,9 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
         <div className="field">
           <label htmlFor="ck-action">Action</label>
           <select id="ck-action" value={form.action} onChange={e => { const action = e.target.value as ActionName; change({ ...form, action, amount: String(ACTIONS[action].parameter?.example ?? '') }); }}>
-            {ACTION_NAMES.map(n => <option key={n} value={n}>{ACTIONS[n].label}</option>)}
+            {ACTION_NAMES.map(n => <option key={n} value={n}>{ACTIONS[n].short}</option>)}
           </select>
+          {spec.label !== spec.short && <p className="ck-note ck-definition">Checked as: {spec.label.charAt(0).toLowerCase() + spec.label.slice(1)}.</p>}
           <p className="ck-note">Not gated: raise the rent, end a tenancy, screen an applicant. Their rules are in the <Link href={propertyHref}>property record</Link>.</p>
         </div>
         {parameter && (
@@ -202,9 +203,9 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
         {invalid && !error && <p role="alert" className="ck-invalid">Not updated: the request is invalid.</p>}
         {otherIssues.length > 0 && <ul className="ck-field-error" role="alert">{otherIssues.map((i, n) => <li key={n}>{i.message}</li>)}</ul>}
         <DecisionBlock response={response} was={was} tint={tint} />
-        <Determining rows={response.determining} />
+        <Determining rows={response.determining} evidence={response.evidence} review={response.review} />
         <Obligations items={response.obligations} />
-        <Unresolved items={response.review} issueFor={factIssue} onSupply={supply} />
+        <Unresolved items={response.review} titles={new Map(response.trace.map(t => [t.rule_id, t.title]))} issueFor={factIssue} onSupply={supply} />
         <TimeSection response={response} asOf={form.asOf && isIsoDate(form.asOf) ? form.asOf : response.as_of} onDate={date => change({ ...form, asOf: date })} />
         <Trace trace={response.trace} />
         <Evidence evidence={response.evidence} />

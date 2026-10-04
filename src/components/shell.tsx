@@ -4,11 +4,11 @@ import { usePathname } from 'next/navigation';
 import { PRODUCT_NAME } from '../lib/product';
 
 /** The views, in nav order. */
-export const NAV: { href: string; name: string }[] = [
+export const NAV: { href: string; name: string; short?: string }[] = [
   { href: '/', name: 'Check' },
   { href: '/portfolio', name: 'Portfolio' },
-  { href: '/record', name: 'Property record' },
-  { href: '/changes', name: 'Law changes' },
+  { href: '/record', name: 'Property record', short: 'Record' },
+  { href: '/changes', name: 'Law changes', short: 'Changes' },
   { href: '/system', name: 'System' }
 ];
 
@@ -31,7 +31,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <h1 className="brand"><Logo />{PRODUCT_NAME}</h1>
           <nav aria-label="Views" className="tabs">
             {NAV.map(n => (
-              <Link key={n.href} href={n.href} aria-current={pathname === n.href ? 'page' : undefined}>{n.name}</Link>
+              <Link key={n.href} href={n.href} aria-current={pathname === n.href ? 'page' : undefined}>
+                {/* The full name is always the accessible name; a narrow screen shows the short one. */}
+                {n.short ? <><span className="nav-long">{n.name}</span><span className="nav-short" aria-hidden>{n.short}</span></> : n.name}
+              </Link>
             ))}
           </nav>
           <p role="note" className="notice"><strong>Not legal advice.</strong> A prototype: check the cited source.</p>

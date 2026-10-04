@@ -36,7 +36,7 @@ Per engine result:
 - A known gap for (a jurisdiction of the property, the action's category) always adds a REVIEW `coverage_gap` item naming the gap. BLOCK still outranks it. A response in a known gap is never PASS or REQUIRE.
 
 Aggregate with `DECISION_PRECEDENCE` (BLOCK > REVIEW > REQUIRE > PASS). `permit` is true only for PASS and REQUIRE.
-`determining` lists only the rules that fixed the outcome: for BLOCK the violated rules; for REVIEW the unresolved ones; for REQUIRE the obligation rules; for PASS the satisfied limits (possibly empty).
+`determining` lists only the rules that fixed the outcome: for BLOCK the violated rules; for REVIEW the unresolved ones; for REQUIRE the obligation rules and any limit the request stays within; for PASS the satisfied limits (possibly empty).
 `summary` is template text. PASS uses `passSummary(asOf)` exactly, followed by the upcoming items in words and the coverage sentence. Never the words "legal" or "compliant".
 `evidence`: for each determining rule, the rule's own `quoted_span` (kind `rule`) and each deciding constraint's `evidence_quote` (kind `constraint`), with source fields from the rule.
 

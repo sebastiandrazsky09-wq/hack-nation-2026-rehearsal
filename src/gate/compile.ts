@@ -156,7 +156,7 @@ export function verifyProposal(
     if (!FORBIDS.test(quote)) return withhold(NO_BAN_WORDS);
     elements = p.elements_untestable?.trim() || null;
     const marker = CONDITIONAL.exec(quote);
-    if (!elements && marker) elements = `The quoted text makes the ban depend on "${marker[0]}".`;
+    if (!elements && marker) elements = `the quoted text names "${marker[0]}"`;
   } else if (p.effect === 'obligation') {
     obligation = p.obligation_text?.trim() || null;
     if (!obligation) return withhold('an obligation with no stated duty');
