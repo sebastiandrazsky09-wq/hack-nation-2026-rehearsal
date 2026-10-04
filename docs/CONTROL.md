@@ -8,7 +8,7 @@ Priority: scorer correctness > T1–T5 and generalization to unseen law > citati
 ## Current release
 Live at https://hack-nation-machine-rehearsal.vercel.app, deployed 4 Oct 09:38 CEST from integration `d6484f1` as Mortise (the legal gate in the new product design). The pipeline, the engine, the exports and the web app are complete for the supplied corpus (57 rules, 500 addresses, T1–T5). The GitHub repository is not public yet.
 ## Current priority
-Keep the accepted baseline stable. Open items need the product owner: Jersey City source, unit-count policy, the public repository, videos and the HackOS submission. The organizers' pack states there is no hour-16 release and no T6; a new document, if any, goes through `npm run ordinal -- ingest`.
+Keep the accepted baseline stable. At 13:10 the PO asked for a pivot described in `claude/pivot-envelope-decision.md`; that file is not on this machine, and no pivot work starts until it is read and checked against the code. Open items need the product owner: Jersey City source, unit-count policy, the public repository, videos and the HackOS submission. The organizers' pack states there is no hour-16 release and no T6; a new document, if any, goes through `npm run ordinal -- ingest`.
 ## Task queue
 Use .ops/tasks/*.json and npm run status. At most two implementation writers. Lead owns contracts/dependencies/store/out/releases. Two waiting handoffs mean stop dispatching.
 ## Decisions
