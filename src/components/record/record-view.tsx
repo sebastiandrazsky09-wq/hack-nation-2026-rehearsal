@@ -1,11 +1,11 @@
 'use client';
-import { Search } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ChangesResponse } from '../../server/ordinal';
-import { DEFAULT_AS_OF, isIsoDate, streetCase } from '../labels';
+import { DEFAULT_AS_OF, isIsoDate } from '../labels';
 import { useApi } from '../use-api';
 import { optionText, type AddressRow } from './address';
+import { AddressSearch } from './address-search';
 import { AddressView } from './address-view';
 import { EXAMPLES, EmptyState } from './empty-state';
 
@@ -18,18 +18,14 @@ export function RecordView() {
   const caseDates = useMemo(() => [...new Set((changesApi.data?.cases ?? []).flatMap(c => c.dates))].filter(isIsoDate).sort(), [changesApi.data]);
   const incoming = useSearchParams();
   const [query, setQuery] = useState('');
-  const [open, setOpen] = useState(false);
   const [addressId, setAddressId] = useState('');
   const [asOf, setAsOf] = useState(DEFAULT_AS_OF);
   const hydrated = useRef(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
 
-  const choose = (a: AddressRow) => { setAddressId(a.address_id); setQuery(optionText(a)); setOpen(false); };
   const openAddress = (id: string, date: string) => {
     const a = addresses.find(x => x.address_id === id);
     if (a) setQuery(optionText(a));
-    setAddressId(id); setAsOf(date); setOpen(false);
+    setAddressId(id); setAsOf(date);
   };
 
   // Read ?address and ?as_of once, when the address list arrives. Unknown values keep the defaults.
@@ -53,66 +49,17 @@ export function RecordView() {
     window.history.replaceState(null, '', `${window.location.pathname}${qs ? `?${qs}` : ''}`);
   }, [addressId, asOf]);
 
-  const matches = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const hits = q ? addresses.filter(a => `${a.address_id} ${a.street_address} ${a.postal_city} ${a.legal_city ?? ''}`.toLowerCase().includes(q)) : addresses;
-    return hits.slice(0, 8);
-  }, [addresses, query]);
   const chosen = addresses.find(a => a.address_id === addressId) ?? null;
   const validDate = isIsoDate(asOf) ? asOf : null;
-
-  // Arrow keys move through the suggestions, Enter chooses (native button), Escape returns to the field.
-  const moveFocus = (from: number, step: number) => {
-    const buttons = listRef.current?.querySelectorAll<HTMLButtonElement>('button') ?? [];
-    const next = from + step;
-    if (next < 0) inputRef.current?.focus(); else buttons[Math.min(next, buttons.length - 1)]?.focus();
-  };
 
   return (
     <>
       <section className="querybar" aria-label="Place and date">
         <div className="page query-inner">
-          <div className="field field-address">
-            <label htmlFor="address-input">Address</label>
-            <div className="search">
-              <Search size={18} strokeWidth={1.75} aria-hidden className="search-icon" />
-              <input
-                ref={inputRef} id="address-input" type="search" autoComplete="off" placeholder="Search 500 sample addresses by street, city or id"
-                value={query} disabled={addressesApi.loading}
-                onChange={e => { setQuery(e.target.value); setOpen(true); }}
-                onFocus={() => setOpen(true)}
-                onKeyDown={e => {
-                  if (e.key === 'Escape') setOpen(false);
-                  if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    if (open) moveFocus(-1, 1); else { setOpen(true); requestAnimationFrame(() => moveFocus(-1, 1)); }
-                  }
-                }}
-              />
-              {open && (
-                <ul ref={listRef} className="matches" aria-label="Suggestions">
-                  {matches.length === 0 && <li className="matches-none">No address matches “{query}”. Try a street name, a city, or an id such as A0002.</li>}
-                  {matches.map((a, i) => (
-                    <li key={a.address_id}>
-                      <button
-                        type="button" onClick={() => choose(a)}
-                        onKeyDown={e => {
-                          if (e.key === 'ArrowDown') { e.preventDefault(); moveFocus(i, 1); }
-                          if (e.key === 'ArrowUp') { e.preventDefault(); moveFocus(i, -1); }
-                          if (e.key === 'Escape') { setOpen(false); inputRef.current?.focus(); }
-                        }}
-                      >
-                        <span className="match-street">{streetCase(a.street_address)}</span>
-                        <span className="match-place">{a.postal_city}, {a.state}</span>
-                        <span className="match-id">{a.address_id}</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            {addressesApi.error && <p role="alert" className="error">{addressesApi.error}</p>}
-          </div>
+          <AddressSearch
+            id="address-input" addresses={addresses} query={query} onQuery={setQuery} onChoose={a => setAddressId(a.address_id)}
+            loading={addressesApi.loading} error={addressesApi.error}
+          />
           <div className="field field-date">
             <label htmlFor="as-of-input">As of</label>
             <div className="date-row">

@@ -122,7 +122,8 @@ test('legacy links land on the matching route with the same address and date', a
   await expect(page.getByTestId('audit-row').first()).toBeVisible();
 
   await page.goto('/');
-  await expect(page).toHaveURL(/\/record$/);
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByTestId('decision-word')).toBeVisible();
 });
 
 test('the empty state has no horizontal scroll at 390px', async ({ page }) => {
