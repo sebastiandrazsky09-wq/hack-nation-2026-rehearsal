@@ -8,7 +8,7 @@ A point-in-time view of the law at one address. A judge has under a minute; the 
 The product's world is American statute research: citators that mark a law's status with a shape and a colour, annotated codes where the statute's own words sit beside notes about them, point-in-time views of legislation, and the assessor's property record. From that world the interface takes four things and nothing else: type, palette, density, and one signature move. Layout, navigation and controls stay standard.
 
 ## Signature move
-Every rule is a line in time; the query date is a needle across all of them. A line starts where the source states an effective date. A dashed lead-in runs from enactment to effect. A pending bill is dashed throughout. Where the needle meets a line, the mark shows the answer at this address on that day. Moving the needle re-asks the engine; answers that change are marked with what they were.
+Every rule is a line in time; the query date is a needle across all of them. A line starts with a tick where the source states an effective date, and with an open ring where it states none. A dashed lead-in runs from enactment to effect. A pending bill is dashed throughout. Where the needle meets a line, the mark shows the answer at this address on that day. Moving the needle re-asks the engine; answers that change are marked with what they were.
 
 ## Type
 - **Libre Franklin** for everything Ordinal says: navigation, labels, answers, explanations, data. Weights 400, 500, 600, 700. Tabular numerals wherever dates or counts align.

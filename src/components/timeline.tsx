@@ -48,7 +48,7 @@ export function timingPhrase(rule: RuleView): string | null {
 
 /**
  * One rule in time. Solid from its effective date; a dashed lead-in from enactment to effect; dashed throughout for a
- * pending proposal; a soft left end when the source states no start. The mark sits where the needle is and shows the
+ * pending proposal; an open ring at the left end when the source states no start. The mark sits where the needle is and shows the
  * answer the API gave for that day.
  */
 export function Lifeline({ rule, result, asOf, onJump }: { rule: RuleView; result: string; asOf: string; onJump: (date: string) => void }) {

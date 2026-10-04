@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { canonicalRequest, type CheckRequest, type CheckResponse, type Decision } from '../../gate/contract';
 import { curlFor, safeHref } from '../gate-client';
 import { DecisionMark } from '../decision-mark';
@@ -77,25 +77,34 @@ export function Determining({ rows, evidence, review }: { rows: CheckResponse['d
             const href = proof ? safeHref(proof.source_url) : null;
             const note = own.find(r => r.conflict_note)?.conflict_note;
             return (
-              <tr key={id}>
-                <td data-label="Outcome"><span className="ck-outcome"><DecisionMark decision={OUTCOMES[top.outcome].mark} size={14} />{OUTCOMES[top.outcome].word}</span></td>
-                <td data-label="Rule">
-                  <span className="ck-rule-title">{top.title}</span>
-                  {measured.map((r, i) => <span key={i} className="ck-detail">{r.detail}</span>)}
-                  {reasons.map(v => <span key={v.code} className="ck-detail">{REASON_WORDS[v.code] ?? v.code}{v.code === 'missing_fact' && v.missing_facts.length ? `: ${v.missing_facts.map(factName).join(', ')}` : ''}.</span>)}
-                  {duties > 0 && <span className="ck-detail">{duties === 1 ? 'One duty attaches' : `${duties} duties attach`}, listed under Before proceeding.</span>}
-                  {proof && (
-                    <span className="ck-proof">
-                      <q>{proof.quoted_span}</q>
-                      <span className="ck-proof-source">{href ? <a href={href} target="_blank" rel="noreferrer noopener">{proof.source_doc_id}</a> : proof.source_doc_id}, {label(VERIFICATION_LABELS, proof.verification_method)}</span>
-                    </span>
-                  )}
-                  {note && <span className="ck-conflict"><FlagMark size={14} />{note}</span>}
-                </td>
-                <td data-label="Jurisdiction">{top.jurisdiction}</td>
-                <td data-label="Citation">{top.citation}</td>
-                <td data-label="Effect">{effects.length ? effects.map(e => EFFECT_WORDS[e] ?? e).join(', ') : '—'}</td>
-              </tr>
+              <Fragment key={id}>
+                <tr className={proof || note ? 'ck-has-proof' : undefined}>
+                  <td data-label="Outcome"><span className="ck-outcome"><DecisionMark decision={OUTCOMES[top.outcome].mark} size={14} />{OUTCOMES[top.outcome].word}</span></td>
+                  <td data-label="Rule">
+                    <span className="ck-rule-title">{top.title}</span>
+                    {measured.map((r, i) => <span key={i} className="ck-detail">{r.detail}</span>)}
+                    {reasons.map(v => <span key={v.code} className="ck-detail">{REASON_WORDS[v.code] ?? v.code}{v.code === 'missing_fact' && v.missing_facts.length ? `: ${v.missing_facts.map(factName).join(', ')}` : ''}.</span>)}
+                    {duties > 0 && <span className="ck-detail">{duties === 1 ? 'One duty attaches' : `${duties} duties attach`}, listed under Before proceeding.</span>}
+                  </td>
+                  <td data-label="Jurisdiction">{top.jurisdiction}</td>
+                  <td data-label="Citation">{top.citation}</td>
+                  <td data-label="Effect">{effects.length ? effects.map(e => EFFECT_WORDS[e] ?? e).join(', ') : '—'}</td>
+                </tr>
+                {(proof || note) && (
+                  <tr className="ck-proof-row">
+                    <td aria-hidden className="ck-proof-pad" />
+                    <td colSpan={4}>
+                      {proof && (
+                        <span className="ck-proof">
+                          <q>{proof.quoted_span}</q>
+                          <span className="ck-proof-source">{href ? <a href={href} target="_blank" rel="noreferrer noopener">{proof.source_doc_id}</a> : proof.source_doc_id}, {label(VERIFICATION_LABELS, proof.verification_method)}</span>
+                        </span>
+                      )}
+                      {note && <span className="ck-conflict"><FlagMark size={14} />{note}</span>}
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
             );
           })}
         </tbody>

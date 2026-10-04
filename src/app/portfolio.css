@@ -84,8 +84,8 @@
 .pf-ph-row:nth-child(3n + 2) { width: 56%; }
 
 @media (max-width: 640px) {
-  .pf-field-action, .pf-field, .pf-narrow { flex: 1 1 100%; max-width: 100%; width: 100%; }
-  .pf-field input { width: 100%; }
+  .pf-field-action, .pf-field { flex: 1 1 100%; max-width: 100%; width: 100%; }
+  .pf-field input, .pf-narrow { flex: none; width: 100%; height: 40px; }
   .pf-issue { max-width: none; }
   .pf-count { padding-left: 8px; }
   .pf-grid { gap: 14px 20px; }

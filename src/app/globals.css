@@ -136,7 +136,7 @@ ul, ol { padding: 0; list-style: none; }
 .tracking-date { font-size: 14px; color: var(--muted); }
 .tracking-title { font-weight: 600; padding-right: 20px; }
 .tracking-track { position: relative; height: 3px; background: var(--line); }
-.tracking-track i { position: absolute; top: -4px; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%; background: var(--life); box-shadow: 0 0 0 3px #fff; }
+.tracking-track i { position: absolute; top: -4px; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%; background: var(--life); outline: 3px solid #fff; }
 .tracking-n { text-align: right; font-size: 14px; font-weight: 600; }
 .tracking-needle { position: absolute; top: 36px; bottom: 0; left: calc(100% - var(--n-w) - var(--ttrack-w) + var(--ttrack-w) * var(--f)); width: 2px; margin-left: -1px; background: var(--navy); pointer-events: none; }
 .tracking-needle em { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); padding: 1px 7px; border-radius: 3px; background: var(--navy); color: #fff; font-size: 12px; font-style: normal; font-weight: 600; white-space: nowrap; }
@@ -202,8 +202,8 @@ ul, ol { padding: 0; list-style: none; }
 .axis-range { position: absolute; left: -11px; right: -11px; bottom: -9px; width: calc(100% + 22px); height: 24px; margin: 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: ew-resize; }
 .axis-range::-webkit-slider-runnable-track { height: 24px; background: transparent; }
 .axis-range::-moz-range-track { height: 24px; background: transparent; }
-.axis-range::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: 2px; border: 3px solid #fff; border-radius: 50%; background: var(--navy); box-shadow: 0 1px 4px rgb(16 33 63 / 0.4); }
-.axis-range::-moz-range-thumb { width: 16px; height: 16px; border: 3px solid #fff; border-radius: 50%; background: var(--navy); box-shadow: 0 1px 4px rgb(16 33 63 / 0.4); }
+.axis-range::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: 2px; border: 3px solid #fff; border-radius: 50%; background: var(--navy); }
+.axis-range::-moz-range-thumb { width: 16px; height: 16px; border: 3px solid #fff; border-radius: 50%; background: var(--navy); }
 .axis-range:focus-visible { outline: none; }
 .axis-range:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--navy); outline-offset: 2px; }
 .axis-range:focus-visible::-moz-range-thumb { outline: 2px solid var(--navy); outline-offset: 2px; }
@@ -236,7 +236,8 @@ ul, ol { padding: 0; list-style: none; }
 .rule-track { position: relative; min-height: 64px; }
 .life { position: absolute; left: 0; right: 0; top: 26px; height: 0; }
 .life-line { position: absolute; top: -1.5px; height: 3px; background: var(--life); }
-.life-open { background: linear-gradient(90deg, rgb(68 80 106 / 0), var(--life) 46px); }
+/* No start date stated: the line begins with an open ring instead of a tick. */
+.life-open::before { content: ""; position: absolute; left: -1px; top: -3.5px; width: 10px; height: 10px; box-sizing: border-box; border: 2px solid var(--life); border-radius: 50%; background: #fff; }
 .life-lead, .life-dashed, .life-failed { top: -1px; height: 0; background: none; border-top: 2px dashed var(--nye); }
 .life-dashed { border-top-color: var(--pending); }
 .life-failed { border-top: 2px dotted var(--faint); }
@@ -272,7 +273,8 @@ ul, ol { padding: 0; list-style: none; }
 .legend-line { display: inline-block; width: 26px; height: 3px; background: var(--life); }
 .legend-lead { height: 0; background: none; border-top: 2px dashed var(--nye); }
 .legend-dashed { height: 0; background: none; border-top: 2px dashed var(--pending); }
-.legend-open { background: linear-gradient(90deg, rgb(68 80 106 / 0), var(--life)); }
+.legend-open { position: relative; }
+.legend-open::before { content: ""; position: absolute; left: -1px; top: -3.5px; width: 10px; height: 10px; box-sizing: border-box; border: 2px solid var(--life); border-radius: 50%; background: #fff; }
 .legend-needle { display: inline-block; width: 2px; height: 14px; background: var(--navy); }
 
 /* What is changing */
