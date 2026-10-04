@@ -4,6 +4,7 @@ test('the app serves the store and says it is not legal advice', async ({ page, 
   expect(health.status()).toBe(200);
   const body = await health.json(); expect(body.ok).toBe(true); expect(body.addresses).toBe(500);
   await page.goto('/');
+  await expect(page).toHaveURL(/\/record$/);
   await expect(page.getByText('Not legal advice').first()).toBeVisible();
   await expect(page.getByLabel('Address')).toBeVisible();
 });

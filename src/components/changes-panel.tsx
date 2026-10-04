@@ -69,8 +69,19 @@ function CaseTimeline({ dates, rules }: { dates: string[]; rules: RuleView[] }) 
   );
 }
 
-function CaseBlock({ c, cityOf, ruleOf, onOpen }: {
-  c: CaseRow; cityOf: Map<string, string | null>; ruleOf: Map<string, RuleView>; onOpen: (addressId: string, asOf: string) => void;
+/** A neutral note about a gap in the sources. It is not an error: the case is shown with what the data supports. */
+function SourceNote({ notes }: { notes: string[] }) {
+  if (notes.length === 0) return null;
+  return (
+    <div data-testid="changes-errors" className="gap">
+      <strong>Gap in the sources.</strong>
+      <ul className="plain-list">{notes.map(e => <li key={e}>{e}</li>)}</ul>
+    </div>
+  );
+}
+
+function CaseBlock({ c, cityOf, ruleOf, onOpen, notes }: {
+  c: CaseRow; cityOf: Map<string, string | null>; ruleOf: Map<string, RuleView>; onOpen: (addressId: string, asOf: string) => void; notes: string[];
 }) {
   const caseDate = [...c.dates].sort().at(-1) ?? '';
   const present = new Set(Object.values(c.counts).flatMap(row => Object.keys(row)));
@@ -82,6 +93,7 @@ function CaseBlock({ c, cityOf, ruleOf, onOpen }: {
         <h3>{c.title ?? c.test_id}</h3>
         <p className="case-when">{c.dates.length > 1 ? `Compared on ${c.dates.map(shortDate).join(' and ')}` : `Evaluated on ${c.dates.map(shortDate).join('')}`}, case {c.test_id}</p>
       </header>
+      <SourceNote notes={notes} />
 
       <div className="case-body">
         <div className="case-effect">
@@ -151,19 +163,17 @@ export function ChangesPanel({ addresses, onOpen }: {
   const ruleOf = useMemo(() => new Map((rulesApi.data?.rules ?? []).map(r => [r.team_rule_id, r])), [rulesApi.data]);
   if (error) return <p role="alert" className="error">{error}</p>;
   if (loading || !data) return <div className="skeleton" aria-busy="true"><p>Loading the change cases…</p><span /><span /><span /></div>;
+  // The API reports a gap as "TEST_ID: …". A gap belongs on its case; one that names no case stays at the top.
+  const notesFor = (testId: string) => data.errors.filter(e => e.startsWith(`${testId}:`));
+  const loose = data.errors.filter(e => !data.cases.some(c => e.startsWith(`${c.test_id}:`)));
   return (
     <div className="changes">
       <div className="view-lead">
         <h2>What is changing</h2>
         <p>Each case asks which of the 500 addresses a change in the law reaches. The counts come from the same engine as the address answers; nothing here is written by hand.</p>
       </div>
-      {data.errors.length > 0 && (
-        <div role="alert" data-testid="changes-errors" className="error">
-          <strong>Some cases could not be fully evaluated.</strong>
-          <ul className="plain-list">{data.errors.map(e => <li key={e}>{e}</li>)}</ul>
-        </div>
-      )}
-      {data.cases.map(c => <CaseBlock key={c.test_id} c={c} cityOf={cityOf} ruleOf={ruleOf} onOpen={onOpen} />)}
+      <SourceNote notes={loose} />
+      {data.cases.map(c => <CaseBlock key={c.test_id} c={c} cityOf={cityOf} ruleOf={ruleOf} onOpen={onOpen} notes={notesFor(c.test_id)} />)}
     </div>
   );
 }

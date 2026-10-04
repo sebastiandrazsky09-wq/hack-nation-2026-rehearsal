@@ -25,11 +25,11 @@ const EXAMPLES: { label: string; check: (page: Page) => Promise<void> }[] = [
 ];
 
 test('the empty state offers four examples and each loads a matching address', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/record');
   await expect(page.getByText('Try an example')).toBeVisible();
   for (const { label } of EXAMPLES) await expect(page.getByRole('button', { name: label, exact: true })).toBeEnabled();
   for (const { label, check } of EXAMPLES) {
-    await page.goto('/');
+    await page.goto('/record');
     await page.getByRole('button', { name: label, exact: true }).click();
     await expect(page.getByTestId('stack')).toBeVisible();
     await check(page);
@@ -37,13 +37,13 @@ test('the empty state offers four examples and each loads a matching address', a
 });
 
 test('a deep link opens the address and date without a click, and an unknown address falls back', async ({ page }) => {
-  await page.goto('/?address=A0002&as_of=2027-07-02');
+  await page.goto('/record?address=A0002&as_of=2027-07-02');
   await expect(page.getByTestId('stack')).toContainText('Hoboken, NJ');
   await expect(page.getByTestId('results-as-of')).toContainText('2027-07-02');
   await expect(page.getByLabel('As of')).toHaveValue('2027-07-02');
   await expect(page.getByLabel('Address')).toHaveValue(/A0002/);
 
-  await page.goto('/?address=NOPE');
+  await page.goto('/record?address=NOPE');
   await expect(page.getByText('Try an example')).toBeVisible();
   await expect(page.getByTestId('stack')).toHaveCount(0);
   await expect(page.locator('.error')).toHaveCount(0);
@@ -51,7 +51,7 @@ test('a deep link opens the address and date without a click, and an unknown add
 });
 
 test('choosing an address updates the URL and offers Copy link', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/record');
   await page.getByLabel('Address').fill('CLINTON');
   await page.getByRole('button', { name: /A0002/ }).click();
   await expect(page.getByTestId('stack')).toBeVisible();
@@ -65,7 +65,7 @@ test('choosing an address updates the URL and offers Copy link', async ({ page }
 });
 
 test('the summary sentence states the same counts as the count buttons', async ({ page }) => {
-  await page.goto('/?address=A0002');
+  await page.goto('/record?address=A0002');
   const sentence = page.getByTestId('summary-sentence');
   await expect(sentence).toContainText('On 1 October 2026,');
   const chips = await page.getByTestId('summary').locator('button.chip:not(.chip-clear)').allInnerTexts();
@@ -79,14 +79,14 @@ test('a postal-fallback address shows the Low confidence mark', async ({ page, r
   const { addresses } = await (await request.get('/api/addresses')).json();
   const row = addresses.find((a: { method: string }) => a.method === 'postal_fallback');
   expect(row).toBeTruthy();
-  await page.goto(`/?address=${row.address_id}`);
+  await page.goto(`/record?address=${row.address_id}`);
   await expect(page.getByTestId('stack')).toBeVisible();
   await expect(page.getByTestId('low-confidence')).toHaveText('Low confidence');
   await expect(page.locator('.low-confidence-why')).not.toBeEmpty();
 });
 
 test('an unknown card with missing facts shows a Needs line without underscores', async ({ page }) => {
-  await page.goto('/?address=A0002');
+  await page.goto('/record?address=A0002');
   const card = page.getByTestId('rule-card').filter({ has: page.getByTestId('needs') }).first();
   await expect(card).toBeVisible();
   await expect(card.getByTestId('result-badge')).toHaveText('Unknown');
@@ -97,19 +97,43 @@ test('an unknown card with missing facts shows a Needs line without underscores'
 });
 
 test('Not legal advice is visible in the empty state', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/record');
   await notLegalAdvice(page);
+});
+
+test('legacy links land on the matching route with the same address and date', async ({ page }) => {
+  await page.goto('/?address=A0002&as_of=2027-07-02&tab=address');
+  await expect(page).toHaveURL(/\/record\?address=A0002&as_of=2027-07-02$/);
+  await expect(page.getByLabel('Address')).toHaveValue(/A0002/);
+  await expect(page.getByLabel('As of')).toHaveValue('2027-07-02');
+  await expect(page.getByTestId('results-as-of')).toContainText('2027-07-02');
+
+  await page.goto('/?tab=changes');
+  await expect(page).toHaveURL(/\/changes$/);
+  await expect(page.getByTestId('change-case').first()).toBeVisible();
+
+  await page.goto('/?tab=pipeline');
+  await expect(page).toHaveURL(/\/system$/);
+  await expect(page.getByTestId('pipeline-steps')).toBeVisible();
+
+  await page.goto('/?tab=audit&as_of=2027-07-02');
+  await expect(page).toHaveURL(/\/system\?as_of=2027-07-02#rules$/);
+  await expect(page.getByLabel('As of')).toHaveValue('2027-07-02');
+  await expect(page.getByTestId('audit-row').first()).toBeVisible();
+
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/record$/);
 });
 
 test('the empty state has no horizontal scroll at 390px', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('/record');
   await expect(page.getByText('Try an example')).toBeVisible();
   expect(await page.evaluate(() => document.body.scrollWidth)).toBe(390);
 });
 
 test('desktop screenshot of the empty state', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/record');
   await expect(page.getByRole('button', { name: 'Pending bills', exact: true })).toBeEnabled();
   await notLegalAdvice(page);
   await page.screenshot({ path: 'test-results/firstuse-desktop.png' });

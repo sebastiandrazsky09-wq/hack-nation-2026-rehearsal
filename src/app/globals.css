@@ -57,11 +57,11 @@ ul, ol { padding: 0; list-style: none; }
 .brand { display: inline-flex; align-items: center; gap: 9px; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
 .tabs { display: flex; gap: 2px; min-width: 0; overflow-x: auto; scrollbar-width: none; align-self: stretch; flex: none; max-width: 100%; }
 .tabs::-webkit-scrollbar { display: none; }
-.tabs button { position: relative; padding: 0 12px; background: none; border: 0; color: rgb(255 255 255 / 0.74); font-size: 14px; font-weight: 500; white-space: nowrap; }
-.tabs button:hover { color: #fff; }
-.tabs button[aria-selected="true"] { color: #fff; font-weight: 600; }
-.tabs button[aria-selected="true"]::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 0; height: 3px; background: #fff; }
-.tabs button:focus-visible { outline-color: #fff; outline-offset: -4px; }
+.tabs a { position: relative; display: inline-flex; align-items: center; padding: 0 12px; color: rgb(255 255 255 / 0.74); font-size: 14px; font-weight: 500; white-space: nowrap; text-decoration: none; }
+.tabs a:hover { color: #fff; }
+.tabs a[aria-current="page"] { color: #fff; font-weight: 600; }
+.tabs a[aria-current="page"]::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 0; height: 3px; background: #fff; }
+.tabs a:focus-visible { outline-color: #fff; outline-offset: -4px; }
 .notice { margin-left: auto; font-size: 13px; color: rgb(255 255 255 / 0.82); text-align: right; white-space: nowrap; }
 .notice strong { color: #fff; font-weight: 600; }
 
@@ -99,6 +99,9 @@ ul, ol { padding: 0; list-style: none; }
 .skeleton p { color: var(--muted); margin-bottom: 14px; }
 .skeleton span { display: block; height: 44px; margin-bottom: 8px; background: var(--bench); border-radius: 3px; }
 .skeleton span:nth-child(3) { width: 86%; } .skeleton span:nth-child(4) { width: 64%; }
+#rules { margin-top: 48px; scroll-margin-top: 16px; }
+.changes > .gap { margin-bottom: 16px; }
+.case > .gap { margin-top: 12px; }
 .view-lead { max-width: 76ch; margin-bottom: 20px; }
 .view-lead h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 6px; }
 

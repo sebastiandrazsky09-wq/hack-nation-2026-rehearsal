@@ -3,10 +3,10 @@ import { test, expect, type Page } from '@playwright/test';
 // Interactions and accessibility of the time-based layout. Expected values come from the API, not from this file.
 type Row = { team_rule_id: string; result: string; conflict_flag: boolean; rule: { title: string; effective_date: string | null } };
 const LABELS: Record<string, string> = { applies: 'Applies', unknown: 'Unknown', superseded: 'Superseded', not_yet_effective: 'Not yet effective', pending: 'Pending' };
-const VIEWS = ['/', '/?address=A0002&as_of=2026-10-01&tab=address', '/?tab=changes', '/?tab=pipeline', '/?tab=audit'];
+const VIEWS = ['/record', '/record?address=A0002&as_of=2026-10-01', '/changes', '/system', '/system#rules'];
 
 async function openAddress(page: Page, asOf = '2026-10-01') {
-  await page.goto(`/?address=A0002&as_of=${asOf}&tab=address`);
+  await page.goto(`/record?address=A0002&as_of=${asOf}`);
   await expect(page.getByTestId('rule-card').first()).toBeVisible();
 }
 // A rule's card, found by its own title (another card may quote that title in a conflict note).
@@ -87,7 +87,7 @@ test('every conflict the API flags is shown on its rule', async ({ page, request
 });
 
 test('the address field works from the keyboard alone', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/record');
   const field = page.getByLabel('Address');
   await field.fill('CLINTON');
   await page.keyboard.press('ArrowDown');
@@ -98,18 +98,19 @@ test('the address field works from the keyboard alone', async ({ page }) => {
 });
 
 test('a search with no match says so', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/record');
   await page.getByLabel('Address').fill('zzzz no such street');
   await expect(page.getByText(/No address matches/)).toBeVisible();
 });
 
-test('a tracked change on the first screen opens the What is changing tab', async ({ page, request }) => {
+test('a tracked change on the first screen opens the Law changes route', async ({ page, request }) => {
   const { cases } = await (await request.get('/api/changes')).json();
-  await page.goto('/');
+  await page.goto('/record');
   const links = page.getByRole('region', { name: 'Tracked changes' }).getByRole('link');
   await expect(links).toHaveCount(cases.length);
   await links.first().click();
-  await expect(page.getByRole('tab', { name: 'What is changing' })).toHaveAttribute('aria-selected', 'true');
+  await expect(page).toHaveURL(/\/changes$/);
+  await expect(page.getByRole('navigation', { name: 'Views' }).getByRole('link', { name: 'Law changes', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByTestId('change-case').first()).toBeVisible();
 });
 

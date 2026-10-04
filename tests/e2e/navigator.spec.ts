@@ -3,7 +3,7 @@ import { test, expect, type Page } from '@playwright/test';
 const notLegalAdvice = (page: Page) => expect(page.getByText('Not legal advice').first()).toBeVisible();
 
 async function choose(page: Page, query: string, id: string) {
-  await page.goto('/');
+  await page.goto('/record');
   await notLegalAdvice(page);
   await page.getByLabel('Address').fill(query);
   await page.getByRole('button', { name: new RegExp(id) }).click();
@@ -12,7 +12,7 @@ async function choose(page: Page, query: string, id: string) {
 const notYetEffective = (page: Page) => page.getByTestId('result-badge').filter({ hasText: 'Not yet effective' });
 
 test('typing CLINTON and choosing A0002 shows Hoboken and rule cards', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/record');
   await notLegalAdvice(page);
   await page.getByLabel('Address').fill('CLINTON');
   await page.getByRole('button', { name: /A0002/ }).click();
@@ -72,11 +72,22 @@ test('a Dorchester mailing address shows legal city Boston', async ({ page, requ
 
 test('the audit table lists every rule /api/rules returns', async ({ page, request }) => {
   const body = await (await request.get('/api/rules?as_of=2026-10-01')).json();
-  await page.goto('/');
-  await page.getByRole('tab', { name: 'All extracted rules' }).click();
+  await page.goto('/system');
   await expect(page.getByTestId('audit-summary')).toContainText('withheld');
   await expect(page.getByTestId('audit-row')).toHaveCount(body.rules.length);
   await notLegalAdvice(page);
+});
+
+test('the registry has its own as-of date, kept in the URL as ?as_of=', async ({ page, request }) => {
+  const body = await (await request.get('/api/rules?as_of=2027-07-02')).json();
+  await page.goto('/system?as_of=2027-07-02#rules');
+  await expect(page.getByLabel('As of')).toHaveValue('2027-07-02');
+  await expect(page.getByTestId('audit-summary')).toContainText('2027-07-02');
+  await expect(page.getByTestId('audit-row')).toHaveCount(body.rules.length);
+  await page.getByLabel('As of').fill('2026-10-01');
+  await expect(page.getByTestId('audit-summary')).toContainText('2026-10-01');
+  await expect.poll(() => new URL(page.url()).searchParams.get('as_of')).toBeNull();
+  await expect(page.getByLabel('Address')).toHaveCount(0);
 });
 
 test('mobile has no horizontal page scroll', async ({ page }) => {
@@ -85,7 +96,7 @@ test('mobile has no horizontal page scroll', async ({ page }) => {
   await expect(page.getByTestId('rule-card').first()).toBeVisible();
   expect(await page.evaluate(() => document.body.scrollWidth)).toBe(390);
   await page.screenshot({ path: 'test-results/navigator-mobile.png', fullPage: true });
-  await page.getByRole('tab', { name: 'All extracted rules' }).click();
+  await page.getByRole('navigation', { name: 'Views' }).getByRole('link', { name: 'System', exact: true }).click();
   await expect(page.getByTestId('audit-row').first()).toBeVisible();
   expect(await page.evaluate(() => document.body.scrollWidth)).toBe(390);
   await notLegalAdvice(page);
