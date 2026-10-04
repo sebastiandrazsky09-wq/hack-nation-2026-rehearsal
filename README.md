@@ -1,12 +1,16 @@
-# Ordinal
+# Mortise
 
-A decision gate for actions governed by external law. Software proposes an action on a property on a date; Ordinal answers **PASS, BLOCK, REQUIRE or REVIEW**, names the rules that determined the answer, shows the steps, and quotes the sentence of law behind it. Rental housing is the first policy domain: three actions (set rents with a pricing algorithm that uses non-public competitor data, collect a security deposit, charge an application fee) across the 500 sample properties of Hack-Nation 7, Challenge 02 (RealPage Rental Housing Law Navigator).
+**Live:** https://hack-nation-machine-rehearsal.vercel.app · **Method note:** [docs/METHOD.md](docs/METHOD.md) · **Submission files:** [out/](out/) · **Current numbers:** [STATUS.md](STATUS.md)
 
-Underneath is the navigator the challenge scores: for any of the 500 addresses it says which rental-housing rules apply on a given date, with the exact source sentence, and which addresses each law-change case affects. The gate is a thin layer over that engine and does not change its outputs.
+A decision gate for actions governed by external law. Software proposes an action on a property on a date; Mortise answers **PASS, BLOCK, REQUIRE or REVIEW**, names the rules that determined the answer, shows the steps, and quotes the sentence of law behind it. Rental housing is the first policy domain: three actions (set rents with a pricing algorithm that uses non-public competitor data, collect a security deposit, charge an application fee) across the 500 sample properties of Hack-Nation 7, Challenge 02 (RealPage Rental Housing Law Navigator).
+
+Underneath is Ordinal, the navigator the challenge scores (the engine, its CLI `npm run ordinal` and the files keep that name): for any of the 500 addresses it says which rental-housing rules apply on a given date, with the exact source sentence, and which addresses each law-change case affects. The gate is a thin layer over that engine and does not change its outputs.
 
 **Not legal advice.** A prototype that reads public law. Check the cited source before acting.
 
 ## The check
+
+Against a local server; the same request works against the live URL above.
 
 ```bash
 curl -s -X POST http://127.0.0.1:3000/api/v1/check -H 'content-type: application/json' -d '{
