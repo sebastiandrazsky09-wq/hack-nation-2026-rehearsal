@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { CheckView } from '../components/check/check-view';
 import { check } from '../gate';
+import { envelope } from '../gate/envelope';
 import { ACTIONS, CheckRequestSchema, SUBJECT_TYPES, type CheckRequest, type CheckResponse } from '../gate/contract';
 import { defaultCheckRequest, gateData } from '../server/gate';
 export const dynamic = 'force-dynamic';
@@ -57,7 +58,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<Par
   }
   if (first(params.address)) redirect(`/record${query(params, ['address', 'as_of'])}`);
   const { request, response } = evaluate(params);
-  const { addresses } = gateData();
+  const data = gateData(); const { addresses } = data;
+  // The envelope leaves the amount open; the decision above it is the same law at the one amount the request names.
+  const initialEnvelope = envelope({ subject: request.subject, action: { name: request.action.name }, resource: request.resource, context: request.context }, data);
   const record = addresses.find(a => a.address_id === request.resource.id) ?? null;
-  return <CheckView initialRequest={request} initialResponse={response} initialProperty={record && { address_id: record.address_id, street_address: record.street_address, postal_city: record.postal_city, state: record.state }} />;
+  return <CheckView initialRequest={request} initialResponse={response} initialEnvelope={initialEnvelope} initialProperty={record && { address_id: record.address_id, street_address: record.street_address, postal_city: record.postal_city, state: record.state }} />;
 }

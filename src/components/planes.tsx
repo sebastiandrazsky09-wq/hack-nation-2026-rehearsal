@@ -42,6 +42,7 @@ export function Planes() {
           <li><strong>Evaluation</strong><span>verified constraints against the request; anything unsettled is REVIEW</span></li>
           <li><strong>Decision</strong><span>PASS, BLOCK, REQUIRE or REVIEW, with an id that is a hash of the request and the ruleset</span></li>
           <li><strong>Trace</strong><span>the steps per rule and the quoted sentence</span></li>
+          <li><strong>Envelope</strong><span>the same decision over an open amount, a missing fact and every date the law changes, enumerated from the thresholds in the compiled rules</span></li>
         </ol>
         <p className="plane-measure" data-testid="plane-measure">
           Measured for this page: the pricing-algorithm action over {d.measured.evaluated} properties as of {d.measured.as_of} took {d.measured.evaluated_ms.toFixed(1)} ms on the server.{' '}

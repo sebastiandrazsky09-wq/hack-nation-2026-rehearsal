@@ -314,6 +314,8 @@ export const EnvelopeResponseSchema = z.strictObject({
   /** What cannot be settled on `as_of`. */
   review: CheckResponseSchema.shape.review,
   evidence: CheckResponseSchema.shape.evidence,
+  /** The building facts used, and where each came from. */
+  facts: CheckResponseSchema.shape.facts,
   coverage: z.strictObject({ jurisdictions: z.array(z.string()), category: z.string(), known_gaps: z.array(z.string()) }),
   /** Fixed text: how the envelope was computed and what "permitted" does not mean. */
   limits: z.string(),

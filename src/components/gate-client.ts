@@ -1,6 +1,6 @@
 'use client';
-// The interface's only way to the gate: the same two public endpoints anyone can call.
-import type { CheckBatchRequest, CheckBatchResponse, CheckRequest, CheckResponse, ErrorBody } from '../gate/contract';
+// The interface's only way to the engine: the same public endpoints anyone can call.
+import type { CheckBatchRequest, CheckBatchResponse, CheckRequest, CheckResponse, EnvelopeRequest, EnvelopeResponse, ErrorBody } from '../gate/contract';
 
 export type GateResult<T> = { ok: true; data: T } | { ok: false; status: number; error: ErrorBody['error'] };
 
@@ -18,6 +18,7 @@ async function post<T>(path: string, body: unknown, signal?: AbortSignal): Promi
 }
 
 export const postCheck = (request: CheckRequest, signal?: AbortSignal) => post<CheckResponse>('/api/v1/check', request, signal);
+export const postEnvelope = (request: EnvelopeRequest, signal?: AbortSignal) => post<EnvelopeResponse>('/api/v1/envelope', request, signal);
 export const postChecks = (request: CheckBatchRequest, signal?: AbortSignal) => post<CheckBatchResponse>('/api/v1/checks', request, signal);
 /** The curl that reproduces a request against this server. */
 export const curlFor = (origin: string, path: string, body: unknown) => `curl -s -X POST ${origin}${path} \\\n  -H 'content-type: application/json' \\\n  -d '${JSON.stringify(body)}'`;

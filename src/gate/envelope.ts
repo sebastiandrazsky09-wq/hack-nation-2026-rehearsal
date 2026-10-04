@@ -162,7 +162,7 @@ export function envelope(request: EnvelopeRequest, data: GateData): EnvelopeResp
     ruleset_version: data.rulesetVersion, as_of: asOf,
     evaluated_ms: performance.now() - started, evaluations,
     action: spec.name, decision: point?.decided.decision ?? null,
-    permitted, decides, timeline, obligations, review, evidence,
+    permitted, decides, timeline, obligations, review, evidence, facts: base.facts,
     coverage: { jurisdictions: base.jurisdictions, category: spec.category, known_gaps: base.gaps.map(g => g.text) },
     limits: ENVELOPE_LIMITS, disclaimer: DISCLAIMER
   };

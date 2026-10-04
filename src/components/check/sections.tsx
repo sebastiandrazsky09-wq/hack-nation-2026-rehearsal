@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { canonicalRequest, type CheckRequest, type CheckResponse, type Decision } from '../../gate/contract';
+import { canonicalRequest, type CheckRequest, type CheckResponse, type Decision, type EnvelopeInterval, type EnvelopeRequest, type EnvelopeResponse } from '../../gate/contract';
 import { curlFor, safeHref } from '../gate-client';
 import { DecisionMark } from '../decision-mark';
 import { ORIGIN_LABELS, RESULT_LABELS, VERIFICATION_LABELS, factName, label, longDate, shortDate } from '../labels';
@@ -20,7 +20,7 @@ const CHECK_WORDS: Record<string, string> = { jurisdiction: 'Jurisdiction', stat
 const STEP_WORDS: Record<string, string> = { matched: 'matched', not_matched: 'not matched', unknown: 'unknown' };
 const REASON_WORDS: Record<string, string> = {
   missing_fact: 'A needed fact is missing', cutoff_ambiguous: 'A cutoff date cannot be settled from the year built',
-  unverifiable_condition: 'A condition of the rule cannot be tested from the data', conditional_prohibition: 'The ban depends on elements the gate cannot observe',
+  unverifiable_condition: 'A condition of the rule cannot be tested from the data', conditional_prohibition: 'The ban depends on elements the engine cannot observe',
   limit_not_computable: 'The limit cannot be computed from the data', constraint_not_modeled: 'The rule applies and has no verified constraint for this action',
   conflict: 'A possible conflict with another rule is flagged', coverage_gap: 'Known gap in the sources'
 };
@@ -255,23 +255,30 @@ function Json({ text }: { text: string }) {
 }
 
 /** The call behind the screen: the exact request sent and the exact response received. */
-export function Payload({ request, response }: { request: CheckRequest; response: CheckResponse }) {
-  const [tab, setTab] = useState<'request' | 'response' | 'curl'>('request');
+export function Payload({ request, response, envelopeRequest, envelope, open }: {
+  request: CheckRequest; response: CheckResponse; envelopeRequest: EnvelopeRequest; envelope: EnvelopeResponse; open: boolean;
+}) {
+  const [chosen, setTab] = useState<'request' | 'response' | 'curl' | 'envelope'>('request');
+  // With the amount left open the panel shows the envelope call itself, so its own tab is not needed.
+  const tab = open && chosen === 'envelope' ? 'curl' : chosen;
+  const path = open ? '/api/v1/envelope' : '/api/v1/check';
   const [origin, setOrigin] = useState('');
   const { copied, copy } = useCopied();
   useEffect(() => setOrigin(window.location.origin), []);
-  const sent = canonicalRequest(request, response.as_of);
+  const sent = open ? envelopeRequest : canonicalRequest(request, response.as_of);
   const requestText = JSON.stringify(sent, null, 2);
-  const responseText = JSON.stringify(response, null, 2);
-  const curl = curlFor(origin, '/api/v1/check', sent);
-  const text = tab === 'request' ? requestText : tab === 'response' ? responseText : curl;
+  const responseText = JSON.stringify(open ? envelope : response, null, 2);
+  const curl = curlFor(origin, path, sent);
+  const envelopeCurl = curlFor(origin, '/api/v1/envelope', envelopeRequest);
+  const text = tab === 'request' ? requestText : tab === 'response' ? responseText : tab === 'envelope' ? envelopeCurl : curl;
+  const tabs = open ? (['request', 'response', 'curl'] as const) : (['request', 'response', 'curl', 'envelope'] as const);
   return (
     <div className="ck-code" data-testid="payload">
       <div className="ck-code-head">
-        <p className="ck-code-title"><span>POST</span> /api/v1/check</p>
+        <p className="ck-code-title"><span>POST</span> {path}</p>
         <div className="ck-tabs" role="tablist" aria-label="Request and response">
-          {(['request', 'response', 'curl'] as const).map(t => (
-            <button key={t} type="button" role="tab" id={`ck-tab-${t}`} aria-selected={tab === t} aria-controls={`ck-panel-${t}`} onClick={() => setTab(t)}>{t === 'curl' ? 'curl' : t === 'request' ? 'Request' : 'Response'}</button>
+          {tabs.map(t => (
+            <button key={t} type="button" role="tab" id={`ck-tab-${t}`} aria-selected={tab === t} aria-controls={`ck-panel-${t}`} onClick={() => setTab(t)}>{t === 'curl' ? 'curl' : t === 'request' ? 'Request' : t === 'response' ? 'Response' : 'Envelope'}</button>
           ))}
           <button type="button" className="ck-code-copy" onClick={() => copy(tab, text)}>{copied ? 'Copied' : 'Copy'}</button>
           <span role="status" className="sep-hidden">{copied ? 'Copied' : ''}</span>
@@ -280,7 +287,121 @@ export function Payload({ request, response }: { request: CheckRequest; response
       <div className="ck-frame" role="tabpanel" id="ck-panel-request" aria-labelledby="ck-tab-request" hidden={tab !== 'request'} tabIndex={0}><pre data-testid="payload-request"><Json text={requestText} /></pre></div>
       <div className="ck-frame" role="tabpanel" id="ck-panel-response" aria-labelledby="ck-tab-response" hidden={tab !== 'response'} tabIndex={0}><pre data-testid="payload-response"><Json text={responseText} /></pre></div>
       <div className="ck-frame" role="tabpanel" id="ck-panel-curl" aria-labelledby="ck-tab-curl" hidden={tab !== 'curl'} tabIndex={0}><pre data-testid="payload-curl">{curl}</pre></div>
-      <p className="ck-code-foot"><span className={`ck-v-${response.decision}`}>200 {response.decision}</span><span>{response.decision_id}</span><span>{response.evaluated_ms.toFixed(1)} ms</span></p>
+      {!open && <div className="ck-frame" role="tabpanel" id="ck-panel-envelope" aria-labelledby="ck-tab-envelope" hidden={tab !== 'envelope'} tabIndex={0}><pre data-testid="payload-envelope">{envelopeCurl}</pre></div>}
+      {open
+        ? <p className="ck-code-foot"><span>200</span><span>{envelope.envelope_id}</span><span>{envelope.evaluated_ms.toFixed(1)} ms</span></p>
+        : <p className="ck-code-foot"><span className={`ck-v-${response.decision}`}>200 {response.decision}</span><span>{response.decision_id}</span><span>{response.evaluated_ms.toFixed(1)} ms</span></p>}
+    </div>
+  );
+}
+
+// ---- Envelope: the same decision, over what the request leaves open. Every word below is computed from the response. ----
+type EnvelopeOutcome = { decision: Decision | null; intervals: EnvelopeInterval[] | null };
+const FACT_PHRASE: Record<string, string> = { units: 'the number of units', year_built: 'the year built' };
+const amountText = (value: number, unit: string) => (unit === 'US dollars' ? `$${value}` : `${value} ${value === 1 ? 'month' : 'months'}`);
+function rangeText(interval: EnvelopeInterval, all: EnvelopeInterval[], unit: string) {
+  const first = interval === all[0]; const last = interval === all[all.length - 1];
+  if (first && last) return 'any amount';
+  if (first) return `up to ${amountText(interval.to, unit)}`;
+  if (last) return `above ${amountText(interval.from, unit)}`;
+  return `above ${amountText(interval.from, unit)}, up to ${amountText(interval.to, unit)}`;
+}
+const sentence = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+
+/** A decision, or one decision per part of the amount's range. */
+function Outcome({ outcome, unit }: { outcome: EnvelopeOutcome; unit: string }) {
+  if (!outcome.intervals) {
+    return outcome.decision ? <span className={`ck-outcome ck-outcome-${outcome.decision}`}><DecisionMark decision={outcome.decision} size={13} />{outcome.decision}</span> : null;
+  }
+  const all = outcome.intervals;
+  return (
+    <span className="ck-env-parts">
+      {all.map((i, n) => <span key={n} className={`ck-outcome ck-outcome-${i.decision}`}><DecisionMark decision={i.decision} size={13} />{i.decision} {rangeText(i, all, unit)}</span>)}
+    </span>
+  );
+}
+
+/** The amount's range as a line: one segment per interval, each bound written under the point where it falls. */
+function AmountBar({ intervals, unit }: { intervals: EnvelopeInterval[]; unit: string }) {
+  if (intervals.length < 2) return null;
+  const scale = intervals[intervals.length - 2].to * 2;
+  return (
+    <div className="ck-env-bar" aria-hidden>
+      {intervals.map((i, n) => {
+        const last = n === intervals.length - 1;
+        return <span key={n} className={`ck-env-seg ck-env-seg-${i.decision}`} style={{ flexGrow: Math.max((last ? scale : i.to) - i.from, scale * 0.12) }}>{last ? ' ' : amountText(i.to, unit)}</span>;
+      })}
+    </div>
+  );
+}
+
+export function EnvelopeSection({ env, stale, asOf, ask, issueFor, onSupply, onDate }: {
+  env: EnvelopeResponse; stale: boolean; asOf: string; ask: boolean;
+  issueFor: (fact: string) => string | undefined; onSupply: (fact: string, value: number) => void; onDate: (date: string) => void;
+}) {
+  const p = env.permitted;
+  const unit = p?.unit ?? '';
+  const allowed = p ? p.intervals.filter(i => i.permit) : [];
+  const waiting = env.decides.map(d => FACT_PHRASE[d.fact] ?? factName(d.fact));
+  const lead = !p ? null
+    : allowed.length ? `${allowed.map(i => sentence(rangeText(i, p.intervals, unit))).join('; ')}${unit === 'months of rent' && allowed[0].to !== p.intervals[p.intervals.length - 1].to ? ' of rent' : ''}`
+    : p.reason === 'prohibited' ? 'No amount is permitted'
+    : waiting.length ? `Not computable until ${waiting.join(' and ')} ${waiting.length === 1 ? 'is' : 'are'} known`
+    : 'No amount can be confirmed as permitted';
+  const bound = allowed.find(i => i.bounding_citation) ?? p?.intervals.find(i => i.bounding_citation) ?? null;
+  const regionText = (fact: string, from: number | null, to: number | null) => {
+    if (fact === 'units') return to === null ? `${from} or more units` : from === to ? `${from} ${from === 1 ? 'unit' : 'units'}` : `${from} to ${to} units`;
+    return from === null ? `Built ${to} or earlier` : to === null ? `Built ${from} or later` : from === to ? `Built ${from}` : `Built ${from} to ${to}`;
+  };
+  const spanText = (from: string | null, to: string | null) => (from === null && to === null ? 'At every date' : from === null ? `Until ${shortDate(to!)}` : to === null ? `From ${shortDate(from)}` : `${shortDate(from)} to ${shortDate(to)}`);
+  return (
+    <div className="ck-env" data-testid="envelope" aria-busy={stale}>
+      {p && (
+        <div className="ck-env-row" data-row="permitted">
+          <h3 className="ck-sub">Permitted</h3>
+          <div>
+            <p className="ck-env-lead" data-testid="envelope-permitted">{lead}</p>
+            {bound && <p className="ck-env-bound"><span className="ck-cite">{bound.bounding_citation}</span>{bound.bound_text && <span>&ldquo;{bound.bound_text}&rdquo;</span>}</p>}
+            <AmountBar intervals={p.intervals} unit={unit} />
+            <p className="ck-env-line"><Outcome outcome={{ decision: null, intervals: p.intervals }} unit={unit} /></p>
+            {env.obligations.length > 0 && <p className="ck-fine">{env.obligations.length === 1 ? 'One duty attaches' : `${env.obligations.length} duties attach`} inside the permitted range.</p>}
+          </div>
+        </div>
+      )}
+      {env.decides.map(axis => (
+        <div key={axis.fact} className="ck-env-row" data-row="decides" data-fact={axis.fact}>
+          <h3 className="ck-sub">Decides</h3>
+          <div>
+            <p className="ck-env-lead">{sentence(FACT_PHRASE[axis.fact] ?? factName(axis.fact))}, which the record does not hold</p>
+            <ul className="ck-env-list">
+              {axis.regions.map((r, n) => <li key={n} className="ck-env-item"><span className="ck-env-when">{regionText(axis.fact, r.from, r.to)}</span><span><Outcome outcome={r} unit={unit} /></span></li>)}
+            </ul>
+            {ask && <SupplyInput fact={axis.fact} label={FACT_INPUT_LABELS[axis.fact] ?? factName(axis.fact)} error={issueFor(axis.fact)} onSupply={onSupply} />}
+          </div>
+        </div>
+      ))}
+      <div className="ck-env-row" data-row="until">
+        <h3 className="ck-sub">Until</h3>
+        <ul className="ck-env-list">
+          {env.timeline.map((s, n) => {
+            const target = s.from ?? s.to;
+            const body = (
+              <>
+                <span className="ck-env-when">{spanText(s.from, s.to)}{s.current && env.timeline.length > 1 ? ', now' : ''}</span>
+                <span><Outcome outcome={s} unit={unit} />{s.cause_label && <span className="ck-env-cause">{sentence(s.cause_label)}</span>}</span>
+              </>
+            );
+            return (
+              <li key={n}>
+                {target
+                  ? <button type="button" className="ck-env-item ck-env-date" data-current={s.current} aria-pressed={asOf === target} aria-label={`Envelope, ${spanText(s.from, s.to)}: go to ${shortDate(target)}`} onClick={() => onDate(target)}>{body}</button>
+                  : <div className="ck-env-item" data-current={s.current}>{body}</div>}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <p className="ck-fine ck-env-foot"><span className="ck-cite">{env.envelope_id}</span> {env.evaluations} evaluations of the decision function in {env.evaluated_ms.toFixed(1)} ms. Enumerated over the thresholds in the compiled rules. Permitted means no modeled constraint is violated; it does not mean legal.</p>
     </div>
   );
 }

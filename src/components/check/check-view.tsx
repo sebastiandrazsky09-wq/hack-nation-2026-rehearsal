@@ -2,15 +2,15 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  ACTIONS, ACTION_NAMES, SUBJECT_LABELS, SUBJECT_TYPES, canonicalRequest,
-  type ActionName, type CallerFacts, type CheckRequest, type CheckResponse, type Decision
+  ACTIONS, ACTION_NAMES, SUBJECT_LABELS, SUBJECT_TYPES, canonicalEnvelopeRequest, canonicalRequest,
+  type ActionName, type CallerFacts, type CheckRequest, type CheckResponse, type Decision, type EnvelopeRequest, type EnvelopeResponse
 } from '../../gate/contract';
-import { postCheck } from '../gate-client';
+import { postCheck, postEnvelope } from '../gate-client';
 import { isIsoDate, longDate, streetCase } from '../labels';
 import type { AddressRow } from '../record/address';
 import { AddressSearch } from '../record/address-search';
 import { useApi } from '../use-api';
-import { Coverage, DecisionBlock, Determining, Evidence, Obligations, Payload, TimeSection, Trace, Unresolved } from './sections';
+import { Coverage, DecisionBlock, Determining, EnvelopeSection, Evidence, Obligations, Payload, TimeSection, Trace, Unresolved } from './sections';
 
 type Issue = { path: string; message: string };
 type Form = { subject: CheckRequest['subject']['type']; action: ActionName; amount: string; property: string; asOf: string; facts: CallerFacts };
@@ -45,6 +45,13 @@ function requestOf(form: Form): CheckRequest | null {
   }, form.asOf);
 }
 
+/** The same request with the amount left open: what the Envelope section asks. Null while the date is not a date. */
+function envelopeRequestOf(form: Form): EnvelopeRequest | null {
+  if (!isIsoDate(form.asOf)) return null;
+  return canonicalEnvelopeRequest({ subject: { type: form.subject }, action: { name: form.action }, resource: { type: 'property', id: form.property }, context: { as_of: form.asOf, facts: form.facts } }, form.asOf);
+}
+const envelopeKeyOf = (form: Form) => { const r = envelopeRequestOf(form); return r ? JSON.stringify(r) : 'invalid'; };
+
 const keyOf = (form: Form) => { const r = requestOf(form); return r ? JSON.stringify(r) : 'invalid'; };
 
 function writeUrl(request: CheckRequest) {
@@ -57,8 +64,8 @@ function writeUrl(request: CheckRequest) {
   window.history.replaceState(null, '', `${window.location.pathname}?${params}`);
 }
 
-export function CheckView({ initialRequest, initialResponse, initialProperty }: {
-  initialRequest: CheckRequest; initialResponse: CheckResponse; initialProperty: PropertyLabel | null;
+export function CheckView({ initialRequest, initialResponse, initialEnvelope, initialProperty }: {
+  initialRequest: CheckRequest; initialResponse: CheckResponse; initialEnvelope: EnvelopeResponse; initialProperty: PropertyLabel | null;
 }) {
   const startRequest = useMemo(() => canonicalRequest(initialRequest, initialResponse.as_of), [initialRequest, initialResponse.as_of]);
   const [form, setForm] = useState<Form>(() => formOf(startRequest));
@@ -74,6 +81,7 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
   const [tint, setTint] = useState(false);
   const applied = useRef({ key: JSON.stringify(startRequest), nonce: 0 });
   const shown = useRef(initialResponse);
+  const [env, setEnv] = useState(() => ({ key: envelopeKeyOf(formOf(startRequest)), data: initialEnvelope }));
   const addressesApi = useApi<{ addresses: AddressRow[] }>('/api/addresses');
   const addresses = useMemo(() => addressesApi.data?.addresses ?? [], [addressesApi.data]);
 
@@ -85,6 +93,17 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
   // Typed fields settle for 150 ms before they ask; choices and buttons call `change` with `now` and ask at once.
   useEffect(() => { const timer = setTimeout(() => setCommitted(liveKey), 150); return () => clearTimeout(timer); }, [liveKey]);
   const change = (next: Form, now = true) => { setForm(next); if (now) setCommitted(keyOf(next)); };
+
+  // The envelope does not depend on the amount, so typing an amount never asks for it again.
+  const envKey = useMemo(() => envelopeKeyOf(form), [form]);
+  useEffect(() => {
+    if (envKey === 'invalid' || envKey === env.key) return;
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      postEnvelope(JSON.parse(envKey) as EnvelopeRequest, controller.signal).then(result => { if (result.ok) setEnv({ key: envKey, data: result.data }); }, () => undefined);
+    }, 150);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [envKey, env.key]);
 
   useEffect(() => {
     if (committed === 'invalid') return;
@@ -117,13 +136,17 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
 
   const spec = ACTIONS[form.action];
   const parameter = spec.parameter;
-  const localInvalid = liveKey === 'invalid';
+  // An empty amount is a question, not an error: the screen then shows the envelope alone.
+  const open = parameter !== null && form.amount.trim() === '';
+  const localInvalid = open ? envKey === 'invalid' : liveKey === 'invalid';
   const issueAt = (suffix: string) => issues.find(i => i.path.endsWith(suffix))?.message;
   const parameterIssue = parameter ? issueAt(parameter.name) : undefined;
   const dateIssue = issueAt('as_of');
   const factIssue = (fact: string) => issueAt(`facts.${fact}`);
   const otherIssues = issues.filter(i => !i.path.endsWith('as_of') && !i.path.includes('facts.') && !(parameter && i.path.endsWith(parameter.name)));
-  const invalid = issues.length > 0 || localInvalid;
+  const invalid = open ? localInvalid : issues.length > 0 || localInvalid;
+  const factsShown = open ? env.data.facts : response.facts;
+  const reviewShown = open ? env.data.review : response.review;
 
   const supply = (fact: string, value: number) => change({ ...form, facts: { ...form.facts, [fact]: value } });
   const remove = (fact: 'units' | 'year_built') => { const facts = { ...form.facts }; delete facts[fact]; change({ ...form, facts }); };
@@ -159,8 +182,8 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
                     {' '}<span className="ck-w">of</span>{' '}
                     <label className="sep-hidden" htmlFor="ck-parameter">{parameter.label}, {parameter.unit}</label>
                     <input
-                      id="ck-parameter" className="ck-token ck-number" style={{ width: `${Math.max(1, form.amount.length) + 0.3}ch` }} type="number" inputMode="decimal" step={parameter.unit === 'US dollars' ? 1 : 0.5} value={form.amount}
-                      aria-invalid={parameterIssue || form.amount.trim() === '' ? true : undefined} aria-describedby="ck-parameter-err"
+                      id="ck-parameter" className="ck-token ck-number" style={{ width: `${Math.max(open ? 3 : 1, form.amount.length) + 0.3}ch` }} placeholder="any" type="number" inputMode="decimal" step={parameter.unit === 'US dollars' ? 1 : 0.5} value={form.amount}
+                      aria-invalid={parameterIssue && !open ? true : undefined} aria-describedby="ck-parameter-err"
                       onChange={e => change({ ...form, amount: e.target.value }, false)}
                     />
                     {' '}<span className="ck-w">{parameter.unit}</span>
@@ -184,16 +207,16 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
                 <span className="ck-w ck-stop">.</span>
               </div>
             </div>
-            {parameter && <p id="ck-parameter-err" className="ck-field-error">{parameterIssue ?? (form.amount.trim() === '' ? 'Enter a number.' : '')}</p>}
+            {parameter && <p id="ck-parameter-err" className="ck-field-error">{open ? '' : parameterIssue ?? ''}</p>}
             <p id="ck-as-of-err" className="ck-field-error">{dateIssue ?? (isIsoDate(form.asOf) ? '' : 'Enter a real date.')}</p>
             {spec.label !== spec.short && <p className="ck-fine ck-definition">Checked as: {lower(spec.label)}.</p>}
             <div className="ck-record">
               <dl className="ck-facts">
-                {response.facts.length > 0 && FACT_ROWS.map(row => {
-                  const fact = response.facts.find(f => f.name === row.name);
+                {factsShown.length > 0 && FACT_ROWS.map(row => {
+                  const fact = factsShown.find(f => f.name === row.name);
                   if (!fact) return null;
                   const suppliable = (row.name === 'units' || row.name === 'year_built') ? row.name : null;
-                  const asked = suppliable !== null && response.review.some(v => (v.resolvable_by as string[]).includes(suppliable));
+                  const asked = suppliable !== null && reviewShown.some(v => (v.resolvable_by as string[]).includes(suppliable));
                   return (
                     <div key={row.name} data-fact={row.name} className={fact.source === 'missing' && asked ? 'ck-fact-asked' : undefined}>
                       <dt>{row.label}</dt>
@@ -216,15 +239,27 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
           {invalid && !error && <p role="alert" className="ck-invalid">Not updated: the request is invalid.</p>}
           {otherIssues.length > 0 && <ul className="ck-field-error" role="alert">{otherIssues.map((i, n) => <li key={n}>{i.message}</li>)}</ul>}
 
-          <section className="ck-step ck-step-decision" aria-labelledby="ck-l-decision">
+          {!open && <section className="ck-step ck-step-decision" aria-labelledby="ck-l-decision">
             <h2 id="ck-l-decision" className="ck-label">Decision</h2>
             <div className="ck-decision-col">
               <DecisionBlock response={response} was={was} tint={tint} />
               {reviewLeads && <Unresolved items={response.review} titles={titles} issueFor={factIssue} onSupply={supply} />}
             </div>
+          </section>}
+
+          <section className="ck-step" aria-labelledby="ck-l-envelope">
+            <h2 id="ck-l-envelope" className="ck-label">Envelope</h2>
+            <EnvelopeSection env={env.data} stale={env.key !== envKey} asOf={currentAsOf} ask={open} issueFor={factIssue} onSupply={supply} onDate={date => change({ ...form, asOf: date })} />
           </section>
 
-          {(response.determining.length > 0 || (response.decision === 'REQUIRE' && response.obligations.length > 0)) && (
+          {open && env.data.evidence.length > 0 && (
+            <section className="ck-step" aria-labelledby="ck-l-evidence">
+              <h2 id="ck-l-evidence" className="ck-label">Evidence</h2>
+              <Evidence evidence={env.data.evidence} determining={[]} />
+            </section>
+          )}
+
+          {!open && (response.determining.length > 0 || (response.decision === 'REQUIRE' && response.obligations.length > 0)) && (
             <section className="ck-step" aria-labelledby="ck-l-why">
               <h2 id="ck-l-why" className="ck-label">Why</h2>
               <div>
@@ -234,19 +269,19 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
             </section>
           )}
 
-          {response.evidence.length > 0 && (
+          {!open && response.evidence.length > 0 && (
             <section className="ck-step" aria-labelledby="ck-l-evidence">
               <h2 id="ck-l-evidence" className="ck-label">Evidence</h2>
               <Evidence evidence={response.evidence} determining={response.determining} />
             </section>
           )}
 
-          <section className="ck-step" aria-labelledby="ck-l-time">
+          {!open && <section className="ck-step" aria-labelledby="ck-l-time">
             <h2 id="ck-l-time" className="ck-label">Over time</h2>
             <TimeSection response={response} asOf={currentAsOf} onDate={date => change({ ...form, asOf: date })} />
-          </section>
+          </section>}
 
-          <section className="ck-step" aria-labelledby="ck-l-more">
+          {!open && <section className="ck-step" aria-labelledby="ck-l-more">
             <h2 id="ck-l-more" className="ck-label">More</h2>
             <div className="ck-more">
               {!reviewLeads && response.review.length > 0 && (
@@ -271,12 +306,13 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
                 <p className="ck-fine">Not gated: raise the rent, end a tenancy, screen an applicant. Their rules are in the <Link href={propertyHref}>property record</Link>.</p>
               </details>
             </div>
-          </section>
+          </section>}
         </div>
       </div>
 
       <aside className="ck-rail" aria-label="The API call behind this screen">
-        <Payload request={shownRequest} response={response} />
+        <Payload request={shownRequest} response={response} envelopeRequest={JSON.parse(env.key) as EnvelopeRequest} envelope={env.data} open={open} />
+        <p className="ck-fine ck-domain">Leave the amount empty to see the envelope: what is permitted, what decides it, until when.</p>
         <p className="ck-fine ck-domain">Rental housing is the first policy domain. The request and response shapes are domain-neutral.</p>
       </aside>
     </main>

@@ -1,6 +1,6 @@
 # Mortise: method note
 
-Mortise is the product (a decision gate, live at https://hack-nation-machine-rehearsal.vercel.app). Ordinal is its engine: the navigator of Modules A to C that the challenge scores.
+Mortise is the product (the legal envelope for an action on a property, live at https://hack-nation-machine-rehearsal.vercel.app). Ordinal is its engine: the navigator of Modules A to C that the challenge scores.
 
 **Question answered.** Which rental-housing rules apply at this address on this date, what is the source sentence, and which addresses does each law-change case affect? Not legal advice.
 
@@ -25,6 +25,8 @@ A change case selects rules from data (jurisdiction and category codes in the or
 
 ## The decision gate (a layer over Modules A and B)
 `check(subject, action, resource, context)` returns PASS, BLOCK, REQUIRE or REVIEW for one of three actions at a property on a date. It runs the engine of Module B over the action's rule category and then tests each applying rule's typed constraints against the request. Constraints come from a second compile step with the same discipline as Module A: a model proposes, and a record is kept only if its quote is a literal slice of the source, a ban's quote contains words that forbid, a duty's quote contains words that require, and each figure is read from the quoted words by a fixed parser. Engine `unknown`, a conditional ban, a cap the data cannot compute, a rule with no verified constraint, a flagged conflict and a known source gap all give REVIEW. Pending and not-yet-effective law never decides; it is listed as upcoming. The decision id is a hash of the canonical request and the ruleset version. No model runs at request time, and the scored outputs are untouched.
+
+**The envelope.** `envelope()` runs that same decision function over what a request leaves open: the amount, a fact the record lacks, and the date. Breakpoints are only numbers already in the compiled store: verified constraint bounds, coverage thresholds and rule dates. It returns the amount's range as intervals with the rule and quoted words that bound them, the regions of a missing fact with what each yields, and date intervals with the rule event that starts each. A test samples the ends and middle of every interval and requires `check()` to agree. Enumerated, not symbolic; permitted means no modeled constraint is violated within the represented coverage, not that the action is legal.
 
 ## A law the system has not seen
 `ordinal ingest FILE` copies the file (text, PDF, Word or HTML; a converted file keeps its original beside it), extracts it with the same prompt, reads the jurisdiction from the text, regroups only the affected cell, and the usual export and diff regenerate every output. No source change.

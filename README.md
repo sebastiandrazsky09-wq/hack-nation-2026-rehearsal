@@ -2,11 +2,31 @@
 
 **Live:** https://hack-nation-machine-rehearsal.vercel.app · **Method note:** [one page, PDF](docs/Mortise-Method-Note.pdf) ([source](docs/METHOD.md)) · **Submission files:** [out/](out/) · **Current numbers:** [STATUS.md](STATUS.md)
 
-A decision gate for actions governed by external law. Software proposes an action on a property on a date; Mortise answers **PASS, BLOCK, REQUIRE or REVIEW**, names the rules that determined the answer, shows the steps, and quotes the sentence of law behind it. Rental housing is the first policy domain: three actions (set rents with a pricing algorithm that uses non-public competitor data, collect a security deposit, charge an application fee) across the 500 sample properties of Hack-Nation 7, Challenge 02 (RealPage Rental Housing Law Navigator).
+The legal envelope for actions governed by external law. Software asks what is permitted for an action on a property; Mortise returns the permitted range, the facts that decide it and the dates on which the answer changes, each with the rule and the quoted sentence of law behind it, from quote-verified compiled rules with no model at runtime. Give it one specific amount and date and it answers **PASS, BLOCK, REQUIRE or REVIEW**: the same computation at a single point. Rental housing is the first policy domain: three actions (set rents with a pricing algorithm that uses non-public competitor data, collect a security deposit, charge an application fee) across the 500 sample properties of Hack-Nation 7, Challenge 02 (RealPage Rental Housing Law Navigator).
 
 Underneath is Ordinal, the navigator the challenge scores (the engine, its CLI `npm run ordinal` and the files keep that name): for any of the 500 addresses it says which rental-housing rules apply on a given date, with the exact source sentence, and which addresses each law-change case affects. The gate is a thin layer over that engine and does not change its outputs.
 
 **Not legal advice.** A prototype that reads public law. Check the cited source before acting.
+
+## The envelope
+
+```bash
+curl -s -X POST https://hack-nation-machine-rehearsal.vercel.app/api/v1/envelope -H 'content-type: application/json' -d '{
+  "subject":  { "type": "software_agent" },
+  "action":   { "name": "collect_security_deposit" },
+  "resource": { "type": "property", "id": "<an address_id from /api/addresses>" },
+  "context":  { "as_of": "2026-10-01" }
+}'
+```
+
+The request is a check request with the amount left out. The response carries:
+
+- `permitted`: the amount's whole range cut into intervals, each with the decision inside it and, where a rule's verified bound ends the interval, that rule, its citation and the words that state the bound ("one and one-half times one month's rent").
+- `decides`: for each fact the record lacks and the answer depends on (unit count, year built), the regions of that fact and what each yields. Supply the fact in `context.facts` and the axis is gone.
+- `timeline`: date intervals covering all time, each with its outcome and the rule event that starts it (a law taking effect, a figure stated for one year running out).
+- `obligations` that attach inside the permitted range, the `review` points that cannot be settled, the quoted `evidence`, and an `envelope_id` that is a hash of the request and the ruleset version: same question, same id.
+
+How it is computed: `envelope()` runs the same decision function as `check()` at every threshold already present in the compiled rules (verified constraint bounds, coverage thresholds, rule dates) and merges neighbours with the same answer. It is enumerated over those thresholds, not derived symbolically. A unit test samples both ends and the middle of every reported interval, for a fifth of the properties and every action, and requires `check()` to return the interval's decision there. "Permitted" means no modeled constraint is violated within the represented coverage; it does not mean legal. Conditional bans and coverage gaps stay REVIEW and appear as REVIEW on every axis. We found no other service returning this for compiled law as of 4 October 2026; that is one afternoon of searching, not proof.
 
 ## The check
 
@@ -21,7 +41,7 @@ curl -s -X POST http://127.0.0.1:3000/api/v1/check -H 'content-type: application
 }'
 ```
 
-The response carries `decision`, `permit`, a `decision_id` (a hash of the request and the ruleset version, so the same request always gives the same id; it is not a stored log), the `determining` rules, `obligations`, `review` items naming what cannot be settled, `upcoming` law not yet in force, a per-rule `trace`, the quoted `evidence`, the `facts` used and where each came from, `coverage` including known gaps, and `change_points` (the dates on which the answer can change). `POST /api/v1/checks` runs one action over many properties; `GET /api/v1/actions` lists what can be checked.
+The response carries `decision`, `permit`, a `decision_id` (a hash of the request and the ruleset version, so the same request always gives the same id; it is not a stored log), the `determining` rules, `obligations`, `review` items naming what cannot be settled, `upcoming` law not yet in force, a per-rule `trace`, the quoted `evidence`, the `facts` used and where each came from, `coverage` including known gaps, and `change_points` (the dates on which the answer can change). `POST /api/v1/checks` runs one action over many properties; `POST /api/v1/envelope` is described above; `GET /api/v1/actions` lists what can be checked.
 
 | Decision | Means |
 |---|---|

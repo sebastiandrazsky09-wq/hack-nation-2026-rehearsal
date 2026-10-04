@@ -215,3 +215,29 @@ details > summary::-webkit-details-marker { display: none; }
   .ck-tint .ck-word-line { animation: none; }
   .ck-result { transition: none; }
 }
+
+/* Envelope: what is permitted, what decides it, until when. Decision colours only; no new token. */
+.ck-env { display: grid; gap: 28px; }
+.ck-env[aria-busy="true"] { opacity: 0.6; }
+.ck-env-row { display: grid; grid-template-columns: 88px minmax(0, 1fr); column-gap: 20px; }
+.ck-env-row > .ck-sub { margin: 0; padding-top: 5px; }
+.ck-env-lead { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--fg); }
+.ck-env-bound { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin: 6px 0 0; font-size: 15px; color: var(--fg-2); }
+.ck-env-bar { display: flex; margin: 18px 0 0; }
+.ck-env-seg { flex: 1 1 0; min-width: 0; padding-top: 6px; border-top: 2px solid var(--hairline-strong); font-family: var(--mono); font-size: 12.5px; text-align: right; white-space: nowrap; color: var(--fg-3); }
+.ck-env-seg-BLOCK { border-top-color: var(--block); } .ck-env-seg-REVIEW { border-top-color: var(--review); } .ck-env-seg-REQUIRE { border-top-color: var(--require); } .ck-env-seg-PASS { border-top-color: var(--pass); }
+.ck-env-line { margin: 10px 0 0; }
+.ck-env-parts { display: inline-flex; flex-wrap: wrap; gap: 4px 18px; }
+.ck-env-row .ck-fine { margin: 8px 0 0; }
+.ck-env-list { margin: 0; padding: 0; list-style: none; }
+.ck-env-lead + .ck-env-list { margin-top: 10px; }
+.ck-env-item { display: grid; grid-template-columns: 176px minmax(0, 1fr); gap: 12px; width: 100%; padding: 9px 0; border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0; background: none; font-size: 14px; text-align: left; color: var(--fg-2); }
+.ck-env-when { font-family: var(--mono); font-size: 12.5px; color: var(--fg-3); padding-top: 2px; }
+.ck-env-date:hover .ck-env-when, .ck-env-item[data-current="true"] .ck-env-when { color: var(--fg); }
+.ck-env-cause { display: block; margin-top: 3px; font-size: 13px; color: var(--fg-3); }
+.ck-env-row .ck-supply { margin-top: 16px; }
+.ck-env-foot { margin: 0; }
+@media (max-width: 640px) {
+  .ck-env-row { grid-template-columns: minmax(0, 1fr); row-gap: 6px; }
+  .ck-env-item { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
