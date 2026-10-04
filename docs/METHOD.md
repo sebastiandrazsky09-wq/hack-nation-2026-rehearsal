@@ -21,6 +21,9 @@
 ## Module C: change tracking
 A change case selects rules from data (jurisdiction and category codes in the organizer label, or document ids). For a two-date case the affected set is every address whose result changes between the dates; for a single-date case it is every address the selected rules reach. Conflict-flagged addresses come from the engine's precedence step. Nothing in the source names a test, an organizer rule or an address.
 
+## The decision gate (a layer over Modules A and B)
+`check(subject, action, resource, context)` returns PASS, BLOCK, REQUIRE or REVIEW for one of three actions at a property on a date. It runs the engine of Module B over the action's rule category and then tests each applying rule's typed constraints against the request. Constraints come from a second compile step with the same discipline as Module A: a model proposes, and a record is kept only if its quote is a literal slice of the source, a ban's quote contains words that forbid, a duty's quote contains words that require, and each figure is read from the quoted words by a fixed parser. Engine `unknown`, a conditional ban, a cap the data cannot compute, a rule with no verified constraint, a flagged conflict and a known source gap all give REVIEW. Pending and not-yet-effective law never decides; it is listed as upcoming. The decision id is a hash of the canonical request and the ruleset version. No model runs at request time, and the scored outputs are untouched.
+
 ## A law the system has not seen
 `ordinal ingest FILE` copies the file (text, PDF, Word or HTML; a converted file keeps its original beside it), extracts it with the same prompt, reads the jurisdiction from the text, regroups only the affected cell, and the usual export and diff regenerate every output. No source change.
 

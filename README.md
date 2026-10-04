@@ -1,8 +1,34 @@
 # Ordinal
 
-For any of the 500 sample addresses, Ordinal says which rental-housing rules apply on a given date, shows the exact sentence of law behind each answer, and reports which addresses each law-change case affects. Built for Hack-Nation 7, Challenge 02 (RealPage Rental Housing Law Navigator).
+A decision gate for actions governed by external law. Software proposes an action on a property on a date; Ordinal answers **PASS, BLOCK, REQUIRE or REVIEW**, names the rules that determined the answer, shows the steps, and quotes the sentence of law behind it. Rental housing is the first policy domain: three actions (set rents with a pricing algorithm that uses non-public competitor data, collect a security deposit, charge an application fee) across the 500 sample properties of Hack-Nation 7, Challenge 02 (RealPage Rental Housing Law Navigator).
+
+Underneath is the navigator the challenge scores: for any of the 500 addresses it says which rental-housing rules apply on a given date, with the exact source sentence, and which addresses each law-change case affects. The gate is a thin layer over that engine and does not change its outputs.
 
 **Not legal advice.** A prototype that reads public law. Check the cited source before acting.
+
+## The check
+
+```bash
+curl -s -X POST http://127.0.0.1:3000/api/v1/check -H 'content-type: application/json' -d '{
+  "subject":  { "type": "property_manager" },
+  "action":   { "name": "collect_security_deposit", "properties": { "amount_months_rent": 2 } },
+  "resource": { "type": "property", "id": "<an address_id from /api/addresses>" },
+  "context":  { "as_of": "2026-10-01", "facts": { "units": 24 } }
+}'
+```
+
+The response carries `decision`, `permit`, a `decision_id` (a hash of the request and the ruleset version, so the same request always gives the same id; it is not a stored log), the `determining` rules, `obligations`, `review` items naming what cannot be settled, `upcoming` law not yet in force, a per-rule `trace`, the quoted `evidence`, the `facts` used and where each came from, `coverage` including known gaps, and `change_points` (the dates on which the answer can change). `POST /api/v1/checks` runs one action over many properties; `GET /api/v1/actions` lists what can be checked.
+
+| Decision | Means |
+|---|---|
+| BLOCK | A rule in force at the property prohibits the action, or caps it below the requested value. |
+| REVIEW | It cannot be settled: a needed fact is missing, a ban depends on something the gate cannot observe (an agreement, coercion), a cap depends on a figure the data lacks, a rule applies that has no verified constraint, a conflict is flagged, or the sources for that place and category are a known gap. |
+| REQUIRE | Nothing in force is violated, and duties attach (a receipt, a separate account, a notice). |
+| PASS | No modeled constraint is in force, or the request is within the modeled limits. It does not mean "legal". |
+
+How a rule becomes something an action can be checked against: `npm run ordinal -- constrain` asks a model, once per rule in the three action categories, for typed constraints (prohibit, limit with a figure, obligation). A constraint is kept only if its quote is a literal slice of the rule's source, a ban's quote contains words that forbid, a duty's quote contains words that require, and every figure is read back out of the quoted words by a fixed parser. Anything else is withheld, and a withheld constraint can only produce REVIEW. The lead read every record of the first pass and rejected three (`store/constraints.review.json`). No model runs at request time; `npm run ordinal -- constrain --offline` replays the step from the committed cache.
+
+Limits of the gate, stated plainly: a verified quote proves the sentence is in the source, not that it was read correctly. Uncertainty resolves to REVIEW, never to a guess. Rent increases, eviction and screening are shown in the property record but are not gated, because their rules are formulas or procedures the gate cannot test. Caller-supplied facts (`units`, `year_built`) are accepted only where the registry has none; a value that contradicts the record is refused.
 
 ## How it works
 
@@ -40,6 +66,7 @@ npm run ordinal -- resolve --offline  # replays the cached geocoder responses (s
 npm run ordinal -- export             # out/rules.json, out/lookups.json, out/audit.json
 npm run ordinal -- diff               # out/changes.json
 npm run ordinal -- selfcheck          # out/selfcheck.json; exits 1 if an invariant fails
+npm run ordinal -- constrain --offline  # store/constraints.jsonl, replayed from store/constraints/ with no model call
 ```
 
 Or all five steps with a one-line summary each: `npm run ordinal -- demo`. An independent check of the three submission files, sharing no code with the pipeline: `npm run verify`.
@@ -73,7 +100,8 @@ npm run test:e2e    # browser tests (run npm run build first)
 | `store/` | Extraction cache, candidates, consolidated rules, geocoder responses, jurisdiction stacks, added documents |
 | `out/` | Submission files and the audit and selfcheck reports |
 | `src/ordinal/` | The pipeline; `contracts.ts`, `status.ts`, `corpus.ts` are the frozen contract (`docs/CONTRACTS.md`) |
-| `src/app`, `src/components` | The web interface and its read-only API |
+| `src/gate/` | The decision layer: contract, constraint compile step, `decide()`, trace, coverage gaps |
+| `src/app`, `src/components` | The web interface (`/` check, `/portfolio`, `/record`, `/changes`, `/system`) and the API (`/api/v1/*` for the gate, `/api/*` for the navigator) |
 | `docs/RECONCILIATION.md` | Where the official files and our brief disagree |
 | `STATUS.md` | Current numbers |
 
