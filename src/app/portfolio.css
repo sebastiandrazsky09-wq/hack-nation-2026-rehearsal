@@ -14,13 +14,13 @@
 .pf-issue { max-width: 30ch; font-size: 13px; color: var(--block); }
 
 /* Change points */
-.pf-points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; margin-bottom: 18px; border-top: 1px solid var(--line-soft); }
+.pf-points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(var(--pf-rows, 4), auto); grid-auto-flow: column; column-gap: 32px; margin-bottom: 18px; border-top: 1px solid var(--line-soft); }
 .pf-points button { padding: 6px 8px; border: 0; border-bottom: 1px solid var(--line-soft); background: none; font-size: 13px; text-align: left; }
 .pf-points .pf-point { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; }
 .pf-point-date { font-weight: 600; white-space: nowrap; }
 .pf-points button:hover { background: var(--bench); }
 .pf-points button[aria-pressed="true"] { background: var(--navy); color: #fff; }
-@media (max-width: 960px) { .pf-points { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 960px) { .pf-points { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-flow: row; } }
 .pf-points .pf-all { border-style: dashed; color: var(--link); font-weight: 600; }
 
 .pf-alert { margin-bottom: 14px; padding: 8px 12px; border-left: 3px solid var(--block); background: var(--block-bg); font-size: 13px; }

@@ -69,7 +69,8 @@ export function Determining({ rows, evidence, review }: { rows: CheckResponse['d
           {[...groups].map(([id, own]) => {
             const top = [...own].sort((a, b) => RANK[a.outcome] - RANK[b.outcome])[0];
             const duties = own.filter(r => r.outcome === 'obligation').length;
-            const measured = own.filter(r => r.outcome === 'violated' || r.outcome === 'satisfied');
+            // A figure needs its sentence ("2 months exceeds the limit of 1.5"); a plain ban is already said by the Effect column and the quote.
+            const measured = own.filter(r => (r.outcome === 'violated' || r.outcome === 'satisfied') && r.effect === 'limit');
             const reasons = top.outcome === 'unresolved' ? [...new Map(review.filter(v => v.rule_id === id).map(v => [v.code, v])).values()] : [];
             const effects = [...new Set(own.map(r => r.effect).filter((e): e is NonNullable<Row['effect']> => e !== null))];
             const proof = evidence.find(e => e.rule_id === id && e.kind === 'constraint') ?? evidence.find(e => e.rule_id === id);

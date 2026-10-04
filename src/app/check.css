@@ -68,10 +68,14 @@
 .ck-detail { display: block; font-size: 13px; color: var(--muted); }
 .ck-section .ck-detail { max-width: 80ch; }
 .ck-rule-title { display: block; font-weight: 600; }
-.ck-table { width: 100%; font-size: 13px; }
+.ck-table { width: 100%; font-size: 13px; table-layout: fixed; }
+.ck-table th:nth-child(1) { width: 108px; }
+.ck-table th:nth-child(3) { width: 118px; }
+.ck-table th:nth-child(4) { width: 172px; }
+.ck-table th:nth-child(5) { width: 84px; }
+.ck-table td { overflow-wrap: anywhere; }
 .ck-table th { padding: 8px 14px 8px 0; text-align: left; font-size: 12px; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--line); }
 .ck-table td { padding: 10px 14px 10px 0; vertical-align: top; border-bottom: 1px solid var(--line-soft); }
-.ck-table td:nth-child(2) { min-width: 240px; }
 .ck-outcome { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; white-space: nowrap; }
 .ck-conflict { display: block; margin-top: 4px; font-size: 13px; color: var(--conflict); }
 .ck-conflict .mark { vertical-align: -2px; margin-right: 4px; }
@@ -150,7 +154,6 @@
   .ck-table thead { display: none; }
   .ck-table tr { padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
   .ck-table td { padding: 2px 0; border: 0; }
-  .ck-table td:nth-child(2) { min-width: 0; }
   .ck-table td::before { content: attr(data-label); display: block; font-size: 12px; color: var(--muted); }
   .ck-step { grid-template-columns: 96px minmax(0, 1fr); }
   .ck-step span:nth-child(3) { grid-column: 1 / -1; }

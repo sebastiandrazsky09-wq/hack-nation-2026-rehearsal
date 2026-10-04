@@ -175,6 +175,7 @@ function summarize(decision: Decision, asOf: string, rows: Row[], review: Review
   const soon = upcoming.length
     ? ` Not yet in force: ${upcoming.map(u => `${u.title} (${u.status === 'pending' ? 'pending, not enacted' : `effective ${u.effective_date ?? 'on a later date'}`})`).join('; ')}.`
     : '';
-  const coverage = gaps.length ? ` Known coverage gaps: ${gaps.join(' ')}` : ' No known coverage gap for this category in these jurisdictions.';
+  // The coverage sentence belongs to a PASS (it bounds what the PASS claims) and to any decision inside a known gap. Elsewhere the response's coverage object says it once.
+  const coverage = gaps.length ? ` Known coverage gaps: ${gaps.join(' ')}` : decision === 'PASS' ? ' No known coverage gap for this category in these jurisdictions.' : '';
   return head + soon + coverage;
 }

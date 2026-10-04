@@ -179,14 +179,16 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
                 const fact = response.facts.find(f => f.name === row.name);
                 if (!fact) return null;
                 const suppliable = (row.name === 'units' || row.name === 'year_built') ? row.name : null;
+                // An input appears only for a fact the gate is asking for; a missing fact no rule needs is just reported as missing.
+                const asked = suppliable !== null && response.review.some(v => (v.resolvable_by as string[]).includes(suppliable));
                 return (
                   <tr key={row.name} data-fact={row.name}>
                     <th scope="row">{row.label}</th>
                     <td>
-                      {fact.source === 'missing' && suppliable
+                      {fact.source === 'missing' && suppliable && asked
                         ? <SupplyInput fact={suppliable} ariaLabel={`${row.label}, supply a value`} error={factIssue(suppliable)} onSupply={supply} />
                         : <span className="ck-fact-value">{fact.value ?? '—'}</span>}
-                      <span className="ck-fact-source">{SOURCE_WORDS[fact.source]}</span>
+                      <span className="ck-fact-source">{SOURCE_WORDS[fact.source]}{fact.source === 'missing' && suppliable && asked ? ': needed for this check' : ''}</span>
                       {fact.source === 'caller' && suppliable && <button type="button" className="link ck-remove" onClick={() => remove(suppliable)} aria-label={`Remove ${row.label.toLowerCase()}`}>Remove</button>}
                     </td>
                   </tr>

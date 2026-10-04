@@ -150,7 +150,7 @@ export function PortfolioView({ initial }: { initial: PortfolioInitial }) {
       </div>
 
       {points.length > 0 && data && (
-        <div className="pf-points" role="group" aria-label="Dates when the law changes">
+        <div className="pf-points" role="group" aria-label="Dates when the law changes" style={{ '--pf-rows': Math.ceil((points.length + (data.change_points.length > MAX_POINTS ? 1 : 0)) / 2) } as React.CSSProperties}>
           {points.map(p => (
             <button key={`${p.date}-${p.label}`} type="button" className="pf-point" aria-pressed={p.date === asOf} onClick={() => setAsOf(p.date)} aria-label={pointLabel(p)}>
               <span className="pf-point-date">{pointLabel(p).split(': ')[0]}</span><span className="sep-hidden">: </span>
