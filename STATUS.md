@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 4 Oct 03:08 CEST · Legal gate built and gated on `integration`; **not deployed**, waiting for PO approval of the screenshots; production still serves `6c16f09`; fallback release tagged `baseline-19665a3` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00)
+Updated: 4 Oct 03:58 CEST · Legal gate built and gated on `integration` at `a38aeda`; **not deployed**, waiting for PO approval of the screenshots (`.ops/redesign/gate-approval.html`); production still serves `6c16f09`; fallback release tagged `baseline-19665a3` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00)
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|
@@ -75,6 +75,7 @@ Goal: a deterministic decision layer over the unchanged engine: `check(subject, 
 | Visual passes | three, with written critiques (`docs/handoffs/gate-visual-passes.md`); state sweep of 19 states at 1440, 1024 and 390: no overflow, no console error |
 | Demo rehearsal (`scripts/demo-rehearsal.mjs`) | 5 of 5 runs pass on the production build, identical; every step checked against the API; slowest gate round trip 33 ms |
 | Final gate at 03:06 | 260 unit, 76 browser, build, `ordinal demo` with 0 changed files, `constrain --offline` with 0 model calls, `verify` 0 problems, protected hashes equal to baseline, `gitleaks` no leaks, `npm audit` 0 |
+| 03:58 check | `npm run check` 260 unit tests pass; `ordinal demo` 0 model calls, 0 changed files; no new source file in `supplemental/extra/`, the repo root, `.ops/transfer/` or Downloads; the pitch deck and sheet left in `.ops/transfer/` at 02:33 match the gate's current answers (decisions, addresses, dates, 33 of 36 constraints, 260 of 500 REVIEW) |
 | Cut | `/developers` page (the three endpoints are live and shown through the request panel and `GET /api/v1/actions`); optional engine fact extension 5.5. Nothing from the demo was cut |
 | What the demo shows instead of the brief's guess | step 2 uses Los Angeles (PASS before AB 325 takes effect, REVIEW after) because Newark is REVIEW for a source gap at every date; step 3 uses Jersey City because Newark deposits also sit in that gap; the portfolio step compares 6 Oct 2025 with 1 Jan 2026 (80 properties change) |
 | Residue removed | Supabase dependencies, starter contract file, T6 and hour-16 text (the pack names T1 to T5 only) |
