@@ -36,12 +36,13 @@ function indexOf(data: GateData): Index {
 
 const notInRegistry = (id: string) => new GateError('property_not_in_registry', 404, `Property ${id} is not in the registry.`);
 
-type Evaluation = {
+export type Evaluation = {
   decided: Decided; facts: CheckResponse['facts']; stack: JurisdictionStack; address: Address; jurisdictions: string[];
   rules: InternalRule[]; results: Map<string, ApplyResult>; constraints: (rule: InternalRule) => Constraint[]; gaps: KnownGap[];
 };
 
-function evaluate(data: GateData, spec: ActionSpec, value: number | null, asOf: string, id: string, supplied: CallerFacts | undefined, strict: boolean): Evaluation {
+/** One run of the decision function. `check`, `checkBatch` and `envelope` all go through it. */
+export function evaluate(data: GateData, spec: ActionSpec, value: number | null, asOf: string, id: string, supplied: CallerFacts | undefined, strict: boolean): Evaluation {
   const index = indexOf(data);
   const record = index.byAddress.get(id); const stack = data.stacks[id];
   if (!record || !stack) throw notInRegistry(id);

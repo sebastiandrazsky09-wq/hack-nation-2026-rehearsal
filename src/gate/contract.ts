@@ -230,9 +230,103 @@ export const CheckBatchResponseSchema = z.strictObject({
 });
 export type CheckBatchResponse = z.infer<typeof CheckBatchResponseSchema>;
 
+// ---- Envelope: the same decision function, evaluated over what a request leaves open (the amount, a missing fact, the date). ----
+/** A check request whose numeric parameter may be left out. A parameter of another action is still an error. */
+export const EnvelopeRequestSchema = z.strictObject({
+  subject: SubjectSchema,
+  action: ActionSchema,
+  resource: z.strictObject({ type: z.literal('property'), id: z.string().min(1).max(40) }),
+  context: ContextSchema.optional()
+}).superRefine((req, ctx) => {
+  const wanted = ACTIONS[req.action.name].parameter?.name ?? null;
+  for (const name of PARAMETER_NAMES) {
+    if (name !== wanted && req.action.properties?.[name] !== undefined) ctx.addIssue({ code: 'custom', path: ['action', 'properties', name], message: `${name} is not a parameter of ${req.action.name}` });
+  }
+});
+export type EnvelopeRequest = z.infer<typeof EnvelopeRequestSchema>;
+
+/** The envelope request with defaults filled and keys in one order: what `envelope_id` is a hash of. */
+export function canonicalEnvelopeRequest(req: EnvelopeRequest, asOf: string): EnvelopeRequest {
+  const parameter = ACTIONS[req.action.name].parameter?.name;
+  const value = parameter ? req.action.properties?.[parameter] : undefined;
+  const facts = req.context?.facts ?? {};
+  return {
+    subject: { type: req.subject.type },
+    action: { name: req.action.name, ...(parameter && value !== undefined ? { properties: { [parameter]: value } } : {}) },
+    resource: { type: 'property', id: req.resource.id },
+    context: {
+      as_of: asOf,
+      ...(facts.units !== undefined || facts.year_built !== undefined
+        ? { facts: { ...(facts.units !== undefined ? { units: facts.units } : {}), ...(facts.year_built !== undefined ? { year_built: facts.year_built } : {}) } }
+        : {})
+    }
+  };
+}
+
+/** One part of the parameter's range, with the decision check() gives at every value inside it. */
+export const EnvelopeIntervalSchema = z.strictObject({
+  from: z.number(), from_exclusive: z.boolean(),
+  /** Inclusive. */
+  to: z.number(),
+  decision: DecisionSchema,
+  /** True only for PASS and REQUIRE: no modeled constraint is violated inside the represented coverage. Not a statement of legality. */
+  permit: z.boolean(),
+  /** The rule whose verified bound ends this interval, with the words that state the bound. Null where the interval ends at the parameter's own maximum. */
+  bounding_rule_id: z.string().nullable(), bounding_citation: z.string().nullable(), bound_text: z.string().nullable()
+});
+export type EnvelopeInterval = z.infer<typeof EnvelopeIntervalSchema>;
+/** What holds across a region of a fact or of time: a decision when the request fixes the amount (or the action has none), else the amount intervals. */
+const EnvelopeOutcome = { decision: DecisionSchema.nullable(), intervals: z.array(EnvelopeIntervalSchema).nullable() };
+
+export const EnvelopeResponseSchema = z.strictObject({
+  /** 'env_' + sha256(canonical request + ruleset_version), first 16 hex characters. Reproducible; not a stored log entry. */
+  envelope_id: z.string().regex(/^env_[0-9a-f]{16}$/),
+  ruleset_version: z.string().regex(/^[0-9a-f]{12}$/),
+  as_of: IsoDateSchema,
+  /** Measured on the server for this request. */
+  evaluated_ms: z.number().nonnegative(),
+  /** How many times the decision function ran to build this envelope. */
+  evaluations: z.number().int(),
+  action: ActionNameSchema,
+  /** The decision at the requested point; null when the amount was left open. */
+  decision: DecisionSchema.nullable(),
+  /** The amount axis on `as_of` with the facts given. Null for an action without an amount. */
+  permitted: z.strictObject({
+    parameter: ParameterNameSchema, unit: z.string(),
+    /** The whole range of the amount, in order. */
+    intervals: z.array(EnvelopeIntervalSchema),
+    /** Null when some interval permits. 'bound_not_computable': nothing permits and some interval is REVIEW. 'prohibited': every interval is BLOCK. */
+    reason: z.enum(['bound_not_computable', 'prohibited']).nullable()
+  }).nullable(),
+  /** One entry per fact the record lacks and the answer depends on: the regions of that fact and what each yields. */
+  decides: z.array(z.strictObject({
+    fact: z.enum(SUPPLIABLE_FACTS),
+    /** Null `from` or `to` means unbounded on that side. Both ends inclusive. */
+    regions: z.array(z.strictObject({ from: z.number().nullable(), to: z.number().nullable(), ...EnvelopeOutcome }))
+  })),
+  /** Date intervals, in order, covering all time. Both ends inclusive; null means unbounded. `cause_*` name what starts the interval. */
+  timeline: z.array(z.strictObject({
+    from: IsoDateSchema.nullable(), to: IsoDateSchema.nullable(), current: z.boolean(), ...EnvelopeOutcome,
+    cause_rule_ids: z.array(z.string()), cause_label: z.string().nullable()
+  })),
+  /** Duties that attach inside the permitted part, on `as_of`. */
+  obligations: CheckResponseSchema.shape.obligations,
+  /** What cannot be settled on `as_of`. */
+  review: CheckResponseSchema.shape.review,
+  evidence: CheckResponseSchema.shape.evidence,
+  coverage: z.strictObject({ jurisdictions: z.array(z.string()), category: z.string(), known_gaps: z.array(z.string()) }),
+  /** Fixed text: how the envelope was computed and what "permitted" does not mean. */
+  limits: z.string(),
+  disclaimer: z.string()
+});
+export type EnvelopeResponse = z.infer<typeof EnvelopeResponseSchema>;
+export const ENVELOPE_LIMITS = 'Enumerated over the thresholds present in the compiled rules: verified constraint bounds, coverage thresholds and rule dates. Every part of the envelope is the decision check() returns there. Permitted means no modeled constraint is violated within the represented coverage; it does not mean legal. Conditional prohibitions and coverage gaps stay REVIEW.';
+
 export const ActionsResponseSchema = z.strictObject({
   actions: z.array(z.strictObject({
     name: z.string(), label: z.string(), category: z.string(), modeled: z.boolean(),
+    /** Whether POST /api/v1/envelope accepts this action. */
+    envelope: z.boolean(),
     parameter: z.strictObject({ name: ParameterNameSchema, label: z.string(), unit: z.string(), min: z.number(), min_exclusive: z.boolean(), max: z.number(), example: z.number() }).nullable()
   })),
   subjects: z.array(z.strictObject({ type: z.string(), label: z.string() })),

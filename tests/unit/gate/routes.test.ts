@@ -78,7 +78,7 @@ describe('GET /api/v1/actions', () => {
     expect(res.headers.get('cache-control')).toBe('no-store');
     const body = ActionsResponseSchema.parse(await res.json());
     expect(body.actions.slice(0, 3).every(a => a.modeled)).toBe(true);
-    expect(body.actions.slice(3)).toEqual(UNMODELED_CATEGORIES.map(u => ({ name: u.category, label: u.label, category: u.category, modeled: false, parameter: null })));
+    expect(body.actions.slice(3)).toEqual(UNMODELED_CATEGORIES.map(u => ({ name: u.category, label: u.label, category: u.category, modeled: false, envelope: false, parameter: null })));
     expect(body.subjects.map(s => s.type)).toEqual(['property_manager', 'owner', 'software_agent']);
     expect(body.disclaimer).toBe(DISCLAIMER);
   });
