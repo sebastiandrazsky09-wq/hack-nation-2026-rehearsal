@@ -77,6 +77,10 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
   const addressesApi = useApi<{ addresses: AddressRow[] }>('/api/addresses');
   const addresses = useMemo(() => addressesApi.data?.addresses ?? [], [addressesApi.data]);
 
+  // The decision on screen was computed while rendering the page. The API function behind every later change may be idle;
+  // asking it once now, in the background, means the first change a person makes is not the one that waits for it to start.
+  useEffect(() => { postCheck(startRequest).catch(() => undefined); }, [startRequest]);
+
   const liveKey = useMemo(() => keyOf(form), [form]);
   // Typed fields settle for 150 ms before they ask; choices and buttons call `change` with `now` and ask at once.
   useEffect(() => { const timer = setTimeout(() => setCommitted(liveKey), 150); return () => clearTimeout(timer); }, [liveKey]);

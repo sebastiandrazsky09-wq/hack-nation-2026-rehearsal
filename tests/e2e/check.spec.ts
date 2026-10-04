@@ -289,3 +289,20 @@ test('no horizontal scroll at 768, 1024, 1100 and 1280 in states with wide table
     }
   }
 });
+
+test('the page warms the check function once on load, with the request it shows, and nothing on screen changes', async ({ page }) => {
+  const problems = watch(page);
+  const sent: string[] = [];
+  page.on('request', r => { if (r.url().endsWith('/api/v1/check') && r.method() === 'POST') sent.push(r.postData() ?? ''); });
+  await page.goto('/');
+  const decision = await word(page).innerText();
+  const id = await page.getByTestId('decision-id').innerText();
+  await expect.poll(() => sent.length).toBe(1);
+  expect(JSON.parse(sent[0])).toEqual(JSON.parse(await page.getByTestId('payload-request').innerText()));
+  await page.waitForLoadState('networkidle');
+  expect(sent.length).toBe(1);
+  await expect(word(page)).toHaveText(decision);
+  await expect(page.getByTestId('decision-id')).toHaveText(id);
+  await expect(page.getByTestId('was')).toHaveCount(0);
+  expect(problems).toEqual([]);
+});
