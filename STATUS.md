@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 4 Oct 13:17 CEST · **Production serves the product as Mortise** (deployed 09:38 from `d6484f1`); the engine, CLI, files and repository keep the name Ordinal · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: tech video, public repository, HackOS. A pivot brief (`claude/pivot-envelope-decision.md`) was requested at 13:10 and is not on disk; no pivot work has started
+Updated: 4 Oct 13:45 CEST · **Production serves Mortise as the legal envelope** (deployed 13:41 from clean `f8b2c1a`): `POST /api/v1/envelope` and the Envelope section on Check; the decision endpoints and the scored outputs are unchanged; the engine, CLI and files keep the name Ordinal · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: re-record the demo video (the film in `submission/` shows the earlier gate screen), public repository, HackOS
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|
@@ -37,12 +37,25 @@ Updated: 4 Oct 13:17 CEST · **Production serves the product as Mortise** (deplo
 | Secret scan (`gitleaks git`) | no leaks | none | 21:50 | CONTROL |
 | Hardcoding scan of `src/` | no test ids, organizer ids, address ids or expected sets | none | 21:40 | CONTROL |
 | UI | the new product design (`docs/DESIGN.md`): `/` Check, `/portfolio`, `/record`, `/changes`, `/system` | judge-ready | 09:15 | CONTROL |
-| Deployment URL | **https://hack-nation-machine-rehearsal.vercel.app** serves Mortise (deployed 09:38 from clean `d6484f1`) | live | 09:45 | CONTROL |
+| Deployment URL | **https://hack-nation-machine-rehearsal.vercel.app** serves Mortise with the envelope (deployed 13:41 from clean `f8b2c1a`) | live | 13:45 | CONTROL |
 | Production health check | `/api/health` ok: 57 rules, 500 addresses; ruleset `70ebdca11f01` equal to the local store; 33 constraints verified, 3 withheld; a decision and the request sentence are in the first HTML of `/`; five security headers present | ok | 09:04 | CONTROL |
-| Production browser tests (fresh context, no login) | 77 / 77 pass against the production URL | pass | 09:43 | CONTROL |
+| Production browser tests (fresh context, no login) | 80 / 80 pass against the production URL on the envelope deployment `f8b2c1a` | pass | 13:45 | CONTROL |
 | Production answers vs `out/` files | 50 addresses (544 rows, result and conflict flag), 57 rule ids and T1 to T5 affected and conflict sets identical | identical | 09:40 | CONTROL |
 | Submission: public repo (held back on PO instruction), 3 videos, HackOS | demo film (59 s), nine-slide deck and one-page method note PDF are in `submission/` (not tracked); repo private, nothing pushed since 3 Oct; no tech video; HackOS not submitted | all | 13:17 | PO + CONTROL |
 | README, method note, demo and tech video scripts | written; README and method note open with the name Mortise and the live URL; `docs/Mortise-Method-Note.pdf` is one A4 page | done | 13:16 | CONTROL |
+
+## Envelope pivot (4 Oct, 13:24 to 13:45)
+The PO's brief (`claude/pivot-envelope-decision.md`, pasted at 13:23; it was never on disk) keeps the engine and changes the output type: instead of one verdict for one request, the permitted range, the deciding facts and the dates on which the answer changes. The decision endpoint stays as the same computation at one point.
+
+| | Result |
+|---|---|
+| Built | `src/gate/envelope.ts`: pure, runs the same `evaluate()` as `check()` over the amount, a fact the record lacks and the date; breakpoints are only verified constraint bounds, coverage thresholds and rule dates. `POST /api/v1/envelope` with the validation, body cap and error shape of `/check`; `envelope: true` in `GET /api/v1/actions`. Check screen: an Envelope section (Permitted, Decides, Until) under the decision; an empty amount shows the envelope alone; an Envelope tab with the curl in the request panel; an Envelope line on `/system`; the title reads "Mortise · The legal envelope" and the first screen no longer says "gate" |
+| Where the brief did not match the store | It expected a Newark deposit to turn on the unit count and Newark pricing to become BLOCK on 1 Jul 2027. Newark is REVIEW at every date and amount for a known source gap, and the FAIR Act's verified quote makes its ban conditional, so it is REVIEW, not BLOCK. The tests and the demo script use what the store yields: a Jersey City deposit (units decides; with units, up to 1.5 months under N.J.S.A. 46:8-21.2), the New Jersey application-fee cap (any amount until 30 Apr 2026, up to $50 from 1 May 2026) and Los Angeles pricing (PASS until 31 Dec 2025, REVIEW from 1 Jan 2026). One addition the brief did not have: the year a figure is stated for is a time breakpoint (Berkeley's fee figure is stated for 2026), otherwise the timeline would have been wrong there |
+| Tests | 268 unit (8 new) and 80 browser (3 new). The consistency test takes every fifth property and each action, with the amount open, with it fixed, and with a supplied unit count, samples both ends and the middle of every reported interval on all three axes (more than 2,000 points) and requires `check()` to give the interval's decision; a permitted amount never has an unresolved point |
+| Protected outputs | the five hashes equal the baseline; `ordinal demo`: 0 model calls, selfcheck passed; `git diff out/ store/` empty; `verify` 0 problems |
+| Production, 13:42 to 13:45 | 80 of 80 browser tests against the production URL; health ok, ruleset `70ebdca11f01`, five security headers, the envelope in the first HTML of `/`; envelope answers read from production match the local ones; same request twice gives the same `envelope_id`; demo rehearsal 3 of 3 identical with the decision id it had before the pivot; server time for one envelope under 1 ms, 8 to 28 evaluations |
+| Cut, as the brief says | Portfolio envelope column, signed receipts, a second domain, obligations with deadlines |
+| Stale after the pivot | `submission/Mortise-Demo.mp4` and the deck were made from the gate screen at 09:45. The new 60-second sequence is in `docs/DEMO.md` |
 
 ## Legal gate build (4 Oct)
 Goal: a deterministic decision layer over the unchanged engine: `check(subject, action, resource, context) -> PASS | BLOCK | REQUIRE | REVIEW` with determining rules, trace and quoted evidence. Three actions (algorithmic rent-setting, security deposit, application fee). The engine, the rule store and the scored outputs are protected.
