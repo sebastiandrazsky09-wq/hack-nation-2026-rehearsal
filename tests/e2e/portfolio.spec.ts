@@ -354,7 +354,9 @@ test.describe('page health', () => {
     await page.goto('/portfolio');
     await expect(page.getByText('Not legal advice').first()).toBeVisible();
     await expect(page.getByRole('navigation', { name: 'Views' }).getByRole('link', { name: 'Portfolio', exact: true })).toHaveAttribute('aria-current', 'page');
-    await expect(page.getByRole('heading', { level: 2, name: 'Portfolio' })).toBeVisible();
-    await expect(page.getByText('One action checked against every property in the registry on one date.')).toBeVisible();
+    await expect(page.getByRole('heading', { level: 2, name: 'Portfolio' })).toHaveCount(1);
+    // The page opens with the request as a sentence: the action, every property in the registry, the date.
+    await expect(page.getByLabel('Action')).toBeVisible();
+    await expect(page.getByText(/at all \d+ properties on/)).toBeVisible();
   });
 });

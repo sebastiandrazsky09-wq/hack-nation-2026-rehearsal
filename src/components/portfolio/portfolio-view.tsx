@@ -3,7 +3,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { ACTIONS, ACTION_NAMES, type ActionName, type CheckBatchResponse, type ErrorBody } from '../../gate/contract';
 import { postChecks } from '../gate-client';
 import { DecisionMark } from '../decision-mark';
-import { shortDate } from '../labels';
+import { longDate, shortDate } from '../labels';
 import { PortfolioGrid } from './portfolio-grid';
 import { PortfolioTable } from './portfolio-table';
 import {
@@ -115,82 +115,109 @@ export function PortfolioView({ initial }: { initial: PortfolioInitial }) {
   const data = view?.data;
   const points = data ? visiblePoints(data.change_points, data.as_of, showAllPoints) : [];
 
+  const lower = (text: string) => text.charAt(0).toLowerCase() + text.slice(1);
   return (
-    <main className="page main pf">
-      <div className="view-lead">
-        <h2>Portfolio</h2>
-        <p>One action checked against every property in the registry on one date.</p>
-      </div>
+    <main className="page pf">
+      <h2 className="sep-hidden">Portfolio</h2>
+      <div className="pf-top">
+        <div className="pf-lead">
+          <section className="ck-step">
+            <h3 className="ck-label">Proposed action</h3>
+            <div>
+              {/* One action, every property in the registry, one date: the same sentence as a single check. */}
+              <div className="ck-sentence">
+                <div className="ck-line">
+                  <label className="sep-hidden" htmlFor={ids.action}>Action</label>
+                  <select id={ids.action} className="ck-token" value={action} onChange={e => chooseAction(e.target.value as ActionName)}>
+                    {ACTION_NAMES.map(n => <option key={n} value={n}>{lower(ACTIONS[n].short)}</option>)}
+                  </select>
+                  {spec.parameter && (
+                    <span className="ck-nowrap">
+                      {' '}<span className="ck-w">of</span>{' '}
+                      <label className="sep-hidden" htmlFor={ids.param}>{spec.parameter.label} ({spec.parameter.unit})</label>
+                      <input
+                        id={ids.param} type="text" inputMode="decimal" autoComplete="off" value={param} onChange={e => setParam(e.target.value)} style={{ width: `${Math.max(1, param.length) + 0.3}ch` }}
+                        aria-invalid={paramText ? true : undefined} aria-describedby={paramText ? `${ids.param}-issue` : undefined} className="ck-token ck-number pf-narrow"
+                      />
+                      {' '}<span className="ck-w">{spec.parameter.unit}</span>
+                    </span>
+                  )}
+                </div>
+                <div className="ck-line">
+                  <span className="ck-w">at {data ? `all ${data.evaluated} properties` : 'every property'} on</span>{' '}
+                  <span className="ck-date">
+                    <span aria-hidden className="ck-token ck-date-text">{dateText ? 'a date' : longDate(asOf)}</span>
+                    <label className="sep-hidden" htmlFor={ids.date}>As of</label>
+                    <input
+                      id={ids.date} type="date" value={asOf} onChange={e => setAsOf(e.target.value)}
+                      aria-invalid={dateText ? true : undefined} aria-describedby={dateText ? `${ids.date}-issue` : undefined}
+                    />
+                  </span>
+                  <span className="ck-w ck-stop">.</span>
+                </div>
+              </div>
+              {paramText && <p id={`${ids.param}-issue`} className="pf-issue">{paramText}</p>}
+              {dateText && <p id={`${ids.date}-issue`} className="pf-issue">{dateText}</p>}
+              {spec.label !== spec.short && <p className="ck-fine ck-definition">Checked as: {lower(spec.label)}.</p>}
+            </div>
+          </section>
 
-      <div className="pf-controls">
-        <div className="pf-field pf-field-action">
-          <label htmlFor={ids.action}>Action</label>
-          <select id={ids.action} value={action} onChange={e => chooseAction(e.target.value as ActionName)}>
-            {ACTION_NAMES.map(n => <option key={n} value={n}>{ACTIONS[n].label}</option>)}
-          </select>
+          {failure && <p role="alert" className="pf-alert">{failure.message}</p>}
+
+          {data && (
+            <section className="ck-step pf-summary" aria-labelledby={`${ids.action}-d`}>
+              <h3 id={`${ids.action}-d`} className="ck-label">Decisions</h3>
+              <div>
+                <div className="pf-counts" data-testid="pf-counts">
+                  {ORDER.map(d => (
+                    <div key={d} className={`pf-count pf-count-${d}${data.counts[d] === 0 ? ' pf-count-zero' : ''}`} data-testid={`pf-count-${d}`}>
+                      <span className="pf-figure" data-testid="pf-count-n">{data.counts[d]}</span>
+                      <span className="pf-word"><DecisionMark decision={d} size={13} />{d}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="pf-meta" data-testid="pf-meta">
+                  {data.evaluated} properties checked in {data.evaluated_ms.toFixed(1)} ms, ruleset <span className="pf-version">{data.ruleset_version}</span>.
+                </p>
+                {changed && (
+                  <p className="pf-changed-line" role="status" data-testid="pf-changed">
+                    {changed.n === 0 ? 'No property changed' : `${changed.n} ${changed.n === 1 ? 'property' : 'properties'} changed`} between {side(changed.before, changed.after)} and {side(changed.after, changed.before)}.
+                  </p>
+                )}
+              </div>
+            </section>
+          )}
+
         </div>
-        {spec.parameter && (
-          <div className="pf-field">
-            <label htmlFor={ids.param}>{spec.parameter.label} ({spec.parameter.unit})</label>
-            <input
-              id={ids.param} type="text" inputMode="decimal" autoComplete="off" value={param} onChange={e => setParam(e.target.value)}
-              aria-invalid={paramText ? true : undefined} aria-describedby={paramText ? `${ids.param}-issue` : undefined} className="pf-narrow"
-            />
-            {paramText && <p id={`${ids.param}-issue`} className="pf-issue">{paramText}</p>}
+
+        {points.length > 0 && data && (
+          <aside className="pf-rail" aria-label="Dates when the law changes">
+            <h3 className="ck-label">Over time</h3>
+            <div className="pf-points" role="group" aria-label="Dates when the law changes">
+              {points.map(p => (
+                <button key={`${p.date}-${p.label}`} type="button" className="pf-point" aria-pressed={p.date === asOf} onClick={() => setAsOf(p.date)} aria-label={pointLabel(p)}>
+                  <span className="pf-point-date">{pointLabel(p).split(': ')[0]}</span><span className="sep-hidden">: </span>
+                  <span>{pointLabel(p).split(': ').slice(1).join(': ')}</span>
+                </button>
+              ))}
+              {data.change_points.length > MAX_POINTS && (
+                <button type="button" className="pf-all" aria-expanded={showAllPoints} onClick={() => setShowAllPoints(v => !v)}>
+                  {showAllPoints ? `Show the nearest ${MAX_POINTS}` : `Show all ${data.change_points.length}`}
+                </button>
+              )}
+            </div>
+          </aside>
+        )}
+
+        {view && (
+          <div className={`pf-body${dim ? ' pf-dim' : ''}`} aria-busy={loading}>
+            <PortfolioGrid rows={view.data.results} request={view.key} flash={flash} />
           </div>
         )}
-        <div className="pf-field">
-          <label htmlFor={ids.date}>As of</label>
-          <input
-            id={ids.date} type="date" value={asOf} onChange={e => setAsOf(e.target.value)}
-            aria-invalid={dateText ? true : undefined} aria-describedby={dateText ? `${ids.date}-issue` : undefined}
-          />
-          {dateText && <p id={`${ids.date}-issue`} className="pf-issue">{dateText}</p>}
-        </div>
       </div>
 
-      {points.length > 0 && data && (
-        <div className="pf-points" role="group" aria-label="Dates when the law changes" style={{ '--pf-rows': Math.ceil((points.length + (data.change_points.length > MAX_POINTS ? 1 : 0)) / 2) } as React.CSSProperties}>
-          {points.map(p => (
-            <button key={`${p.date}-${p.label}`} type="button" className="pf-point" aria-pressed={p.date === asOf} onClick={() => setAsOf(p.date)} aria-label={pointLabel(p)}>
-              <span className="pf-point-date">{pointLabel(p).split(': ')[0]}</span><span className="sep-hidden">: </span>
-              <span>{pointLabel(p).split(': ').slice(1).join(': ')}</span>
-            </button>
-          ))}
-          {data.change_points.length > MAX_POINTS && (
-            <button type="button" className="pf-all" aria-expanded={showAllPoints} onClick={() => setShowAllPoints(v => !v)}>
-              {showAllPoints ? `Show the nearest ${MAX_POINTS}` : `Show all ${data.change_points.length}`}
-            </button>
-          )}
-        </div>
-      )}
-
-      {failure && <p role="alert" className="pf-alert">{failure.message}</p>}
-
-      {data && (
-        <div className="pf-summary">
-          <div className="pf-counts" data-testid="pf-counts">
-            {ORDER.map(d => (
-              <div key={d} className="pf-count" data-testid={`pf-count-${d}`}>
-                <span className="pf-figure"><DecisionMark decision={d} size={16} /><span data-testid="pf-count-n">{data.counts[d]}</span></span>
-                <span className={`pf-word dword-${d}`}>{d}</span>
-              </div>
-            ))}
-          </div>
-          <p className="pf-meta" data-testid="pf-meta">
-            {data.evaluated} properties checked in {data.evaluated_ms.toFixed(1)} ms, ruleset <span className="pf-version">{data.ruleset_version}</span>.
-          </p>
-          {changed && (
-            <p className="pf-changed-line" role="status" data-testid="pf-changed">
-              {changed.n === 0 ? 'No property changed' : `${changed.n} ${changed.n === 1 ? 'property' : 'properties'} changed`} between {side(changed.before, changed.after)} and {side(changed.after, changed.before)}.
-            </p>
-          )}
-        </div>
-      )}
-
       {view ? (
-        <div className={`pf-body${dim ? ' pf-dim' : ''}`} aria-busy={loading}>
-          <PortfolioGrid rows={view.data.results} request={view.key} flash={flash} />
+        <div className={`pf-list${dim ? ' pf-dim' : ''}`}>
           <PortfolioTable rows={view.data.results} counts={view.data.counts} request={view.key} />
         </div>
       ) : (

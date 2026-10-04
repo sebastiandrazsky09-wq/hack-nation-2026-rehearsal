@@ -13,11 +13,11 @@ export const NAV: { href: string; name: string; short?: string }[] = [
 ];
 
 function Logo() {
+  // The mark is the gate itself: a square with an opening.
   return (
-    <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden focusable={false}>
-      <path d="M3 7h16M8 11.5h11M13 16h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.55" />
-      <path d="M11 3.5v15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="11" cy="3.5" r="2.2" fill="currentColor" />
+    <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden focusable={false}>
+      <rect x="0" y="0" width="18" height="18" rx="4" fill="currentColor" />
+      <rect x="7.75" y="4" width="2.5" height="10" rx="1.25" fill="#fff" />
     </svg>
   );
 }

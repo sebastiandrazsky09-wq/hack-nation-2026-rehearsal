@@ -59,7 +59,8 @@ test('the decision is in the first HTML and equals the API answer for the reques
   expect(shown).not.toBeNull();
   const panel = html.match(/<pre data-testid="payload-request">([\s\S]*?)<\/pre>/);
   expect(panel).not.toBeNull();
-  const sent = JSON.parse(unescape(panel![1]));
+  // The panel colours the JSON with spans; the text between them is the request, character for character.
+  const sent = JSON.parse(unescape(panel![1].replace(/<[^>]+>/g, '')));
   const api = await request.post('/api/v1/check', { data: sent });
   expect(api.status()).toBe(200);
   expect((await api.json()).decision).toBe(shown![1]);
@@ -99,8 +100,8 @@ test('a missing fact is supplied inline and the answer, the facts row and the UR
   await input.press('Enter');
   const expected = await post(request, bodyFor(action, id, DATE, { units: 24 }));
   await expect(word(page)).toHaveText(expected.decision);
-  await expect(page.locator('tr[data-fact="units"]')).toContainText('supplied by you');
-  await expect(page.locator('tr[data-fact="units"]')).toContainText('24');
+  await expect(page.locator('.ck-facts [data-fact="units"]')).toContainText('supplied by you');
+  await expect(page.locator('.ck-facts [data-fact="units"]')).toContainText('24');
   await expect.poll(() => new URL(page.url()).searchParams.get('units')).toBe('24');
   await expect(page.getByTestId('decision-id')).toHaveText(expected.decision_id);
   expect(problems).toEqual([]);
@@ -140,14 +141,16 @@ test('a change point changes the decision and the block says what it was', async
 test('the request shown posts to the same decision id the page shows', async ({ page, request }) => {
   const problems = watch(page);
   await page.goto('/');
-  await page.getByTestId('payload').locator('summary').click();
-  await page.getByRole('tab', { name: 'JSON' }).click();
+  // The call is shown beside the decision without opening anything.
+  await expect(page.getByTestId('payload-request')).toBeVisible();
   const sent = JSON.parse(await page.getByTestId('payload-request').innerText());
+  await page.getByRole('tab', { name: 'Response' }).click();
+  expect(JSON.parse(await page.getByTestId('payload-response').innerText()).decision_id).toBe(await page.getByTestId('decision-id').innerText());
   const res = await post(request, sent);
   await expect(page.getByTestId('decision-id')).toHaveText(res.decision_id);
   await page.getByRole('tab', { name: 'curl' }).click();
   await expect(page.getByTestId('payload-curl')).toContainText('/api/v1/check');
-  await expect(page.getByTestId('payload')).toContainText('Rental housing is the first policy domain. The request and response shapes are domain-neutral.');
+  await expect(page.getByText('Rental housing is the first policy domain. The request and response shapes are domain-neutral.')).toBeVisible();
   expect(problems).toEqual([]);
 });
 
@@ -200,9 +203,9 @@ test('keyboard: tab order through the form, the action changes by key, Enter re-
   await page.keyboard.press('Tab');
   expect(await focused()).toMatchObject({ id: 'ck-action', outline: true });
   await page.keyboard.press('Tab');
-  expect(await focused()).toMatchObject({ text: 'property record', outline: true });
-  await page.keyboard.press('Tab');
   expect(await focused()).toMatchObject({ id: 'ck-property', outline: true });
+  await page.keyboard.press('Tab');
+  expect(await focused()).toMatchObject({ id: 'ck-as-of', outline: true });
   await page.keyboard.press('Shift+Tab'); await page.keyboard.press('Shift+Tab');
 
   // Change the action by key.
@@ -224,16 +227,15 @@ test('keyboard: tab order through the form, the action changes by key, Enter re-
   expect(problems).toEqual([]);
 });
 
-test('390px: no horizontal scroll, the decision word is in the first screen, the form opens in place', async ({ page }) => {
+test('390px: no horizontal scroll, the request sentence and the decision word are both in the first screen', async ({ page }) => {
   const problems = watch(page);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   const box = await word(page).boundingBox();
   expect(box!.y + box!.height).toBeLessThan(844);
-  await expect(page.locator('#ck-form')).toBeHidden();
-  await page.getByRole('button', { name: 'Edit' }).click();
   await expect(page.locator('#ck-form')).toBeVisible();
   await expect(page.locator('#ck-subject')).toBeVisible();
+  await expect(page.locator('#ck-property')).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
   for (const width of [768, 1024]) {
     await page.setViewportSize({ width, height: 900 });
