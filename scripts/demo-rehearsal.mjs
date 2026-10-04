@@ -115,7 +115,11 @@ for (let n = 1; n <= runs; n++) {
 }
 await browser.close();
 const identical = outcomes.length === runs && outcomes.every(o => o.replace(/dec_[0-9a-f]+/g, '') === outcomes[0].replace(/dec_[0-9a-f]+/g, ''));
-const slowest = timings.reduce((m, t) => Math.max(m, t.ms), 0);
+// The limit is on the server's own evaluation time, which the response reports. The round trip adds the network between
+// this machine and the server (and a cold start, if there is one), so it is reported, not judged.
+const trips = timings.map(t => t.ms).sort((x, y) => x - y);
+const slowest = trips[trips.length - 1] ?? 0;
+const median = trips[Math.floor(trips.length / 2)] ?? 0;
 const slowestServer = timings.reduce((m, t) => Math.max(m, t.server_ms ?? 0), 0);
-console.log(`${outcomes.length} of ${runs} runs passed; identical across runs: ${identical}; ${timings.length} gate calls, slowest round trip ${slowest.toFixed(0)} ms, slowest server evaluation ${slowestServer.toFixed(1)} ms (limit ${LIMIT_MS} ms)`);
-process.exit(failed || !identical || slowest > LIMIT_MS ? 1 : 0);
+console.log(`${outcomes.length} of ${runs} runs passed; identical across runs: ${identical}; ${timings.length} gate calls; server evaluation at most ${slowestServer.toFixed(1)} ms (limit ${LIMIT_MS} ms); round trip median ${median.toFixed(0)} ms, slowest ${slowest.toFixed(0)} ms`);
+process.exit(failed || !identical || slowestServer > LIMIT_MS ? 1 : 0);
