@@ -57,7 +57,7 @@ export function judgeConstraints(rule: DecideRule['rule'], constraints: Constrai
     if (c.effect === 'prohibit') {
       findings.push(c.elements_untestable === null
         ? { kind: 'violated', constraint: c, detail: `${rule.citation} prohibits this action.` }
-        : { kind: 'review', code: 'conditional_prohibition', constraint: c, detail: `A ban that holds only together with elements the gate cannot observe: ${c.elements_untestable}.` });
+        : { kind: 'review', code: 'conditional_prohibition', constraint: c, detail: `A ban that holds only together with elements the engine cannot observe: ${c.elements_untestable}.` });
     } else if (c.effect === 'limit') findings.push(judgeLimit(c, action, value, asOf));
     else if (c.effect === 'obligation') findings.push({ kind: 'obligation', constraint: c, detail: c.obligation_text ?? rule.requirement });
   }
