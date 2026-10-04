@@ -58,6 +58,22 @@ Goal: a deterministic decision layer over the unchanged engine: `check(subject, 
 | T1 to T5 (affected / conflict-flagged) | 250/0 · 40/40 · 140/40 · 110/0 · 0/0 |
 | Supplemental New Jersey sources (5.6) | not present locally; requested from the PO at 01:56 |
 
+| Gate build, state at 02:25 | Result |
+|---|---|
+| Contract | `src/gate/contract.ts` frozen at 02:00: request, response, constraint record, three actions |
+| Constraint compile step (`ordinal constrain`) | 21 rules in the three action categories; **33 constraints verified, 3 withheld**. First live pass was read record by record and re-run with a stricter verifier after it produced unsafe records (a conditional two-month cap read as the general cap; a renewal-fee ban read as an application-fee ban; a table row accepted as a duty; adjustable caps read as fixed). The three withheld are lead rejections in `store/constraints.review.json`. Replays offline with 0 model calls and an identical file |
+| Cut line 05:30 (deposit and fee constraints verified) | met at 02:10; the fallback was not needed |
+| Decision layer | `decide()` pure, every branch tested; `check()`, `checkBatch()`; `POST /api/v1/check`, `POST /api/v1/checks`, `GET /api/v1/actions`, `GET /api/v1/system` |
+| What the verified data decides (2026-10-01) | Pricing-algorithm action over 500 properties: BLOCK 130 (San Francisco, San Diego), REVIEW 260, PASS 110 (Massachusetts: pending bills only). The FAIR Act and the Hoboken ban come out as REVIEW (their verified quotes make the ban depend on coordination or agreement), not BLOCK. Deposit of 2 months: BLOCK 110, REVIEW 390 (249 BLOCK once a missing unit count is supplied) |
+| Known gaps (force REVIEW, never PASS) | Jersey City algorithmic ban (named by change test T2, no source); Newark and Hoboken in every gated category where no rule is stored and none of their listed sources could be read |
+| Batch time | about 10 ms for 500 properties, measured in process |
+| Adversarial tests | every property x 3 actions x 4 dates (and again with a supplied unit count): no permit with an unknown rule, an unmodeled or prohibiting applying rule, a conflict or a known gap; only rules in force determine; conflicts never disappear; served constraints are literal slices and their figures parse; caller facts never override the record; decision ids are stable |
+| Security | CSP and four other headers on every response; source links only for http and https; POST bodies capped at 16 KB with JSON errors that carry no stack or path; `gitleaks git`: no leaks; `npm audit`: 0 vulnerabilities |
+| Protected paths | the five hashes above unchanged after every merge. `src/ordinal/cli.ts` gained one dispatch entry for `constrain`; nothing else under `src/ordinal/` changed |
+| Tests | 259 unit, 47 browser, build passing |
+| Screens | routes `/record`, `/changes`, `/system` merged; Check (`/`) and Portfolio (`/portfolio`) in build |
+| Residue removed | Supabase dependencies, starter contract file, T6 and hour-16 text (the pack names T1 to T5 only) |
+
 No answer key or scorer exists. Every "pass" above means our general engine produced the set described; none is measured against the organizers' expectations.
 
 ## Checkpoint `9307f31` → `8a5962e`
