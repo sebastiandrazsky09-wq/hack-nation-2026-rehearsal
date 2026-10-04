@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 4 Oct 02:15 CEST · Legal-gate build in progress on `integration`; fallback release tagged `baseline-19665a3`; production still serves `6c16f09` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00)
+Updated: 4 Oct 03:08 CEST · Legal gate built and gated on `integration`; **not deployed**, waiting for PO approval of the screenshots; production still serves `6c16f09`; fallback release tagged `baseline-19665a3` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00)
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|
@@ -70,8 +70,13 @@ Goal: a deterministic decision layer over the unchanged engine: `check(subject, 
 | Adversarial tests | every property x 3 actions x 4 dates (and again with a supplied unit count): no permit with an unknown rule, an unmodeled or prohibiting applying rule, a conflict or a known gap; only rules in force determine; conflicts never disappear; served constraints are literal slices and their figures parse; caller facts never override the record; decision ids are stable |
 | Security | CSP and four other headers on every response; source links only for http and https; POST bodies capped at 16 KB with JSON errors that carry no stack or path; `gitleaks git`: no leaks; `npm audit`: 0 vulnerabilities |
 | Protected paths | the five hashes above unchanged after every merge. `src/ordinal/cli.ts` gained one dispatch entry for `constrain`; nothing else under `src/ordinal/` changed |
-| Tests | 259 unit, 47 browser, build passing |
-| Screens | routes `/record`, `/changes`, `/system` merged; Check (`/`) and Portfolio (`/portfolio`) in build |
+| Tests at 02:25 | 259 unit, 47 browser, build passing |
+| Screens | `/` Check (a real decision in the first HTML), `/portfolio`, `/record`, `/changes`, `/system` with compile and decision planes; legacy `?tab=` and `?address=` links still land where they did |
+| Visual passes | three, with written critiques (`docs/handoffs/gate-visual-passes.md`); state sweep of 19 states at 1440, 1024 and 390: no overflow, no console error |
+| Demo rehearsal (`scripts/demo-rehearsal.mjs`) | 5 of 5 runs pass on the production build, identical; every step checked against the API; slowest gate round trip 33 ms |
+| Final gate at 03:06 | 260 unit, 76 browser, build, `ordinal demo` with 0 changed files, `constrain --offline` with 0 model calls, `verify` 0 problems, protected hashes equal to baseline, `gitleaks` no leaks, `npm audit` 0 |
+| Cut | `/developers` page (the three endpoints are live and shown through the request panel and `GET /api/v1/actions`); optional engine fact extension 5.5. Nothing from the demo was cut |
+| What the demo shows instead of the brief's guess | step 2 uses Los Angeles (PASS before AB 325 takes effect, REVIEW after) because Newark is REVIEW for a source gap at every date; step 3 uses Jersey City because Newark deposits also sit in that gap; the portfolio step compares 6 Oct 2025 with 1 Jan 2026 (80 properties change) |
 | Residue removed | Supabase dependencies, starter contract file, T6 and hour-16 text (the pack names T1 to T5 only) |
 
 No answer key or scorer exists. Every "pass" above means our general engine produced the set described; none is measured against the organizers' expectations.

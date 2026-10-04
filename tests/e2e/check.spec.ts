@@ -264,3 +264,21 @@ test('desktop and phone screenshots of the Check screen', async ({ page }) => {
   await expect(word(page)).toBeVisible();
   await page.screenshot({ path: 'test-results/check-phone.png', fullPage: true });
 });
+
+test('no horizontal scroll at 768, 1024, 1100 and 1280 in states with wide tables', async ({ page, request }) => {
+  const { addresses } = await (await request.get('/api/addresses')).json() as { addresses: { address_id: string; legal_city: string | null }[] };
+  const pick = (city: string) => addresses.find(a => a.legal_city === city)!.address_id;
+  const urls = [
+    `/?action=set_rent_with_pricing_algorithm&property=${pick('Hoboken, NJ')}&as_of=2026-10-01`,
+    `/?action=collect_security_deposit&property=${pick('Boston, MA')}&as_of=2026-10-01&amount=1`,
+    `/?action=charge_application_fee&property=${pick('Berkeley, CA')}&as_of=2026-10-01&fee=75`
+  ];
+  for (const width of [768, 1024, 1100, 1280]) {
+    await page.setViewportSize({ width, height: 800 });
+    for (const url of urls) {
+      await page.goto(url);
+      await expect(page.getByTestId('decision-word')).toBeVisible();
+      expect(await page.evaluate(() => document.documentElement.scrollWidth), `${width}px ${url}`).toBeLessThanOrEqual(width);
+    }
+  }
+});

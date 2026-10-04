@@ -143,15 +143,8 @@
 .ck-frame pre + pre { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
 
 /* 960px and below: one column, the form behind an Edit button, tables as stacked rows */
-@media (max-width: 960px) {
-  .ck-page { grid-template-columns: minmax(0, 1fr); }
-  .ck-recap { display: block; padding: 10px 0 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
-  .ck-recap p { font-size: 15px; }
-  .ck-recap p:first-child { font-weight: 600; }
-  .ck-recap p + p { color: var(--muted); font-size: 13px; }
-  .ck-recap .button-quiet { margin-top: 8px; }
-  .ck-form { display: none; margin-bottom: 20px; }
-  .ck-form[data-open="true"] { display: block; }
+/* The determining table needs about 660px. Below a 1100px page the decision column is narrower than that, so its rows stack. */
+@media (max-width: 1100px) {
   .ck-table, .ck-table tbody, .ck-table tr, .ck-table td { display: block; }
   .ck-table thead { display: none; }
   .ck-table tr { padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
@@ -162,6 +155,16 @@
   .ck-table tr.ck-has-proof { border-bottom: 0; padding-bottom: 0; }
   .ck-table tr.ck-proof-row { padding-top: 0; }
   .ck-table tr.ck-proof-row > td::before, .ck-proof-pad { display: none; }
+}
+@media (max-width: 960px) {
+  .ck-page { grid-template-columns: minmax(0, 1fr); }
+  .ck-recap { display: block; padding: 10px 0 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .ck-recap p { font-size: 15px; }
+  .ck-recap p:first-child { font-weight: 600; }
+  .ck-recap p + p { color: var(--muted); font-size: 13px; }
+  .ck-recap .button-quiet { margin-top: 8px; }
+  .ck-form { display: none; margin-bottom: 20px; }
+  .ck-form[data-open="true"] { display: block; }
   .ck-step { grid-template-columns: 96px minmax(0, 1fr); }
   .ck-step span:nth-child(3) { grid-column: 1 / -1; }
 }
