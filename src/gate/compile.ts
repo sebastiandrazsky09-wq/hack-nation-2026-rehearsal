@@ -92,7 +92,8 @@ function readReview(file: string): ReviewFile {
   return existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) as ReviewFile : { rejected: [] };
 }
 
-type CacheFile = { key: string; model: string; prompt_version: string; proposal: Proposal; repairs: Record<string, string | null> };
+// `input_hash` is a sha256 of everything the proposal depends on: prompt version, model, rule, action and source window.
+type CacheFile = { input_hash: string; model: string; prompt_version: string; proposal: Proposal; repairs: Record<string, string | null> };
 const cachePath = (dir: string, ruleId: string) => path.join(dir, `${ruleId}.json`);
 function readCache(dir: string, ruleId: string): CacheFile | null {
   const file = cachePath(dir, ruleId);
@@ -199,12 +200,12 @@ export async function runConstrain(options: ConstrainOptions = {}, deps: Constra
       const window = sourceWindow(doc, rule);
       const key = sha(JSON.stringify([CONSTRAINT_PROMPT_VERSION, modelName, rule.team_rule_id, action.name, rule.quoted_span, sha(window)]));
       let cache = options.force ? null : readCache(cacheDir, rule.team_rule_id);
-      if (cache && cache.key !== key) cache = null;
+      if (cache && cache.input_hash !== key) cache = null;
       if (!cache) {
         if (options.offline) throw new Error('no cached proposal for this rule; run without --offline');
         const proposal = await getClient().ask(SYSTEM, userPrompt(action, rule, window), ProposalSchema);
         report.model_calls++;
-        cache = { key, model: modelName, prompt_version: CONSTRAINT_PROMPT_VERSION, proposal, repairs: {} };
+        cache = { input_hash: key, model: modelName, prompt_version: CONSTRAINT_PROMPT_VERSION, proposal, repairs: {} };
       }
       const out = { constraints: [] as Constraint[], withheld: [] as WithheldConstraint[] };
       for (const p of cache.proposal.constraints) {

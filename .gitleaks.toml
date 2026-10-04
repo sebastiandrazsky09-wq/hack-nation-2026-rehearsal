@@ -1,0 +1,13 @@
+title = "ordinal"
+
+[extend]
+useDefault = true
+
+# Earlier commits of the constraint cache stored a sha256 of the step's inputs under the name "key".
+# It is a content hash, not a credential; the field is now called input_hash.
+[[allowlists]]
+description = "sha256 input hash in the constraint cache files"
+condition = "AND"
+regexTarget = "line"
+regexes = ['''"key": "[0-9a-f]{64}"''']
+paths = ['''store/constraints/[A-Za-z0-9-]+\.json''']

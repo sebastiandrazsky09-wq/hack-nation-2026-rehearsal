@@ -1,5 +1,5 @@
 {
- "key": "ce36d230b36e4e46ec21e983637b1773474dcc4511ce331e94bf60eba27fa86d",
+ "input_hash": "ce36d230b36e4e46ec21e983637b1773474dcc4511ce331e94bf60eba27fa86d",
  "model": "claude-sonnet-5-5",
  "prompt_version": "gate-constrain-v2",
  "proposal": {
