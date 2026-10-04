@@ -77,8 +77,8 @@ export function PipelinePanel() {
   return (
     <div className="method">
       <div className="view-lead">
-        <h2>How it was produced</h2>
-        <p>Every answer comes from fixed steps. A language model only reads documents and proposes rules; it never decides whether a rule applies, and nothing it writes reaches an answer unchecked.</p>
+        <h3 className="section-title">How the rule store was produced</h3>
+        <p>Fixed steps, rebuilt byte for byte from the committed store with no model call.</p>
       </div>
 
       <ol data-testid="pipeline-steps" className="steps">

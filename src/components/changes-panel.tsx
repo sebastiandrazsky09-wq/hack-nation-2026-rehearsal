@@ -86,7 +86,11 @@ function CaseBlock({ c, cityOf, ruleOf, onOpen, notes }: {
   const caseDate = [...c.dates].sort().at(-1) ?? '';
   const present = new Set(Object.values(c.counts).flatMap(row => Object.keys(row)));
   const results = [...RESULT_ORDER.filter(r => present.has(r)), ...[...present].filter(r => !RESULT_ORDER.includes(r))];
-  const rules = c.selected.flatMap(s => s.team_rule_ids).map(id => ruleOf.get(id)).filter((r): r is RuleView => r !== undefined);
+  // Two selectors can resolve to the same rule (both pending bills of one state match either proposal label): each rule is listed once.
+  const selectorsOf = new Map<string, string[]>();
+  for (const s of c.selected) for (const id of s.team_rule_ids) selectorsOf.set(id, [...(selectorsOf.get(id) ?? []), s.selector]);
+  const ruleIds = [...selectorsOf.keys()];
+  const rules = ruleIds.map(id => ruleOf.get(id)).filter((r): r is RuleView => r !== undefined);
   return (
     <section data-testid="change-case" data-test-id={c.test_id} className="case">
       <header className="case-head">
@@ -108,14 +112,13 @@ function CaseBlock({ c, cityOf, ruleOf, onOpen, notes }: {
         <div className="case-evidence">
           {rules.length > 0 && <CaseTimeline dates={c.dates} rules={rules} />}
           <ul className="case-rules">
-            {c.selected.map(s => (
-              <li key={s.selector}>
-                {s.team_rule_ids.length > 0
-                  ? s.team_rule_ids.map(id => (
-                    <span key={id} className="case-rule-name">{ruleOf.get(id)?.title ?? id}<span className="case-rule-id">{ruleOf.get(id)?.jurisdiction ? `${ruleOf.get(id)!.jurisdiction}, ` : ''}{id}, matched from {s.selector}</span></span>
-                  ))
-                  : <span data-testid="selector-gap" className="gap"><strong>Gap.</strong> {s.selector} did not match any rule in the extracted set, so nothing is evaluated for it.</span>}
+            {ruleIds.map(id => (
+              <li key={id}>
+                <span className="case-rule-name">{ruleOf.get(id)?.title ?? id}<span className="case-rule-id">{ruleOf.get(id)?.jurisdiction ? `${ruleOf.get(id)!.jurisdiction}, ` : ''}{id}, matched from {selectorsOf.get(id)!.join(' and ')}</span></span>
               </li>
+            ))}
+            {c.selected.filter(s => s.team_rule_ids.length === 0).map(s => (
+              <li key={s.selector}><span data-testid="selector-gap" className="gap"><strong>Gap.</strong> {s.selector} did not match any rule in the extracted set, so nothing is evaluated for it.</span></li>
             ))}
           </ul>
           <div className="table-wrap">
@@ -126,6 +129,7 @@ function CaseBlock({ c, cityOf, ruleOf, onOpen, notes }: {
               </tbody>
             </table>
           </div>
+          {ruleIds.length > 1 && <p className="counts-note">Counts are answers, one per selected rule and address: {ruleIds.length} rules across the affected addresses.</p>}
         </div>
       </div>
 

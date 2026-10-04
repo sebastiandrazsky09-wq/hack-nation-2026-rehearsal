@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AuditTable } from './audit-table';
 import { DEFAULT_AS_OF, isIsoDate } from './labels';
 import { PipelinePanel } from './pipeline-panel';
+import { Planes } from './planes';
 
 /** /system: how the answers were produced, then the rule registry (#rules) with its own as-of date in the URL as ?as_of=. */
 export function SystemView() {
@@ -21,6 +22,7 @@ export function SystemView() {
 
   return (
     <main className="page main">
+      <Planes />
       <PipelinePanel />
       <section id="rules" aria-label="Rule registry">
         <div className="field field-date">
