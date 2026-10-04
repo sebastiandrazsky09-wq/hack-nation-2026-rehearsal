@@ -65,7 +65,6 @@ export function Determining({ rows, review }: { rows: CheckResponse['determining
     <ul className="ck-why" data-testid="determining">
       {[...groups].map(([id, own]) => {
         const top = [...own].sort((a, b) => RANK[a.outcome] - RANK[b.outcome])[0];
-        const duties = own.filter(r => r.outcome === 'obligation').length;
         // A figure needs its sentence ("2 months exceeds the limit of 1.5"); a plain ban is said by the outcome and proven by the quote.
         const measured = own.filter(r => (r.outcome === 'violated' || r.outcome === 'satisfied') && r.effect === 'limit');
         const reasons = top.outcome === 'unresolved' ? [...new Map(review.filter(v => v.rule_id === id).map(v => [v.code, v])).values()] : [];
@@ -78,7 +77,6 @@ export function Determining({ rows, review }: { rows: CheckResponse['determining
             <p className="ck-rule-meta"><span>{top.jurisdiction}</span>{top.citation !== top.title && <span className="ck-cite">{top.citation}</span>}{effects.length > 0 && <span>{effects.map(e => EFFECT_WORDS[e] ?? e).join(', ')}</span>}</p>
             {measured.map((r, i) => <p key={i} className="ck-rule-detail">{r.detail}</p>)}
             {reasons.map(v => <p key={v.code} className="ck-rule-detail">{REASON_WORDS[v.code] ?? v.code}{v.code === 'missing_fact' && v.missing_facts.length ? `: ${v.missing_facts.map(factName).join(', ')}` : ''}.</p>)}
-            {duties > 0 && <p className="ck-rule-detail">{duties === 1 ? 'One duty attaches' : `${duties} duties attach`}, listed under Before proceeding.</p>}
             {note && <p className="ck-conflict"><FlagMark size={14} />{note}</p>}
           </li>
         );

@@ -128,6 +128,7 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
   const reviewLeads = response.decision === 'REVIEW';
   const currentAsOf = form.asOf && isIsoDate(form.asOf) ? form.asOf : response.as_of;
   const lower = (text: string) => text.charAt(0).toLowerCase() + text.slice(1);
+  const here = response.trace.filter(t => t.result !== 'not_applicable').length;
 
   return (
     <main className="page ck">
@@ -257,7 +258,7 @@ export function CheckView({ initialRequest, initialResponse, initialProperty }: 
                 </details>
               )}
               <details>
-                <summary>Trace<span>{response.trace.filter(t => t.result !== 'not_applicable').length} rules here, {response.trace.length} checked</span></summary>
+                <summary>Trace<span>{here === 1 ? '1 rule reaches this property' : `${here} rules reach this property`}, {response.trace.length} checked</span></summary>
                 <Trace trace={response.trace} />
               </details>
               <details>

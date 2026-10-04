@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 4 Oct 07:35 CEST · **The legal gate is live in production** (deployed 07:24 from `b06d28c` after PO approval); fallback release tagged `baseline-19665a3` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: videos, public repository, HackOS
+Updated: 4 Oct 08:45 CEST · Production serves the first gate interface (`b06d28c`, tagged `gate-v1-deployed`). A new product design is built and gated on `integration`, **not deployed**, waiting for PO approval (`.ops/redesign/design-approval.html`) · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00)
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|
@@ -78,6 +78,7 @@ Goal: a deterministic decision layer over the unchanged engine: `check(subject, 
 | 03:58 check | `npm run check` 260 unit tests pass; `ordinal demo` 0 model calls, 0 changed files; no new source file in `supplemental/extra/`, the repo root, `.ops/transfer/` or Downloads; the pitch deck and sheet left in `.ops/transfer/` at 02:33 match the gate's current answers (decisions, addresses, dates, 33 of 36 constraints, 260 of 500 REVIEW) |
 | Production demo rehearsal, 07:31 | `node scripts/demo-rehearsal.mjs https://hack-nation-machine-rehearsal.vercel.app 5`: 5 of 5 runs pass and are identical; slowest gate round trip 246 ms, slowest server evaluation 35 ms |
 | One test changed after deployment | the Check keyboard test now accepts a check request that the page itself cancelled as superseded; on a real network two checks can overlap, locally they never did. App code in production is unchanged |
+| Product design pass, 08:00 to 08:45 | The first gate interface was rejected by the PO as an internal dashboard. Redesigned from first principles after capturing about twenty real product sites: one grotesque (Host Grotesk) and a mono (Geist Mono), near-monochrome, the request as a sentence, the decision as one word at up to 136px, why, then the quoted sentence, the API call in a panel beside it, everything else behind disclosures. Portfolio, record, changes and system share the system (`docs/DESIGN.md`). No backend, contract or decision change |
 | Cut | `/developers` page (the three endpoints are live and shown through the request panel and `GET /api/v1/actions`); optional engine fact extension 5.5. Nothing from the demo was cut |
 | What the demo shows instead of the brief's guess | step 2 uses Los Angeles (PASS before AB 325 takes effect, REVIEW after) because Newark is REVIEW for a source gap at every date; step 3 uses Jersey City because Newark deposits also sit in that gap; the portfolio step compares 6 Oct 2025 with 1 Jan 2026 (80 properties change) |
 | Residue removed | Supabase dependencies, starter contract file, T6 and hour-16 text (the pack names T1 to T5 only) |
