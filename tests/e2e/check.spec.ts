@@ -42,7 +42,12 @@ function watch(page: Page) {
   page.on('console', m => { if (m.type() === 'error') problems.push(`console: ${m.text()}`); });
   page.on('pageerror', e => problems.push(`pageerror: ${e.message}`));
   // Next.js cancels its own route prefetches (`?_rsc=`) for the nav links; those are not requests the screen depends on.
-  page.on('requestfailed', r => { if (!r.url().includes('_rsc=')) problems.push(`failed: ${r.url()} ${r.failure()?.errorText}`); });
+  // The screen itself cancels a check that a newer one has superseded (seen on a real network, where two can overlap): an
+  // aborted check is the design, any other failure of it is a problem.
+  page.on('requestfailed', r => {
+    const superseded = r.url().endsWith('/api/v1/check') && r.failure()?.errorText === 'net::ERR_ABORTED';
+    if (!r.url().includes('_rsc=') && !superseded) problems.push(`failed: ${r.url()} ${r.failure()?.errorText}`);
+  });
   page.on('response', r => { if (r.status() >= 400) problems.push(`status ${r.status()}: ${r.url()}`); });
   return problems;
 }

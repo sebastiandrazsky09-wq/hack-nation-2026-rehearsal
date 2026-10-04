@@ -1,5 +1,5 @@
 # STATUS — Ordinal (Challenge 02, Rental Housing Law Navigator)
-Updated: 4 Oct 03:58 CEST · Legal gate built and gated on `integration` at `a38aeda`; **not deployed**, waiting for PO approval of the screenshots (`.ops/redesign/gate-approval.html`); production still serves `6c16f09`; fallback release tagged `baseline-19665a3` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00)
+Updated: 4 Oct 07:35 CEST · **The legal gate is live in production** (deployed 07:24 from `b06d28c` after PO approval); fallback release tagged `baseline-19665a3` · Deadline: Sun 4 Oct 15:00 CEST (freeze 14:00) · Next: videos, public repository, HackOS
 
 | Metric | Current | Target | Updated | Owner |
 |---|---:|---:|---|---|
@@ -36,11 +36,11 @@ Updated: 4 Oct 03:58 CEST · Legal gate built and gated on `integration` at `a38
 | Queue tests (`test-ops.py`) | pass | pass | 23:40 | CONTROL |
 | Secret scan (`gitleaks git`) | no leaks | none | 21:50 | CONTROL |
 | Hardcoding scan of `src/` | no test ids, organizer ids, address ids or expected sets | none | 21:40 | CONTROL |
-| UI | redesigned (`docs/DESIGN.md`) and integrated at `5750df8`: answer sentence first, rules as lines in time under a movable as-of date, evidence opens in place, changed answers marked, change cases on a time scale; contrast and accessible-name checks pass; **not deployed, waiting for PO approval** | judge-ready | 00:14 | CONTROL |
-| Deployment URL | **https://hack-nation-machine-rehearsal.vercel.app** (deployed 22:58 from clean `6c16f09`) | live | 23:03 | CONTROL |
-| Production health check | `/api/health` ok: 57 rules, 500 addresses | ok | 23:00 | CONTROL |
-| Production browser tests (fresh context, no login) | 28 / 28 pass | pass | 23:02 | CONTROL |
-| Production answers vs `out/` files | 45 addresses (501 rows), 57 rules and T1–T5 identical | identical | 23:03 | CONTROL |
+| UI | the legal gate: `/` Check, `/portfolio`, `/record`, `/changes`, `/system`; design system in `docs/DESIGN.md` | judge-ready | 07:35 | CONTROL |
+| Deployment URL | **https://hack-nation-machine-rehearsal.vercel.app** serves the legal gate (deployed 07:24 from clean `b06d28c`) | live | 07:35 | CONTROL |
+| Production health check | `/api/health` ok: 57 rules, 500 addresses; `/api/v1/system`: ruleset `70ebdca11f01` (equal to the local store), 33 constraints verified, 3 withheld; a decision is in the first HTML of `/` | ok | 07:27 | CONTROL |
+| Production browser tests (fresh context, no login) | 76 / 76 pass against the production URL; five security headers present, no CSP violation | pass | 07:33 | CONTROL |
+| Production answers vs `out/` files | 50 addresses (544 rows, result and conflict flag), 57 rule ids and T1 to T5 affected and conflict sets identical | identical | 07:28 | CONTROL |
 | Submission: public repo (held back on PO instruction), 3 videos, HackOS | none | all | 23:05 | PO + CONTROL |
 | README, method note, demo and tech video scripts | written | done | 22:30 | CONTROL |
 
@@ -76,6 +76,8 @@ Goal: a deterministic decision layer over the unchanged engine: `check(subject, 
 | Demo rehearsal (`scripts/demo-rehearsal.mjs`) | 5 of 5 runs pass on the production build, identical; every step checked against the API; slowest gate round trip 33 ms |
 | Final gate at 03:06 | 260 unit, 76 browser, build, `ordinal demo` with 0 changed files, `constrain --offline` with 0 model calls, `verify` 0 problems, protected hashes equal to baseline, `gitleaks` no leaks, `npm audit` 0 |
 | 03:58 check | `npm run check` 260 unit tests pass; `ordinal demo` 0 model calls, 0 changed files; no new source file in `supplemental/extra/`, the repo root, `.ops/transfer/` or Downloads; the pitch deck and sheet left in `.ops/transfer/` at 02:33 match the gate's current answers (decisions, addresses, dates, 33 of 36 constraints, 260 of 500 REVIEW) |
+| Production demo rehearsal, 07:31 | `node scripts/demo-rehearsal.mjs https://hack-nation-machine-rehearsal.vercel.app 5`: 5 of 5 runs pass and are identical; slowest gate round trip 246 ms, slowest server evaluation 35 ms |
+| One test changed after deployment | the Check keyboard test now accepts a check request that the page itself cancelled as superseded; on a real network two checks can overlap, locally they never did. App code in production is unchanged |
 | Cut | `/developers` page (the three endpoints are live and shown through the request panel and `GET /api/v1/actions`); optional engine fact extension 5.5. Nothing from the demo was cut |
 | What the demo shows instead of the brief's guess | step 2 uses Los Angeles (PASS before AB 325 takes effect, REVIEW after) because Newark is REVIEW for a source gap at every date; step 3 uses Jersey City because Newark deposits also sit in that gap; the portfolio step compares 6 Oct 2025 with 1 Jan 2026 (80 properties change) |
 | Residue removed | Supabase dependencies, starter contract file, T6 and hour-16 text (the pack names T1 to T5 only) |
