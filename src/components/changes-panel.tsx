@@ -174,7 +174,7 @@ export function ChangesPanel({ addresses, onOpen }: {
     <div className="changes">
       <div className="view-lead">
         <h2>What is changing</h2>
-        <p>Each case asks which of the 500 addresses a change in the law reaches. The counts come from the same engine as the address answers; nothing here is written by hand.</p>
+        <p>Each case asks which of the {addresses.length} registry addresses a change in the law reaches. The counts come from the same engine as the address answers; nothing here is written by hand.</p>
       </div>
       <SourceNote notes={loose} />
       {data.cases.map(c => <CaseBlock key={c.test_id} c={c} cityOf={cityOf} ruleOf={ruleOf} onOpen={onOpen} notes={notesFor(c.test_id)} />)}

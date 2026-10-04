@@ -1,4 +1,5 @@
 'use client';
+import { PRODUCT_NAME } from '../../lib/product';
 import Link from 'next/link';
 import type { ChangesResponse, PipelineResponse } from '../../server/ordinal';
 import { RESULT_LABELS, RESULT_MEANINGS, RESULT_ORDER, isIsoDate, label, shortDate, streetCase } from '../labels';
@@ -28,7 +29,7 @@ export function EmptyState({ loading, examples, cases, asOf, onExample }: {
     <div className="empty">
       <div className="empty-lead">
         <h2>Which housing rules apply at this address, on this day?</h2>
-        <p>Choose one of 500 sample addresses in California, New Jersey and Massachusetts. Ordinal places it in its legal city, tests each law&rsquo;s dates and conditions against the building, and shows the sentence of law behind every answer.</p>
+        <p>Choose one of the{metrics ? ` ${n('addresses_total')}` : ''} sample addresses in California, New Jersey and Massachusetts. {PRODUCT_NAME} places it in its legal city, tests each law&rsquo;s dates and conditions against the building, and shows the sentence of law behind every answer.</p>
         <h3>Every rule gets one of five answers</h3>
         <dl className="answers-key">
           {RESULT_ORDER.map(r => (
@@ -58,7 +59,7 @@ export function EmptyState({ loading, examples, cases, asOf, onExample }: {
       </section>
       {tracked.length > 0 && (
         <section className="tracking" aria-label="Tracked changes" style={asOf ? needleStyle(asOf) : undefined}>
-          <h3>Changes in the law, and how many of the 500 sample properties each one reaches</h3>
+          <h3>Changes in the law, and how many of the{metrics ? ` ${n('addresses_total')}` : ''} sample properties each one reaches</h3>
           <ol>
             {tracked.map(({ c, at }) => (
               <li key={c.test_id}>

@@ -65,7 +65,7 @@ const CHECKS = [
   'Every rule record matches the official schema.',
   'No pending or failed proposal is reported as in force at any address.',
   'No effective date comes from an amendment note or the start of a rate period.',
-  'All 500 addresses are placed and have answers.',
+  'Every address in the registry is placed and has answers.',
   'Two exports of the same inputs are identical, byte for byte.'
 ];
 

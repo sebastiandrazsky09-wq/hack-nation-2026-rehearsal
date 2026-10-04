@@ -2,6 +2,20 @@
 
 Not shipped to the browser. Describes the interface as built.
 
+## The gate screens (added 4 Oct)
+The same system, a different hierarchy. The first screen is a decision that is already evaluated when the page arrives.
+
+- **Check (`/`).** Left, 380px: the proposed action as a form (actor, action, its parameter, property, date, facts). Right, in this fixed order: the decision, the determining rules, duties, what cannot be resolved, time, trace, evidence, coverage, the request and response. On a phone the form folds into three lines with an Edit button so the decision stays in the first screen.
+- **One dominant element.** The decision word at 30px with its mark and a 4px rule in its colour. Nothing else is above 20px.
+- **Four decisions, each a shape and a colour:** BLOCK filled square `#B3261E`; REVIEW triangle `#8A5700` on `#FFF3D1`; REQUIRE list mark in navy; PASS open ring `#147A43`, no fill and no tick, because PASS is not a verdict of legality.
+- **Why, with proof in the same row.** One row per determining rule; under it, the quoted sentence in Caslon with its source link.
+- **Uncertainty is a question with its answer field beside it.** A REVIEW row names the missing fact in words and holds the input that supplies it. A fact input appears only where the gate asks for that fact.
+- **Time.** The needle, then a dated schedule of the points where the law changes, each one press away.
+- **Monospace** only for ids and payloads.
+- **Portfolio (`/portfolio`).** One action over the registry on one date: four counts, a grid of cells grouped by legal city (the decision shapes at 12px), then a sortable table. Cells that change with the date are outlined once.
+- **System (`/system`).** The compile plane and the decision plane as two rows of steps with counted figures, then how the rule store was produced, then the rule registry.
+- No gradient, blur or glass. Two shadows in the whole system (address suggestions, the pinned time header). Motion: the needle, a 900 ms tint on what changed, disclosures.
+
 ## Thesis
 A point-in-time view of the law at one address. A judge has under a minute; the page must say what applies here, on this day, why, and what moves when the day moves. The category default (a search box over a stack of badge-and-text cards) is what this replaces.
 

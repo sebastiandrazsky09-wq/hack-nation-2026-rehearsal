@@ -38,7 +38,7 @@ export function AddressSearch({ id, label = 'Address', addresses, query, onQuery
       <div className="search">
         <Search size={18} strokeWidth={1.75} aria-hidden className="search-icon" />
         <input
-          ref={inputRef} id={id} type="search" autoComplete="off" placeholder="Search 500 sample addresses by street, city or id"
+          ref={inputRef} id={id} type="search" autoComplete="off" placeholder={addresses.length ? `Search ${addresses.length} sample addresses by street, city or id` : 'Search the sample addresses by street, city or id'}
           value={query} disabled={loading}
           onChange={e => { onQuery(e.target.value); setOpen(true); }}
           onFocus={() => setOpen(true)}
